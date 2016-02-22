@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib
+END
+servlet.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/servlet.jar
+END
+sqljdbc4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/sqljdbc4.jar
+END
+afservice.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/afservice.jar
+END
+ojdbc6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/ojdbc6.jar
+END
+aote.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/aote.jar
+END
+comm.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/comm.jar
+END
+servlet-api-2.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/servlet-api-2.3.jar
+END
+poi-2.0-RC2-20040102.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/poi-2.0-RC2-20040102.jar
+END
+aofeng.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/webapp/WEB-INF/lib/aofeng.jar
+END

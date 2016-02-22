@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator
+END
+GenericService.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/GenericService.cs
+END
+App.config
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/App.config
+END
+serailPort.config
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/serailPort.config
+END
+CardInfo.cs
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/CardInfo.cs
+END
+Activator.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/Activator.csproj
+END
+Program.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/Program.cs
+END
+MingHua.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/MingHua.cs
+END
+card.config
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/CardService/Activator/card.config
+END

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"  encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!--阶梯气价信息-->
+    <class   entity-name="t_stairprice" table="t_stairprice" >
+		<id name="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		<!--阶梯气价类型-->
+		<property name="f_stairtype" type="string"/>
+		<!--阶段一气量-->
+		<property name="f_stair1amount" type="double"/>
+		<!--阶段一单价-->
+		<property name="f_stair1price" type="double"/>
+		<!--阶段二气量-->
+		<property name="f_stair2amount" type="double"/>
+		<!--阶段二单价-->
+		<property name="f_stair2price" type="double"/>
+		<!--阶段三气量-->
+		<property name="f_stair3amount" type="double"/>
+		<!--阶段三单价-->
+		<property name="f_stair3price" type="double"/>
+		<!--阶段四单价-->
+		<property name="f_stair4price" type="double"/>
+		<!--阶段月数-->
+		<property name="f_stairmonths" type="int"/>	
+        <!--总计单价-->
+		<property name="f_zongjiprice" type="double"/>
+		<set name="extraprice" cascade="all-delete-orphan">
+          <key column="parentid" on-delete="noaction" />
+          <one-to-many entity-name="t_extraprice" not-found="exception"/>        
+        </set>
+	</class>
+	<class   entity-name="t_extraprice" table="t_extraprice" >
+		<id name="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		<!--附加费用名称-->
+		<property name="f_extrapriceName" type="string"/>
+		<!--附加费用价格-->
+		<property name="f_extraprice" type="double"/>
+	</class>
+</hibernate-mapping>

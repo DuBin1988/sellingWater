@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/repository/!svn/ver/38325/sellingwaterV1.1/src/main/java/com/aote/rs
+END
+FileService.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/FileService.java
+END
+IndoorInspectService.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/IndoorInspectService.java
+END
+ExcelService.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/ExcelService.java
+END
+Returns.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/Returns.java
+END
+SMSService.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/SMSService.java
+END
+Tunnel.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/Tunnel.java
+END
+DBService.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/DBService.java
+END
+SellSer.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/repository/!svn/ver/38325/sellingwaterV1.1/src/main/java/com/aote/rs/SellSer.java
+END
+CardService.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/CardService.java
+END
+ReportService.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/ReportService.java
+END
+BankService.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/BankService.java
+END
+UniqueAddressService.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/java/com/aote/rs/UniqueAddressService.java
+END

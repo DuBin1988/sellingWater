@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/LocalService/LocalService/service
+END
+WorkService.cs
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/LocalService/LocalService/service/WorkService.cs
+END
+CardInfo.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/LocalService/LocalService/service/CardInfo.cs
+END
+Config.cs
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/LocalService/LocalService/service/Config.cs
+END
+WebServerInterface.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/LocalService/LocalService/service/WebServerInterface.cs
+END

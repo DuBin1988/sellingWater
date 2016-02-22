@@ -1,0 +1,587 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/repository/!svn/ver/38779/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6
+END
+bankreturn.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/bankreturn.hbm.xml
+END
+lostgas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/lostgas.hbm.xml
+END
+changmeter.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/38674/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/changmeter.hbm.xml
+END
+plchangelist.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/plchangelist.hbm.xml
+END
+design_address.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/design_address.hbm.xml
+END
+unit.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/repository/!svn/ver/37427/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/unit.hbm.xml
+END
+gasaddress.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/gasaddress.hbm.xml
+END
+zhinajinxiugai.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/zhinajinxiugai.hbm.xml
+END
+devices.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/devices.hbm.xml
+END
+reversal.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/reversal.hbm.xml
+END
+changepayment.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/changepayment.hbm.xml
+END
+transfer.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/transfer.hbm.xml
+END
+metertypeedit.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/metertypeedit.hbm.xml
+END
+road.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/road.hbm.xml
+END
+fileschangeslist.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fileschangeslist.hbm.xml
+END
+invoicewith.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/invoicewith.hbm.xml
+END
+updatehandplan.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/repository/!svn/ver/37620/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/updatehandplan.hbm.xml
+END
+mrplan.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/mrplan.hbm.xml
+END
+userinfo.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userinfo.hbm.xml
+END
+updatesellinggas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/updatesellinggas.hbm.xml
+END
+invoicedistribution.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/invoicedistribution.hbm.xml
+END
+dropcard.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/dropcard.hbm.xml
+END
+fapiaoinfos.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fapiaoinfos.hbm.xml
+END
+otherfee.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/otherfee.hbm.xml
+END
+returnfaka.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/returnfaka.hbm.xml
+END
+stairprice.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36896/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/stairprice.hbm.xml
+END
+initicard.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/initicard.hbm.xml
+END
+handpapercond.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/handpapercond.hbm.xml
+END
+gasaddresstemp.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/gasaddresstemp.hbm.xml
+END
+managementfeesformetert.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/managementfeesformetert.hbm.xml
+END
+fileschange.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fileschange.hbm.xml
+END
+switchmoney.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/switchmoney.hbm.xml
+END
+changestairprice.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/changestairprice.hbm.xml
+END
+applyannex.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/applyannex.hbm.xml
+END
+stovefee.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/stovefee.hbm.xml
+END
+fillgas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fillgas.hbm.xml
+END
+userfiles1.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userfiles1.hbm.xml
+END
+gewerbeamt.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/gewerbeamt.hbm.xml
+END
+handpapercondfmy.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/handpapercondfmy.hbm.xml
+END
+userfiles2.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userfiles2.hbm.xml
+END
+otherfillgas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/otherfillgas.hbm.xml
+END
+yongshuiliangupdate.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/repository/!svn/ver/38172/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/yongshuiliangupdate.hbm.xml
+END
+userfiles3.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userfiles3.hbm.xml
+END
+userfiles4.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userfiles4.hbm.xml
+END
+handplan.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/38779/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/handplan.hbm.xml
+END
+clearzero.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/clearzero.hbm.xml
+END
+cbreversal.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/cbreversal.hbm.xml
+END
+inspectdetail.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/inspectdetail.hbm.xml
+END
+itemcard.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/itemcard.hbm.xml
+END
+piliangchange.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/piliangchange.hbm.xml
+END
+xiaccount.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/xiaccount.hbm.xml
+END
+fazhe.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fazhe.hbm.xml
+END
+renewalcardcancel.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/renewalcardcancel.hbm.xml
+END
+mrinput.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/mrinput.hbm.xml
+END
+feimychaobiao.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/feimychaobiao.hbm.xml
+END
+xuqiliang.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/xuqiliang.hbm.xml
+END
+userfiles.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/38705/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userfiles.hbm.xml
+END
+jbpay.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/jbpay.hbm.xml
+END
+xiangoujilui.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/xiangoujilui.hbm.xml
+END
+userfileschange.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/repository/!svn/ver/38706/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/userfileschange.hbm.xml
+END
+myfaka.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/myfaka.hbm.xml
+END
+aeratemanage.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/aeratemanage.hbm.xml
+END
+switchmoneyrepairb.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/switchmoneyrepairb.hbm.xml
+END
+gonggao.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/gonggao.hbm.xml
+END
+recordcancel.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/recordcancel.hbm.xml
+END
+upload.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/upload.hbm.xml
+END
+renewalcard.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/renewalcard.hbm.xml
+END
+清欠明细.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/%E6%B8%85%E6%AC%A0%E6%98%8E%E7%BB%86.hbm.xml
+END
+chongzheng.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/chongzheng.hbm.xml
+END
+cancellation.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/cancellation.hbm.xml
+END
+inspect.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/inspect.hbm.xml
+END
+priceedit.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/priceedit.hbm.xml
+END
+area.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/repository/!svn/ver/37427/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/area.hbm.xml
+END
+yajin.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/yajin.hbm.xml
+END
+updatemyfaka.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/updatemyfaka.hbm.xml
+END
+kaipiao.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/kaipiao.hbm.xml
+END
+clearzerocard.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/clearzerocard.hbm.xml
+END
+bucardfapiao.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/bucardfapiao.hbm.xml
+END
+stopgas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/38674/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/stopgas.hbm.xml
+END
+repair.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/repair.hbm.xml
+END
+qianfeijieyu.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/qianfeijieyu.hbm.xml
+END
+xiugaikafei.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/xiugaikafei.hbm.xml
+END
+mianjiao.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/mianjiao.hbm.xml
+END
+sellinggas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/38779/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/sellinggas.hbm.xml
+END
+upkeep.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/upkeep.hbm.xml
+END
+enabled.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/38676/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/enabled.hbm.xml
+END
+account.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/account.hbm.xml
+END
+renewalpassbook.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/renewalpassbook.hbm.xml
+END
+shoulilist.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/shoulilist.hbm.xml
+END
+sms.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/sms.hbm.xml
+END
+geolocation.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/geolocation.hbm.xml
+END
+fileschangelist.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fileschangelist.hbm.xml
+END
+updateotherfee.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/updateotherfee.hbm.xml
+END
+repairefee.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/repairefee.hbm.xml
+END
+automaticxz.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/automaticxz.hbm.xml
+END
+changcard.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/changcard.hbm.xml
+END
+fmybaozhengjin.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/repository/!svn/ver/36319/sellingwaterV1.1/src/main/resources/%E8%90%A5%E6%94%B6/fmybaozhengjin.hbm.xml
+END

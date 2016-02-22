@@ -1,0 +1,49 @@
+﻿<?xml version="1.0"  encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="test">
+	<!--修改用水量-->
+	<class entity-name="t_yongshuiliang" table="t_yongshuiliang">
+	    <id name="id" type="int">
+			<generator class="identity"></generator>
+		</id>   
+		<!--用户编号-->
+		<property name="f_userid" type="string"/>
+		<!--小区名称-->
+		<property name="f_districtname" type="string"/>
+		<!--用户类型-->
+		<property name="f_usertype" type="string"/>
+		<!--地址-->
+		<property name="f_address" type="string"/>
+		<!--抄表日期-->
+		<property name="lastinputdate" type="date"/>
+		<!--抄表日期-->
+		<property name="newlastinputdate" type="date"/>
+		<property name="f_username" type="string"/>
+		<!--应交气量-->
+		<property name="oughtamount" type="double"/>
+		<!--减免水量-->
+		<property name="f_jianshuiliang" type="double"/>
+		<!--修改后用气量-->
+		<property name="newoughtamount" type="double"/>
+		<!--基本用水金额-->
+		<property name="oughtfee" type="double"/>
+		<!--修改后用气金额-->
+		<property name="newoughtfee" type="double"/>
+		<!--附加费用金额-->
+		<property name="extrazjfee" type="double"/>
+		<!--修改后附加费用金额-->
+		<property name="newextrazjfee" type="double"/>	
+		<!--本月应交金额-->
+		<property name="f_fee" type="double"/>
+		<!--修改后本月应交金额-->
+		<property name="f_newfee" type="double"/>	
+		<!--操作人-->
+		<property name="f_handplanoperator" type="string"/>
+		<!--操作日期-->
+		<property name="f_handplandate" type="date"/>	
+		<!--修改原因-->
+		<property name="f_updatenote" type="string"/>	
+		</class>
+</hibernate-mapping>

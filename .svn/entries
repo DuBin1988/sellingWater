@@ -1,0 +1,184 @@
+10
+
+dir
+38813
+http://125.76.225.203:3001/svn/repository/sellingwaterV1.1
+http://125.76.225.203:3001/svn/repository
+
+
+
+2016-02-17T06:55:50.636699Z
+38812
+dwnsvn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7c990533-7a5a-1347-8691-28669076b701
+
+项目文档
+dir
+
+BeforeBuild
+dir
+
+s2
+dir
+
+.project
+file
+
+
+
+
+2015-12-03T06:38:12.558972Z
+08c2e402b9d9eadf30dd62cacab3ec14
+2015-12-03T04:38:22.627566Z
+36319
+zzw
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1505
+
+target
+dir
+
+工作规范
+dir
+
+src
+dir
+
+项目资料
+dir
+
+.externalToolBuilders
+dir
+
+CardService
+dir
+
+pom.xml
+file
+
+
+
+
+2015-12-03T06:38:12.574572Z
+b48febb59dc9b43f56e65056ac503862
+2015-12-03T04:38:22.627566Z
+36319
+zzw
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2925
+
+MW102Tester
+dir
+
+voice_card
+dir
+
+资源服务
+dir
+
+sql
+dir
+
+.classpath
+file
+
+
+
+
+2015-12-03T06:38:12.574572Z
+51059f6ad729e72a8b35b1f0acea585d
+2015-12-03T04:38:22.627566Z
+36319
+zzw
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1295
+
+ReportDesign
+dir
+
+workflow
+dir
+
+LocalService
+dir
+
+表厂资料
+dir
+
+.settings
+dir
+
