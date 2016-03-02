@@ -18,10 +18,14 @@
 		<property name="f_zhinajintianshu" type="int"/>
 		<!--机表滞纳金开始计算日期-->
 		<property name="f_zhinajindate" type="date"/>
-		<!--用户编号-->
+		<!--表具编号-->
 		<property name="f_userid" type="string"/>
+		<!--用户编号-->
+		<property name="f_userinfoid" type="string"/>
 		<!--抄表编号-->
 		<property name="f_handid" type="string" />
+		<!--抄表录入备注-->
+		<property name="f_beizhu" type="string" />
 		<!--用户姓名-->
 		<property name="f_username" type="string"/>
 		<!--卡号-->
@@ -239,6 +243,10 @@
 		<!--用水量-->
 		<property name="f_pregas" type="double"/>
 		<!--用户编号-->
+		<property name="f_userinfoid" type="string" />
+		<!--用户名称-->
+		<property name="f_username" type="string" />
+		<!--表具编号-->
 		<property name="f_userid" type="string" />
 		<!--附加费用小计-->
 		<property name="f_extrafee" type="double"/>

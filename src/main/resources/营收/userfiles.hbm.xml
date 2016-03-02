@@ -10,10 +10,9 @@
 		</id>
 			<version name="version"></version>
 	 	<!--用户编号-->
-		<!-- property name="f_userinfoid" type="string" /-->
+		<property name="f_userinfoid" type="string" />
 		<!--用户档案 -->
-		<many-to-one name="f_userinfoid" entity-name="t_userinfo"></many-to-one>
-		
+		<!-- <many-to-one name="f_userinfoid" entity-name="t_userinfo"></many-to-one> -->		
 		<!--发票号， -->
 		<property name="f_invoicenum" type="string"/>
 		<!--旧用户编号-->
@@ -189,46 +188,10 @@
 		<property name="f_userid" type="string" />
 		<!--抄表编号-->
 		<property name="f_handid" type="string" />
-		<!--用户状态-->
+		<!--表状态-->
 		<property name="f_userstate" type="string"/>
 		<!--人口基数-->
-		<property name="f_population" type="int"/>
-		<!--壁 挂 炉-->
-		<property name="f_wallhangboiler" type="boolean"/>
-		<!--壁挂炉品牌-->
-		<property name="f_wallhangboilerbrand" type="string"/>
-		<!--壁挂炉型号-->
-		<property name="f_wallhangboilermodel" type="string"/>
-		
-		<!--灶具-->
-		<property name="f_kitchen" type="boolean"/>
-		<!--灶具品牌-->
-		<property name="f_kitchenbrand" type="string"/>
-		<!--灶具型号-->
-		<property name="f_kitchenmodel" type="string"/>
-		
-		<!--热 水 器-->
-		<property name="f_waterheater" type="boolean"/>
-		<!--热水器品牌-->
-		<property name="f_waterheaterbrand" type="string"/>
-		<!--热水器型号-->
-		<property name="f_waterheatermodel" type="string"/>
-		
-		<!--营业大灶-->
-		<property name="f_businkitchen" type="boolean"/>
-		<!--营业锅炉-->
-		<property name="f_businboiler" type="boolean"/>
-		<!--福利大灶-->
-		<property name="f_welfarekitchen" type="boolean"/>
-		<!--福利锅炉-->
-		<property name="f_welfareboiler" type="boolean"/>
-		<!--工业窑炉-->
-		<property name="f_lndfurnace" type="boolean"/>
-		<!--工业加热炉-->
-		<property name="f_lndjiarelu" type="boolean"/>
-		<!--工业采暖炉-->
-		<property name="f_lndheating" type="boolean"/>
-		
+		<property name="f_population" type="int"/>	
 		<!--当前表累计购气量-->
 		<property name="f_metergasnums" type="double"/>
 		<!--总累计购气量-->

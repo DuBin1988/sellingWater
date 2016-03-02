@@ -53,7 +53,7 @@
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock  TextWrapping="Wrap" Text="抄表计划年月："  Margin="0" Height="25" TextAlignment="Right" />
-                            <c:Month   SelectedDate="{m:Bind Path=f_handdate}" x:Name="ui_handdate" StringFormat="yyyyMM"  Grid.Row="0" Grid.Column="1"  Width="118" Margin="0" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
+                            <c:Month  SelectedDate="{m:Bind Path=f_handdate}" x:Name="ui_handdate" StringFormat="yyyyMM"  Grid.Row="0" Grid.Column="1"  Width="118" Margin="0" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
                                 <a:Data.Prop>
                                     <o:PropertySetter PropertyName="f_handdate" NotNull="True" Default="{m:Exp Str=SysTime.Today}" Operator="1=1"/>
                                 </a:Data.Prop>
@@ -72,9 +72,9 @@
                                 </a:Data.Prop>
                             </TextBox>
                             <TextBlock TextWrapping="Wrap" Text="用户编号："  Margin="5,0,0,0" Height="25" TextAlignment="Right" Grid.Column="2" Grid.Row="2" />
-                            <TextBox x:Name="tjwhf_Copy2" TextWrapping="Wrap" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="2" >
+                            <TextBox x:Name="tjwhf_Copy2" TextWrapping="Wrap" Text="{m:Bind Path=f_userinfoid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="2" >
                                 <a:Data.Prop>
-                                    <o:PropertySetter PropertyName="f_userid"  Operator="u.f_userid = 'this'"/>
+                                    <o:PropertySetter PropertyName="f_userinfoid"  Operator="u.f_userinfoid = 'this'"/>
                                 </a:Data.Prop>
                             </TextBox>
                             <TextBlock TextWrapping="Wrap" Text="抄  表  员："  Margin="5,0,0,0" Height="25" TextAlignment="Right" Grid.Column="2" />
@@ -143,6 +143,12 @@
                                     <o:PropertySetter PropertyName="f_cusDy" Operator="u.f_cusDy = 'this'"/>
                                 </a:Data.Prop>
                             </TextBox>
+                            <TextBlock TextWrapping="Wrap" Text="表具编号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Row="2" Grid.Column="4" />
+                            <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="5" Text="{m:Bind Path=f_cusDy}" Width="118" Margin="0,1.5" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
+                                <a:Data.Prop>
+                                    <o:PropertySetter PropertyName="f_userid" Operator="u.f_userid = 'this'"/>
+                                </a:Data.Prop>
+                            </TextBox>
                             <TextBlock TextWrapping="Wrap" Text="楼    号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="2" />
                             <TextBox x:Name="tjwhf_Copy5" TextWrapping="Wrap" Grid.Row="1" Grid.Column="3" Text="{m:Bind Path=f_cusDom}" Width="118" Margin="0,1.5" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
                                 <a:Data.Prop>
@@ -174,12 +180,14 @@
                     <c:CustomDataGrid x:Name="daninfos"    toolkit:DockPanel.Dock="Top"  Margin="0,0,0,3"   IsReadOnly="True"
 								AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" ItemsSource="{m:Exp Str=jichalist}">
                         <sdk:DataGrid.Columns>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" Width="80"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" Width="80"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>
                             <sdk:DataGridTextColumn Header="抄表编号" Binding="{Binding f_handid}" Width="80"/>
+                            <sdk:DataGridTextColumn Header="表钢印号" Binding="{Binding f_meternumber}" Width="80"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" Width="80"/>
                             <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_stairtype}" Width="100"/>
                             <sdk:DataGridTextColumn Header="水价" Binding="{Binding f_gasprice}" Width="60"/>
-                            <sdk:DataGridTextColumn Header="混合用水差价" Binding="{Binding f_gasprice}" Width="100"/>
+                            <sdk:DataGridTextColumn Header="混合用水差价" Binding="{Binding f_extrawaterprice}" Width="100"/>
                             <sdk:DataGridTextColumn Header="地    址" Binding="{Binding f_address}"/>
                             <sdk:DataGridTextColumn Header="上次底数" Binding="{Binding lastinputgasnum, StringFormat=0.#}" Width="80"/>
                             <sdk:DataGridTemplateColumn Header="本次底数">
@@ -194,7 +202,17 @@
                                 </sdk:DataGridTemplateColumn.CellTemplate>
                             </sdk:DataGridTemplateColumn>
                             <sdk:DataGridTextColumn Header="用水量" Binding="{Binding oughtamount}" Width="80"/>
-                            <sdk:DataGridTextColumn Header="备注" Binding="{Binding oughtamount}"/>
+                            <sdk:DataGridTemplateColumn Header="备注">
+                                <sdk:DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{m:Bind Path=f_beizhu}">
+                                            <a:Data.Prop>
+                                                <o:PropertySetter PropertyName="f_beizhu"/>
+                                            </a:Data.Prop>
+                                        </TextBox>
+                                    </DataTemplate>
+                                </sdk:DataGridTemplateColumn.CellTemplate>
+                            </sdk:DataGridTemplateColumn>
                         </sdk:DataGrid.Columns>
                     </c:CustomDataGrid>
                 </toolkit:DockPanel>

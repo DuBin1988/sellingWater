@@ -14,26 +14,13 @@ using System.Windows.Shapes;
 
 namespace Com.Aote.Pages
 {
-	public partial class 民用一步建档 : UserControl
-	{
-		public 民用一步建档()
-		{
-            
-			// Required to initialize variables
-			InitializeComponent();
-		} 
-           private void f_address_MouseEnter(object sender, MouseEventArgs e)
-           {
-               f_address.Text = f_districtname.Text + f_cusDom.Text + f_cusDy.Text + f_cusFloor.Text + f_apartment.Text;
-           }
+    public partial class 民用一步建档 : UserControl
+    {
+        public 民用一步建档()
+        {
 
-           private void CoboxStair_SelectionChanged(object sender, SelectionChangedEventArgs e)
-           {
-               GeneralObject stairprice= CoboxStair.SelectedItem as GeneralObject;
-               if (stairprice.GetPropertyValue("f_zongjiprice") == null)
-               {
-                   f_zongjiprice.Text = "";
-               }
-           }
-	}
+            // Required to initialize variables
+            InitializeComponent();
+        }
+    }
 }

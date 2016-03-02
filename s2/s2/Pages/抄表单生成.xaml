@@ -43,11 +43,11 @@
             <!--根据用户档案的计划月份产生抄表单-->
             <b:HQLAction Name="InsertHandplan" WebClientInfo="{StaticResource dbclient}" Type="sql" 
 			HQL="{m:Exp Str=$
-			insert into t_handplan(f_userid\, f_handid\, f_username\, lastinputgasnum\, f_gaswatchbrand\, f_metertype\,
+			insert into t_handplan(f_userinfoid\, f_userid\, f_handid\, f_username\, lastinputgasnum\, f_gaswatchbrand\, f_metertype\,
 				f_handarea\, f_address\, f_districtname\, f_usertype\, f_gasprice\, f_gaspricetype\, f_dibaohu\, f_apartment\,
 				f_phone\, scinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\,f_stairtype\,
 				f_zerenbumen\, f_state\, shifoujiaofei\, users\, f_cusDom\, f_cusDy)
-			select f_userid\, f_handid\, f_username\, lastinputgasnum\, f_gaswatchbrand\, f_metertype\,
+			select f_userinfoid\, f_userid\, f_handid\, f_username\, lastinputgasnum\, f_gaswatchbrand\, f_metertype\,
 				f_handarea\, f_address\, f_districtname\, f_usertype\, f_gasprice\, f_gaspricetype\, f_dibaohu\, f_apartment\,
 				f_phone\, lastinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\,f_stairtype\,
 				f_zerenbumen\, \'未抄表\'\, \'否\'\, id\, f_cusDom\, f_cusDy 
@@ -115,9 +115,9 @@
 									</a:Data.Prop>
 								</TextBox>
 								<TextBlock TextWrapping="Wrap" Text="用户编号："  Margin="0" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="2" />
-								<TextBox x:Name="tjwhf_Copy1" TextWrapping="Wrap" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" >
+								<TextBox x:Name="tjwhf_Copy1" TextWrapping="Wrap" Text="{m:Bind Path=f_userinfoid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" >
 									<a:Data.Prop>
-										<o:PropertySetter PropertyName="f_userid"  Operator="f_userid = 'this'"/>           
+										<o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid = 'this'"/>           
 									</a:Data.Prop>
 								</TextBox>
 									<TextBlock TextWrapping="Wrap" Text="抄 表 员："  Margin="0" Height="25" TextAlignment="Right" Width="Auto" d:LayoutOverrides="Height, VerticalMargin" Grid.Row="0" Grid.Column="4" />
@@ -156,19 +156,18 @@
 							<sdk:DataGrid x:Name="daninfos"  Margin="0,0,0,3"   IsReadOnly="True"
 								AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" ItemsSource="{m:Exp Str=userfiles}">
 								<sdk:DataGrid.Columns>
-									<sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
-									<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+                                    <sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
+                                    <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>    
                                     <sdk:DataGridTextColumn Header="抄表编号" Binding="{Binding f_handid}"/>
-                                    <sdk:DataGridTextColumn  Header="用户姓名" Binding="{Binding f_username}"/>
                                     <sdk:DataGridTextColumn Header="抄表片区" Binding="{Binding f_handarea}"/>
+                                    <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
+                                    <sdk:DataGridTextColumn  Header="用户姓名" Binding="{Binding f_username}"/>
                                     <sdk:DataGridTextColumn Header="用户地址" Binding="{Binding f_address}"/>
 									<sdk:DataGridTextColumn  Header="用户类型" Binding="{Binding f_usertype}"/>
                                     <sdk:DataGridTextColumn  Header="水价类型" Binding="{Binding f_stairtype}"/>
-                                    <sdk:DataGridTextColumn Header="水表编号" Binding="{Binding f_meternumber}"/>
-									<sdk:DataGridTextColumn Header="表安装位置" Binding="{Binding f_weizhi}"/>
-									<sdk:DataGridTextColumn  Header="抄表底数" Binding="{Binding lastinputgasnum}"/>
+                                    <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}"/>
+                                    <sdk:DataGridTextColumn  Header="抄表底数" Binding="{Binding lastinputgasnum}"/>
                                     <sdk:DataGridTextColumn Header="上次抄表日期" Binding="{Binding lastinputdate}"/>
-                                    <sdk:DataGridTextColumn  Header="抄表编号" Binding="{Binding f_handid}"/>
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel>

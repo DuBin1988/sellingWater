@@ -78,6 +78,8 @@
 		<!--额定流量-->
 		<property name="f_flownum" type="double"/>
 		<!--用户编号-->
+		<property name="f_userinfoid" type="string"/>
+		<!--表具编号-->
 		<property name="f_userid" type="string"/>
 		<!--用户/单位名称-->
 		<property name="f_username" type="string"/>

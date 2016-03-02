@@ -17,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
@@ -30,12 +29,20 @@ import org.hibernate.collection.PersistentSet;
 import org.hibernate.proxy.map.MapProxy;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.aote.listener.ContextListener;
+import com.aote.rs.charge.countdate.ICountDate;
+import com.aote.rs.charge.enddate.IEndDate;
 import com.aote.rs.util.RSException;
 
 @Path("handcharge")
+@Scope("prototype")
 @Component
 public class HandCharge {
 
@@ -44,7 +51,7 @@ public class HandCharge {
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 
-	//private int stairmonths;
+	// private int stairmonths;
 
 	private String stardate;
 	private String enddate;
@@ -61,7 +68,8 @@ public class HandCharge {
 	BigDecimal stair2fee = new BigDecimal(0);
 	BigDecimal stair3fee = new BigDecimal(0);
 	BigDecimal stair4fee = new BigDecimal(0);
-	
+	private int stairmonths;
+
 	// 抄表单下载，返回JSON串
 	// operator 抄表员中文名
 	@GET
@@ -82,42 +90,42 @@ public class HandCharge {
 	}
 
 	// 查询批量抄表单
-	@POST
-	@Path("download")
-	public String downLoadRecord(String condition) {
+		@POST
+		@Path("download")
+		public String downLoadRecord(String condition) {
 
-		String sql = "select top 1000 u.f_userid,u.f_username,u.f_address,u.lastinputgasnum,u.f_stairtype,h.id "
-				+ "from t_handplan h left join t_userfiles u on h.f_userid = u.f_userid where h.shifoujiaofei='否' and u.f_userstate!='注销' and h.f_state='未抄表' and "
-				+ condition + "	order by u.f_address,u.f_apartment";
-		List<Object> list = this.hibernateTemplate
-				.executeFind(new HibernateSQLCall(sql));
-		// String result="[";
-		boolean check = false;
-		JSONArray array = new JSONArray();
-		for (Object obj : list) {
-			JSONObject json = (JSONObject) new JsonTransfer()
-					.MapToJson((Map<String, Object>) obj);
-			// Map<String, Object> map = (Map<String, Object>) json;
-			// if(!result.equals("[")){
-			// result+=",";
-			// }
-			// String item="";
-			// //计划月份用户编号用户姓名地址上次底数本次底数用气量
-			// item+="{";
-			// item+="f_userid:'"+map.get("f_userid")+"',";
-			// item+="f_username:'"+map.get("f_username")+"',";
-			// item+="f_address:'"+map.get("f_address")+"',";
-			// item+="lastinputgasnum:"+map.get("lastinputgasnum");
-			// item+="}";
-			//
-			// result += item;
-			array.put(json);
+			String sql = "select top 1000 u.f_userid,u.f_userinfoid,u.f_meternumber,u.f_username,u.f_handid,u.f_address,u.f_extrawaterprice,u.lastinputgasnum,u.f_stairtype,h.id "
+					+ "from t_handplan h left join t_userfiles u on h.f_userid = u.f_userid where h.shifoujiaofei='否' and u.f_userstate!='注销' and h.f_state='未抄表' and "
+					+ condition + "	order by u.f_address,u.f_apartment";
+			List<Object> list = this.hibernateTemplate
+					.executeFind(new HibernateSQLCall(sql));
+			// String result="[";
+			boolean check = false;
+			JSONArray array = new JSONArray();
+			for (Object obj : list) {
+				JSONObject json = (JSONObject) new JsonTransfer()
+						.MapToJson((Map<String, Object>) obj);
+				// Map<String, Object> map = (Map<String, Object>) json;
+				// if(!result.equals("[")){
+				// result+=",";
+				// }
+				// String item="";
+				// //计划月份用户编号用户姓名地址上次底数本次底数用气量
+				// item+="{";
+				// item+="f_userid:'"+map.get("f_userid")+"',";
+				// item+="f_username:'"+map.get("f_username")+"',";
+				// item+="f_address:'"+map.get("f_address")+"',";
+				// item+="lastinputgasnum:"+map.get("lastinputgasnum");
+				// item+="}";
+				//
+				// result += item;
+				array.put(json);
+			}
+			// result+="]";
+			// System.out.println(result);
+
+			return array.toString();
 		}
-		// result+="]";
-		// System.out.println(result);
-
-		return array.toString();
-	}
 
 	// 单块表抄表录入
 	// 本方法不可重入
@@ -135,7 +143,7 @@ public class HandCharge {
 		String ret = "";
 		try {
 			return afrecordInput(userid, 0, reading, sgnetwork, sgoperator,
-					lastinputdate, handdate, 0, meterstate,1);
+					lastinputdate, handdate, 0, meterstate, 1);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 			ret = e.getMessage();
@@ -220,85 +228,27 @@ public class HandCharge {
 		JSONObject json = (JSONObject) new JsonTransfer().MapToJson(sell);
 		return json;
 	}
-	/**
-	 * 获得附加费用详细信息，
-	 * @return
-	 */
-	public JSONArray extra(String stairType) {
-		final String sql = "select isnull(f_extrapriceName,'')f_extrapriceName, isnull(f_extraprice,0)f_extraprice from t_stairprice,t_extraprice where t_stairprice.f_stairtype = '" + stairType + "' and t_stairprice.id = t_extraprice.parentid";
-		List<Map<String, Object>> list = (List<Map<String, Object>>) hibernateTemplate
-		.execute(new HibernateCallback() {
-			public Object doInHibernate(Session session)
-					throws HibernateException {
-				Query q = session.createSQLQuery(sql);
-				q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-				List result1 = q.list();
-				return result1;
-			}
-		});
-		JSONArray array = new JSONArray();
-		for (Object obj : list) {
-			Map<String, Object> map = (Map<String, Object>) obj;
-			JSONObject json = (JSONObject) new JsonTransfer().MapToJson(map);
-			array.put(json);
-		}
-		return array;
-	}
-	/**
-	 * 返回小计
-	 * 
-	 */
-	/*@GET
-	@Path("/{stairType}/{pregas}/{id}")
-	@Produces("application/json")*/
-	public JSONArray money(String stairType,double pregas,
-			String id,String userid) throws JSONException {
-		JSONArray interest = extra(stairType);
-		JSONArray resualts = new JSONArray();
-		for (int i = 0; i < interest.length(); i++) {
-			JSONObject obj = interest.getJSONObject(i);			
-			String extrapriceName = obj.getString("f_extrapriceName");
-			Double price = obj.getDouble("f_extraprice");			
-			BigDecimal prices = new BigDecimal(price);
-			BigDecimal pregas1 = new BigDecimal(pregas);
-			BigDecimal money = new BigDecimal(0);
-			money=pregas1.multiply(prices);
-			final String sql1 = "insert into t_extraprices(f_extrapriceNames,f_extraprices,f_pregas,f_extrafee,parentid,f_userid) values('" + extrapriceName + "','" + price + "','" + pregas + "','" + money.doubleValue() + "','" + id + "','" + userid + "')";
-			resualts.put(obj);
-			execSQL(sql1);
-            String sql = "update t_handplan set extrazjfee =(select sum(f_extrafee) from t_extraprices where parentid='" + id + "') where id='" + id + "'";
-            execSQL(sql);
-		}
-		return resualts ;		
-	}
-	private void execSQL(final String sql1) {
-		// TODO Auto-generated method stub
-		 hibernateTemplate.execute(new HibernateCallback() {
-	            public Object doInHibernate(Session session)
-	                    throws HibernateException {
-	                session.createSQLQuery(sql1).executeUpdate();
-	                return null;
-	            }
-	        });		
-	}
 
 	// 单块表抄表录入的内部方法，支持卡表及机表，卡表可录入余气量。
-	public String afrecordInput(String userid, double lastreading, double reading,
-			String sgnetwork, String sgoperator, String lastinputdate,
-			String handdate, double leftgas, String meterstate,int flag)
-			throws Exception {
+	public String afrecordInput(String userid, double lastreading,
+			double reading, String sgnetwork, String sgoperator,
+			String lastinputdate, String handdate, double leftgas,
+			String meterstate, int flag) throws Exception {
 		// 查找用户未抄表记录
 		Map map = this.findHandPlan(userid);
-		if(map == null){
+		if (map == null) {
 			return "";
 		}
+		
+		Map user = this.findUser(userid);
+		
 		// 获取表类型
 		String meterType = map.get("f_gasmeterstyle").toString();
 		// 下面程序执行hql变量
 		String hql = "";
 		// Map<String, String> singles = getSingles();// 获取所有单值
-		//BigDecimal chargenum = new BigDecimal(0);
-		//BigDecimal sumamont = new BigDecimal(0);
+		// BigDecimal chargenum = new BigDecimal(0);
+		// BigDecimal sumamont = new BigDecimal(0);
 		BigDecimal gasprice = new BigDecimal(map.get("f_gasprice").toString());
 		String stairtype = map.get("f_stairtype").toString();
 		BigDecimal stair1amount = new BigDecimal(map.get("f_stair1amount")
@@ -315,33 +265,35 @@ public class HandCharge {
 				.toString());
 		BigDecimal stair4price = new BigDecimal(map.get("f_stair4price")
 				.toString());
-		int stairmonths = Integer.parseInt(map.get("f_stairmonths").toString());
+		stairmonths = Integer.parseInt(map.get("f_stairmonths").toString());
 
-		BigDecimal gas = new BigDecimal(0);//用气量
-		BigDecimal lrg = new BigDecimal(0);//上次指数
-		if(1 == flag)
-		{
+		BigDecimal gas = new BigDecimal(0);// 用气量
+		BigDecimal lrg = new BigDecimal(0);// 上次指数
+		if (1 == flag) {
 			// 如果是单块表调用的(手机)，上期读数（上期的本次抄表底数）从档案中取
-			BigDecimal lastReading = new BigDecimal(map.get("lastinputgasnum") + "");
+			BigDecimal lastReading = new BigDecimal(map.get("lastinputgasnum")
+					+ "");
 			lrg = lastReading;
 			// 气量
 			gas = new BigDecimal(reading).subtract(lastReading);
-		}
-		else
-		{
+		} else {
 			// 气量 否则从界面上获取上期指数
 			gas = new BigDecimal(reading).subtract(new BigDecimal(lastreading));
 			lrg = new BigDecimal(lastreading);
 		}
-
-
+		// 如果气量为负数抛出异常，主要针对其他抄表系统发来的数据
+		if (gas.compareTo(BigDecimal.ZERO) < 0) {
+			throw new RSException(map.get("f_userid") + "用气量为：" + gas.doubleValue()
+					+ ",不能录入!");
+		}
 
 		// 上期读数（上期的本次抄表底数）上期底数（）
-		//BigDecimal lastReading = new BigDecimal(map.get("lastinputgasnum") + "");
+		// BigDecimal lastReading = new BigDecimal(map.get("lastinputgasnum") +
+		// "");
 		// 气量
-		//BigDecimal gas = new BigDecimal(reading).subtract(lastReading);
+		// BigDecimal gas = new BigDecimal(reading).subtract(lastReading);
 		// 从户里取出余额(上期余额)
-		BigDecimal f_zhye = new BigDecimal(map.get("f_zhye") + "");
+		BigDecimal f_zhye = new BigDecimal(user.get("f_zhye") + "");
 		// 用户地址
 		String address = map.get("f_address").toString();
 		// 用户姓名
@@ -362,12 +314,21 @@ public class HandCharge {
 		if (inputtor.equals("")) {
 			throw new RSException(map.get("f_userid") + "没有抄表员，不能录入。");
 		}
+		//计划年份，用于阶梯划价，处理跨年录入的问题
+		/*String handdatee = map.get("f_handdate") + "";
+		if("计划空".equals(handdatee))
+		{
+			throw new RSException(map.get("f_userid") + "抄表计划日期空，不能录入。请重新生成抄表单！");
+		}
+		Calendar cald = Calendar.getInstance();
+		int year = Integer.parseInt(handdatee.substring(0, 4));
+		cald.set(Calendar.YEAR,year);*/
 		// 最后一次抄表日期
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String dateStr = lastinputdate.substring(0, 10);
 		Date lastinputDate = df.parse(dateStr);
 		// 取出抄表日期得到缴费截止日期DateFormat.parse(String s)
-		Date date = endDate(lastinputdate);// 缴费截止日期
+		Date date = endDate(lastinputdate, userid);// 缴费截止日期
 		// 录入日期
 		Date inputdate = new Date();
 		// 计划月份
@@ -380,6 +341,13 @@ public class HandCharge {
 		// f_cumulativepurchase 总累计购气量
 		BigDecimal f_cumulativepurchase = new BigDecimal(
 				map.get("f_cumulativepurchase") + "");
+		// 户累计购气量 （暂）
+		BigDecimal f_metergasnumsu = new BigDecimal(user.get("f_metergasnums")
+				+ "");
+		// f_cumulativepurchase 总累计购气量
+		BigDecimal f_cumulativepurchaseu = new BigDecimal(user
+				.get("f_cumulativepurchase")
+				+ "");
 		// 表状态
 		String meterState = meterstate;
 		// 针对设置阶梯气价的用户运算
@@ -394,11 +362,12 @@ public class HandCharge {
 			// 自动下账
 			double grossproceeds = 0;
 			Map<String, Object> sell = new HashMap<String, Object>();
-			sell.put("f_userid", map.get("f_userid")); // 用户ID
+			sell.put("f_userid", map.get("f_userid")); // 表ID
+			sell.put("f_userinfoid", user.get("f_userid"));//用户id
 			sell.put("f_payfeevalid", "有效");// 交费是否有效
 			sell.put("f_payfeetype", "自动下账");// 收费类型
-			//修改上期指数
-			sell.put("lastinputgasnum", lrg); // 上期底数
+			// 修改上期指数
+			sell.put("lastinputgasnum", lrg.doubleValue()); // 上期底数
 			sell.put("lastrecord", reading); // 本期底数
 			sell.put("f_totalcost", chargenum.doubleValue()); // 应交金额
 			sell.put("f_grossproceeds", grossproceeds); // 收款
@@ -442,6 +411,8 @@ public class HandCharge {
 			sell.put("f_enddate", enddate);
 			sell.put("f_allamont", sumamont.doubleValue());
 			int sellid = (Integer) hibernateTemplate.save("t_sellinggas", sell);
+			this.updateUser(user, f_zhye.subtract(chargenum), f_metergasnumsu.add(gas), f_cumulativepurchaseu.add(gas));
+
 			hql = "update t_userfiles set f_zhye=?,lastinputgasnum=?,"
 					+
 					// 本次抄表日期
@@ -520,14 +491,16 @@ public class HandCharge {
 					+ sellId
 					+ ", f_leftgas="
 					+ leftgas
-					+ ", lastinputgasnum=" //上期指数
+					+ ", lastinputgasnum=" // 上期指数
 					+ lrg
 					+ " , f_inputdate=?,f_meterstate=?,f_network='"
 					+ sgnetwork
 					+ "',f_operator='"
 					+ sgoperator
 					+ "'  "
-					+ "where f_userid='" + userid + "' and f_state='未抄表' and id="+handid;
+					+ "where f_userid='"
+					+ userid
+					+ "' and f_state='未抄表' and id=" + handid;
 			hibernateTemplate.bulkUpdate(hql, new Object[] { handDate,
 					lastinputDate, inputdate, meterState });
 		} else {
@@ -562,9 +535,11 @@ public class HandCharge {
 					+ stair2price + ",f_stair3price=" + stair3price
 					+ ",f_stair4price=" + stair4price + "," + "f_stardate='"
 					+ stardate + "',f_enddate='" + enddate + "',f_allamont="
-					+ sumamont + ", f_leftgas= " + leftgas + ", lastinputgasnum=" //上期指数
-					+ lrg
-					+ " where f_userid='" + userid + "' and f_state='未抄表' and id="+handid;
+					+ sumamont + ", f_leftgas= "
+					+ leftgas
+					+ ", lastinputgasnum=" // 上期指数
+					+ lrg + " where f_userid='" + userid
+					+ "' and f_state='未抄表' and id=" + handid;
 			hibernateTemplate.bulkUpdate(hql, new Object[] { handDate,
 					lastinputDate, date, inputdate, meterState });
 		}
@@ -587,20 +562,22 @@ public class HandCharge {
 			BigDecimal stair4price) {
 		BigDecimal chargenum = new BigDecimal(0);
 		// 针对设置阶梯气价的用户运算
-		CountDate(cal, stairmonths);
+		CountDate(userid, hibernateTemplate);
 		if (!stairtype.equals("未设")) {
-			final String gassql = " select isnull(sum(oughtamount),0)oughtamount from t_handplan "
-					+ "where f_userid='"
+			final String gassql = " select isnull(sum(h.oughtamount),0)oughtamount "
+					+ "from t_handplan h left join t_userfiles u on u.f_userid=h.f_userid "
+					+ "where u.f_userinfoid=(select f_userinfoid from t_userfiles where f_userid='"
 					+ userid
-					+ "' and lastinputdate>='"
-					+ stardate + "' and lastinputdate<='" + enddate + "'";
+					+ "')"
+					+ " and h.f_handdate>='"
+					+ stardate
+					+ "' and h.f_handdate<='" + enddate + "'";
 			List<Map<String, Object>> gaslist = (List<Map<String, Object>>) hibernateTemplate
 					.execute(new HibernateCallback() {
 						public Object doInHibernate(Session session)
 								throws HibernateException {
 							Query q = session.createSQLQuery(gassql);
-							q
-									.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+							q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 							List result = q.list();
 							return result;
 						}
@@ -651,8 +628,8 @@ public class HandCharge {
 					stair4num = allamont.subtract(stair3amount);
 					stair4fee = (allamont.subtract(stair3amount))
 							.multiply(stair4price);
-					chargenum = stair1fee.add(stair2fee).add(stair3fee).add(
-							stair4fee);
+					chargenum = stair1fee.add(stair2fee).add(stair3fee)
+							.add(stair4fee);
 				}
 				// 当前已购气量在阶梯二内
 			} else if (sumamont.compareTo(stair1amount) >= 0
@@ -839,11 +816,11 @@ public class HandCharge {
 				+ "isnull(u.f_gasproperties,'')f_gasproperties,isnull(u.f_dibaohu,0)f_dibaohu,isnull(u.f_payment,'')f_payment,isnull(u.f_zerenbumen,'')f_zerenbumen,isnull(u.f_menzhan,'')f_menzhan,isnull(u.f_inputtor,'')f_inputtor, isnull(q.c,0) c,"
 				+ "isnull(u.f_metergasnums,0) f_metergasnums,isnull(u.f_cumulativepurchase,0)f_cumulativepurchase, "
 				+ "isnull(u.f_finallybought,0)f_finallybought,isnull(u.f_cardid,'NULL') f_cardid,isnull(u.f_filiale,'NULL')f_filiale,"
-				+ "h.id id from (select * from t_handplan where f_state='未抄表' and f_userid='"
+				+ "h.id id, isnull(CONVERT(varchar(12), h.f_handdate, 120 ),'计划空') f_handdate from (select * from t_handplan where f_state='未抄表' and f_userid='"
 				+ userid
 				+ "') h "
 				+ "left join (select f_userid, COUNT(*) c from t_handplan where f_state='已抄表' and shifoujiaofei='否' "
-				+ "group by f_userid) q on h.f_userid=q.f_userid join t_userfiles u on h.f_userid=u.f_userid order by id";
+				+ "group by f_userid) q on h.f_userid=q.f_userid join t_userfiles u on h.f_userid=u.f_userid";
 		List<Map<String, Object>> list = (List<Map<String, Object>>) hibernateTemplate
 				.execute(new HibernateCallback() {
 					public Object doInHibernate(Session session)
@@ -855,18 +832,28 @@ public class HandCharge {
 					}
 				});
 		// 取出未抄表记录以及资料
-		if(list.size()>0){
+		if (list.size() > 0) {
 			result = (Map<String, Object>) list.get(0);
 			return result;
-		}else{
+		} else {
 			return null;
 		}
 	}
 
 	// 计算开始时间方法
-	private void CountDate(Calendar cal, int stairmonths) {
+	private void CountDate(String userid, HibernateTemplate hibernateTemplate) {
+		// 判断是否配置了接口，如果有执行接口，如果没有按默认计算。
+		ApplicationContext applicationContext = WebApplicationContextUtils
+				.getWebApplicationContext(ContextListener.getContext());
+		if (applicationContext.containsBean("CountDate")) {
+			ICountDate icount = (ICountDate) applicationContext
+					.getBean("CountDate");
+			stardate = icount.startdate(userid, hibernateTemplate);
+			enddate = icount.enddate(userid, hibernateTemplate);
+			return;
+		}
 		// 计算当前月在哪个阶梯区间
-		//Calendar cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
 		int thismonth = cal.get(Calendar.MONTH) + 1;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if (stairmonths == 1) {
@@ -919,6 +906,7 @@ public class HandCharge {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Path("record/batch/App")
 	@POST
 	public String afAPPUploadBatch(String data) {
@@ -931,7 +919,8 @@ public class HandCharge {
 			for (int i = 0; i < rows.length(); i++) {
 				JSONObject row = rows.getJSONObject(i);
 				String userid = row.getString("f_userid");
-				double reading = Double.parseDouble(row.getString("lastrecord"));
+				double reading = Double
+						.parseDouble(row.getString("lastrecord"));
 				String handdate = row.getString("f_handdate");
 				String network = row.getString("f_network");
 				String operator = row.getString("f_operator");
@@ -943,13 +932,14 @@ public class HandCharge {
 				if (row.has("leftgas")) {
 					leftgas = row.getDouble("leftgas");
 				}
-				if("noPlan".equals(row.getString("source"))){
-				}else{
-					if(findHandPlan(userid)==null){
+				if ("noPlan".equals(row.getString("source"))) {
+				} else {
+					if (findHandPlan(userid) == null) {
 						jo.put(userid, "null");
-					}else{
-						re= afrecordInput(userid, lastreading, reading, network, operator,
-								inputdate, handdate, leftgas,meterstate, 2);
+					} else {
+						re = afrecordInput(userid, lastreading, reading,
+								network, operator, inputdate, handdate,
+								leftgas, meterstate, 2);
 						jo.put(re, "ok");
 					}
 				}
@@ -959,6 +949,72 @@ public class HandCharge {
 			e.printStackTrace();
 			return jo.toString();
 		}
+	}
+
+	/**
+	 * 获得附加费用详细信息，
+	 * @return
+	 */
+	public JSONArray extra(String stairType) {
+		final String sql = "select isnull(f_extrapriceName,'')f_extrapriceName, isnull(f_extraprice,0)f_extraprice from t_stairprice,t_extraprice where t_stairprice.f_stairtype = '" + stairType + "' and t_stairprice.id = t_extraprice.parentid";
+		List<Map<String, Object>> list = (List<Map<String, Object>>) hibernateTemplate
+		.execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException {
+				Query q = session.createSQLQuery(sql);
+				q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+				List result1 = q.list();
+				return result1;
+			}
+		});
+		JSONArray array = new JSONArray();
+		for (Object obj : list) {
+			Map<String, Object> map = (Map<String, Object>) obj;
+			JSONObject json = (JSONObject) new JsonTransfer().MapToJson(map);
+			array.put(json);
+		}
+		return array;
+	}
+	/**
+	 * 返回小计
+	 * 
+	 */
+	/*@GET
+	@Path("/{stairType}/{pregas}/{id}")
+	@Produces("application/json")*/
+	public JSONArray money(String stairType,double pregas,
+			String id,String userid) throws JSONException {
+		JSONArray interest = extra(stairType);
+		//用户id
+		String f_userinfoid = (String) findUser(userid).get("f_userid");
+		//用户名称
+		String f_username = (String) findUser(userid).get("f_username");
+		JSONArray resualts = new JSONArray();
+		for (int i = 0; i < interest.length(); i++) {
+			JSONObject obj = interest.getJSONObject(i);			
+			String extrapriceName = obj.getString("f_extrapriceName");
+			Double price = obj.getDouble("f_extraprice");			
+			BigDecimal prices = new BigDecimal(price);
+			BigDecimal pregas1 = new BigDecimal(pregas);
+			BigDecimal money = new BigDecimal(0);
+			money=pregas1.multiply(prices);
+			final String sql1 = "insert into t_extraprices(f_extrapriceNames,f_extraprices,f_pregas,f_extrafee,parentid,f_userid,f_userinfoid,f_username) values('" + extrapriceName + "','" + price + "','" + pregas + "','" + money.doubleValue() + "','" + id + "','" + userid + "','" + f_userinfoid + "','" + f_username + "')";
+			resualts.put(obj);
+			execSQL(sql1);
+            String sql = "update t_handplan set extrazjfee =(select sum(f_extrafee) from t_extraprices where parentid='" + id + "') where id='" + id + "'";
+            execSQL(sql);
+		}
+		return resualts ;		
+	}
+	private void execSQL(final String sql1) {
+		// TODO Auto-generated method stub
+		 hibernateTemplate.execute(new HibernateCallback() {
+	            public Object doInHibernate(Session session)
+	                    throws HibernateException {
+	                session.createSQLQuery(sql1).executeUpdate();
+	                return null;
+	            }
+	        });		
 	}
 	// 批量抄表记录上传
 	// data以JSON格式上传，[{userid:'用户编号', showNumber:本期抄表数},{}]
@@ -1023,9 +1079,15 @@ public class HandCharge {
 
 	}
 
-	
 	// 产生交费截止日期
-	private Date endDate(String str) throws ParseException {
+	private Date endDate(String str, String userid) throws ParseException {
+		// 查找是否配置了截止日期处理类，如果有执行处理类
+		ApplicationContext applicationContext = WebApplicationContextUtils
+				.getWebApplicationContext(ContextListener.getContext());
+		if (applicationContext.containsBean("EndDate")) {
+			IEndDate end = (IEndDate) applicationContext.getBean("EndDate");
+			return end.enddate(userid, hibernateTemplate).getTime();
+		}
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String dateStr = str.substring(0, 10);
 		Date now = df.parse(dateStr);
@@ -1120,5 +1182,37 @@ public class HandCharge {
 			return result;
 		}
 	}
-
+	/**
+	 * 查找用户信息
+	 */
+	private Map<String, Object> findUser(String userid) {
+		final String userSql = "from t_userinfo  where f_userid= (select f_userinfoid from t_userfiles where  f_userid = '" + userid
+				+ "')";
+		//List userlist = session.createQuery(userSql).list();
+		log.debug("查询户信息开始:" + userSql);
+		List<Object> userlist = this.hibernateTemplate.find(userSql);		
+		if (userlist.size() != 1) {
+			return null;
+		}
+		Map<String, Object> userMap = (Map<String, Object>) userlist.get(0);
+		return userMap;
+	}
+	/**
+	 * 更新用户信息
+	 */
+	private void updateUser(Map user, BigDecimal nowye, BigDecimal newMeterGasNums,
+			BigDecimal newCumuGas) throws Exception {
+		// 更新用户
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date now = new Date();
+		String dt = format.format(now);
+		String tm = format.format(now);
+		String sql = "update t_userinfo  set f_zhye=" + nowye.doubleValue()
+				+ ", f_finabuygasdate='" + dt + "', f_finabuygastime='" + tm
+				+ "'," + " f_metergasnums=" + newMeterGasNums.doubleValue()
+				+ ", f_cumulativepurchase=" + newCumuGas.doubleValue() + " where f_userid='"
+				+ user.get("f_userid") + "'";
+		log.debug("更新户信息开始:" + sql);
+		this.hibernateTemplate.bulkUpdate(sql);
+	}
 }

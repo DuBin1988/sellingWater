@@ -174,12 +174,20 @@ namespace Com.Aote.Pages
 
 
 
-                        string f_userid = (string)json["f_userid"];//用户编号
+                        string f_userid = (string)json["f_userid"];//表具编号
                         go.SetPropertyValue("f_userid", f_userid, false);
+                        string f_userinfoid = (string)json["f_userinfoid"];//用户编号
+                        go.SetPropertyValue("f_userinfoid", f_userinfoid, false);
+                        string f_handid = (string)json["f_handid"];//抄表编号
+                        go.SetPropertyValue("f_handid", f_handid, false);
+                        string f_meternumber = (string)json["f_meternumber"];//表钢印号
+                        go.SetPropertyValue("f_meternumber", f_meternumber, false);
                         int id = (int)json["id"];//抄表记录id
                         go.SetPropertyValue("id", id, false);
                         string f_stairtype = (string)json["f_stairtype"];//阶梯类型
                         go.SetPropertyValue("f_stairtype",f_stairtype, false);
+                        string f_extrawaterprice = (string)json["f_extrawaterprice"];//混合用水差价
+                        go.SetPropertyValue("f_extrawaterprice", f_extrawaterprice, false);
                         string f_username = (string)json["f_username"];//用户名
                         go.SetPropertyValue("f_username", f_username, false);
                         string f_address = (string)json["f_address"];//地址
