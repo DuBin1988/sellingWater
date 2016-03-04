@@ -124,10 +124,10 @@
 		<property name="f_repairnum" type="double"/>
 		<!--预购气量/超用气量-->
 		<property name="f_pregas" type="double"/>
-		<!--预购水费金额/抄表应交交基本水费金额/超用水费金额-->
+		<!--预购水费金额/抄表应交交金额/超用水费金额-->
 		<property name="f_preamount" type="double"/>
 		<!--预购附加金额/抄表附加金额/超用附加金额-->
-		<property name="f_fjamount" type="double"/>
+		<!-- <property name="f_fjamount" type="double"/> -->
 		<!--付款方式-->
 		<property name="f_payment" type="string"/>
 		<!--交费类型 为现金、银行代扣-->

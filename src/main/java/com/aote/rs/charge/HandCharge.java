@@ -234,6 +234,7 @@ public class HandCharge {
 			double reading, String sgnetwork, String sgoperator,
 			String lastinputdate, String handdate, double leftgas,
 			String meterstate, int flag) throws Exception {
+		BigDecimal chargenum = new BigDecimal(0);
 		// 查找用户未抄表记录
 		Map map = this.findHandPlan(userid);
 		if (map == null) {
@@ -350,12 +351,17 @@ public class HandCharge {
 				+ "");
 		// 表状态
 		String meterState = meterstate;
+		// 从户里取出余额(上期余额)
+		BigDecimal fjfee = new BigDecimal(user.get("f_zongjiprice") + "");
+		//计算附加费用
+		BigDecimal fee = fjfee.multiply(gas);
 		// 针对设置阶梯气价的用户运算
 		// 阶梯起价处理
-		BigDecimal chargenum = stair(userid, gas, Calendar.getInstance(),
+		chargenum = stair(userid, gas, Calendar.getInstance(),
 				stairtype, gasprice, stairmonths, stair1amount, stair2amount,
 				stair3amount, stair1price, stair2price, stair3price,
 				stair4price);
+		chargenum = chargenum.add(fee);
 		// 气费大于0,结余够，前面无欠费，自动下账
 		if (chargenum.compareTo(BigDecimal.ZERO) > 0
 				&& chargenum.compareTo(f_zhye) <= 0 && items < 1) {
@@ -413,7 +419,7 @@ public class HandCharge {
 			int sellid = (Integer) hibernateTemplate.save("t_sellinggas", sell);
 			this.updateUser(user, f_zhye.subtract(chargenum), f_metergasnumsu.add(gas), f_cumulativepurchaseu.add(gas));
 
-			hql = "update t_userfiles set f_zhye=?,lastinputgasnum=?,"
+			hql = "update t_userinfo set f_zhye=?,lastinputgasnum=?,"
 					+
 					// 本次抄表日期
 					"  lastinputdate=? "
@@ -445,7 +451,7 @@ public class HandCharge {
 					+ " ,"
 					+ "oughtamount="
 					+ gas
-					+ " ,oughtfee="
+					+ " ,f_fee="
 					+ chargenum
 					+ " ,f_address='"
 					+ address
@@ -522,7 +528,8 @@ public class HandCharge {
 					+ zerenbumen + "', f_menzhan='" + menzhan
 					+ "', f_inputtor='" + inputtor + "', lastrecord=" + reading
 					+ " ,f_stairtype='" + stairtype + "'," + "oughtamount="
-					+ gas + ",  f_endjfdate=?, oughtfee=" + chargenum
+					+ gas + ",  f_endjfdate=?, oughtfee=" + chargenum.subtract(fee)
+					+ ",f_fee=" + chargenum
 					+ ", f_inputdate=?,f_meterstate=?,f_network='" + sgnetwork
 					+ "',f_operator='" + sgoperator + "' ,f_address='"
 					+ address + "', f_username='" + username + "',"
@@ -551,7 +558,7 @@ public class HandCharge {
 		return userid;
 	}
 
-	// 计算阶梯气价，由于重构原因，会返回sumamont，放在全局变量里
+	// 计算阶梯气价以及该阶梯对应的附加费用的总价，由于重构原因，会返回sumamont，放在全局变量里
 	// 计算出来的各阶段阶梯气量及阶梯金额存放在类变量里
 	// 返回：总价格
 	private BigDecimal stair(String userid, BigDecimal gas, Calendar cal,
@@ -561,6 +568,14 @@ public class HandCharge {
 			BigDecimal stair2price, BigDecimal stair3price,
 			BigDecimal stair4price) {
 		BigDecimal chargenum = new BigDecimal(0);
+		stair1num = new BigDecimal(0);
+		stair1fee = new BigDecimal(0);
+		stair2num = new BigDecimal(0);
+		stair2fee = new BigDecimal(0);
+		stair3num = new BigDecimal(0);
+		stair3fee = new BigDecimal(0);
+		stair4num = new BigDecimal(0);
+		stair4fee = new BigDecimal(0);
 		// 针对设置阶梯气价的用户运算
 		CountDate(userid, hibernateTemplate);
 		if (!stairtype.equals("未设")) {
@@ -693,7 +708,6 @@ public class HandCharge {
 			stair3fee = new BigDecimal(0);
 			stair4fee = new BigDecimal(0);
 		}
-
 		return chargenum;
 	}
 
@@ -706,7 +720,7 @@ public class HandCharge {
 		// 取出账户结余
 		String acczhyeStr = handplan.get("f_accountzhye").toString();
 		if (acczhyeStr == null || acczhyeStr.equals("")) {
-			throw new RSException(handplan.get("f_userid") + "没有账户实际结!");
+			throw new RSException(handplan.get("f_userinfoid") + "没有账户实际结!");
 		}
 		BigDecimal accountzhye = new BigDecimal(acczhyeStr);
 		// 如果账户余额 = 0，抄表气费为欠费，不产生清欠记录
