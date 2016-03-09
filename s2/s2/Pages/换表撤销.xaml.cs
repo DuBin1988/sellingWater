@@ -40,11 +40,11 @@ namespace Com.Aote.Pages
             userSearch.Search();
 
             // 生成sql语句
-            string sql = "select * from t_changmeter where " + userSearch.Condition + " and f_payfeevalid!='无效' order by id";
+            string sql = "select * from t_changmeter where " + userSearch.Condition + " and f_payfeevalid!='无效' and f_state='换表销账' and f_dengjistate='申请已处理' order by id";
             userList.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
             userList.LoadOnPathChanged = false;
             userList.Path = "sql";
-            userList.SumHQL = "select * from t_changmeter where " + userSearch.Condition + " and f_payfeevalid!='无效'";
+            userList.SumHQL = "select * from t_changmeter where " + userSearch.Condition + " and f_payfeevalid!='无效' and f_state='换表销账' and f_dengjistate='申请已处理'";
             userList.HQL = sql;
             userList.PageSize = ui_pager.PageSize;
             userList.SumNames = "id";
@@ -70,7 +70,7 @@ namespace Com.Aote.Pages
         private void onlySave_Click(object sender, RoutedEventArgs e)
         {
             ui_meterBusy.IsBusy = true;
-            string sql = "update t_changmeter set f_cancelnote='" + ui_f_cancelnote.Text + "',f_canceldate='" + ui_f_canceldate.SelectedDate + "',f_cxoperation='"+ ui_f_cxoperation.Text +"',f_payfeevalid='无效' where id=" + ui_id.Text;
+            string sql = "update t_changmeter set f_cancelnote='" + ui_f_cancelnote.Text + "',f_canceldate='" + ui_f_canceldate.SelectedDate + "',f_cxoperation='" + ui_f_cxoperation.Text + "',f_payfeevalid='无效',f_state='换表撤销',f_dengjistate='撤销完成'  where id=" + ui_id.Text;
             HQLAction action = new HQLAction();
             action.HQL = sql;
             action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
@@ -82,9 +82,9 @@ namespace Com.Aote.Pages
         private void action_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             string sql = "update t_userfiles set f_initcardsellgas = null,f_gasmeterstyle='"
-            + f_newgasmeterstyle.Text + "',f_gasmetermanufacturers='" + ui_gasmetermanufacturers.Text +
-            "',f_metertype='" + ui_metertype.Text + "',f_gaswatchbrand='" + ui_gaswatchbrand.Text +
-            "' where id=" + ui_id.Text;
+            + f_gasmeterstyle.Text + "',f_meternumber='" + f_meternumber.Text + "',f_gasmetermanufacturers='" + ui_gasmetermanufacturers.Text +
+            "',f_gaswatchbrand='" + ui_gaswatchbrand.Text + "',f_metertype='" + ui_metertype.Text + "',f_gaswatchbrand='" + ui_gaswatchbrand.Text +
+            "',f_gasmeterkoujing='" + ui_gasmeterkoujing.Text + "' where id=" + ui_id.Text;
             HQLAction action1 = new HQLAction();
             action1.HQL = sql;
             action1.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
