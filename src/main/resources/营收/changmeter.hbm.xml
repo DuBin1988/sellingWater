@@ -32,8 +32,10 @@
 		<property name="f_watchfee" type="double"/>
 		<!--换表总费用-->
 		<property name="f_changmeterfee" type="double"/>
-		<!--用户编号-->
+		<!--表具编号-->
 		<property name="f_userid" type="string"/>
+		<!--用户编号-->
+		<property name="f_userinfoid" type="string"/>
 		<!--用户姓名-->
 		<property name="f_username" type="string"/>
 		<!--用户类型-->
@@ -103,6 +105,8 @@
 		<property name="f_cmnewmetertitles" type="string"/>
 		<!--新表起度-->
 		<property name="f_newgasmeteraccomodations" type="double"/>
+		<!--新表底数-->
+		<property name="f_newcurrentbase" type="double"/>
 		<!--新卡编号-->
 		<property name="f_cmnewcardnumber" type="string"/>
 		<!--补气量-->
@@ -116,10 +120,10 @@
 		<property name="f_thispregas" type="double"/>
 		<!--超用气量-->
 		<property name="f_cypregas" type="double"/>
-		<!--额定流量
+		<!--额定流量-->
 		<property name="f_flownum" type="double"/>
-		表厂别名
-		<property name="f_aliasname" type="string"/>-->
+		<!--表厂别名-->
+		<property name="f_aliasname" type="string"/>
 		<!--大小卡-->
 		<property name="f_bigsmallcard" type="string"/>
 		<!--备注-->
@@ -166,6 +170,8 @@
 		<property name="f_cancelczdate" type="date"/>
 		<!--撤单时间-->
 		<property name="f_chedandate" type="date"/>
+		<!--销账备注-->
+		<property name="f_xzbeizhu" type="string"/>
 <!--卡厅审核-->		
 		<!-- 分公司 -->
 		<property name="f_filiale2" type="string"/>
@@ -252,6 +258,8 @@
 		<!--购气次数-->
 		<property name="f_times" type="int"/>
 
+		<!--上次抄表底数-->
+		<property name="lastinputgasnum" type="double"/>
 		
          <!-- 卡类型，写卡使用 0 民用，1工业 -->
          <property name="klx" type="int"/>
@@ -268,6 +276,20 @@
             <!-- 卡密码-->
          <property name="kmm" type="string"/>
 		
+		<!-- 抄表系统 对接       -->
+			
+		<!-- 表通道类型 -->
+		<property name="f_channel_type" type="string"/>
+		<!-- 是否支持阀门操作  -->
+		<property name="switch_op" type="string"/>
+		<!--表计电话-->
+		<property name="meter_phone" type="string"/>
+		<!--终端名称-->
+		<property name="terminal_name" type="string"/>
+		<!-- 抄表系统刷新缓存 refreshCache-->
+		<property name="refreshCache" type="string"/>
+		<!-- 表计量类型  -->
+		<property name="f_jllx" type="string"/>
 		
 		<!--换表补气记录 --> 
 	    <set name="f_buqi" cascade="all-delete-orphan">

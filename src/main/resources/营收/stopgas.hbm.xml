@@ -69,5 +69,6 @@
 		<!--卡内气量-->
 		<property name="f_gas" type="double"/>
 		
+		
 	</class>
 </hibernate-mapping>
