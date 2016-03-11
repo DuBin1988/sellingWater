@@ -21,18 +21,22 @@
         <m:ResourceLoad Margin="0,0,-101,0" x:Name="loader">
             <!--附加费用列表-->
             <o:ObjectList Name="extraPricelist" EntityType="t_extraprice" HasEmptyRow="True" ClearOnAdd="False" 
-                    WebClientInfo="{StaticResource dbclient}" Path="{m:Exp Str=ui_stairDataGaid.SelectedItem !\=null\:$from t_extraprice where parentid\=\{ui_stairDataGaid.SelectedItem.id\}$\,$null$}"
-                          IsOld="{m:Exp Str='SaveAction.State\=\=$End$ |or| extraPrice.DataContext.State\=\=$End$'}">
+                    WebClientInfo="{StaticResource dbclient}" 
+                    IsClear="{m:Exp Str='SaveAction.State\=\=$End$'}">
             </o:ObjectList>
+            <o:ObjectList Name="stairmonth" WebClientInfo="{StaticResource dbclient}"  Path="from paramvalue where param.name='阶段月数'"/>
+            <o:ObjectList Name="stairlist" WebClientInfo="{StaticResource dbclient}"
+                    IsOld="{m:Exp Str='SaveAction.State\=\=$End$'}"
+                          Path="{m:Exp Str=$from t_stairprice as apply left join fetch apply.extraprice  where \{ui_StairSearch.DataContext.Condition\}}"/>
             <!--附加费用合计-->
-            <o:GeneralObject Name="heji" EntityType="t_extraprice" WebClientInfo="{StaticResource dbclient}"
+            <!--<o:GeneralObject Name="heji" EntityType="t_extraprice" WebClientInfo="{StaticResource dbclient}"
 				Path="{m:Exp Str=$one/select new Map(Sum(f_extraprice) as f_extraprice) from t_extraprice where parentid\=\{ui_stairDataGaid.SelectedItem.id\}$\}}"
 				IsOld="{m:Exp Str=heji.State\=\=$End$}">
-            </o:GeneralObject>
+            </o:GeneralObject>-->
             <!--阶梯对象-->
-            <o:GeneralObject Name="stairPrice" WebClientInfo="{StaticResource dbclient}" 
-				Source="{m:Exp Str=ui_stairDataGaid.SelectedItem}"
+            <o:GeneralObject Name="stairPrice" WebClientInfo="{StaticResource dbclient}"  
                 EntityType="t_stairprice" 
+                Source="{m:Exp Str='ui_stairDataGaid.SelectedItem !=null:ui_stairDataGaid.SelectedItem,null'}"
 				IsInit="{m:Exp Str=SaveAction.State\=\=$End}">
                 <o:PropertySetter PropertyName="extraprice" Default="{m:Exp Str=extraPricelist}"></o:PropertySetter>
             </o:GeneralObject>
@@ -47,7 +51,7 @@
                 <b:BatchInfo Source="{m:Exp Str=stairPrice}" MethodName="SaveToJson"></b:BatchInfo>
             </b:BatchExcuteAction>
         </m:ResourceLoad>
-        <c:BusyIndicatorEx x:Name="ui_searchBusy" BusyContent="正在工作，请稍等！">
+        <c:BusyIndicatorEx x:Name="ui_searchBusy" IsBusy="{m:Exp Str=SaveAction.IsBusy}" BusyContent="正在工作，请稍等！">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="350"/>
@@ -79,7 +83,7 @@
                         </TextBox>
                         <Button x:Name="ui_StairSearchButton" Click="ui_StairSearchButton_Click" Grid.Column="2" Grid.Row="2" Width="70" Margin="0,2">查询</Button>
                     </Grid>
-                    <sdk:DataGrid x:Name="ui_stairDataGaid" SelectionChanged="ui_stairDataGaid_SelectionChanged" AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" IsReadOnly="True" >
+                    <sdk:DataGrid x:Name="ui_stairDataGaid" ItemsSource="{m:Exp Str=stairlist}" AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" SelectionChanged="ui_stairDataGaid_SelectionChanged" IsReadOnly="True" >
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn d:IsLocked="True" Header="编号" Binding="{Binding id}"/>
                             <sdk:DataGridTextColumn Header="阶梯水价类型" Binding="{Binding f_stairtype}"/>
@@ -94,7 +98,7 @@
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel>
-                <Grid Grid.Column="1" x:Name="ui_stairprice" Margin="0">
+                <Grid Grid.Column="1" x:Name="ui_stairprice" DataContext="{m:Exp Str=stairPrice}" Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="120"/>
@@ -125,7 +129,7 @@
                     <TextBox x:Name="ui_stair1amount" Text="{m:Bind Path=f_stair1amount}" Margin="0,2" Grid.Column="1" Grid.Row="2"></TextBox>
                     <TextBlock Text="阶段一单价：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"></TextBlock>
                     <TextBox x:Name="ui_stair1price" Text="{m:Bind Path=f_stair1price}" Margin="0,2" Grid.Column="3" Grid.Row="2"></TextBox>
-                    <TextBlock Text="阶段二水量：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"></TextBlock>
+                    <TextBlock Text="阶段二水量：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Margin="0,6,0,5"></TextBlock>
                     <TextBox x:Name="ui_stair2amount" Text="{m:Bind Path=f_stair2amount}" Margin="0,2" Grid.Column="1" Grid.Row="3"></TextBox>
                     <TextBlock Text="阶段二单价：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2"></TextBlock>
                     <TextBox x:Name="ui_stair2price" Text="{m:Bind Path=f_stair2price}" Margin="0,2" Grid.Column="3" Grid.Row="3"></TextBox>
@@ -134,21 +138,27 @@
                     <TextBlock Text="阶段三单价：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2"></TextBlock>
                     <TextBox x:Name="ui_stair3price" Text="{m:Bind Path=f_stair3price}" Margin="0,2" Grid.Column="3" Grid.Row="4"></TextBox>
                     <TextBlock Text="超过阶段三单价：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0"></TextBlock>
-                    <TextBox x:Name="ui_stair4price" Text="{m:Bind Path=ui_stair4price}" Margin="0,2" Grid.Column="1" Grid.Row="5"></TextBox>
+                    <TextBox x:Name="ui_stair4price" Text="{m:Bind Path=f_stair4price}" Margin="0,2" Grid.Column="1" Grid.Row="5"></TextBox>
                     <TextBlock Text="阶段月数：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0"></TextBlock>
-                    <ComboBox x:Name="ui_stairmonths" MinWidth="80" SelectedValuePath="Content" SelectedValue="{m:Bind Path=f_stairmonths}" Margin="0,2" Grid.Column="1" Grid.Row="6">
+                    <ComboBox x:Name="ui_stairmonths" ItemsSource="{m:Exp Str=stairmonth}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_stairmonths}" Grid.Column="1" Margin="0,3,0,2" Grid.Row="6" Height="25" IsEnabled="true" FontSize="13.333" RenderTransformOrigin="-5.111,4.2">
+                        <a:Data.Prop>
+                            <o:PropertySetter PropertyName="f_stairmonths" Default="{m:Exp Str=stairPrice.f_stairmonths}" />
+                        </a:Data.Prop>
+                    </ComboBox>
+                    <!--<ComboBox x:Name="ui_stairmonths" MinWidth="80" SelectedValuePath="Content" SelectedValue="{m:Bind Path=f_stairmonths}" Margin="0,2" Grid.Column="1" Grid.Row="6">
                         <ComboBoxItem Content="1"/>
                         <ComboBoxItem Content="2"/>
                         <ComboBoxItem Content="3"/>
                         <ComboBoxItem Content="4"/>
                         <ComboBoxItem Content="6"/>
                         <ComboBoxItem Content="12"/>
-                    </ComboBox>
+                    </ComboBox>-->
                     <TextBlock TextWrapping="Wrap" Text="附加费用：" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox x:Name="ui_zongjiprice" TextWrapping="Wrap" Grid.Column="1" Grid.Row="7" Text="{m:Bind Path=f_zongjiprice}" Width="Auto" Margin="0" Height="25" IsReadOnly="True">
                         <a:Data.Prop>
-                            <!--<o:PropertySetter PropertyName="f_zongjiprice" NoDependValue="{m:Exp Str=extraPrice.ItemsSource[True].sum(f_extraprice)}"/>-->
-                            <o:PropertySetter PropertyName="f_zongjiprice" NoDependValue="{m:Exp Str=heji.f_extraprice}"/>
+                            <o:PropertySetter PropertyName="f_zongjiprice"  Value="{m:Exp Str=extraPrice.ItemsSource.Count\>0:extraPrice.ItemsSource[True].Sum(f_extraprice).ToString()\,$0$}" />
+                            <!--<o:PropertySetter PropertyName="f_zongjiprice" Value="{m:Exp Str=extraPrice.ItemsSource[True].sum(f_extraprice)}"/>-->
+                            <!--<o:PropertySetter PropertyName="f_zongjiprice" NoDependValue="{m:Exp Str=heji.f_extraprice}"/>-->
                         </a:Data.Prop>
                     </TextBox>
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" toolkit:DockPanel.Dock="Top" Grid.ColumnSpan="4" Margin="42,10,105,-70" Grid.Row="8" Grid.RowSpan="4">
@@ -161,7 +171,7 @@
                                     <ColumnDefinition Width="0*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <sdk:DataGrid ItemsSource="{m:Exp Str=extraPricelist}" AutoGenerateColumns="False" x:Name="extraPrice" HorizontalAlignment="Left" Width="301" >
+                                <sdk:DataGrid ItemsSource="{m:Exp Str=extraPricelist}" AutoGenerateColumns="False" x:Name="extraPrice"  HorizontalAlignment="Left" Width="301" >
                                     <sdk:DataGrid.Columns>
                                         <sdk:DataGridTemplateColumn>
                                             <sdk:DataGridTemplateColumn.CellTemplate>
@@ -183,7 +193,7 @@
                                         <sdk:DataGridTemplateColumn Header="附加费用名称">
                                             <sdk:DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBox x:Name="ui_name" Text="{m:Bind Path=f_extrapriceName}" Style="{StaticResource TextBoxDatagridStyle}"/>
+                                                    <TextBox x:Name="ui_name" Text="{m:Bind Path=f_extrapriceName}"  Style="{StaticResource TextBoxDatagridStyle}"/>
                                                 </DataTemplate>
                                             </sdk:DataGridTemplateColumn.CellTemplate>
                                         </sdk:DataGridTemplateColumn>
@@ -199,7 +209,7 @@
                             </Grid>
                         </toolkit:DockPanel>
                     </ScrollViewer>
-                    <Button x:Name="ui_SaveStairButton" Click="ui_SaveStairButton_Click" Margin="20,2"  Grid.Column="3" Grid.Row="11" Width="80">保存</Button>
+                    <Button x:Name="ui_SaveStairButton" Click="{m:Exp Str=SaveAction.Invoke()}" Margin="20,2"  Grid.Column="3" Grid.Row="11" Width="80">保存</Button>
                     <Button x:Name="ui_CancelStairButton" Click="ui_CancelStairButton_Click" Margin="0,2" Grid.Column="4" Grid.Row="11" Width="80">撤销</Button>
                 </Grid>
             </Grid>

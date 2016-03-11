@@ -233,7 +233,7 @@
                                 <o:PropertySetter PropertyName="f_oldcurrentbase" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_cancelcurrentbase}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="11" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                        <TextBox x:Name="f_cancelcurrentbase" Text="{m:Bind Path=f_cancelcurrentbase}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="11" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_cancelcurrentbase" NotNull="True" Value="{m:Exp Str=pipeline.DataContext.f_newcurrentbase}"/>
                             </a:Data.Prop>
@@ -256,7 +256,7 @@
                                 <o:PropertySetter PropertyName="f_gasmeterstyle"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_userid}" IsReadOnly="True" Grid.Column="5" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                        <TextBox x:Name="f_userid" Text="{m:Bind Path=f_userid}" IsReadOnly="True" Grid.Column="5" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_userid" />
                             </a:Data.Prop>

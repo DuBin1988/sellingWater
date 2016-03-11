@@ -359,6 +359,11 @@
                                 <o:PropertySetter PropertyName="f_weizhi" NoDependValue="{m:Exp Str=userfiles.f_weizhi\=&gt;Completed}" />
                             </a:Data.Prop>
                         </TextBox>
+                        <TextBox Text="{m:Bind Path=f_usertype}" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_usertype" NoDependValue="{m:Exp Str=userfiles.f_usertype\=&gt;Completed}" />
+                            </a:Data.Prop>
+                        </TextBox>
                         <TextBox Text="{m:Bind Path=f_payfeevalid}" Visibility="Collapsed" Grid.Column="1" Margin="0" Grid.Row="9" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_payfeevalid" 

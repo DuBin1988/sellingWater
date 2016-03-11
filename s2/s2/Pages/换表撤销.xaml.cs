@@ -83,12 +83,11 @@ namespace Com.Aote.Pages
         {
             string sql = "update t_userfiles set f_initcardsellgas = null,f_gasmeterstyle='"
             + f_gasmeterstyle.Text + "',f_meternumber='" + f_meternumber.Text + "',f_gasmetermanufacturers='" + ui_gasmetermanufacturers.Text +
-            "',f_gaswatchbrand='" + ui_gaswatchbrand.Text + "',f_metertype='" + ui_metertype.Text + "',f_gaswatchbrand='" + ui_gaswatchbrand.Text +
-            "',f_gasmeterkoujing='" + ui_gasmeterkoujing.Text + "' where id=" + ui_id.Text;
+            "',f_gaswatchbrand='" + ui_gaswatchbrand.Text + "',f_metertype='" + ui_metertype.Text + "',f_gasmeterkoujing='" + ui_gasmeterkoujing.Text + "' where f_userid=" + f_userid.Text;
             HQLAction action1 = new HQLAction();
             action1.HQL = sql;
             action1.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
-            action1.Name = "t_changmeter";
+            action1.Name = "t_userfiles";
             action1.Completed += action_Completed1;
             action1.Invoke();
         }

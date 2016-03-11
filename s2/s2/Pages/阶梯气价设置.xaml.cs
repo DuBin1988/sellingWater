@@ -27,8 +27,8 @@ namespace Com.Aote.Pages
         {
             InitializeComponent();
             ui_StairSearch.DataContext = stairSearch;
-            ui_stairDataGaid.ItemsSource = stairList;
-            extraPrice.ItemsSource = extraPriceList;
+            //ui_stairDataGaid.ItemsSource = stairList;
+            //extraPrice.ItemsSource = extraPriceList;
         }
 
         private void ui_StairSearchButton_Click(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ namespace Com.Aote.Pages
                     ui_searchBusy.IsBusy = true;
                     // 通过执行sql语句进行设置
                     string sql = "update t_stairprice set f_stairtype='" + ui_stairtype.Text + "', f_stair1amount=" + ui_stair1amount.Text + " , "+
-                        "f_stair1price=" + ui_stair1price.Text + " , f_stair2amount='" + ui_stair2amount.Text + "', f_stair2price=" + ui_stair2price.Text + ",f_stair3amount='" + ui_stair3amount.Text + "', f_stair3price=" + ui_stair3price.Text + ", f_stair4price=" + ui_stair4price.Text + ", f_zongjiprice=" + ui_zongjiprice.Text + " ,f_stairmonths=" + ui_stairmonths.SelectedValue + " where id=" + ui_id.Text;
+                        "f_stair1price=" + ui_stair1price.Text + " , f_stair2amount='" + ui_stair2amount.Text + "', f_stair2price=" + ui_stair2price.Text + ",f_stair3amount='" + ui_stair3amount.Text + "', f_stair3price=" + ui_stair3price.Text + ", f_stair4price=" + ui_stair4price.Text + ",f_stairmonths=" + ui_stairmonths.SelectedValue + " where id=" + ui_id.Text;
                     HQLAction action = new HQLAction();
                     action.HQL = sql;
                     action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
@@ -90,7 +90,6 @@ namespace Com.Aote.Pages
                     obj.SetPropertyValue("f_stair3amount", ui_stair3amount.Text, false);
                     obj.SetPropertyValue("f_stair3price", ui_stair3price.Text, false);
                     obj.SetPropertyValue("f_stair4price", ui_stair4price.Text, false);
-                    obj.SetPropertyValue("f_zongjiprice", ui_zongjiprice.Text, false);
                     obj.SetPropertyValue("f_stairmonths", ui_stairmonths.SelectedValue, false);
                     obj.SetPropertyValue("extraprice", extraPrice.ItemsSource, false);
                     obj.Name = "t_stairprice";
@@ -107,8 +106,14 @@ namespace Com.Aote.Pages
             save.Invoke();
         }
   
-        private void action_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
+    
+    private void action_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {                             
+            //string sql = "update t_stairprice set f_zongjiprice =（select sum(f_extraprice) from t_extraprice where parentid = " + ui_id.Text + ") where id =" + ui_id.Text;
+            //HQLAction action = new HQLAction();
+            //action.HQL = sql;
+            //action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
+            //action.Invoke();
             stairList.IsOld = true;
             ui_searchBusy.IsBusy = false;
             Clear();
@@ -116,6 +121,11 @@ namespace Com.Aote.Pages
 
         private void obj_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
+            //string sql = "update t_stairprice set f_zongjiprice =（select sum(f_extraprice) from t_extraprice where parentid = " + ui_id.Text + ") where id =" + ui_id.Text;
+            //HQLAction action = new HQLAction();
+            //action.HQL = sql;
+            //action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
+            //action.Invoke();
             stairList.IsOld = true;
             ui_searchBusy.IsBusy = false;
             Clear();
@@ -154,7 +164,7 @@ namespace Com.Aote.Pages
             ui_stair3amount.Text = "";
             ui_stair3price.Text = "";
             ui_stair4price.Text = "";
-            ui_zongjiprice.Text = "";
+            //ui_zongjiprice.Text = "";
             ObjectList canvel = (from p in loader.Res where p.Name.Equals("extraPricelist") select p).First() as ObjectList;
             canvel.Clear();
             ui_stairmonths.SelectedValue = "";
