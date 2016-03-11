@@ -31,17 +31,22 @@
 
             <!--废单对象-->
             <o:GeneralObject Name="pipelinego" EntityType="t_changmeter" WebClientInfo="{StaticResource dbclient}" >
-                <o:PropertySetter PropertyName="f_state" Default="传单作废"></o:PropertySetter>
-                <o:PropertySetter PropertyName="f_dengjistate" Default="申请作废"></o:PropertySetter>
             </o:GeneralObject>
-
+            <!--更改换表对象-->
+            <b:HQLAction Name="updatemeter" WebClientInfo="{StaticResource server}">
+                <b:HQLAction.HQL>
+                    <m:Exp Str="
+                $update t_changmeter set f_state='传单作废', f_dengjistate='申请作废',f_chedannote='{pipelinego.f_chedannote}' where f_changemeterid='{pipelinego.f_changemeterid}'">
+                     </m:Exp>
+                </b:HQLAction.HQL>
+            </b:HQLAction>
             <!--换表申请状态列表-->
             <o:PagedObjectList Name="pipelineslist" WebClientInfo="{StaticResource dbclient}"
-            Path="{m:Exp Str=$from t_changmeter where \{pipelinesearch.DataContext.Condition\} and f_dengjistate\=\'申请未处理\' and f_filiale \=\'\{LoginUser.f_fengongsi\}\'}"
+            Path="{m:Exp Str=$from t_changmeter where \{pipelinesearch.DataContext.Condition\} and f_state\=\'换表申请\' and f_dengjistate\=\'申请未处理\' and f_filiale \=\'\{LoginUser.f_fengongsi\}\'}"
 			PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="f_times"/>
             <!--用户对象-->
-            <o:GeneralObject Name="userfiles" NotEmpty="true" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}"
-            Path="{m:Exp Str=card.CardId\=>ReadCompleted!\=null and card.Factory!\=null:$one/from t_userfiles where f_cardid\=\'\{card.CardId\}\' and f_aliasname\=\'\{card.Factory\}\' and f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,pipelines.SelectedItem.f_userid\=>SelectionChanged\!\=null:$one/from t_userfiles where f_userid\=\'\{pipelines.SelectedItem.f_userid\}\' and f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,$null$}">
+            <o:GeneralObject Name="userfiles" NotEmpty="true" EntityType="t_changmeter" WebClientInfo="{StaticResource dbclient}"
+            Path="{m:Exp Str=card.CardId\=>ReadCompleted!\=null and card.Factory!\=null:$one/from t_changmeter where f_cardid\=\'\{card.CardId\}\' and f_aliasname\=\'\{card.Factory\}\' and f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,pipelines.SelectedItem.f_userid\=>SelectionChanged\!\=null:$one/from t_changmeter where f_userid\=\'\{pipelines.SelectedItem.f_userid\}\' and f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,$null$}">
             </o:GeneralObject>
             <!--卡对象-->
             <oo:NewGeneralICCard Name="card"    
@@ -69,8 +74,7 @@
             </oo:NewGeneralICCard>
             <b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}"   
 		   	CanSave="{m:Exp Str=card.State\=\=$End$ |or| onlySave\=>Click!\=null}" >
-                <b:BatchInfo Source="{m:Exp Str=pipelinego}" MethodName="SaveToJson"/>
-                <b:BatchInfo Source="{m:Exp Str=userfiles}" MethodName="SaveToJson"/>
+                <b:BatchInfo Source="{m:Exp Str=updatemeter}"  MethodName="InvokeToJson"/>
             </b:BatchExcuteAction>
         </m:ResourceLoad>
         <Grid>
@@ -91,8 +95,9 @@
                         </a:Data.Context>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -101,15 +106,27 @@
                                 <RowDefinition Height="28"/>
                             </Grid.RowDefinitions>
                             <TextBlock TextWrapping="Wrap" Text="用户编号：" HorizontalAlignment="Right"/>
-                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
+                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userinfoid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
+                                <a:Data.Prop>
+                                    <o:PropertySetter PropertyName="f_userinfoid" Operator="f_userinfoid like 'this%'"/>
+                                </a:Data.Prop>
+                            </TextBox>
+                            <TextBlock TextWrapping="Wrap" Grid.Column="2" Text="用户姓名：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
+                            <TextBox TextWrapping="Wrap" Grid.Column="3" Height="25"  Text="{m:Bind Path=f_username}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                                <a:Data.Prop>
+                                    <o:PropertySetter PropertyName="f_username" Operator="f_username like 'this%'"/>
+                                </a:Data.Prop>
+                            </TextBox>
+                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="表具编号：" HorizontalAlignment="Right"/>
+                            <TextBox TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
                                 <a:Data.Prop>
                                     <o:PropertySetter PropertyName="f_userid" Operator="f_userid like 'this%'"/>
                                 </a:Data.Prop>
                             </TextBox>
-                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="用户姓名：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
-                            <TextBox TextWrapping="Wrap" Grid.Row="1" Height="25" Grid.Column="1" Text="{m:Bind Path=f_username}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Grid.Column="2" Text="水表钢印号：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
+                            <TextBox TextWrapping="Wrap" Grid.Column="3" Grid.Row="1" Height="25"  Text="{m:Bind Path=f_meternumber}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
                                 <a:Data.Prop>
-                                    <o:PropertySetter PropertyName="f_username" Operator="f_username like 'this%'"/>
+                                    <o:PropertySetter PropertyName="f_meternumber" Operator="f_meternumber like 'this%'"/>
                                 </a:Data.Prop>
                             </TextBox>
                             <Button Content="查 询" x:Name="searchbutton" Grid.Column="2" Grid.Row="2" Click="{m:Exp Str=pipelinesearch.DataContext.Search()}" Margin="0,-1,5,0" HorizontalAlignment="Right" Width="50" Height="28" VerticalAlignment="Top"/>
@@ -127,8 +144,11 @@
 
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn Header="序号" Binding="{Binding Index}" d:IsLocked="True"/>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="换表单号" Binding="{Binding f_changemeterid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}" d:IsLocked="True"/>
                         </sdk:DataGrid.Columns>
@@ -140,7 +160,7 @@
                 <Grid Background="{x:Null}" x:Name="pipeline" DataContext="{m:Exp Str=pipelinego}" Margin="0" >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="30" Margin="261,0,202,19">
                         <Button x:Name="onlySave" Content=" 保 存 " Margin="20,0,0,0" Width="50"
-            			IsEnabled="{m:Exp Str=!pipeline.DataContext.HasErrors}"/>
+            			IsEnabled="{m:Exp Str=!pipeline.DataContext.HasErrors}" Click="{m:Exp Str=pipeline.DataContext.New()}"/>
                         <Button Content="撤 销" Margin="20,0,5,0" Click="{m:Exp Str=pipeline.DataContext.New();userfiles.New()}" Width="49"/>
                     </StackPanel>
                     <Grid Margin="0,0,0,54" Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" >
@@ -169,7 +189,8 @@
                             <RowDefinition Height="70" />
 
                         </Grid.RowDefinitions>
-                        <TextBlock Margin="0" TextWrapping="Wrap" Text="用户编号：" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0,9,0,1" TextWrapping="Wrap" Text="用户编号：" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0" Grid.Column="2" TextWrapping="Wrap" Text="表具编号：" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" TextWrapping="Wrap" Text="用户姓名：" Grid.Row="1" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="换表单号：" Grid.Row="5" Height="25" TextAlignment="Right"/>
                         <!--<TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="申请状态：" Grid.Row="5" Height="25" Grid.Column="2" TextAlignment="Right"/>-->
@@ -191,12 +212,17 @@
                         </TextBox>-->
                         <TextBox Text="{m:Bind Path=f_changemeterid}"  Grid.Column="1" Margin="0,3,0,4" Grid.Row="5" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch"  Width="Auto" IsReadOnly="True">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_changemeterid"/>
+                                <o:PropertySetter PropertyName="f_changemeterid"  Value="{m:Exp Str=userfiles.f_changemeterid\=&gt;Completed}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <!--<TextBlock Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="新表钢印号：" Height="25" Grid.Column="0" TextAlignment="Right"/>-->
                         <TextBlock Margin="0,1" Grid.Row="17" TextWrapping="Wrap" Text="撤单原因：" Height="25" TextAlignment="Right"/>
-                        <TextBox Text="{m:Bind Path=f_userid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                        <TextBox Text="{m:Bind Path=f_userinfoid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_userinfoid" NoDependValue="{m:Exp Str=userfiles.f_userinfoid\=&gt;Completed}"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox Text="{m:Bind Path=f_userid}" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_userid" NoDependValue="{m:Exp Str=userfiles.f_userid\=&gt;Completed}"/>
                             </a:Data.Prop>
@@ -230,7 +256,7 @@
                                 <o:PropertySetter PropertyName="f_oldcurrentbase" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>-->
-                        <TextBox Text="{m:Bind Path=f_address}" Grid.Column="1" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25" Grid.ColumnSpan="3">
+                        <TextBox Text="{m:Bind Path=f_address}" Grid.Column="1" Margin="0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25" Grid.ColumnSpan="2">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_address" NoDependValue="{m:Exp Str=userfiles.f_address\=&gt;Completed}"/>
                             </a:Data.Prop>

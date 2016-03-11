@@ -36,8 +36,9 @@
                         </a:Data.Context>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -46,18 +47,30 @@
                                 <RowDefinition Height="28"/>
                             </Grid.RowDefinitions>
                             <TextBlock TextWrapping="Wrap" Text="用户编号：" HorizontalAlignment="Right"/>
-                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
+                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userinfoid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
                                 <a:Data.Prop>
-                                    <o:PropertySetter PropertyName="f_userid" Operator="f_userid like 'this%'"/>
+                                    <o:PropertySetter PropertyName="f_userinfoid" Operator="f_userinfoid like 'this%'"/>
                                 </a:Data.Prop>
                             </TextBox>
-                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="用户姓名：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
-                            <TextBox TextWrapping="Wrap" Grid.Row="1" Height="25" Grid.Column="1" Text="{m:Bind Path=f_username}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                            <TextBlock TextWrapping="Wrap" Grid.Column="2" Text="用户姓名：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
+                            <TextBox TextWrapping="Wrap" Grid.Column="3" Height="25"  Text="{m:Bind Path=f_username}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
                                 <a:Data.Prop>
                                     <o:PropertySetter PropertyName="f_username" Operator="f_username like 'this%'"/>
                                 </a:Data.Prop>
                             </TextBox>
-                            <Button Content="查 询" x:Name="searchbutton" Grid.Column="2" Grid.Row="2" Click="searchbutton_Click"  Margin="0,-1,5,0" HorizontalAlignment="Right" Width="50" Height="28" VerticalAlignment="Top"/>
+                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="表具编号：" HorizontalAlignment="Right"/>
+                            <TextBox TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
+                                <a:Data.Prop>
+                                    <o:PropertySetter PropertyName="f_userid" Operator="f_userid like 'this%'"/>
+                                </a:Data.Prop>
+                            </TextBox>
+                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Grid.Column="2" Text="水表钢印号：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
+                            <TextBox TextWrapping="Wrap" Grid.Column="3" Grid.Row="1" Height="25"  Text="{m:Bind Path=f_meternumber}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                                <a:Data.Prop>
+                                    <o:PropertySetter PropertyName="f_meternumber" Operator="f_meternumber like 'this%'"/>
+                                </a:Data.Prop>
+                            </TextBox>
+                            <Button Content="查 询" x:Name="searchbutton" Grid.Column="2" Grid.Row="2" Click="searchbutton_Click" Margin="0,-1,5,0" HorizontalAlignment="Right" Width="50" Height="28" VerticalAlignment="Top"/>
                             <TextBlock TextWrapping="Wrap" Grid.Row="2" Text="地　　址：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top" Margin="0,2,0,0"/>
                             <TextBox TextWrapping="Wrap" Grid.Row="2" Height="25" Grid.Column="1" Text="{m:Bind Path=f_address}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
                                 <a:Data.Prop>
@@ -70,12 +83,13 @@
 
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn Header="序号" Binding="{Binding Index}" d:IsLocked="True"/>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="换表单号" Binding="{Binding f_changemeterid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}" d:IsLocked="True"/>
-
                             <sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}" d:IsLocked="True"/>
-
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel >
@@ -107,7 +121,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="30"/>
-                            <RowDefinition Height="0"/>
+                            <RowDefinition Height="30"/>
                             <RowDefinition Height="0"/>
                             <RowDefinition Height="0"/>
                             <RowDefinition Height="0"/>
@@ -128,17 +142,20 @@
                         </Grid.RowDefinitions>
                         <TextBlock Margin="0" TextWrapping="Wrap" Text="用户编号：" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" TextWrapping="Wrap" Text="用户姓名：" Grid.Row="0" Grid.Column="2" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0" TextWrapping="Wrap" Text="换表编号：" Grid.Row="0" Grid.Column="4" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0" TextWrapping="Wrap" Text="换表单号：" Grid.Row="0" Grid.Column="4" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0" TextWrapping="Wrap" Text="表具编号：" Grid.Row="1" Grid.Column="4" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" TextWrapping="Wrap" Text="用户地址：" Height="25" Grid.Row="1" TextAlignment="Right"/>
+                        <TextBlock Margin="0" TextWrapping="Wrap" Text="新表起度：" Height="25" Grid.Row="2" TextAlignment="Right"/>
+                        <TextBlock Margin="0" TextWrapping="Wrap" Text="新表底数：" Grid.Column="2" Height="25" Grid.Row="2" TextAlignment="Right"/>
                         <TextBlock Margin="0,3,0,2" Grid.Row="7" TextWrapping="Wrap" Text="撤消后表钢印号：" Height="25" TextAlignment="Right" Grid.Column="0"/>
-                        <TextBlock Margin="0" Grid.Row="10" Grid.Column="4" TextWrapping="Wrap" Text="总累计购水量：" Height="25" TextAlignment="Right"/>
-                        <TextBlock Grid.Column="2" Margin="0" Grid.Row="10" TextWrapping="Wrap" Text="表累计购水量：" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0" Grid.Row="11" TextWrapping="Wrap" Text="旧表底数：" Grid.Column="0" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0" Grid.Row="11" TextWrapping="Wrap" Text="撤消后表底数：" Grid.Column="2" Height="25" TextAlignment="Right"/>
+                        <!--<TextBlock Margin="0" Grid.Row="10" Grid.Column="4" TextWrapping="Wrap" Text="总累计购水量：" Height="25" TextAlignment="Right"/>-->
+                        <TextBlock Grid.Column="4" Margin="0" Grid.Row="10" TextWrapping="Wrap" Text="表累计购水量：" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0" Grid.Row="10" TextWrapping="Wrap" Text="旧表底数：" Grid.Column="0" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0" Grid.Row="11" TextWrapping="Wrap" Text="撤消后表底数：" Grid.Column="0" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="撤消后水表品牌：" Grid.Column="2" Height="25" TextAlignment="Right"/>
                         <TextBlock Grid.Column="2" Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="撤销后水表型号：" Height="25" TextAlignment="Right"/>
                         <TextBlock Grid.Column="4" Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="撤销后水表口径：" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0" Grid.Row="10" TextWrapping="Wrap" Text="撤销表日期：" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0" Grid.Row="10" TextWrapping="Wrap" Text="撤销表日期：" Grid.Column="2" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="撤消后水表厂家：" Grid.Column="0" Height="25" TextAlignment="Right"/>
                         <TextBlock Grid.Column="4" Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="撤消后水表类型：" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,1" Grid.Row="16" TextWrapping="Wrap" Text="备      注：" Height="25" TextAlignment="Right"/>
@@ -146,9 +163,19 @@
                         <TextBlock Margin="0" Grid.Row="14" TextWrapping="Wrap" Text="本次补水量：" Height="25" TextAlignment="Right"/>-->
                         <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="18" TextWrapping="Wrap" Text="操 作 人：" Height="25" TextAlignment="Right" HorizontalAlignment="Left" Width="110"/>
                         <TextBlock Grid.Column="4" Margin="0" Grid.Row="18" TextWrapping="Wrap" Text="操作日期：" Height="25" TextAlignment="Right"/>
-                        <TextBox Text="{m:Bind Path=f_userid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                        <TextBox Text="{m:Bind Path=f_userinfoid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_userid" />
+                                <o:PropertySetter PropertyName="f_userinfoid" />
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox Text="{m:Bind Path=f_newcurrentbase}" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_newcurrentbase" />
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox Text="{m:Bind Path=f_newgasmeteraccomodations}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_newgasmeteraccomodations" />
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_username}" Grid.Column="3" Margin="0,3,0,2" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="0" Grid.ColumnSpan="1" IsReadOnly="True" Height="25">
@@ -176,7 +203,7 @@
                                 <o:PropertySetter PropertyName="f_gaswatchbrand" />
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_meternumber}" Grid.Column="1" Margin="0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25" Grid.ColumnSpan="1">
+                        <TextBox x:Name="f_meternumber" Text="{m:Bind Path=f_meternumber}" Grid.Column="1" Margin="0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25" Grid.ColumnSpan="1">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_meternumber"  />
                             </a:Data.Prop>
@@ -191,24 +218,24 @@
                                 <o:PropertySetter PropertyName="f_gasmeterkoujing"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_cumulativepurchase}"  Grid.Column="5" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" IsHitTestVisible="True" IsReadOnly="True" Height="25">
+                        <!--<TextBox Text="{m:Bind Path=f_cumulativepurchase}"  Grid.Column="5" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" IsHitTestVisible="True" IsReadOnly="True" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_cumulativepurchase"  />
                             </a:Data.Prop>
-                        </TextBox>
-                        <TextBox Text="{m:Bind Path=f_metergasnums}"  Grid.Column="3" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                        </TextBox>-->
+                        <TextBox Text="{m:Bind Path=f_metergasnums}"  Grid.Column="5" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_metergasnums" />
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_oldcurrentbase}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="11" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                        <TextBox Text="{m:Bind Path=f_oldcurrentbase}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_oldcurrentbase" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_cancelcurrentbase}" IsReadOnly="True" Grid.Column="3" Margin="0" Grid.Row="11" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                        <TextBox x:Name="f_cancelcurrentbase" Text="{m:Bind Path=f_cancelcurrentbase}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="11" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_cancelcurrentbase" NotNull="True"/>
+                                <o:PropertySetter PropertyName="f_cancelcurrentbase" NotNull="True" Value="{m:Exp Str=pipeline.DataContext.f_newcurrentbase}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <Border  Grid.Row="6" Margin="5,0,0,0" BorderThickness="0,0,0,3"  Grid.ColumnSpan="6" >
@@ -219,19 +246,19 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        <sdk:DatePicker x:Name="ui_f_canceldate" SelectedDate="{m:Bind Path=f_canceldate}" IsEnabled="False" Grid.Column="1" Margin="0" Grid.Row="10" VerticalAlignment="Stretch" Height="25">
+                        <sdk:DatePicker x:Name="ui_f_canceldate" SelectedDate="{m:Bind Path=f_canceldate}" Grid.Column="3" Margin="0" Grid.Row="10" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_canceldate"/>
                             </a:Data.Prop>
                         </sdk:DatePicker>
-                        <TextBox x:Name="f_newgasmeterstyle" Text="{m:Bind Path=f_newgasmeterstyle}" Grid.Column="5" Margin="0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Height="25" >
+                        <TextBox x:Name="f_gasmeterstyle" Text="{m:Bind Path=f_gasmeterstyle}" Grid.Column="5" Margin="0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Height="25" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newgasmeterstyle"/>
+                                <o:PropertySetter PropertyName="f_gasmeterstyle"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_newgasmeteraccomodations}" IsReadOnly="True" Grid.Column="5" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                        <TextBox x:Name="f_userid" Text="{m:Bind Path=f_userid}" IsReadOnly="True" Grid.Column="5" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newgasmeteraccomodations" />
+                                <o:PropertySetter PropertyName="f_userid" />
                             </a:Data.Prop>
                         </TextBox>
                         <!--<TextBox Text="{m:Bind Path=f_cmaddgas}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="13" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" Foreground="#FFFD0606">
