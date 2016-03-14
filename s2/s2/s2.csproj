@@ -130,6 +130,9 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\批量上传表计信息.xaml.cs">
+      <DependentUpon>批量上传表计信息.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\抄表册状态查询.xaml.cs">
       <DependentUpon>抄表册状态查询.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,9 @@
     </Compile>
     <Compile Include="Pages\用水量减免.xaml.cs">
       <DependentUpon>用水量减免.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\表计信息查询.xaml.cs">
+      <DependentUpon>表计信息查询.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\转费收费补打.xaml.cs">
       <DependentUpon>转费收费补打.xaml</DependentUpon>
@@ -1534,6 +1540,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\批量上传表计信息.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\抄表册状态查询.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1611,6 +1621,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\用水量减免.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\表计信息查询.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

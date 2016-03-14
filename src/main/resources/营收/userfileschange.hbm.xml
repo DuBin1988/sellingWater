@@ -389,6 +389,8 @@
 		<property name="f_stair4price" type="double"/>
 		<!--阶段月数-->
 		<property name="f_stairmonths" type="int"/>
+		<!--附加单价总和-->
+		<property name="f_zongjiprice" type="double"/>
 		
 		<!--阶梯气价类型-->
 		<property name="f_stairtypechange" type="string"/>
@@ -408,6 +410,8 @@
 		<property name="f_stair4pricechange" type="double"/>
 		<!--阶段月数-->
 		<property name="f_stairmonthschange" type="int"/>
+		<!--附加单价总和-->
+		<property name="f_zongjipricechange" type="double"/>
 		
 <!-- 抄表系统 对接       -->
 		<!--表具状态-->
