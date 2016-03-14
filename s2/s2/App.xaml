@@ -41,6 +41,8 @@
         <o:WebClientInfo x:Key="noteserver" BaseAddress="http://127.0.0.1:83/rs/sms"/>
         <o:WebClientInfo x:Key="chargeserver"  BaseAddress="http://127.0.0.1:8080/rs/charge"/>
         <o:WebClientInfo x:Key="tunnelurl"  BaseAddress="http://127.0.0.1:8080/rs/tunnel"/>
+        <o:WebClientInfo x:Key="moretableTel"  BaseAddress="http://127.0.0.1:8080/rs/db/table/f_meternumber/meter_phone"/>
+        <o:WebClientInfo x:Key="moreuserinfo"  BaseAddress="http://127.0.0.1:8080/rs/db/user/wulian_old/true/f_meternumber/f_aliasname"/>
 
          
  
@@ -55,7 +57,9 @@
         <o:WebClientInfo x:Key="reportclient2" BaseAddress="http://127.0.0.1:8080/"/>
         <o:WebClientInfo x:Key="noteserver" BaseAddress="http://127.0.0.1:82/rs/sms"/>
         <o:WebClientInfo x:Key="chargeserver"  BaseAddress="http://127.0.0.1:8080/rs/charge"/>
-        <o:WebClientInfo x:Key="tunnelurl"  BaseAddress="http://127.0.0.1:8080/rs/tunnel"/>--> 
+        <o:WebClientInfo x:Key="tunnelurl"  BaseAddress="http://127.0.0.1:8080/rs/tunnel"/>
+        <o:WebClientInfo x:Key="moretableTel"  BaseAddress="http://127.0.0.1:8080/rs/db/table/f_meternumber/meter_phone"/>
+        <o:WebClientInfo x:Key="moreuserinfo"  BaseAddress="http://127.0.0.1:8080/rs/db/user/wulian_old/true/f_meternumber/f_aliasname"/>--> 
 
 
         <!--<o:WebClientInfo x:Key="ldapaddress" BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1res/rs"/>
@@ -69,7 +73,9 @@
         <o:WebClientInfo x:Key="reportclient2" BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1/"/>
         <o:WebClientInfo x:Key="noteserver" BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1res/rs/sms"/>
         <o:WebClientInfo x:Key="chargeserver"  BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1/rs/charge"/>
-        <o:WebClientInfo x:Key="tunnelurl"  BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1/rs/tunnel"/>-->
+        <o:WebClientInfo x:Key="tunnelurl"  BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1/rs/tunnel"/>
+        <o:WebClientInfo x:Key="moretableTel"  BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1/rs/db/table/f_meternumber/meter_phone"/>
+        <o:WebClientInfo x:Key="moreuserinfo"  BaseAddress="http://125.76.225.223:48080/sellingwaterV1.1/rs/db/user/wulian_old/true/f_meternumber/f_aliasname"/>-->
 
     </Application.Resources>
  

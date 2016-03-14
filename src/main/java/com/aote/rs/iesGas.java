@@ -268,14 +268,14 @@ public class iesGas {
 		 *  {"customer_code":"11055492","returnvalue":"0"}]
 		 * @throws Exception
 		 */
-		@Path("gascz/comand")
+		@Path("gasbk/comand")
 		@POST
 		@Produces("application/json")
-		public String gasczcomand(String Obj) throws Exception{
+		public String bkcomand(String Obj) throws Exception{
 			log.debug("充值、冲正数据同步：" + Obj);
-			return jsonpost(3,Obj,"chargesMeter","");
-		}	
-		
+			return jsonpost(6,Obj,"chargesMeter","");
+		}
+
 		//充值冲正 ---------------------------------------------------------------------------------------------------->
 		/**
 		 * 
@@ -287,12 +287,12 @@ public class iesGas {
 		 *  {"customer_code":"11055492","returnvalue":"0"}]
 		 * @throws Exception
 		 */
-		@Path("gasbk/comand")
+		@Path("gascz/comand")
 		@POST
 		@Produces("application/json")
-		public String bkcomand(String Obj) throws Exception{
+		public String gasczcomand(String Obj) throws Exception{
 			log.debug("充值、冲正数据同步：" + Obj);
-			return jsonpost(6,Obj,"chargesMeter","");
+			return jsonpost(3,Obj,"chargesMeter","");
 		}	
 		
 		//档案状态---------------------------------------------------------------------------------------------------->
