@@ -85,7 +85,7 @@
                                 <RowDefinition Height="28"/>
                             </Grid.RowDefinitions>
                             <TextBlock TextWrapping="Wrap" Text="用户编号：" Margin="5,0,0,0" HorizontalAlignment="Right"/>
-                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userid}" a:ControlAttach.DefaultButton="searchbutton" >
+                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userinfoid}" a:ControlAttach.DefaultButton="searchbutton" >
                                 <a:Data.Prop>
                                     <o:PropertySetter PropertyName="f_userid" Operator="f_userid like 'this%'"/>
                                 </a:Data.Prop>
@@ -116,7 +116,8 @@
 
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn Header="序号" Binding="{Binding Index}" d:IsLocked="True"/>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="小区" Binding="{Binding f_districtname}" d:IsLocked="True"/>
@@ -177,6 +178,7 @@
                             <RowDefinition Height="35"/>
                         </Grid.RowDefinitions>
                         <TextBlock TextWrapping="Wrap" Text="用户编号：" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,6"/>
+                        <TextBlock TextWrapping="Wrap" Grid.Column="2" Text="表具编号：" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,6"/>
                         <TextBlock Grid.Column="4" Margin="0,6" TextWrapping="Wrap" Text="用户姓名：" HorizontalAlignment="Right"/>
                         <TextBlock Margin="0,6" Grid.Row="1" TextWrapping="Wrap" Text="用户地址：" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         <TextBlock Margin="0,6" Grid.Row="2" TextWrapping="Wrap" Text="身份证号：" HorizontalAlignment="Right" VerticalAlignment="Center"/>
@@ -198,7 +200,12 @@
                         <TextBlock Margin="0,6" Grid.Row="8" TextWrapping="Wrap" Text="操 作 人：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2"/>
                         <TextBlock Grid.Column="4" Margin="0,6" Grid.Row="8" TextWrapping="Wrap" Text="部      门：" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         <TextBlock Margin="0,6" Grid.Row="8" TextWrapping="Wrap" Text="操作日期：" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Black"/>
-                        <TextBox Text="{m:Bind Path=f_userid}" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="Auto">
+                        <TextBox Text="{m:Bind Path=f_userinfoid}" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="Auto">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=userfiles.f_userinfoid\=>Completed}"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox Text="{m:Bind Path=f_userid}" IsReadOnly="True" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="Auto">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=userfiles.f_userid\=>Completed}"/>
                             </a:Data.Prop>

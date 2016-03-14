@@ -1052,12 +1052,18 @@ public class HandCharge {
 				JSONObject row = rows.getJSONObject(i);
 				String userid = row.getString("userid");
 				String stairtype = row.getString("stairType");
-				String id = row.getString("id");
+				//String id = row.getString("id");
 				double reading = row.getDouble("reading");
 				double pregas = row.getDouble("pregas");
 				double lastreading = row.getDouble("lastreading");
 				// 获取余气量，机表录入，没有余气量，传Double.NaN
 				double leftgas = 0;
+				//查抄表记录id
+				Map map = this.findHandPlan(userid);
+				if (map == null) {
+					return "";
+				}
+				String id = map.get("id").toString();
 				if (row.has("leftgas")) {
 					leftgas = row.getDouble("leftgas");
 				}

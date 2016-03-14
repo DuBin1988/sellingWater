@@ -9,12 +9,14 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Com.Aote.ObjectTools;
 using Com.Aote.Behaviors;
+using System.Net;
 using System.Linq;
 
 namespace Com.Aote.Pages
 {
 	public partial class 档案变更 : UserControl
 	{
+        String userid = "";
 		public 档案变更()
 		{
 			InitializeComponent();
@@ -43,5 +45,23 @@ namespace Com.Aote.Pages
             save.Invoke();
             //updatehandplan.New();
         }
-	}
+
+        #region saveButton_Click 过户保存按钮按下时
+        private void save1_Click(object sender, RoutedEventArgs e)
+        {
+            ui_apply.IsBusy = true;
+
+            GeneralObject obj = apply.DataContext as GeneralObject;
+            userid = obj.GetPropertyValue("f_userid") + "";
+
+            SyncActionFactory save = (from p in loader.Res where p.Name.Equals("t_SaveAction") select p).First() as SyncActionFactory;
+            save.Invoke();
+
+        }
+
+
+
+       
+        #endregion
+    }
 }

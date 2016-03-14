@@ -55,6 +55,8 @@
 		<property name="f_watchnum" type="string"/>
 		<!--水表口径-->
 		<property name="f_gasmeterkoujing" type="string"/>
+		<!--水表周期-->
+		<property name="f_cycle" type="string"/>
 		<!--脉冲(表系数)-->
 		<property name="f_maichong" type="string"/>
 	</class>

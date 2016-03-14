@@ -73,7 +73,7 @@ namespace Com.Aote.Pages
                     json += ',';
                 }
                 //产生要发送后台的JSON串
-                json += ("{userid:" + go.GetPropertyValue("f_userid") + ",reading:" + lastrecord + ",lastreading:" +lastinputnum + ",stairType:" + stairType + ",pregas:" + pregas+ ",id:" + id + "}");
+                json += ("{userid:" + go.GetPropertyValue("f_userid") + ",reading:" + lastrecord + ",lastreading:" +lastinputnum + ",stairType:" + stairType + ",pregas:" + pregas+ "}");
             }
 
             json += "]";

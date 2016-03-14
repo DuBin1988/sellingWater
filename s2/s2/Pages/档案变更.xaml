@@ -140,11 +140,16 @@
             </o:GeneralObject>
             <!--过户档案对象-->
             <o:GeneralObject Name="transferuser" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}"
-                 Path="{m:Exp Str=$one/from t_userfiles where f_userid\=\'\{userfiles.SelectedItem.f_userid\}\'}">
+                 Path="{m:Exp Str=$one/from t_userinfo where f_userid\=\'\{userfiles.SelectedItem.f_userinfoid\}\'}">
                 <o:PropertySetter PropertyName="f_username" NoDependValue="{m:Exp Str=apply.DataContext.f_tnewusername}"/>
                 <o:PropertySetter PropertyName="f_idnumber" NoDependValue="{m:Exp Str=apply.DataContext.f_tnewidnumber}"/>
                 <o:PropertySetter PropertyName="f_phone" NoDependValue="{m:Exp Str=apply.DataContext.f_tnewphone}"/>
+                <o:PropertySetter PropertyName="refreshCache" NoDependValue="{m:Exp Str=$0$}"/>
             </o:GeneralObject>
+            <!--过户更新表档案-->
+            <!-- 最新指数插入记录 -->
+            <b:HQLAction Name="updateUsername" WebClientInfo="{StaticResource dbclient}" Type="sql" 
+			HQL="{m:Exp Str=$update t_userfiles set f_username\=\'\{apply.DataContext.f_username\}\' where f_userinfoid\=\'\{apply.DataContext.f_userid\}\' }"/>
             <!--过户记录-->
             <o:GeneralObject  Name="applygo" WebClientInfo="{StaticResource dbclient}" 
 		    EntityType="t_transfer"  IsInit="{m:Exp Str=t_SaveAction.State\=\=$End$}">
@@ -170,6 +175,7 @@
                 <!--过户保存数据-->
                 <b:CallMethodAction Name="savetu" TargetObject="{m:Exp Str=transferuser}" MethodName="Save"/>
                 <b:CallMethodAction Name="savet" TargetObject="{m:Exp Str=apply.DataContext}" MethodName="Save"/>
+                <b:CallMethodAction Name="updatet" TargetObject="{m:Exp Str=updateUsername}" MethodName="Invoke"/>
             </b:SyncActionFactory>
             <b:SyncActionFactory Name="p_SaveAction">
                 <!--过户保存数据-->
@@ -263,7 +269,7 @@
                     </toolkit:DockPanel>
                 </Border>
             </c:BusyIndicatorEx>
-            <c:BusyIndicatorEx BusyContent="正在工作，请稍等"  IsBusy="{m:Exp Str=userfile.DataContext.IsBusy or SaveAction.IsBusy or  userfile.IsBusy  or userfiles.ItemsSource.IsBusy}" Margin="5,0,0,0" Grid.Column="1" >
+            <c:BusyIndicatorEx  BusyContent="正在工作，请稍等"  IsBusy="{m:Exp Str=userfile.DataContext.IsBusy or SaveAction.IsBusy or  userfile.IsBusy  or userfiles.ItemsSource.IsBusy}" Margin="5,0,0,0" Grid.Column="1" >
                 <toolkit:DockPanel>
                     
                     <Grid Margin="0,0,0,20" >
@@ -644,7 +650,8 @@
                                 </ScrollViewer>
                             </sdk:TabItem>
                             <sdk:TabItem Header="过  户">
-                                <!--非民用主操作区-->
+                                <!--过户操作区-->
+                                <c:BusyIndicatorEx x:Name="ui_apply" BusyContent="正在工作，请稍等" IsBusy="{m:Exp Str=apply.DataContext.IsBusy}"  Grid.Column="1" Margin="8,0,0,0">
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="Auto">
                                     <Grid Margin="0" x:Name="apply" DataContext="{m:Exp Str=applygo}" HorizontalAlignment="Stretch"  >
                                         <Grid.Background>
@@ -691,7 +698,7 @@
                                             <ColumnDefinition Width="134"/>
                                         </Grid.ColumnDefinitions>
                                         <!--按钮-->
-                                        <Button x:Name="save1" Content="保  存" Grid.Row="11" Grid.Column="5" Margin="2" IsEnabled="{m:Exp Str=apply.DataContext.IsModified and !apply.DataContext.HasErrors}" HorizontalAlignment="Left" Click="{m:Exp Str=t_SaveAction.Invoke()}" Width="50" />
+                                        <Button x:Name="save1" Content="保  存" Grid.Row="11" Grid.Column="5" Margin="2" IsEnabled="{m:Exp Str=apply.DataContext.IsModified and !apply.DataContext.HasErrors}" HorizontalAlignment="Left" Click="save1_Click" Width="50" />
                                         <Button x:Name="cancel1" Content="撤  销" Margin="2" Grid.Row="11" Grid.Column="5" Click="{m:Exp Str=apply.DataContext.New()}" HorizontalAlignment="Right" Width="50"/>
                                         <TextBlock Text="地    址：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.ColumnSpan="2"/>
                                         <TextBlock Text="新用户姓名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2"/>
@@ -888,6 +895,7 @@
                                         </TextBox>
                                     </Grid>
                                 </ScrollViewer>
+                                </c:BusyIndicatorEx>            
                             </sdk:TabItem>
                             <sdk:TabItem Header="交费类型变更">
                                 <!--非民用主操作区-->

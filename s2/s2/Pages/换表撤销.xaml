@@ -228,7 +228,7 @@
                                 <o:PropertySetter PropertyName="f_metergasnums" />
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_oldcurrentbase}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
+                        <TextBox Text="{m:Bind Path=f_oldcurrentbase}"  Grid.Column="1" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_oldcurrentbase" NotNull="True"/>
                             </a:Data.Prop>
