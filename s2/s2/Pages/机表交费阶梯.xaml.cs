@@ -381,7 +381,7 @@ namespace Com.Aote.Pages
             ui_lastinputgasnum.Text = lastnum.ToString("0.#");
             ui_lastrecord.Text = (lastnum + gasSum).ToString("0.#");
             ui_pregas.Text = gasSum.ToString("0.#");
-            ui_preamount.Text = feeSum.ToString("0.##");
+            //ui_preamount.Text = feeSum.ToString("0.##");
             //应交金额=气费-上期结余
             decimal f_totalcost = (feeSum - f_zhye + zhinajin) > 0 ? (feeSum - f_zhye + zhinajin) : 0;
             ui_totalcost.Text = f_totalcost.ToString("0.##");

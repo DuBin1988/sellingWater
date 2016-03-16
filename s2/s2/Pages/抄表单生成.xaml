@@ -52,7 +52,7 @@
 				f_phone\, lastinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\,f_stairtype\,
 				f_zerenbumen\, \'未抄表\'\, \'否\'\, id\, f_cusDom\, f_cusDy 
 			from t_userfiles where f_userstate\=\'正常\' and \{search.Condition\} and f_userid not in
-			(select distinct f_userid from t_handplan where f_state\=\'未抄表\')}"/>
+			(select distinct f_userid from t_handplan where f_state\=\'未抄表\' and f_userid is not null)}"/>
             <!--生成抄表单-->
             <b:BatchExcuteAction Name="CreateHandplan" WebClientInfo="{StaticResource dbclient}">
                 <b:BatchInfo Source="{m:Exp Str=DeleteHandplan}" MethodName="InvokeToJson"/>
