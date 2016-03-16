@@ -108,67 +108,56 @@
 			</o:GeneralObject>-->
 			<!--更新用户对象-->
 			<b:HQLAction Name="UpdateUser" WebClientInfo="{StaticResource dbclient}" 
-				HQL="{m:Exp Str=$update t_userfiles 
-				set
-				f_metergasnums \= \{userfile.DataContext.f_premetergasnums\}\, 
+				HQL="{m:Exp Str=$update t_userinfo 
+				set f_metergasnums \= \{userfile.DataContext.f_premetergasnums\}\, 
 				f_cumulativepurchase\=\{userfile.DataContext.f_upbuynum\}\, 
 				
 				f_zhye \= \{userfile.DataContext.f_zhye\} 
 				where f_userid \= \'\{sellinggas.f_userid\}\' }"/>
 			<!--更新售水记录为无效-->
 			<b:HQLAction Name="UpdateSellgas"   WebClientInfo="{StaticResource dbclient}" 
-				HQL="{m:Exp Str=$update t_sellinggas set f_payfeevalid\=\'无效\'   where id \= \{sellinggas.id\}}"/> 
+				HQL="{m:Exp Str=$update t_sellinggas set f_payfeevalid\=\'冲正\'   where id \= \{sellinggas.id\}}"/> 
 				
 			<!--更新发票记录为作废
 			<b:HQLAction Name="Updatefapiao"   WebClientInfo="{StaticResource dbclient}" 
 				HQL="{m:Exp Str=$update t_fapiaoinfos set f_fapiaostatue\=\'作废\'  where  id \= \{fapiao.id\}}"/> 	-->	    
 			<!--更新抄表记录未交-->
 			<b:HQLAction Name="UpdateHandplan"   WebClientInfo="{StaticResource dbclient}" 
-				HQL="{m:Exp Str=$update t_handplan set shifoujiaofei\=\'否\' where id in (\{userfile.DataContext.f_useful\})}"/>  
-								
-								
-								
-		    <!--清欠对象-->
-		<o:GeneralObject Name="financeobj" NotEmpty="True" LoadOnPathChanged="False" WebClientInfo="{StaticResource dbclient}" EntityType="t_financedetail"
-		 	Path="{m:Exp Str=$one/from t_financedetail where  id \= (select min(id) from t_financedetail where f_payfeevalid\=\'有效\'  and f_payfeetype\=\'交费\' and f_sellid\=\{sellinggas.id\})$}"
-			IsOld="{m:Exp Str=sellinggas.State\=\=$Loaded$}"
-			IsInit="{m:Exp Str=financeobj.State\=\=$LoadError$ |or| sellinggas.State\=\=$LoadError$}">
-			<o:PropertySetter PropertyName="f_payfeevalid" NoDependValue="{m:Exp Str=SaveAction\=>Saving!\=null:$无效$\,null}"/>
-		</o:GeneralObject>
-
-		<!--根据清欠对象更新档案账户余额-->
-		<b:HQLAction Name="updateUserAccount"   WebClientInfo="{StaticResource dbclient}" 
-			HQL="{m:Exp Str=$update t_userfiles set f_accountzhye\= \{financeobj.f_prevaccountzhye\}  where f_userid \= \'\{financeobj.f_userid\}\' }"/> 
-	    <!--更新清欠数据未无效-->
-		<b:HQLAction Name="updatefinancedatas"   WebClientInfo="{StaticResource dbclient}" 
-			HQL="{m:Exp Str=$update t_financedetail set f_payfeevalid\= \'无效\'   where f_sellid \= \{sellinggas.id\} }"/> 
-	   
-											
-			<!--保存对象 -->
+				HQL="{m:Exp Str=$update t_handplan set shifoujiaofei\=\'否\' where id in (\{userfile.DataContext.f_useful\})}"/>
+            <!--添加一笔负记录-->
+            <b:HQLAction Name="InsertSellingGas" Type="sql"     WebClientInfo="{StaticResource dbclient}">
+                <b:HQLAction.HQL   >
+                    <m:Exp Str="$insert into t_sellinggas(f_userinfoid,f_payment,f_payfeetype,f_yhxz, f_useful, f_pregas, f_preamount, f_grossproceeds,f_gasprice,f_username,f_address,f_districtname
+                           ,f_sgoperator, f_deliverytime, f_deliverydate, f_filiale, f_sgnetwork, f_gaspricetype,f_gaswatchbrand,f_usertype,
+                           f_payfeevalid)
+                           values('{sellinggas.f_userinfoid}','{userfilego.f_payment==null:$null$,userfilego.f_payment}','{sellinggas.f_payfeetype==null:$null$,sellinggas.f_payfeetype}','{sellinggas.f_yhxz==null:$null$,sellinggas.f_yhxz}',  '{sellinggas.f_useful==null:$null$,sellinggas.f_useful}',  -{sellinggas.f_pregas}, -{sellinggas.f_preamount}, -{sellinggas.f_grossproceeds},{sellinggas.f_gasprice==null:$null$,sellinggas.f_gasprice},'{sellinggas.f_username==null:$null$,sellinggas.f_username}','{sellinggas.f_address==null:$null$,sellinggas.f_address}','{sellinggas.f_districtname==null:$null$,sellinggas.f_districtname}',
+                           '{userfilego.f_reversalname==null:$null$,userfilego.f_reversalname}', '{userfilego.f_reversaltime==null:$null$,userfilego.f_reversaltime}',cast(convert(varchar(10),'{SysTime.Today}',120)as datetime), '{userfilego.f_filiale==null:$null$,userfilego.f_filiale}', '{userfilego.f_sgnetwork==null:$null$,userfilego.f_sgnetwork}',
+                           '{sellinggas.f_gaspricetype==null:$null$,sellinggas.f_gaspricetype}','{sellinggas.f_gaswatchbrand==null:$null$,sellinggas.f_gaswatchbrand}','{sellinggas.f_usertype==null:$null$,sellinggas.f_usertype}','冲正')"
+                    ></m:Exp>
+                </b:HQLAction.HQL>
+            </b:HQLAction>
+            <!--保存对象 -->
 			<b:BatchExcuteAction Name="SaveAction"  WebClientInfo="{StaticResource dbclient}">
 				<!--更新售水记录无效-->
-				<b:BatchInfo Source="{m:Exp Str=UpdateSellgas}" MethodName="InvokeToJson"/> 
-				
-		  		<!--更新抄表记录未交-->
-				<b:BatchInfo Source="{m:Exp Str=UpdateHandplan}" CanSave="{m:Exp Str=userfile.DataContext.f_useful!\=null and userfile.DataContext.f_useful!\=$$}" MethodName="InvokeToJson"/> 
-		   		<!--保存冲正记录-->
-				<b:BatchInfo Source="{m:Exp Str=userfilego}" MethodName="SaveToJson"/>
-				
+				<b:BatchInfo Source="{m:Exp Str=UpdateSellgas}" MethodName="InvokeToJson"/>
+                <!--保存冲正记录-->
+                <b:BatchInfo Source="{m:Exp Str=userfilego}" MethodName="SaveToJson"/>
+                <!--插入负记录-->
+                <b:BatchInfo Source="{m:Exp Str=InsertSellingGas}" MethodName="InvokeToJson"/>
+                <!--更新用户记录-->
+                <b:BatchInfo Source="{m:Exp Str=UpdateUser}" MethodName="InvokeToJson"/>
+                <!--更新抄表记录未交-->
+                <b:BatchInfo Source="{m:Exp Str=UpdateHandplan}" CanSave="{m:Exp Str=userfile.DataContext.f_useful!\=null and userfile.DataContext.f_useful!\=$$}" MethodName="InvokeToJson"/>
 		  		<!--更新发票作废 CanSave="{m:Exp Str=userfilego.f_invoicenum !\=null}"
 				<b:BatchInfo Source="{m:Exp Str=Updatefapiao}" MethodName="InvokeToJson" />-->
-				<!--更新用户记录-->
-				<b:BatchInfo Source="{m:Exp Str=UpdateUser}" MethodName="InvokeToJson"/> 
-				<!--更新档案实际余额-->
-				<b:BatchInfo Source="{m:Exp Str=updateUserAccount}"   CanSave="{m:Exp Str=financeobj.id!\=null}"  MethodName="InvokeToJson"/>
-				<!--清欠数据无效-->
-				<b:BatchInfo Source="{m:Exp Str=updatefinancedatas}"   CanSave="{m:Exp Str=financeobj.id!\=null}" MethodName="InvokeToJson"/>
+				
 		
 			</b:BatchExcuteAction>
 			
 			<!--用户列表部分-->
 			<o:SearchObject Name="search"/>
 			<o:PagedObjectList Name="userfileslist" WebClientInfo="{StaticResource dbclient}"
-		       	Path="{m:Exp Str='$from t_userfiles where {search.Condition}'}"
+		       	Path="{m:Exp Str='$from t_userinfo where {search.Condition}'}"
 		       	PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames=","/>
 		</m:ResourceLoad>
 		<Grid >
@@ -239,8 +228,7 @@
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
 							<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_username}"/>
-							<sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
-                            <sdk:DataGridTextColumn Header="水表底数" Binding="{Binding f_gasmeteraccomodations}"/>
+                            <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"/>
 							<sdk:DataGridTextColumn Header="小区名称" Binding="{Binding f_districtname}"/>
 							<sdk:DataGridTextColumn Header="门牌号" Binding="{Binding f_apartment}"/>
