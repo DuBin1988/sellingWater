@@ -192,6 +192,9 @@
     <Compile Include="Pages\抄表册管理.xaml.cs">
       <DependentUpon>抄表册管理.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\表档案信息.xaml.cs">
+      <DependentUpon>表档案信息.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\用水量减免.xaml.cs">
       <DependentUpon>用水量减免.xaml</DependentUpon>
     </Compile>
@@ -1617,6 +1620,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\抄表册管理.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\表档案信息.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

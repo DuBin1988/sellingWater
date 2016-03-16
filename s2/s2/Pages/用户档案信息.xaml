@@ -24,9 +24,9 @@
             <!--o:ObjectList Name="wangdianlist" WebClientInfo="{StaticResource dbclient}"  Path="from paramvalue where param.name='网点查询用' order by id"/-->
             <o:ObjectList Name="wangdianlist" WebClientInfo="{StaticResource dbclient}"  Path="{m:Exp Str=$from paramvalue where param.name\=\'网点查询用\' and code \=\'\{daninfosearch.DataContext.f_filiale\}\'$}" 
 			IsOld="{m:Exp Str=fgslist.State\=\=$End$}"/>
-             <!--阶梯水价信息列表-->
+            <!--阶梯水价信息列表-->
             <o:ObjectList Name="stairlist" EntityType="t_stairprice" WebClientInfo="{StaticResource dbclient}" Path="from t_stairprice"  HasEmptyRow="True" />
-           <!--分公司列表对象-->
+            <!--分公司列表对象-->
             <o:ObjectList Name="fgslist" WebClientInfo="{StaticResource dbclient}"  Path="from paramvalue where param.name='分公司' order by id" EntityType="paramvalue" HasEmptyRow="True"/>
             <!--用户类型查询用-->
             <o:ObjectList Name="usertypelist" WebClientInfo="{StaticResource dbclient}"  Path="from paramvalue where param.name='用户类型查询用' order by id" EntityType="paramvalue" HasEmptyRow="True"/>
@@ -56,11 +56,11 @@
             </Grid.ColumnDefinitions>
             <c:BusyIndicatorEx x:Name="ui_busys" BusyContent="正在查询，请稍等" IsBusy="{m:Exp Str=daninfos.ItemsSource.IsBusy or toExcel.IsBusy}">
                 <toolkit:DockPanel>
-                     <Grid x:Name="daninfosearch"  toolkit:DockPanel.Dock="Top" Margin="0,0,0,3" Background="#FFCFEFFF" Width="Auto" HorizontalAlignment="Stretch" >
+                    <Grid x:Name="daninfosearch"  toolkit:DockPanel.Dock="Top" Margin="0,0,0,3" Background="#FFCFEFFF" Width="Auto" HorizontalAlignment="Stretch" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="28"/>
                             <RowDefinition Height="28"/>
-                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="0"/>
                             <RowDefinition Height="28"/>
                             <RowDefinition Height="28"/>
                         </Grid.RowDefinitions>
@@ -88,34 +88,27 @@
                                 <o:PropertySetter PropertyName="f_userid"  Operator="f_userid = 'this'"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock TextWrapping="Wrap" Text="卡　　号：" Grid.Row="1" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
-                        <TextBox Name="tj2" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Text="{m:Bind Path=f_cardid}" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_cardid"  Operator="f_cardid='this'"/>
-                            </a:Data.Prop>
-                        </TextBox>
 
-
-                        <TextBlock TextWrapping="Wrap" Text="地　　址：" Grid.Row="2" Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Column="2" />
-                        <TextBox Name="tj3" TextWrapping="Wrap" Grid.Column="3" Grid.Row="2" Text="{m:Bind Path=f_address}" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" >
+                        <TextBlock TextWrapping="Wrap" Text="地　  　址：" Grid.Row="2" Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Column="0" Grid.RowSpan="2" />
+                        <TextBox Name="tj3" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" Text="{m:Bind Path=f_address}" Width="Auto" Margin="0,3,0,0" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Grid.RowSpan="2" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_address"  Operator="f_address like '%this%'"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock TextWrapping="Wrap" Text="用户姓名：" Grid.Row="2" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
-                        <TextBox Name="tj7" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Text="{m:Bind Path=f_username}" Width="Auto" Margin="0,2,0,1" Height="25" Grid.ColumnSpan="1" >
+                        <TextBlock TextWrapping="Wrap" Text="用户姓名：" Grid.Row="0" Grid.Column="2" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
+                        <TextBox Name="tj7" TextWrapping="Wrap" Grid.Row="0" Grid.Column="3" Text="{m:Bind Path=f_username}" Width="Auto" Margin="0,2,0,1" Height="25" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_username"  Operator="f_username like '%this%'"/>
                             </a:Data.Prop>
                         </TextBox>
                         <ComboBox Name="tj9"  SelectedValue="{m:Bind Path=f_yytdepa}" Grid.Row="0" Grid.Column="5" ItemsSource="{m:Exp Str=wangdianlistnull}"  Margin="0,2,0,1"  SelectedValuePath="name"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto">
                             <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							
-							<a:Data.Prop>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                            <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_yytdepa"  Operator="f_yytdepa = 'this'"/>
                             </a:Data.Prop>
                         </ComboBox>
@@ -126,76 +119,52 @@
    							 Completed="{m:Exp Str=downLoad.Down()}"
    							 Path="{m:Exp Str=$\{server.BaseAddress\}/excel/\{daninfos.ItemsSource.Count\}/f_userid:用户编号|old:旧用户编号|f_meternumber:表号|f_username:用户姓名|f_usertype:用户类型|f_cardid:卡号|f_gaswatchbrand:水表品牌|f_metertype:水表型号|lastinputgasnum:抄表表底|f_zhye:账户余额|f_address:地址|f_phone:电话|f_gasproperties:用水性质|f_gaspricetype:水价类型|f_gasprice:水价|f_wallhangboiler:有无壁挂炉|f_userstate:用户状态|f_anzhuanguser:表安装人|f_watchinstalldate:表安装日期|f_payment:交费方式|f_bankname:银行|f_usermc:账户名|f_idofcard:账号|f_filiale:所属公司|f_yytdepa:建档部门|f_yytoper:建档人|f_yytdate:建档日期|f_examinedepa:审核部门|f_examineoper:审核人|f_examinedate:审核日期$}"/>
                         <c:DownLoad x:Name="downLoad" Path="{m:Exp Str=$\{server.BaseAddress\}/file/\{toExcel.FileName\}}" Filter="(*.xls)|*.xls" Height="30" VerticalAlignment="Top" Width="0"></c:DownLoad>
-
-                        <TextBlock TextWrapping="Wrap" Text="水表品牌：" Grid.Column="2"  Margin="0,2,0,1" Height="25" TextAlignment="Right" />
-                        <ComboBox Name="tj5" SelectedValue="{m:Bind Path=f_gaswatchbrand}" Grid.Column="3" ItemsSource="{m:Exp Str=qblist}"  Margin="0,2,0,1"  SelectedValuePath="f_pinpai"  Height="25">
-                            <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding f_pinpai}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							<a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_gaswatchbrand"  Operator="f_gaswatchbrand = 'this'"/>
-                            </a:Data.Prop>
-                        </ComboBox>
-                        <TextBlock TextWrapping="Wrap" Text="水价类型：" Grid.Column="4" Grid.Row="1"  Margin="0" Height="25" TextAlignment="Right" />
-                        <ComboBox Name="tj6" Grid.Row="1" SelectedValue="{m:Bind Path=f_gaspricetype}" Grid.Column="5" ItemsSource="{m:Exp Str=qjlist}"  Margin="0"  SelectedValuePath="name"  Height="25">
-                            <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							
-							<a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_gaspricetype"  Operator="f_gaspricetype = 'this'"/>
-                            </a:Data.Prop>
-                        </ComboBox>
-                        <TextBlock TextWrapping="Wrap" Grid.Row="3" Grid.Column="0" Margin="0,2,0,1" Height="25" TextAlignment="Right"><Run Text="建档日期"/><Run Text=" "/><Run Text="从："/></TextBlock>
-                        <sdk:DatePicker Name="tj4" SelectedDate="{m:Bind Path=f_yytdate1}" Grid.Row="3" Grid.Column="1" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
+                        <TextBlock TextWrapping="Wrap" Grid.Row="4" Grid.Column="0" Margin="0,2,0,1" Height="25" TextAlignment="Right"><Run Text="建档日期"/><Run Text=" "/><Run Text="从："/></TextBlock>
+                        <sdk:DatePicker Name="tj4" SelectedDate="{m:Bind Path=f_yytdate1}" Grid.Row="4" Grid.Column="1" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
                             <a:Data.Prop>
                                 <!-- Value="{m:Exp Str=SysTime.Today}"-->
                                 <o:PropertySetter PropertyName="f_yytdate1" 
 											Operator="f_yytdate >= substring('this',1,10)" />
                             </a:Data.Prop>
                         </sdk:DatePicker>
-                        <sdk:DatePicker Name="tj8" SelectedDate="{m:Bind Path=f_yytdate2}" Grid.Row="3" Grid.Column="3" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" Grid.ColumnSpan="1" >
+                        <sdk:DatePicker Name="tj8" SelectedDate="{m:Bind Path=f_yytdate2}" Grid.Row="4" Grid.Column="3" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_yytdate2"  
 											Operator="f_yytdate ^= substring('this',1,10) + ' 23:59:59'" />
                             </a:Data.Prop>
                         </sdk:DatePicker>
-                        <TextBlock TextWrapping="Wrap" Text="到：" Grid.Column="2" Grid.Row="3" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
+                        <TextBlock TextWrapping="Wrap" Text="到：" Grid.Column="2" Grid.Row="4" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
                         <TextBlock TextWrapping="Wrap" Text="网    点：" Grid.Column="4"  Margin="0,2,0,1" Height="25" TextAlignment="Right" />
                         <TextBlock TextWrapping="Wrap" Text="用户类型：" Grid.Column="6"  Margin="0" Height="25" TextAlignment="Right" Grid.Row="1" />
                         <ComboBox x:Name="tja"  SelectedValue="{m:Bind Path=f_usertype}" Grid.Row="1" Grid.Column="7" ItemsSource="{m:Exp Str=usertypelist}"  Margin="0"  SelectedValuePath="name"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch">
                             <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							<a:Data.Prop>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_usertype"  Operator="f_usertype = 'this'"/>
                             </a:Data.Prop>
                         </ComboBox>
-						<TextBlock TextWrapping="Wrap" Text="阶梯水价类型：" Grid.Column="8"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="1" Width="130" HorizontalAlignment="Left" />
-                        <ComboBox x:Name="tja2"  SelectedValue="{m:Bind Path=f_stairtype}" Grid.Row="1" Grid.Column="9" ItemsSource="{m:Exp Str=stairlist}"  Margin="0,2,0,1"  SelectedValuePath="f_stairtype"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" d:LayoutOverrides="GridBox, HorizontalMargin">
-                             <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Height="20" Text="{Binding f_stairtype}"/>
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_stairtype" Operator="f_stairtype = 'this'"/>
-                                            </a:Data.Prop>
-                        </ComboBox>
-                        <TextBlock TextWrapping="Wrap" Text="用户状态：" Grid.Column="4"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="2" />
-                        <ComboBox x:Name="tjb"  SelectedValue="{m:Bind Path=f_userstate}" Grid.Row="2" Grid.Column="5" ItemsSource="{m:Exp Str=statelist}"  Margin="0,2,0,1" SelectedValuePath="name"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto">
+                        <TextBlock TextWrapping="Wrap" Text="水价类型：" Grid.Column="2"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="1" Width="80" HorizontalAlignment="Left" />
+                        <ComboBox x:Name="tja2"  SelectedValue="{m:Bind Path=f_stairtype}" Grid.Row="1" Grid.Column="3" ItemsSource="{m:Exp Str=stairlist}"  Margin="0,2,0,1"  SelectedValuePath="f_stairtype"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" d:LayoutOverrides="GridBox, HorizontalMargin">
                             <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							<a:Data.Prop>
+                                <DataTemplate>
+                                    <TextBlock Height="20" Text="{Binding f_stairtype}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_stairtype" Operator="f_stairtype = 'this'"/>
+                            </a:Data.Prop>
+                        </ComboBox>
+                        <TextBlock TextWrapping="Wrap" Text="用户状态：" Grid.Column="4"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="1" />
+                        <ComboBox x:Name="tjb"  SelectedValue="{m:Bind Path=f_userstate}" Grid.Row="1" Grid.Column="5" ItemsSource="{m:Exp Str=statelist}"  Margin="0,2,0,1" SelectedValuePath="name"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_userstate"  Operator="f_userstate = 'this'"/>
                             </a:Data.Prop>
                         </ComboBox>
@@ -208,87 +177,60 @@
                         <TextBlock TextWrapping="Wrap" Text="交费方式：" Grid.Column="6"  Margin="0" Height="25" TextAlignment="Right" />
                         <ComboBox x:Name="tjwangdian"  SelectedValue="{m:Bind Path=f_payment}" Grid.Row="0" Grid.Column="7" ItemsSource="{m:Exp Str=paymentlistnull}"  Margin="0"  SelectedValuePath="name"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto">
                             <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							<a:Data.Prop>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_payment"  Operator="f_payment = 'this'"/>
                             </a:Data.Prop>
                         </ComboBox>
-                        <TextBlock TextWrapping="Wrap" Text="水表型号：" Grid.Column="2"  Margin="0" Height="25" TextAlignment="Right" Grid.Row="1" />
-
-                        <ComboBox x:Name="tj5_Copy" SelectedValue="{m:Bind Path=f_metertype}" ItemsSource="{m:Exp Str=tj5.SelectedItem.qbnumber}" Grid.Column="3"  Margin="0" SelectedValuePath="f_qbnumber"  Height="25" Grid.Row="1">
-                           <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding f_qbnumber}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-						    <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_metertype"  Operator="f_metertype = 'this'"/>
-                            </a:Data.Prop>
-                        </ComboBox>
-                        <TextBlock TextWrapping="Wrap" Text="小区名称：" Grid.Row="2" Margin="0" Height="25" TextAlignment="Right" Grid.Column="6" />
-                        <TextBox x:Name="tj3_Copy" TextWrapping="Wrap" Grid.Column="7" Grid.Row="2" Text="{m:Bind Path=f_districtname}" Width="Auto" Margin="0" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" >
+                        <TextBlock TextWrapping="Wrap" Text="小区名称：" Grid.Row="1" Margin="0" Height="25" TextAlignment="Right" Grid.Column="0" />
+                        <TextBox x:Name="tj3_Copy" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Text="{m:Bind Path=f_districtname}" Width="Auto" Margin="0" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock TextWrapping="Wrap" Text="水表类型：" Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Column="8" />
-                        <TextBox x:Name="tj3_Copy1" TextWrapping="Wrap" Grid.Column="9" Grid.Row="0" Text="{m:Bind Path=f_gasmeterstyle}" Width="Auto" Margin="0,2,0.333,1" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" VerticalAlignment="Stretch" d:LayoutOverrides="GridBox" >
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_gasmeterstyle"  Operator="f_gasmeterstyle like 'this%'"/>
-                            </a:Data.Prop>
-                        </TextBox>
-                        <!--CheckBox Content="有无壁挂炉"  IsChecked="{m:Bind Path=f_wallhangboiler}"  a:ControlAttach.DefaultButton="dansearchbutton" Height="22" Width="85" HorizontalAlignment="Left" Margin="15,5,0,1" Grid.Column="8" VerticalAlignment="Stretch" Grid.ColumnSpan="1" Grid.Row="1"  >
-									<a:Data.Prop>
-										<o:PropertySetter PropertyName="f_wallhangboiler" Operator="f_wallhangboiler =this"/> 
-										             
-									</a:Data.Prop>
-								</CheckBox-->
-                        <CheckBox x:Name="dbcheck" IsChecked="{m:Bind Path=f_wallhangboiler}" Content="有无壁挂炉" Margin="9,0,0,0"  Grid.Row="2" Grid.Column="8" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" d:LayoutOverrides="HorizontalAlignment">
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_wallhangboiler"  Operator="{m:Exp Str=dbcheck.IsChecked \:$f_wallhangboiler \= 1$ \,$f_wallhangboiler\=0$}" />
-                            </a:Data.Prop>
-                        </CheckBox>
                         <CheckBox x:Name="dbhheck" IsChecked="{m:Bind Path=f_dibaohu}" Content="低保户" Margin="0"  Grid.Row="2" Grid.Column="9" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Right"  Grid.RowSpan="1" Width="75">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_dibaohu"  Operator="{m:Exp Str=dbhheck.IsChecked \:$f_dibaohu \= 1$ \,$f_dibaohu\=0$}" />
                             </a:Data.Prop>
                         </CheckBox>
-                        <TextBlock TextWrapping="Wrap" Text="抄表员：" Grid.Column="6"  Margin="0,0,0,3" Height="25" TextAlignment="Right" Grid.Row="3" />
+                        <TextBlock TextWrapping="Wrap" Text="抄 表 员：" Grid.Column="6"  Margin="0,0,0,3" Height="25" TextAlignment="Right" Grid.Row="3" />
                         <ComboBox x:Name="tja_Copy"  SelectedValue="{m:Bind Path=f_inputtor}" Grid.Row="3" Grid.Column="7" ItemsSource="{m:Exp Str=chaobiaoyuanlistnull}"  Margin="0,2,0,1"  SelectedValuePath="name"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto">
                             <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							<a:Data.Prop>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_inputtor"  Operator="f_inputtor = 'this'"/>
                             </a:Data.Prop>
                         </ComboBox>
-                        <sdk:DatePicker x:Name="tj4_Copy" SelectedDate="{m:Bind Path=f_yytdate11}" Grid.Row="4" Grid.Column="1" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
+                        <!--<sdk:DatePicker x:Name="tj4_Copy" SelectedDate="{m:Bind Path=f_yytdate11}" Grid.Row="4" Grid.Column="1" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
                             <a:Data.Prop>
-                                <!-- Value="{m:Exp Str=SysTime.Today}"-->
+                                -->
+                        <!-- Value="{m:Exp Str=SysTime.Today}"-->
+                        <!--
                                 <o:PropertySetter PropertyName="f_yytdate11" 
 											Operator="f_examinedate &gt;= substring('this',1,10)" />
                             </a:Data.Prop>
-                        </sdk:DatePicker>
-                        <sdk:DatePicker x:Name="tj8_Copy" SelectedDate="{m:Bind Path=f_yytdate22}" Grid.Row="4" Grid.Column="3" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" Grid.ColumnSpan="1" >
+                        </sdk:DatePicker>-->
+                        <!--<sdk:DatePicker x:Name="tj8_Copy" SelectedDate="{m:Bind Path=f_yytdate22}" Grid.Row="4" Grid.Column="3" a:ControlAttach.DefaultButton="searchbutton" Width="Auto" Margin="0,2,0,1" Height="25" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_yytdate22"  
 											Operator="f_examinedate ^= substring('this',1,10) + ' 23:59:59'" />
                             </a:Data.Prop>
-                        </sdk:DatePicker>
-                        <TextBlock TextWrapping="Wrap" Text="到：" Grid.Column="2" Grid.Row="4" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
-                        <TextBlock TextWrapping="Wrap" Grid.Row="4" Grid.Column="0" Margin="0,2,0,1" Height="25" TextAlignment="Right"><Run Text="审核日期"/><Run Text=" "/><Run Text="从："/></TextBlock>
+                        </sdk:DatePicker>-->
+                        <!--<TextBlock TextWrapping="Wrap" Text="到：" Grid.Column="2" Grid.Row="4" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>-->
+                        <!--<TextBlock TextWrapping="Wrap" Grid.Row="4" Grid.Column="0" Margin="0,2,0,1" Height="25" TextAlignment="Right"><Run Text="审核日期"/><Run Text=" "/><Run Text="从："/></TextBlock>-->
                         <TextBlock TextWrapping="Wrap" Text="账户名：" Grid.Column="4"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="4" />
                         <TextBox x:Name="xg_Copy" TextWrapping="Wrap" Grid.Column="5" Grid.Row="4" Text="{m:Bind Path=f_usermc}" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" VerticalAlignment="Stretch" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_usermc"  Operator="f_usermc = 'this'"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock TextWrapping="Wrap" Text="账号：" Grid.Column="6"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="4" />
+                        <TextBlock TextWrapping="Wrap" Text="账       号：" Grid.Column="6"  Margin="0,2,0,1" Height="25" TextAlignment="Right" Grid.Row="4" />
                         <TextBox x:Name="xg_Copy1" TextWrapping="Wrap" Grid.Column="7" Grid.Row="4" Text="{m:Bind Path=f_idofcard}" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" VerticalAlignment="Stretch" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_idofcard"  Operator="f_idofcard = 'this'"/>
@@ -360,48 +302,29 @@ order by id
                             <!--sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/-->
                             <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
                             <sdk:DataGridTextColumn Header="旧用户编号" Binding="{Binding old}"/>
-                            <sdk:DataGridTextColumn Header="表号" Binding="{Binding f_meternumber}"/>
                             <sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_username}"/>
                             <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
-                            <sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}"/>
-                            <sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
-                            <sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
                             <sdk:DataGridTextColumn Header="抄表表底" Binding="{Binding lastinputgasnum}"/>
                             <sdk:DataGridTextColumn Header="账户余额" Binding="{Binding f_zhye}"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"/>
                             <sdk:DataGridTextColumn Header="电  话" Binding="{Binding f_phone}"/>
                             <sdk:DataGridTextColumn Header="用水性质" Binding="{Binding f_gasproperties}"/>
-                            <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_gaspricetype}"/>
-                            <sdk:DataGridTextColumn Header="阶梯水价类型" Binding="{Binding f_stairtype}"/>
+                            <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_stairtype}"/>
                             <sdk:DataGridTextColumn Header="水价" Binding="{Binding f_gasprice}"/>
-                            <sdk:DataGridTextColumn Header="有壁挂炉" Binding="{Binding f_wallhangboiler}"/>
-                            <sdk:DataGridTextColumn Header="有灶具" Binding="{Binding f_kitchen}"/>
-                            <sdk:DataGridTextColumn Header="有热水器" Binding="{Binding f_waterheater}"/>
-
                             <sdk:DataGridTextColumn Header="总购水量" Binding="{Binding f_cumulativepurchase}"/>
-                            <sdk:DataGridTextColumn Header="当前表购水量" Binding="{Binding f_metergasnums}"/>
-                            <sdk:DataGridTextColumn Header="维护费日期" Binding="{Binding f_beginfee,StringFormat=yyyy-MM}"/>
-                            <sdk:DataGridTextColumn Header="发卡日期" Binding="{Binding f_givecarddate,StringFormat=yyyy-MM-dd}"/>
-                            <sdk:DataGridTextColumn Header="是否发卡" Binding="{Binding f_whethergivecard}"/>
                             <sdk:DataGridTextColumn Header="用户状态" Binding="{Binding f_userstate}"/>
-                            <sdk:DataGridTextColumn Header="最后购水量" Binding="{Binding f_finallybought}"/>
                             <sdk:DataGridTextColumn Header="最后购水日期" Binding="{Binding f_finabuygasdate,StringFormat=yyyy-MM-dd}"/>
-                            <sdk:DataGridTextColumn Header="表安装人" Binding="{Binding f_anzhuanguser}"/>
-
-                            <sdk:DataGridTextColumn Header="表安装日期" Binding="{Binding f_watchinstalldate,StringFormat=yyyy-MM-dd}"/>
-
                             <sdk:DataGridTextColumn Header="交费方式" Binding="{Binding f_payment}"/>
                             <sdk:DataGridTextColumn Header="银行" Binding="{Binding f_bankname}"/>
                             <sdk:DataGridTextColumn Header="账户名" Binding="{Binding f_usermc}"/>
                             <sdk:DataGridTextColumn Header="账号" Binding="{Binding f_idofcard}"/>
-
                             <sdk:DataGridTextColumn Header="所属公司" Binding="{Binding f_filiale}"/>
                             <sdk:DataGridTextColumn Header="建档部门" Binding="{Binding f_yytdepa}"/>
                             <sdk:DataGridTextColumn Header="建档人" Binding="{Binding f_yytoper}"/>
                             <sdk:DataGridTextColumn Header="建档日期" Binding="{Binding f_yytdate,StringFormat=yyyy-MM-dd}"/>
-                            <sdk:DataGridTextColumn Header="审核部门" Binding="{Binding f_examinedepa}"/>
+                            <!--<sdk:DataGridTextColumn Header="审核部门" Binding="{Binding f_examinedepa}"/>
                             <sdk:DataGridTextColumn Header="审核人" Binding="{Binding f_examineoper}"/>
-                            <sdk:DataGridTextColumn Header="审核日期" Binding="{Binding f_examinedate,StringFormat=yyyy-MM-dd}"/>
+                            <sdk:DataGridTextColumn Header="审核日期" Binding="{Binding f_examinedate,StringFormat=yyyy-MM-dd}"/>-->
 
                             <!--sdk:DataGridTextColumn Header="时间" Binding="{Binding f_yyttime,StringFormat=hh:mm:ss tt}"/-->
                         </sdk:DataGrid.Columns>
@@ -441,9 +364,9 @@ order by id
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
+                                                <RowDefinition Height="0"/>
                                                 <RowDefinition Height="25"/>
-                                                <RowDefinition Height="25"/>
-                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="0"/>
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
@@ -472,18 +395,18 @@ order by id
                                             <TextBox Text="{m:Bind Path=f_idnumber}"  Grid.Column="1" Margin="0" Grid.Row="6" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto" IsHitTestVisible="True" />
                                             <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="用户状态：" TextAlignment="Right" Height="25"/>
                                             <TextBox Text="{m:Bind Path=f_userstate}" Grid.Column="1" Margin="0" Grid.Row="7" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" IsHitTestVisible="True"  />
-                                            <TextBlock Text="卡　　号：" Margin="0" Grid.Row="8" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
-                                            <TextBox Text="{m:Bind Path=f_cardid}" Grid.Column="1" Margin="0" Grid.Row="8" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" IsHitTestVisible="True" />
+                                            <!--<TextBlock Text="卡　　号：" Margin="0" Grid.Row="8" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
+                                            <TextBox Text="{m:Bind Path=f_cardid}" Grid.Column="1" Margin="0" Grid.Row="8" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" IsHitTestVisible="True" />-->
                                             <TextBlock Text="电　　话：" Margin="0" Grid.Row="9" TextWrapping="Wrap" TextAlignment="Right" Height="25" />
                                             <TextBox Text="{m:Bind Path=f_phone}"  Grid.Column="1" Margin="0" Grid.Row="9" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" IsReadOnly="True" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" IsHitTestVisible="True" />
-                                            <TextBlock Text="协 议 号：" Margin="0" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="10" Height="25"/>
-                                            <TextBox Text="{m:Bind Path=f_xieyihao}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="10" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />
+                                            <!--<TextBlock Text="协 议 号：" Margin="0" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="10" Height="25"/>
+                                            <TextBox Text="{m:Bind Path=f_xieyihao}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="10" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />-->
                                             <TextBlock Margin="0" TextWrapping="Wrap" Text="用户编号：" TextAlignment="Right" Grid.Row="11" Height="25" d:LayoutOverrides="Width, GridBox"/>
-                                            <TextBox Text="{m:Bind Path=f_userid}"  Grid.Column="1" Margin="0" Grid.Row="11" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto"  />
+                                            <TextBox Text="{m:Bind Path=f_userid}"  Grid.Column="1" Margin="0" Grid.Row="11" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto" Grid.RowSpan="1"  />
                                             <TextBlock Text="用水性质：" Margin="0" Grid.Row="12" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
                                             <TextBox Text="{m:Bind Path=f_gasproperties}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="12" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" />
                                             <TextBlock Text="水价类型：" Grid.Column="2" Margin="0" TextWrapping="Wrap" TextAlignment="Right" Height="25" d:LayoutOverrides="Height"/>
-                                            <TextBox Text="{m:Bind Path=f_gaspricetype}"  Grid.Column="3" Margin="0" Grid.Row="0" Height="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto" />
+                                            <TextBox Text="{m:Bind Path=f_stairtype}"  Grid.Column="3" Margin="0" Grid.Row="0" Height="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto" />
                                             <TextBlock Text="水　　价：" Grid.Column="2" Margin="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Right" Height="25" d:LayoutOverrides="Height"/>
                                             <TextBox Text="{m:Bind Path=f_gasprice}"   Grid.Column="3" Margin="0" Grid.Row="1" TextWrapping="Wrap" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"/>
                                             <CheckBox IsChecked="{m:Bind Path=f_dibaohu}" IsEnabled="False" Content="低保户" Margin="64,0,57,23" Grid.Row="2" Grid.Column="2" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
@@ -509,7 +432,7 @@ order by id
                                                 <ColumnDefinition Width="100"/>
                                                 <ColumnDefinition Width="100"/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox IsChecked="{m:Bind Path=f_wallhangboiler}" IsEnabled="False" Content="有壁挂炉" Grid.Column="0" Margin="0,6,-11,8" Grid.Row="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="103" />
+                                            <CheckBox IsChecked="{m:B、ind Path=f_wallhangboiler}" IsEnabled="False" Content="有壁挂炉" Grid.Column="0" Margin="0,6,-11,8" Grid.Row="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="103" />
                                             <TextBlock Margin="0,7,2,7" TextWrapping="Wrap" Text="数量：" TextAlignment="Right" Height="25" Grid.Column="1"/>
                                             <TextBox Text="{m:Bind Path=f_wallhangboilernum}" IsReadOnly="True" Grid.Column="2" Margin="1,8,0,6" Grid.Row="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1"    />
                                             <TextBlock Grid.Column="3" Margin="5,6,0,8" TextWrapping="Wrap" Text="壁挂炉品牌：" TextAlignment="Right" Height="25"/>
@@ -539,7 +462,7 @@ order by id
                                         </Grid>
                                     </sdk:TabItem>
                                 </sdk:TabControl>-->
-                                <sdk:TabControl x:Name="卡信息">
+                                <!--<sdk:TabControl x:Name="卡信息">
                                     <sdk:TabItem Header="卡信息">
                                         <Grid Background="#FFE5E5E5" Height="Auto">
                                             <Grid.RowDefinitions>
@@ -574,10 +497,10 @@ order by id
                                             <TextBox Visibility="Visible" Text="{m:Bind Path=f_times}"  Margin="0" TextWrapping="Wrap" IsReadOnly="True" Grid.ColumnSpan="1" Grid.Column="3" Grid.Row="3" Height="Auto" Grid.RowSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch"/>
                                         </Grid>
                                     </sdk:TabItem>
-                                </sdk:TabControl>
+                                </sdk:TabControl>-->
                             </StackPanel>
                             <StackPanel Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Grid.Column="1">
-                                <sdk:TabControl x:Name="水表信息" Margin="0" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="Width" Height="Auto">
+                                <!--<sdk:TabControl x:Name="水表信息" Margin="0" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="Width" Height="Auto">
                                     <sdk:TabItem Header="水表信息">
                                         <Grid Background="#FFE5E5E5">
                                             <Grid.RowDefinitions>
@@ -634,7 +557,7 @@ order by id
                                             <CheckBox IsChecked="{m:Bind Path=f_closevalve}" IsEnabled="False"  Content="有自闭阀" Margin="8,0,0,-5" Grid.Row="4" Grid.Column="3" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                                         </Grid>
                                     </sdk:TabItem>
-                                </sdk:TabControl>
+                                </sdk:TabControl>-->
                                 <sdk:TabControl x:Name="状态信息" Margin="0" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
                                     <sdk:TabItem Header="状态信息">
@@ -646,10 +569,10 @@ order by id
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
-                                                <RowDefinition Height="25"/>
-                                                <RowDefinition Height="25"/>
-                                                <RowDefinition Height="25"/>
-                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="0"/>
+                                                <RowDefinition Height="0"/>
+                                                <RowDefinition Height="0"/>
+                                                <RowDefinition Height="0"/>
                                                 <RowDefinition Height="25"/>
                                                 <RowDefinition Height="25"/>
                                             </Grid.RowDefinitions>
@@ -659,40 +582,40 @@ order by id
                                                 <ColumnDefinition Width="100"/>
                                                 <ColumnDefinition Width="100"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Margin="0,0,-1,0" TextWrapping="Wrap" Text="是否发折：" Height="25" FontSize="11" HorizontalAlignment="Right"/>
-                                            <TextBox Text="{m:Bind Path=f_whethergivepassbook}"  Grid.Column="1" Margin="0" Grid.Row="0" TextWrapping="Wrap" IsReadOnly="True"  Height="25" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1"  />
-                                            <TextBlock Margin="0,2,0,-2" Grid.Row="1" TextWrapping="Wrap" Text="总累计购水量：" TextAlignment="Right" Height="25"/>
-                                            <TextBox Text="{m:Bind Path=f_cumulativepurchase}" Grid.Column="1" Margin="0" Grid.Row="1"  HorizontalAlignment="Stretch" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />
-                                            <TextBlock Margin="0,4,0,-4" Grid.Row="2" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Height="25"/>
-                                            <TextBox Text="{m:Bind Path=f_finallybought}"  Grid.Column="1" Margin="0" Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />
-                                            <TextBlock Margin="33,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Height="25"/>
-                                            <TextBox Text="{m:Bind Path=f_whethergivecard}"  Grid.Column="1" Margin="0" Grid.Row="3" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto" HorizontalAlignment="Stretch" Width="Auto"  VerticalAlignment="Stretch" Grid.ColumnSpan="1"  />
+                                            <!--<TextBlock Margin="0,0,-1,0" TextWrapping="Wrap" Text="是否发折：" Height="25" FontSize="11" HorizontalAlignment="Right"/>
+                                            <TextBox Text="{m:Bind Path=f_whethergivepassbook}"  Grid.Column="1" Margin="0" Grid.Row="0" TextWrapping="Wrap" IsReadOnly="True"  Height="25" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1"  />-->
+                                            <TextBlock Margin="0,2,0,-2" Grid.Row="0" TextWrapping="Wrap" Text="总累计购水量：" TextAlignment="Right" Height="25"/>
+                                            <TextBox Text="{m:Bind Path=f_cumulativepurchase}" Grid.Column="1" Margin="0" Grid.Row="0"  HorizontalAlignment="Stretch" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />
+                                            <!--<TextBlock Margin="0,4,0,-4" Grid.Row="2" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Height="25"/>
+                                            <TextBox Text="{m:Bind Path=f_finallybought}"  Grid.Column="1" Margin="0" Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />-->
+                                            <!--<TextBlock Margin="33,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Height="25"/>
+                                            <TextBox Text="{m:Bind Path=f_whethergivecard}"  Grid.Column="1" Margin="0" Grid.Row="3" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto" HorizontalAlignment="Stretch" Width="Auto"  VerticalAlignment="Stretch" Grid.ColumnSpan="1"  />-->
                                             <TextBlock Margin="0" Grid.Row="4" TextWrapping="Wrap" Text="最后购水日期：" TextAlignment="Right"/>
                                             <TextBox Text="{Binding f_finabuygasdate, StringFormat=yyyy-MM-dd}"  Grid.Column="1" Margin="0" Grid.Row="4"  Grid.RowSpan="1" IsReadOnly="True" Height="25" />
                                             <TextBlock Margin="0" Grid.Row="5" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right"/>
-                                            <TextBox Text="{Binding f_dateofopening, StringFormat=yyyy-MM-dd}"  Grid.Column="1" Grid.Row="5" IsReadOnly="True" />
-                                            <TextBlock Text="发卡日期：" Margin="0" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="6"/>
-                                            <TextBox  Text="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"  Grid.Column="1" Margin="0" Grid.Row="6" IsReadOnly="True"/>
-                                            <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="开户水量：" TextAlignment="Right"/>
-                                            <TextBox Text="{m:Bind Path=f_kaihuql}" Grid.Column="1" Margin="0" Grid.Row="7" TextWrapping="Wrap" Height="Auto" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1"/>
-                                            <TextBlock Margin="8,0,-4,0" Grid.Row="8" TextWrapping="Wrap" Text="维护费起始年月：" TextAlignment="Right" Height="25" VerticalAlignment="Bottom" d:LayoutOverrides="Height"/>
+                                            <TextBox Text="{Binding f_yytdate, StringFormat=yyyy-MM-dd}"  Grid.Column="1" Grid.Row="5" IsReadOnly="True" />
+                                            <!--<TextBlock Text="发卡日期：" Margin="0" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="6"/>
+                                            <TextBox  Text="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"  Grid.Column="1" Margin="0" Grid.Row="6" IsReadOnly="True"/>-->
+                                            <!--<TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="开户水量：" TextAlignment="Right"/>
+                                            <TextBox Text="{m:Bind Path=f_kaihuql}" Grid.Column="1" Margin="0" Grid.Row="7" TextWrapping="Wrap" Height="Auto" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1"/>-->
+                                            <!--<TextBlock Margin="8,0,-4,0" Grid.Row="8" TextWrapping="Wrap" Text="维护费起始年月：" TextAlignment="Right" Height="25" VerticalAlignment="Bottom" d:LayoutOverrides="Height"/>
                                             <TextBox Text="{Binding f_beginfee, StringFormat=yyyy-MM-dd}"  Grid.Column="1" Margin="0" Grid.Row="8" IsEnabled="True" Height="25" IsReadOnly="True"/>
                                             <TextBlock Margin="0,0,8,0" Grid.Row="9" TextWrapping="Wrap" Text="计算水损：" TextAlignment="Right" Height="25" VerticalAlignment="Bottom" d:LayoutOverrides="Height"/>
-                                            <TextBox Text="{m:Bind Path=f_jsqs}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="9" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />
+                                            <TextBox Text="{m:Bind Path=f_jsqs}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="9" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" />-->
                                             <TextBox Text="{m:Bind Path=f_xiangou}" Visibility="Visible"  Grid.Column="1" Margin="0" Grid.Row="10" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1"  />
                                             <TextBlock Margin="0,0,8,-4" Grid.Row="10" TextWrapping="Wrap" Text="限购：" TextAlignment="Right" Height="25" VerticalAlignment="Bottom" d:LayoutOverrides="Height"/>
-                                            <TextBox Text="{m:Bind Path=lastrecord}" Visibility="Visible"  Margin="0,2,-1,0" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto"  VerticalAlignment="Stretch" Grid.Column="3"  />
-                                            <TextBlock Margin="0,1,0,24" TextWrapping="Wrap" TextAlignment="Right" Text="抄表底数：" Height="25" FontSize="11" HorizontalAlignment="Right" Grid.Column="2" Grid.RowSpan="2" Width="80"/>
-                                            <TextBox Text="{m:Bind Path=lastinputgasnum}" Visibility="Visible"  Margin="0,2,-1,0" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto"  VerticalAlignment="Top" Grid.Column="3" Grid.Row="1"  />
-                                            <TextBlock Margin="0,4,0,21" TextWrapping="Wrap" TextAlignment="Right" Text="上次抄表底数：" Height="25" FontSize="11" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Width="99"/>
-                                            <TextBox Text="{Binding lastinputdate, StringFormat=yyyy-MM-dd}" Visibility="Visible"  Margin="0,1,-1,0" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto"  VerticalAlignment="Top" Grid.Column="3" Grid.Row="2"  />
-                                            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="抄表日期：" FontSize="11" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Width="80"/>
-                                            <TextBox Text="{m:Bind Path=f_cypregas}" Visibility="Visible"  Margin="0,0,-1,0" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="3" Grid.Row="3"/>
-                                            <TextBlock Margin="0,1,4,0" TextWrapping="Wrap" TextAlignment="Right" Text="超用水量：" FontSize="11" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" Width="76"/>
-                                            <TextBlock Grid.Row="5" TextWrapping="Wrap" Text="验收日期：" TextAlignment="Right" Grid.ColumnSpan="2" Grid.Column="2" Margin="1,0,99,0"/>
+                                            <TextBox Text="{m:Bind Path=lastrecord}" Visibility="Visible"  Margin="0,2,-1,0" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto" Grid.Row="2"  VerticalAlignment="Stretch" Grid.Column="1"  />
+                                            <TextBlock Margin="0,1,0,24" TextWrapping="Wrap" TextAlignment="Right" Text="抄表底数：" Height="25" FontSize="11" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Width="80"/>
+                                            <TextBox Text="{m:Bind Path=lastinputgasnum}" Visibility="Visible"  Margin="0,2,-1,0" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto"  VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"  />
+                                            <TextBlock Margin="0,4,0,21" TextWrapping="Wrap" TextAlignment="Right" Text="上次抄表底数：" Height="25" FontSize="11" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Width="99"/>
+                                            <TextBox Text="{Binding lastinputdate, StringFormat=yyyy-MM-dd}" Visibility="Visible"  Margin="0,1,-1,0" TextWrapping="Wrap" IsReadOnly="True"  Height="Auto"  VerticalAlignment="Top" Grid.Column="1" Grid.Row="3"  />
+                                            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="抄表日期：" FontSize="11" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3" Width="80"/>
+                                            <!--<TextBox Text="{m:Bind Path=f_cypregas}" Visibility="Visible"  Margin="0,0,-1,0" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="3" Grid.Row="3"/>
+                                            <TextBlock Margin="0,1,4,0" TextWrapping="Wrap" TextAlignment="Right" Text="超用水量：" FontSize="11" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" Width="76"/>-->
+                                            <!--<TextBlock Grid.Row="5" TextWrapping="Wrap" Text="验收日期：" TextAlignment="Right" Grid.ColumnSpan="2" Grid.Column="2" Margin="1,0,99,0"/>
                                             <TextBox Text="{Binding f_yanzhengdate, StringFormat=yyyy-MM-dd}"  Grid.Column="3" Grid.Row="5" Grid.RowSpan="1" IsReadOnly="True" Margin="1,0,-1,0" />
                                             <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="通水日期：" TextAlignment="Right" Grid.ColumnSpan="2" Grid.Column="2" Margin="1,0,99,0"/>
-                                            <TextBox Text="{Binding f_fireopening, StringFormat=yyyy-MM-dd}"  Grid.Column="3" Grid.Row="4" Grid.RowSpan="1" IsReadOnly="True" Margin="1,0,-1,0" />
+                                            <TextBox Text="{Binding f_fireopening, StringFormat=yyyy-MM-dd}"  Grid.Column="3" Grid.Row="4" Grid.RowSpan="1" IsReadOnly="True" Margin="1,0,-1,0" />-->
                                         </Grid>
                                     </sdk:TabItem>
                                 </sdk:TabControl>
@@ -719,8 +642,8 @@ order by id
                                             <TextBox Text="{m:Bind Path=f_yytoper}" Margin="0,3,0,2" TextWrapping="Wrap"  VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Right" Height="25" Width="205" Grid.Column="5" />
                                             <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="建档日期：" TextAlignment="Right" Height="25"  Margin="0,3,0,2" />
                                             <TextBox Text="{Binding f_yytdate, StringFormat=yyyy-MM-dd}" IsReadOnly="True" Grid.Row="1" Margin="0,3,0,2" VerticalAlignment="Stretch" IsEnabled="False" Height="25" Width="Auto" HorizontalAlignment="Stretch" Grid.Column="1" />
-                                            <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="建档时间：" TextAlignment="Right" Height="25" Margin="0,3,0,2" Grid.Column="2" />
-                                            <TextBox Text="{Binding f_yyttime, StringFormat=hh:mm:ss tt}" IsReadOnly="True" Grid.Row="1" Margin="0,3,0,2" VerticalAlignment="Stretch" IsEnabled="False" Height="25" Width="Auto"  Grid.Column="3" />
+                                            <!--<TextBlock TextWrapping="Wrap" Grid.Row="1" Text="建档时间：" TextAlignment="Right" Height="25" Margin="0,3,0,2" Grid.Column="2" />
+                                            <TextBox Text="{Binding f_yyttime, StringFormat=hh:mm:ss tt}" IsReadOnly="True" Grid.Row="1" Margin="0,3,0,2" VerticalAlignment="Stretch" IsEnabled="False" Height="25" Width="Auto"  Grid.Column="3" />-->
                                         </Grid>
                                     </sdk:TabItem>
                                 </sdk:TabControl>

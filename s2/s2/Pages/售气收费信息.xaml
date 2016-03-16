@@ -90,9 +90,9 @@
                         </a:Data.Context>
 
                         <TextBlock TextWrapping="Wrap" Text="用户编号：" Margin="0,2,0,1" Height="25" TextAlignment="Right" />
-                        <TextBox Name="tj1" TextWrapping="Wrap" Grid.Column="1" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
+                        <TextBox Name="tj1" TextWrapping="Wrap" Grid.Column="1" Text="{m:Bind Path=f_userinfoid}" Width="Auto" Margin="0,2,0,1" Height="25" HorizontalAlignment="Stretch" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_userid"  Operator="f_userid like '%this%'"/>
+                                <o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid like '%this%'"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBlock TextWrapping="Wrap" Text="卡　　号：" Grid.Row="1" Margin="0,2,0,1" Height="25" TextAlignment="Right"/>
@@ -291,16 +291,16 @@ Path="{m:Exp Str=LoginUser.f_fengongsi \=\= zonggongsi.value:$from t_sellinggas 
 									 PageIndex="{m:Exp Str=pager2.PageIndex}" PageSize="{m:Exp Str=pager2.PageSize}" SumNames=","/-->
                             <o:PagedList x:Name="daninfoslist" WebClientInfo="{StaticResource dbclient}"
 									LoadOnPathChanged="False" IsOld="{m:Exp Str='dansearchbutton=>Click!=null'}"
-									Names="f_userid,f_username,f_address,f_districtname,f_apartment,f_cardid,f_gasprice,f_pregas,f_zhinajin,f_preamount,f_grossproceeds,f_cardfees,f_payfeevalid,f_sgnetwork,f_sgoperator,f_deliverydate,f_usertype,f_gaswatchbrand,f_gaspricetype,f_beginfee,f_endfee,f_amountmaintenance,f_payment,f_totalcost,f_zhye,f_benqizhye,f_invoicenum,f_payfeetype,f_filiale,f_comtype,f_deliverytime,id,dates,f_stardate,f_enddate,f_stair1amount,f_stair1fee,f_stair1price,f_stair2amount,f_stair2fee,f_stair2price,f_stair3amount,f_stair3fee,f_stair3price,f_stair4amount,f_stair4fee,f_stair4price"
+									Names="f_userinfoid,f_username,f_address,f_districtname,f_apartment,f_cardid,f_gasprice,f_pregas,f_zhinajin,f_preamount,f_grossproceeds,f_cardfees,f_payfeevalid,f_sgnetwork,f_sgoperator,f_deliverydate,f_usertype,f_gaswatchbrand,f_gaspricetype,f_beginfee,f_endfee,f_amountmaintenance,f_payment,f_totalcost,f_zhye,f_benqizhye,f_invoicenum,f_payfeetype,f_filiale,f_comtype,f_deliverytime,id,dates,f_stardate,f_enddate,f_stair1amount,f_stair1fee,f_stair1price,f_stair2amount,f_stair2fee,f_stair2price,f_stair3amount,f_stair3fee,f_stair3price,f_stair4amount,f_stair4fee,f_stair4price"
 									SumHQL="{m:Exp Str=$
-                                    select f_userid\,f_username\,f_address\,f_districtname\,f_apartment\,f_cardid\,f_gasprice\,isnull(f_pregas\,0)f_pregas\,isnull(f_zhinajin\,0)f_zhinajin\,cast(f_preamount as numeric(10\,2)) f_preamount\,cast(f_grossproceeds as numeric(10\,2)) f_grossproceeds\,f_cardfees\,f_payfeevalid\,f_sgnetwork\,f_sgoperator\,CONVERT(varchar(12)\, f_deliverydate\, 111 ) f_deliverydate\,f_usertype\,f_gaswatchbrand\,f_gaspricetype\,CONVERT(varchar(12)\, f_beginfee\, 111 ) f_beginfee\,CONVERT(varchar(12)\, f_endfee\, 111 ) f_endfee\,f_amountmaintenance\,f_payment\,f_totalcost\,f_zhye\,f_benqizhye\,f_invoicenum\,f_payfeetype\,f_filiale\,f_comtype\,CONVERT(varchar(8)\, f_deliverytime\, 108 ) f_deliverytime\,id\,CONVERT(varchar(100)\, dates) dates\,
+                                    select f_userinfoid\,f_username\,f_address\,f_districtname\,f_apartment\,f_cardid\,f_gasprice\,isnull(f_pregas\,0)f_pregas\,isnull(f_zhinajin\,0)f_zhinajin\,cast(f_preamount as numeric(10\,2)) f_preamount\,cast(f_grossproceeds as numeric(10\,2)) f_grossproceeds\,f_cardfees\,f_payfeevalid\,f_sgnetwork\,f_sgoperator\,CONVERT(varchar(12)\, f_deliverydate\, 111 ) f_deliverydate\,f_usertype\,f_gaswatchbrand\,f_gaspricetype\,CONVERT(varchar(12)\, f_beginfee\, 111 ) f_beginfee\,CONVERT(varchar(12)\, f_endfee\, 111 ) f_endfee\,f_amountmaintenance\,f_payment\,f_totalcost\,f_zhye\,f_benqizhye\,f_invoicenum\,f_payfeetype\,f_filiale\,f_comtype\,CONVERT(varchar(8)\, f_deliverytime\, 108 ) f_deliverytime\,id\,CONVERT(varchar(100)\, dates) dates\,
                                     f_stardate\,f_enddate\,f_stair1amount\,f_stair1fee\,f_stair1price\,f_stair2amount\,f_stair2fee\,f_stair2price\,f_stair3amount\,f_stair3fee\,f_stair3price\,f_stair4amount\,f_stair4fee\,f_stair4price
                                      from t_sellinggas s 
                                      left join (select DISTINCT  f_sellid\,(select substring(convert(varchar(50)\,lastinputdate\,120)\,1\,7)+\'\,\' from t_handplan a where a.f_sellid\=b.f_sellid for xml path(\'\')) as dates from t_handplan b where f_sellid is not null) h on s.id \= h.f_sellid
                                      where \{daninfosearch.DataContext.Condition\}  
                                     }"
 									HQL="{m:Exp Str=$
-                                    select f_userid\,f_username\,f_address\,f_districtname\,f_apartment\,f_cardid\,f_gasprice\,isnull(f_pregas\,0)f_pregas\,isnull(f_zhinajin\,0)f_zhinajin\,cast(f_preamount as numeric(10\,2)) f_preamount\,cast(f_grossproceeds as numeric(10\,2)) f_grossproceeds\,f_cardfees\,f_payfeevalid\,f_sgnetwork\,f_sgoperator\,CONVERT(varchar(12)\, f_deliverydate\, 111 ) f_deliverydate\,f_usertype\,f_gaswatchbrand\,f_gaspricetype\,CONVERT(varchar(12)\, f_beginfee\, 111 ) f_beginfee\,CONVERT(varchar(12)\, f_endfee\, 111 ) f_endfee\,f_amountmaintenance\,f_payment\,f_totalcost\,f_zhye\,f_benqizhye\,f_invoicenum\,f_payfeetype\,f_filiale\,f_comtype\,CONVERT(varchar(8)\, f_deliverytime\, 108 ) f_deliverytime\,id\,CONVERT(varchar(100)\, dates) dates\, 
+                                    select f_userinfoid\,f_username\,f_address\,f_districtname\,f_apartment\,f_cardid\,f_gasprice\,isnull(f_pregas\,0)f_pregas\,isnull(f_zhinajin\,0)f_zhinajin\,cast(f_preamount as numeric(10\,2)) f_preamount\,cast(f_grossproceeds as numeric(10\,2)) f_grossproceeds\,f_cardfees\,f_payfeevalid\,f_sgnetwork\,f_sgoperator\,CONVERT(varchar(12)\, f_deliverydate\, 111 ) f_deliverydate\,f_usertype\,f_gaswatchbrand\,f_gaspricetype\,CONVERT(varchar(12)\, f_beginfee\, 111 ) f_beginfee\,CONVERT(varchar(12)\, f_endfee\, 111 ) f_endfee\,f_amountmaintenance\,f_payment\,f_totalcost\,f_zhye\,f_benqizhye\,f_invoicenum\,f_payfeetype\,f_filiale\,f_comtype\,CONVERT(varchar(8)\, f_deliverytime\, 108 ) f_deliverytime\,id\,CONVERT(varchar(100)\, dates) dates\, 
                                      f_stardate\,f_enddate\,f_stair1amount\,f_stair1fee\,f_stair1price\,f_stair2amount\,f_stair2fee\,f_stair2price\,f_stair3amount\,f_stair3fee\,f_stair3price\,f_stair4amount\,f_stair4fee\,f_stair4price
                                     from t_sellinggas s 
                                      left join (select DISTINCT  f_sellid\,(select substring(convert(varchar(50)\,lastinputdate\,120)\,1\,7)+\'\,\' from t_handplan a where a.f_sellid\=b.f_sellid for xml path(\'\')) as dates from t_handplan b where f_sellid is not null) h on s.id \= h.f_sellid
@@ -313,7 +313,7 @@ Path="{m:Exp Str=LoginUser.f_fengongsi \=\= zonggongsi.value:$from t_sellinggas 
                         <sdk:DataGrid.Columns>
                             <!--sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/-->
 
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
                             <sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_username}"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"/>
                             <sdk:DataGridTextColumn Header="小区名称" Binding="{Binding f_districtname}"/>

@@ -32,21 +32,25 @@
             <o:ObjectList Name="paylist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='付款方式' order by id"/>
 
             <!--抄表的未交费记录-->
-            
+
             <!--<o:ObjectList Name="kbsellgas" LoadOnPathChanged="False" WebClientInfo="{StaticResource dbclient}"
 				Path="{m:Exp Str=$from t_handplan h where  h.f_userinfoid\=\'\{kbusers.f_userid\}\' and  h.shifoujiaofei\=\'否\' and h.lastrecord is not null and h.f_state\=\'已抄表\' order by h.f_userinfoid\,h.f_handdate  $}"
 				IsOld="{m:Exp Str=kbusers.State\=\=$Loaded$}"
 				IsClear="{m:Exp Str=kbusers.State\=\=$LoadError$ |or| kbusers.f_userinfoid\=\=null}">
-            --><!--滞纳金天数--><!--
+            -->
+            <!--滞纳金天数-->
+            <!--
             <o:PropertySetter PropertyName="f_zhinajintianshu"  Default="{m:Exp Str=0}"   NoDependValue="{m:Exp Str=SysTime.Today.Subtract(this.f_endjfdate.ToDate()).Days\>0:SysTime.Today.Subtract(this.f_endjfdate.ToDate()).Days\,0}"/>
-            --><!--滞纳金--><!--
+            -->
+            <!--滞纳金-->
+            <!--
             <o:PropertySetter PropertyName="f_zhinajin"   Default="{m:Exp Str=0}"  
 					NoDependValue="{m:Exp Str=(this.f_fee*this.f_zhinajintianshu*(kbusers.f_usertype\=\=$民用$:single[data.name\=\=$民用滞纳金比率$].ToObjectList().First().value.ToDouble()\,kbusers.f_usertype\=\=$非民用$:single[data.name\=\=$非民用滞纳金比率$].ToObjectList().First().value.ToDouble()\,null)).MathRound(2)}"/>
             -->
             <!--抄表的未交费记录-->
             <o:ObjectList Name="kbsellgas" LoadOnPathChanged="False" WebClientInfo="{StaticResource dbclient}">
-            <!--减免用水量-->
-            <o:PropertySetter PropertyName="f_jianshuiliang"   Default="{m:Exp Str=0}"  
+                <!--减免用水量-->
+                <o:PropertySetter PropertyName="f_jianshuiliang"   Default="{m:Exp Str=0}"  
 					NoDependValue="{m:Exp Str=(this.lastrecord-this.lastinputgasnum-this.oughtamount)}"/>
             </o:ObjectList>
 
@@ -590,7 +594,7 @@
                                             <o:PropertySetter PropertyName="f_zhye" NotNull="True"/>
                                         </a:Data.Prop>
                                     </TextBox>
-                                    <TextBox x:Name="ui_benqizhye" Text="{m:Bind Path=f_benqizhye}" Grid.Column="1" FontWeight="Bold" Foreground="Red" Margin="0,5,0,7" Grid.Row="7" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.ColumnSpan="1" >
+                                    <TextBox x:Name="ui_benqizhye" Text="{m:Bind Path=f_benqizhye}" Grid.Column="1" FontWeight="Bold" Foreground="Red" Margin="0,5,0,4" Grid.Row="7" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.ColumnSpan="1" >
                                         <a:Data.Prop>
                                             <o:PropertySetter PropertyName="f_benqizhye" ErrorMessage="本期结余不能小于0，请重输收款金额！" NotNull="True"/>
                                         </a:Data.Prop>
@@ -598,7 +602,7 @@
                                     <TextBlock Text="本期指数：" Margin="0,5,0,7" Grid.Row="7" TextWrapping="Wrap" TextAlignment="Right" Height="25" Grid.Column="2"/>
                                     <TextBlock Text="上期指数：" Margin="0,2,0,3" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right" Height="25" Grid.Column="2"/>
                                     <TextBox x:Name="ui_lastinputgasnum" Text="{m:Bind Path=lastinputgasnum}" Grid.Column="3" Margin="0,2,1,3" Grid.Row="6" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
-                                    <TextBox x:Name="ui_lastrecord" Text="{m:Bind Path=lastrecord}" Grid.Column="3" Margin="0,5,0,7" Grid.Row="7" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
+                                    <TextBox x:Name="ui_lastrecord" Text="{m:Bind Path=lastrecord}" Grid.Column="3" Margin="0,5,0,4" Grid.Row="7" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
                                     <TextBlock Text="滞纳金合计：" Grid.Column="4"  TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" Margin="0,6" Height="25"/>
                                     <TextBox x:Name="ui_zhinajin" Text="{m:Bind Path=f_zhinajin}" Grid.Column="5"  Grid.Row="2" TextWrapping="Wrap" IsReadOnly="False" HorizontalAlignment="Stretch" Width="Auto" Margin="0,6,48,6" Grid.ColumnSpan="1" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1"/>
                                     <Button Content="修改" Click="{m:Exp Str=openkafei.IsOpen\=True}" Grid.Column="5" Grid.Row="2" Margin="0" Width="44" HorizontalAlignment="Right" VerticalAlignment="Center"/>
