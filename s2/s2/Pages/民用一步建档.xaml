@@ -509,7 +509,7 @@
                                                 <o:PropertySetter PropertyName="switch_op" Value="{m:Exp Str=CoboxPinpai.SelectedItem.switch_op}" Default="{m:Exp Str=userfilego.switch_op}" />
                                             </a:Data.Prop>
                                         </TextBox>
-                                        <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_jllx}"  Grid.Column="5" Margin="0,5,0,0" Grid.Row="10" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" >
+                                        <TextBox Visibility="Visible" Text="{m:Bind Path=f_jllx}"  Grid.Column="5" Margin="0,5,0,0" Grid.Row="10" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_jllx" Value="{m:Exp Str=CoboxPinpai.SelectedItem.jllx}" Default="{m:Exp Str=userfilego.f_jllx}"/>
                                             </a:Data.Prop>

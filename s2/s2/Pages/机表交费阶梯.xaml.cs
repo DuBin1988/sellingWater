@@ -20,6 +20,10 @@ namespace Com.Aote.Pages
 {
     public partial class 机表交费阶梯 : UserControl
     {
+        //欠费list
+        int count = 0;
+        //开阀用userid
+        string iesid = "null";
         public 机表交费阶梯()
         {
             InitializeComponent();
@@ -189,6 +193,13 @@ namespace Com.Aote.Pages
         // 提交数据到后台服务器
         private void SaveClick(object sender, RoutedEventArgs e)
         {
+            count = (dataGrid1.ItemsSource as ObjectList).Count();
+            if (count > 0)
+            {
+                ObjectList handList = dataGrid1.ItemsSource as ObjectList;
+                GeneralObject go = handList.First();
+                iesid = go.GetPropertyValue("f_userid").ToString();
+            };
             //如果数据有错，提示不能保存
             GeneralObject kbfee = kbfee1.DataContext as GeneralObject;
 
@@ -240,7 +251,19 @@ namespace Com.Aote.Pages
                     GeneralObject kbfee = (GeneralObject)(from r in loader.Res where r.Name.Equals("kbfee") select r).First();
                     kbfee.New();
                 }
-
+               //交费开阀
+               if (count > 0)
+               {
+                //更新阀门控制状态
+                   string sql = "update t_userfiles set f_operate_zl='启用', f_returnvalueoperate=" + "'1' " +
+                                " where f_userid='" + iesid + "'";
+                   HQLAction action = new HQLAction();
+                   action.HQL = sql;
+                   action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
+                   action.Name = "t_userfiles";
+                   action.Completed += action_Completed;
+                   action.Invoke();
+               }
             }
             else
             {
@@ -252,6 +275,23 @@ namespace Com.Aote.Pages
             }
         }
         #endregion
+
+        private void action_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            HQLAction action = sender as HQLAction;
+            action.Completed -= action_Completed;
+
+            if (e.Error == null)
+            {
+                //将产生的json串送后台服务进行处理
+                WebClientInfo wci = Application.Current.Resources["server"] as WebClientInfo;
+                string uri = wci.BaseAddress + "/iesgas/table/comand";
+                WebClient client = new WebClient();
+                client.UploadStringAsync(new Uri(uri), "[{\"search\":\"f_userid like '" + iesid + "'\"}]");
+
+            }
+
+        }
 
         private void Compute()
         {

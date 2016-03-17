@@ -268,14 +268,14 @@ public class iesGas {
 		 *  {"customer_code":"11055492","returnvalue":"0"}]
 		 * @throws Exception
 		 */
-		@Path("gasbk/comand")
+		@Path("gascz/comand")
 		@POST
 		@Produces("application/json")
-		public String bkcomand(String Obj) throws Exception{
+		public String gasczcomand(String Obj) throws Exception{
 			log.debug("充值、冲正数据同步：" + Obj);
-			return jsonpost(6,Obj,"chargesMeter","");
-		}
-
+			return jsonpost(3,Obj,"chargesMeter","");
+		}	
+		
 		//充值冲正 ---------------------------------------------------------------------------------------------------->
 		/**
 		 * 
@@ -287,12 +287,12 @@ public class iesGas {
 		 *  {"customer_code":"11055492","returnvalue":"0"}]
 		 * @throws Exception
 		 */
-		@Path("gascz/comand")
+		@Path("gasbk/comand")
 		@POST
 		@Produces("application/json")
-		public String gasczcomand(String Obj) throws Exception{
+		public String bkcomand(String Obj) throws Exception{
 			log.debug("充值、冲正数据同步：" + Obj);
-			return jsonpost(3,Obj,"chargesMeter","");
+			return jsonpost(6,Obj,"chargesMeter","");
 		}	
 		
 		//档案状态---------------------------------------------------------------------------------------------------->
@@ -904,7 +904,7 @@ public class iesGas {
 		//查询需要生成抄表记录的数据
 		public String getcbjson(String cbdata){
 			try{
-				final String sql_1 = "select h.f_userid,cm.f_gasnum,cm.f_gasdate,h.lastinputgasnum,h.scinputdate,cm.cid,cm.jval from  t_handplan h "+
+				final String sql_1 = "select h.f_userid,cm.f_gasnum,cm.f_gasdate,h.lastinputgasnum,h.scinputdate,cm.cid,cm.jval,h.f_userinfoid f_userinfoid,h.f_stairtype stairType,h.id id,(cm.f_gasnum-h.lastinputgasnum) pregas from  t_handplan h "+
 									 "left join "+
 									 "(select c.f_userid,IsNull(c.f_gasnum,0)f_gasnum,c.f_gasdate,c.id cid,IsNull(c.jval,0)jval from t_cbnum c "+
 									 "right join "+
@@ -923,14 +923,28 @@ public class iesGas {
 					JSONArray rows =new JSONArray();
 					for(int i=0;i<list.size();i++){
 						Object[] tmp = (Object[])list.get(i);
-						String f_userid= tmp[0]+""; 
-						String f_gasnum= tmp[1]+"";
-						String lastinputgasnum= tmp[3]+"";
-						String lastinputdate= tmp[2]+"";
-						String cid= tmp[5]+"";
+						String f_userid = tmp[0] + "";
+						String f_gasnum = tmp[1] + "";
+						String lastinputgasnum = tmp[3] + "";
+						String lastinputdate = tmp[2] + "";
+						String cid = tmp[5] + "";
 						String jval= tmp[6]+"";
+						String f_userinfoid= tmp[7]+"";
+						String stairType= tmp[8]+"";
+						String id= tmp[9]+"";
+						String pregas= tmp[10]+"";
 						if(null !=f_gasnum && !"".equals(f_gasnum) && !"null".equals(f_gasnum) && !"NULL".equals(f_gasnum) && Double.parseDouble(f_gasnum) >= Double.parseDouble(lastinputgasnum)){
-							rows.put(new JSONObject("{userid:\""+f_userid+"\",reading:\"" + f_gasnum+"\",cid:\"" + cid+"\",jval:\"" + jval+"\",lastinputdate:\"" + lastinputdate +"\",lastreading:\"" + lastinputgasnum + "\"}"));
+							rows.put(new JSONObject("{userid:\""+f_userid
+												+ "\",reading:\"" + f_gasnum
+												+ "\",userinfoid:\"" + f_userinfoid									
+												+ "\",cid:\""+ cid 
+												+ "\",jval:\"" + jval
+												+ "\",lastinputdate:\"" + lastinputdate
+												+ "\",lastreading:\"" + lastinputgasnum
+												+ "\",pregas:\"" + pregas
+												+ "\",stairType:\"" + stairType
+												+ "\",id:\"" + id
+												+ "\"}"));
 							execSQL("update t_cbnum set f_isuse='1' where id='"+cid+"'");
 						}
 					}
@@ -949,6 +963,34 @@ public class iesGas {
 				return null;
 			}
 			return (Map<String, Object>) singlevalueList.get(0);
+		}
+
+		public void autoclosefamen() {
+			try{
+				final String sql_1 = "select shifoujiaofei,f_userid,f_state,f_gasmeterstyle,f_meternumber,f_aliasname from t_handplan where f_userid is not null and f_state='已抄表' and shifoujiaofei='否' and "+gasmeterstyle+" ";
+				List list = (List)hibernateTemplate.execute(new HibernateCallback() {
+							public Object doInHibernate(Session session)throws HibernateException {
+								SQLQuery query = session.createSQLQuery(sql_1);
+								return query.list();
+							}
+						});
+				// 查找数据记录是否存在
+				if (list.size() >= 1){
+					JSONArray rows =new JSONArray();
+					for(int i=0;i<list.size();i++){
+						Object[] tmp = (Object[])list.get(i);
+						String shifoujiaofei = tmp[0] + "";
+						String f_userid = tmp[1] + "";						
+						String f_state = tmp[2] + "";
+						String f_gasmeterstyle = tmp[3] + "";
+						String f_meternumber = tmp[4] + "";
+						String f_aliasname= tmp[5]+"";
+						rows.put(new JSONObject("{type:\"1\",customer_code:\"" + f_userid + "\"}"));
+					}
+					list.clear();
+					tablecomand(rows.toString());
+				}	
+			}catch(Exception e){}			
 		}
 		
 }

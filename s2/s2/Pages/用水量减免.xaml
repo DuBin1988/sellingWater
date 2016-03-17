@@ -92,9 +92,9 @@
                             <RowDefinition Height="0.56*"/>
                         </Grid.RowDefinitions>
                         <sdk:Label Content="用户编号：" Margin="0,5,0,6" RenderTransformOrigin="0.5,0.5"  HorizontalAlignment="Right" />
-                        <TextBox Text="{m:Bind Path=f_userid}"  Margin="0,10,-1,5" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1"  >
+                        <TextBox Text="{m:Bind Path=f_userinfoid}"  Margin="0,10,-1,5" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1"  >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_userid" Operator="f_userid = 'this'"/>
+                                <o:PropertySetter PropertyName="f_userinfoid" Operator="f_userinfoid = 'this'"/>
                             </a:Data.Prop>
                         </TextBox>
                         <sdk:Label Content="小区名称：" Margin="0,5,0,20" HorizontalAlignment="Right" Grid.Row="1" />
@@ -110,7 +110,8 @@
 
                     <sdk:DataGrid.Columns>
                         <sdk:DataGridTextColumn Header="序   号" d:IsLocked="True" Binding="{Binding Index}" />
-                        <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+                        <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
+                        <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>
                         <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}"/>
                         <sdk:DataGridTextColumn Header="是否已缴费" Binding="{Binding shifoujiaofei}"/>
                         <sdk:DataGridTextColumn Header="抄表日期" Binding="{Binding lastinputdate, StringFormat=yyyy-MM-dd}"/>
@@ -246,9 +247,9 @@
                             <o:PropertySetter PropertyName="f_stair4price" />
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBox x:Name="ui_userid" Text="{m:Bind Path=f_userid}"  Margin="0,4,0,1" AllowDrop="True" Height="Auto" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" Width="Auto" IsReadOnly="True">
+                    <TextBox x:Name="ui_userid" Text="{m:Bind Path=f_userinfoid}"  Margin="0,4,0,1" AllowDrop="True" Height="Auto" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" Width="Auto" IsReadOnly="True">
                         <a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_userid" />
+                            <o:PropertySetter PropertyName="f_userinfoid" />
                         </a:Data.Prop>
                     </TextBox>
                     <TextBox  x:Name="ui_districtname" Text="{m:Bind Path=f_districtname}"  Margin="0.009,2.814,90.017,0" AllowDrop="True" Height="25" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" Width="Auto" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" IsReadOnly="True" Grid.ColumnSpan="2">

@@ -435,7 +435,12 @@ public class HandCharge {
 							reading, lastinputDate,
 							f_metergasnums.add(gas).doubleValue(),
 							f_cumulativepurchase.add(gas).doubleValue(),
-							gas.doubleValue(), inputdate, inputdate, userid });
+							gas.doubleValue(), inputdate, inputdate, user.get("f_userid") });
+			hql = "update t_userfiles " +
+					// 本次抄表底数 本次抄表日期
+							"set lastinputgasnum=? ,  lastinputdate=?  where f_userid=?";
+					hibernateTemplate.bulkUpdate(hql, new Object[] { reading,
+							lastinputDate, userid });
 			String sellId = sellid + "";
 			// 更新抄表记录
 			hql = "update t_handplan set f_state='已抄表',shifoujiaofei='是',f_handdate=?,f_stairtype='"
