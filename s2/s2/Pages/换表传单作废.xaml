@@ -37,7 +37,7 @@
                 <b:HQLAction.HQL>
                     <m:Exp Str="
                 $update t_changmeter set f_state='传单作废', f_dengjistate='申请作废',f_chedannote='{pipelinego.f_chedannote}' where f_changemeterid='{pipelinego.f_changemeterid}'">
-                     </m:Exp>
+                    </m:Exp>
                 </b:HQLAction.HQL>
             </b:HQLAction>
             <!--换表申请状态列表-->
@@ -217,7 +217,7 @@
                         </TextBox>
                         <!--<TextBlock Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="新表钢印号：" Height="25" Grid.Column="0" TextAlignment="Right"/>-->
                         <TextBlock Margin="0,1" Grid.Row="17" TextWrapping="Wrap" Text="撤单原因：" Height="25" TextAlignment="Right"/>
-                        <TextBox Text="{m:Bind Path=f_userinfoid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                        <TextBox Text="{m:Bind Path=f_userinfoid}" Grid.Column="0" HorizontalAlignment="Stretch" Margin="145,5,5,5" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True" Grid.ColumnSpan="2">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_userinfoid" NoDependValue="{m:Exp Str=userfiles.f_userinfoid\=&gt;Completed}"/>
                             </a:Data.Prop>

@@ -22,10 +22,9 @@ namespace Com.Aote.Pages
     {
         public 机表交费阶梯()
         {
-            // Required to initialize variables
             InitializeComponent();
         }
-        #region 选中新用户后的处理过程
+         #region 选中新用户后的处理过程
         private void userfiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //取当前选中项的用户编号，传递到后台取数据
@@ -506,4 +505,5 @@ namespace Com.Aote.Pages
         //#endregion
 
     }
+
 }
