@@ -130,6 +130,9 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\其他收费修改.xaml.cs">
+      <DependentUpon>其他收费修改.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\批量上传表计信息.xaml.cs">
       <DependentUpon>批量上传表计信息.xaml</DependentUpon>
     </Compile>
@@ -282,7 +285,6 @@
     <Compile Include="Pages\其他严重隐患类型明细表.xaml.cs">
       <DependentUpon>其他严重隐患类型明细表.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\其他收费修改.cs" />
     <Compile Include="Pages\其他收费冲正.xaml.cs">
       <DependentUpon>其他收费冲正.xaml</DependentUpon>
     </Compile>

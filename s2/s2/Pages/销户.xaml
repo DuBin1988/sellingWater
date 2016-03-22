@@ -39,10 +39,19 @@
               Path="{m:Exp Str=pipelines.SelectedItem.id\!\=null:$one/from t_userinfo where id\=\'\{pipelines.SelectedItem.id\}\'$\,pipeline.DataContext.f_userid \!\= null:$one/from t_userinfo where f_userid\=\'\{pipeline.DataContext.f_userid\}\'$\,$qqq$}" 
 			 IsInit="{m:Exp Str='SaveAction.State==$End$'}">
 			</o:GeneralObject>
-			
-			<b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}">
+            <!--表对象-->
+            <b:HQLAction Name="updatemeter" WebClientInfo="{StaticResource server}">
+                <b:HQLAction.HQL>
+                    <m:Exp Str="
+                $update t_userfiles set  f_userstate='停用'
+                          where f_userinfoid='{userfiles.f_userid}'">
+                    </m:Exp>
+                </b:HQLAction.HQL>
+            </b:HQLAction>
+            <b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}">
 				<b:BatchInfo Source="{m:Exp Str=userfiles}" MethodName="SaveToJson"/>
 				<b:BatchInfo Source="{m:Exp Str=pipeline.DataContext}" MethodName="SaveToJson"/>
+                <b:BatchInfo Source="{m:Exp Str=updatemeter}" MethodName="InvokeToJson"/>
 			</b:BatchExcuteAction>
 		 
 		 
@@ -119,11 +128,11 @@
         				<sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" d:IsLocked="True"/>
         				<sdk:DataGridTextColumn Header="用户类别" Binding="{Binding f_usertype}" d:IsLocked="True"/>
         				<sdk:DataGridTextColumn Header="小区地址" Binding="{Binding f_address}" d:IsLocked="True"/>
-        				<sdk:DataGridTextColumn Header="门牌号" Binding="{Binding f_menpai}" d:IsLocked="True"/>
-        				<sdk:DataGridTextColumn Header="是否有效" Binding="{Binding f_payfeevalid}" d:IsLocked="True"/>
-        				<sdk:DataGridTextColumn Header="操作人" Binding="{Binding f_cmoperator}" d:IsLocked="True"/>
-        				<sdk:DataGridTextColumn Header="网点" Binding="{Binding f_parentname4}" d:IsLocked="True"/>
-        				<sdk:DataGridTextColumn Header="操作日期" Binding="{Binding f_cmdate, StringFormat=yyyy-MM-dd}" d:IsLocked="True"/>
+                        <sdk:DataGridTextColumn Header="门牌号" Binding="{Binding f_apartment}" d:IsLocked="True"/>
+        				<!--<sdk:DataGridTextColumn Header="是否有效" Binding="{Binding f_payfeevalid}" d:IsLocked="True"/>-->
+                        <sdk:DataGridTextColumn Header="操作人" Binding="{Binding f_yytoper}" d:IsLocked="True"/>
+                        <sdk:DataGridTextColumn Header="网点" Binding="{Binding f_yytdepa}" d:IsLocked="True"/>
+                        <sdk:DataGridTextColumn Header="操作日期" Binding="{Binding f_yytdepa, StringFormat=yyyy-MM-dd}" d:IsLocked="True"/>
 						
 						
         			</sdk:DataGrid.Columns>
@@ -142,13 +151,12 @@
                             <o:GeneralObject  Name="pipelinego" WebClientInfo="{StaticResource dbclient}" 
 						EntityType="t_cancellation"
 						IsInit="{m:Exp Str='SaveAction.State==$End'}">
-                                <o:PropertySetter PropertyName="f_userstate"  />
                             </o:GeneralObject >
                         </a:Data.Context>
                         <toolkit:DockPanel toolkit:DockPanel.Dock="Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0">
                             <Button x:Name="save" Content="保 存" Margin="5" 
             			IsEnabled="{m:Exp Str=pipeline.DataContext.IsModified and !pipeline.DataContext.HasErrors}"
-            			Click="{m:Exp Str=userinfo.f_userstate\=$销户$;SaveAction.Invoke()}" HorizontalAlignment="Right" Width="50"/>
+            			Click="{m:Exp Str=userfiles.f_userstate\=$销户$;SaveAction.Invoke()}" HorizontalAlignment="Right" Width="50"/>
                             <Button Content="撤 销" Margin="5" Click="{m:Exp Str=pipeline.DataContext.New()}" HorizontalAlignment="Right" Width="50"/>
 
                         </toolkit:DockPanel>
@@ -240,7 +248,7 @@
             					Default="{m:Exp Str=SysTime.Now}"/>
                                 </a:Data.Prop>
                             </sdk:DatePicker>
-                            <Button Content="读卡" Click="{m:Exp Str=card.ReadCard()}" Grid.Column="2" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Background="#FF2F628D"/>
+                            <Button Content="读卡" Visibility="Collapsed" Click="{m:Exp Str=card.ReadCard()}" Grid.Column="2" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Background="#FF2F628D"/>
                             <!--隐藏域-->
                             <!--卡号-->
                             <TextBox Text="{m:Bind Path=f_cardid}" Visibility="Collapsed" Margin="0,6"  TextWrapping="Wrap" VerticalAlignment="Center" IsReadOnly="True">

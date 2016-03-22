@@ -36,7 +36,7 @@ namespace Com.Aote.Pages
                 obj.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
                 obj.EntityType = "t_updatesellinggas";
 
-                obj.SetPropertyValue("f_userid", go.GetPropertyValue("f_userid")+"", false);
+                obj.SetPropertyValue("f_userid", go.GetPropertyValue("f_userinfoid")+"", false);
                 obj.SetPropertyValue("f_newuserid", ui_userid.Text, false);
                 obj.SetPropertyValue("f_username", go.GetPropertyValue("f_username")+"", false);
                 obj.SetPropertyValue("f_newusername", ui_username.Text, false);
@@ -57,17 +57,17 @@ namespace Com.Aote.Pages
                  }
                 
                  obj.SetPropertyValue("f_newzhinajin", decimal.Parse(ui_f_zhinajin.Text), false);
-                 if (go.GetPropertyValue("f_amountmaintenance") == null) 
-                 {
-                     go.SetPropertyValue("f_amountmaintenance", 0.0m, false);
-                 }
-                obj.SetPropertyValue("f_weihufei", decimal.Parse(go.GetPropertyValue("f_amountmaintenance").ToString()), false);
-                if (ui_f_amountmaintenance.Text.ToString().Equals(""))
-                {
-                    ui_f_amountmaintenance.Text = "0";
-                }
+                // if (go.GetPropertyValue("f_amountmaintenance") == null) 
+                // {
+                //     go.SetPropertyValue("f_amountmaintenance", 0.0m, false);
+                // }
+                //obj.SetPropertyValue("f_weihufei", decimal.Parse(go.GetPropertyValue("f_amountmaintenance").ToString()), false);
+                //if (ui_f_amountmaintenance.Text.ToString().Equals(""))
+                //{
+                //    ui_f_amountmaintenance.Text = "0";
+                //}
                 
-                obj.SetPropertyValue("f_newweihufei", decimal.Parse(ui_f_amountmaintenance.Text), false);
+                //obj.SetPropertyValue("f_newweihufei", decimal.Parse(ui_f_amountmaintenance.Text), false);
                 obj.SetPropertyValue("f_shifouyouxiao", go.GetPropertyValue("f_payfeevalid").ToString(), false);
                 obj.SetPropertyValue("f_newshifouyouxiao", ui_f_payfeevalid.Text, false);
                 obj.SetPropertyValue("f_pregas", decimal.Parse(go.GetPropertyValue("f_pregas").ToString()), false);
@@ -140,7 +140,6 @@ namespace Com.Aote.Pages
            // save.Invoke();
 
             string sql = "update t_sellinggas set f_zhinajin= " + decimal.Parse(ui_f_zhinajin.Text) +
-                ",f_amountmaintenance=" + decimal.Parse(ui_f_amountmaintenance.Text) +
                 ",f_payfeevalid='" + ui_f_payfeevalid.Text +
                 "',f_pregas=" + decimal.Parse(ui_f_pregas.Text) +
                 ",f_preamount=" +  decimal.Parse(ui_f_preamount.Text) +
@@ -149,10 +148,7 @@ namespace Com.Aote.Pages
                  ",f_zhye=" +  decimal.Parse(ui_f_zhye.Text)+
                  ",lastinputgasnum=" + decimal.Parse(ui_f_lastinputgasnums.Text) +
                  ",lastrecord=" + decimal.Parse(ui_f_lastrecord.Text) +
-                 ",f_userid='" + ui_userid.Text +
-                 "',f_payment='" +ui_payment.SelectedValue +
-                 "',f_username='" + ui_username.Text +
-                 "',f_address='" + ui_address.Text +
+                 ",f_payment='" +ui_payment.SelectedValue +
                  "',f_districtname='" + ui_f_districtname.Text +
                  "'  where id = " + go.GetPropertyValue("id");
             HQLAction action = new HQLAction();

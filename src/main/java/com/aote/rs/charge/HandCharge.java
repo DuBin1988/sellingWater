@@ -414,8 +414,7 @@ public class HandCharge {
 			sell.put("f_enddate", enddate);
 			sell.put("f_allamont", sumamont.doubleValue());
 			int sellid = (Integer) hibernateTemplate.save("t_sellinggas", sell);
-			this.updateUser(user, f_zhye.subtract(chargenum), f_metergasnumsu.add(gas), f_cumulativepurchaseu.add(gas));
-
+			//this.updateUser(user, f_zhye.subtract(chargenum), f_metergasnumsu.add(gas), f_cumulativepurchaseu.add(gas));
 			hql = "update t_userinfo set f_zhye=?,lastinputgasnum=?,"
 					+
 					// 本次抄表日期
@@ -430,8 +429,8 @@ public class HandCharge {
 					hql,
 					new Object[] { f_zhye.subtract(chargenum).doubleValue(),
 							reading, lastinputDate,
-							f_metergasnums.add(gas).doubleValue(),
-							f_cumulativepurchase.add(gas).doubleValue(),
+							f_metergasnumsu.add(gas).doubleValue(),
+							f_cumulativepurchaseu.add(gas).doubleValue(),
 							gas.doubleValue(), inputdate, inputdate, user.get("f_userid") });
 			hql = "update t_userfiles " +
 					// 本次抄表底数 本次抄表日期
