@@ -82,7 +82,7 @@ public class ChaoBiaoTask {
 			f.setAccessible(true);
 			f.set(HandCharge, this.hibernateTemplate);
 			if(!"[]".equals(json))
-				HandCharge.afRecordInputForMore(json,"水务公司","抄表系统",fmt.format(now),handdate.format(now),"正常使用");
+				HandCharge.afRecordInputForMore(json,"水务公司","抄表系统",fmt.format(now),handdate.format(now));
 					
 		}
 		catch(Exception e){

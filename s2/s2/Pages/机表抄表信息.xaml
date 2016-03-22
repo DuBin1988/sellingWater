@@ -377,7 +377,7 @@
                             <sdk:DataGridTextColumn Header="责任部门" Binding="{Binding f_zerenbumen}"/>
                             <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
                             <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>
-                            <sdk:DataGridTextColumn Header="表状态" Binding="{Binding f_meterstate}"/>
+                            <sdk:DataGridTextColumn Header="表状态" Binding="{Binding f_userstate}"/>
                             <sdk:DataGridTextColumn Header="旧用户编号" Binding="{Binding f_olduserid}"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"/>

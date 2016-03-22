@@ -317,7 +317,7 @@
                 <toolkit:DockPanel>
                     <!--按钮-->
                     <toolkit:DockPanel toolkit:DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <Button x:Name="save" Content="保  存" Margin="5"
+                        <Button x:Name="save" Content="保  存" Margin="5" IsEnabled="{m:Exp Str=!userfilego.HasErrors}"
 							Click="{m:Exp Str='SaveAction.Invoke()'}" Width="50" />
                         <Button x:Name="cancel" Content="撤  销" Margin="5" Click="{m:Exp Str=userfile.DataContext.New();temp.New()}" Width="50"/>
                     </toolkit:DockPanel>
@@ -669,9 +669,9 @@
                                                 <o:PropertySetter PropertyName="f_userstate" Default="正常" NotNull="True"/>
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <ComboBox  ItemsSource="{m:Exp Str=usertypelistnull}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_gasproperties}"  Grid.Column="5" Margin="0,2,0,3" Grid.Row="5" Height="25" VerticalAlignment="Stretch">
+                                        <ComboBox  ItemsSource="{m:Exp Str=usertypelistnull}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_usertype}"  Grid.Column="5" Margin="0,2,0,3" Grid.Row="5" Height="25" VerticalAlignment="Stretch">
                                             <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_usertype"   Value="{m:Exp Str=userfilego.f_usertype}" Default="{m:Exp Str='usertypelistnull.Count > 0 :usertypelistnull.First().f_usertype,null'}" />
+                                                <o:PropertySetter PropertyName="f_usertype" NotNull="True"  Value="{m:Exp Str=userfilego.f_usertype}"   Default="{m:Exp Str='usertypelistnull.Count > 0 :usertypelistnull.First().name,null'}" />
                                             </a:Data.Prop>
                                         </ComboBox>
                                         <TextBlock Text="人口基数：" Margin="0,3,0,2" Grid.Row="6" Grid.Column="4" TextWrapping="Wrap" TextAlignment="Right" Height="25" />
@@ -705,11 +705,12 @@
                                             </a:Data.Prop>
                                         </TextBox>
                                         <TextBlock Text="抄表片区：" Margin="1,4,0,1" Grid.Row="8" Grid.Column="2" TextWrapping="Wrap" TextAlignment="Right" Height="25" />
-                                        <TextBox Text="{m:Bind Path=f_handarea}"  Grid.Column="3" Margin="0,4,0,1" Grid.Row="8" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch" IsReadOnly="False" Grid.ColumnSpan="1" >
+                                        <ComboBox  ItemsSource="{m:Exp Str=handarealist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_handarea}" Grid.Column="3" Margin="0" Grid.Row="8" Height="25" IsEnabled="true" FontSize="13.333">
                                             <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_handarea" NotNull="True" Value="{m:Exp Str=temp.f_handarea}" Default="{m:Exp Str=userfilego.f_handarea}"/>
+                                                <o:PropertySetter PropertyName="f_handarea"  />
+
                                             </a:Data.Prop>
-                                        </TextBox>
+                                        </ComboBox>
                                         <TextBlock Text="电        话：" Margin="1,4,0,1" Grid.Row="5" TextWrapping="Wrap" TextAlignment="Right" Height="25" />
                                         <TextBox Text="{m:Bind Path=f_phone}"  Grid.Column="1" Margin="0,4,0,1" Grid.Row="5" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch" IsReadOnly="False" Grid.ColumnSpan="1" >
                                             <a:Data.Prop>

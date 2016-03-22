@@ -87,7 +87,7 @@
                             <TextBlock TextWrapping="Wrap" Text="用户编号：" Margin="5,0,0,0" HorizontalAlignment="Right"/>
                             <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userinfoid}" a:ControlAttach.DefaultButton="searchbutton" >
                                 <a:Data.Prop>
-                                    <o:PropertySetter PropertyName="f_userid" Operator="f_userid like 'this%'"/>
+                                    <o:PropertySetter PropertyName="f_userinfoid" Operator="f_userinfoid like 'this%'"/>
                                 </a:Data.Prop>
                             </TextBox>
                             <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="用户姓名：" Margin="5,0,0,0" HorizontalAlignment="Right"/>

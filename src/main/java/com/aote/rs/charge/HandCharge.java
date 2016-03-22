@@ -94,8 +94,8 @@ public class HandCharge {
 		@Path("download")
 		public String downLoadRecord(String condition) {
 
-			String sql = "select top 1000 u.f_userid,u.f_userinfoid,u.f_meternumber,u.f_username,u.f_handid,u.f_address,u.f_extrawaterprice,u.lastinputgasnum,u.f_stairtype,h.id "
-					+ "from t_handplan h left join t_userfiles u on h.f_userid = u.f_userid where h.shifoujiaofei='否' and u.f_userstate!='注销' and h.f_state='未抄表' and "
+			String sql = "select top 1000 u.f_userid,u.f_userinfoid,u.f_meternumber,u.f_username,u.f_handid,u.f_address,u.f_extrawaterprice,u.lastinputgasnum,h.lastrecord,h.oughtamount,u.f_stairtype,h.id "
+					+ "from t_handplan h left join t_userfiles u on h.f_userid = u.f_userid where h.shifoujiaofei='否' and u.f_userstate!='停用' and (h.f_state='未抄表' or h.f_state='待审核') and "
 					+ condition + "	order by u.f_address,u.f_apartment";
 			List<Object> list = this.hibernateTemplate
 					.executeFind(new HibernateSQLCall(sql));
@@ -131,19 +131,18 @@ public class HandCharge {
 	// 本方法不可重入
 	@SuppressWarnings("unchecked")
 	@GET
-	@Path("record/one/{userid}/{reading}/{sgnetwork}/{sgoperator}/{lastinputdate}/{handdate}/{meterstate}")
+	@Path("record/one/{userid}/{reading}/{sgnetwork}/{sgoperator}/{lastinputdate}/{handdate}")
 	@Produces("application/json")
 	public String RecordInputForOne(@PathParam("userid") String userid,
 			@PathParam("reading") double reading,
 			@PathParam("sgnetwork") String sgnetwork,
 			@PathParam("sgoperator") String sgoperator,
 			@PathParam("lastinputdate") String lastinputdate,
-			@PathParam("handdate") String handdate,
-			@PathParam("meterstate") String meterstate) {
+			@PathParam("handdate") String handdate) {
 		String ret = "";
 		try {
 			return afrecordInput(userid, 0, reading, sgnetwork, sgoperator,
-					lastinputdate, handdate, 0, meterstate, 1);
+					lastinputdate, handdate, 0, 1);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 			ret = e.getMessage();
@@ -233,7 +232,7 @@ public class HandCharge {
 	public String afrecordInput(String userid, double lastreading,
 			double reading, String sgnetwork, String sgoperator,
 			String lastinputdate, String handdate, double leftgas,
-			String meterstate, int flag) throws Exception {
+			int flag) throws Exception {
 		BigDecimal chargenum = new BigDecimal(0);
 		// 查找用户未抄表记录
 		Map map = this.findHandPlan(userid);
@@ -349,8 +348,6 @@ public class HandCharge {
 		BigDecimal f_cumulativepurchaseu = new BigDecimal(user
 				.get("f_cumulativepurchase")
 				+ "");
-		// 表状态
-		String meterState = meterstate;
 		// 从户里取出余额(上期余额)
 		BigDecimal fjfee = new BigDecimal(user.get("f_zongjiprice") + "");
 		//计算附加费用
@@ -504,16 +501,16 @@ public class HandCharge {
 					+ leftgas
 					+ ", lastinputgasnum=" // 上期指数
 					+ lrg
-					+ " , f_inputdate=?,f_meterstate=?,f_network='"
+					+ " , f_inputdate=?,f_network='"
 					+ sgnetwork
 					+ "',f_operator='"
 					+ sgoperator
 					+ "'  "
 					+ "where f_userid='"
 					+ userid
-					+ "' and f_state='未抄表' and id=" + handid;
+					+ "' and (f_state='未抄表' or f_state='待审核') and id=" + handid;
 			hibernateTemplate.bulkUpdate(hql, new Object[] { handDate,
-					lastinputDate, inputdate, meterState });
+					lastinputDate, inputdate});
 		} else {
 			// 更新用户档案
 			hql = "update t_userfiles " +
@@ -535,7 +532,7 @@ public class HandCharge {
 					+ " ,f_stairtype='" + stairtype + "'," + "oughtamount="
 					+ gas + ",  f_endjfdate=?, oughtfee=" + chargenum.subtract(fee)
 					+ ",f_fee=" + chargenum
-					+ ", f_inputdate=?,f_meterstate=?,f_network='" + sgnetwork
+					+ ", f_inputdate=?,f_network='" + sgnetwork
 					+ "',f_operator='" + sgoperator + "' ,f_address='"
 					+ address + "', f_username='" + username + "',"
 					+ "f_stair1amount=" + stair1num + ",f_stair2amount="
@@ -551,9 +548,9 @@ public class HandCharge {
 					+ leftgas
 					+ ", lastinputgasnum=" // 上期指数
 					+ lrg + " where f_userid='" + userid
-					+ "' and f_state='未抄表' and id=" + handid;
+					+ "' and (f_state='未抄表' or f_state='待审核') and id=" + handid;
 			hibernateTemplate.bulkUpdate(hql, new Object[] { handDate,
-					lastinputDate, date, inputdate, meterState });
+					lastinputDate, date, inputdate,});
 		}
 		// 保存用户清欠账务,并更新档案中账户余额
 		if (meterType != null && meterType.equals("机表")
@@ -835,7 +832,7 @@ public class HandCharge {
 				+ "isnull(u.f_gasproperties,'')f_gasproperties,isnull(u.f_dibaohu,0)f_dibaohu,isnull(u.f_payment,'')f_payment,isnull(u.f_zerenbumen,'')f_zerenbumen,isnull(u.f_menzhan,'')f_menzhan,isnull(u.f_inputtor,'')f_inputtor, isnull(q.c,0) c,"
 				+ "isnull(u.f_metergasnums,0) f_metergasnums,isnull(u.f_cumulativepurchase,0)f_cumulativepurchase, "
 				+ "isnull(u.f_finallybought,0)f_finallybought,isnull(u.f_cardid,'NULL') f_cardid,isnull(u.f_filiale,'NULL')f_filiale,"
-				+ "h.id id, isnull(CONVERT(varchar(12), h.f_handdate, 120 ),'计划空') f_handdate from (select * from t_handplan where f_state='未抄表' and f_userid='"
+				+ "h.id id, isnull(CONVERT(varchar(12), h.f_handdate, 120 ),'计划空') f_handdate from (select * from t_handplan where (f_state='未抄表' or f_state='待审核') and f_userid='"
 				+ userid
 				+ "') h "
 				+ "left join (select f_userid, COUNT(*) c from t_handplan where f_state='已抄表' and shifoujiaofei='否' "
@@ -944,7 +941,6 @@ public class HandCharge {
 				String network = row.getString("f_network");
 				String operator = row.getString("f_operator");
 				String inputdate = row.getString("f_inputdate");
-				String meterstate = row.getString("f_meterstate");
 				double lastreading = row.getDouble("lastreading");
 				// 获取余气量，机表录入，没有余气量，传Double.NaN
 				double leftgas = 0;
@@ -958,7 +954,7 @@ public class HandCharge {
 					} else {
 						re = afrecordInput(userid, lastreading, reading,
 								network, operator, inputdate, handdate,
-								leftgas, meterstate, 2);
+								leftgas, 2);
 						jo.put(re, "ok");
 					}
 				}
@@ -1037,14 +1033,13 @@ public class HandCharge {
 	}
 	// 批量抄表记录上传
 	// data以JSON格式上传，[{userid:'用户编号', showNumber:本期抄表数},{}]
-	@Path("record/batch/{handdate}/{sgnetwork}/{sgoperator}/{lastinputdate}/{meterstate}")
+	@Path("record/batch/{handdate}/{sgnetwork}/{sgoperator}/{lastinputdate}")
 	@POST
 	public String afRecordInputForMore(String data,
 			@PathParam("sgnetwork") String sgnetwork,
 			@PathParam("sgoperator") String sgoperator,
 			@PathParam("lastinputdate") String lastinputdate,
-			@PathParam("handdate") String handdate,
-			@PathParam("meterstate") String meterstate) {
+			@PathParam("handdate") String handdate) {
 		log.debug("批量抄表记录上传 开始");
 		String ret = "";
 		// 错误信息
@@ -1075,7 +1070,7 @@ public class HandCharge {
 
 				try {
 					afrecordInput(userid, lastreading, reading, sgnetwork, sgoperator,
-							lastinputdate, handdate, leftgas, meterstate,2);
+							lastinputdate, handdate, leftgas, 2);
 					money(stairtype, pregas, id, userid);
 					String sql = "update t_handplan set f_fee = (oughtfee + extrazjfee),extrazj =(select f_zongjiprice from t_stairprice where f_stairtype = '" + stairtype + "') where id = '" + id + "'";
 					execSQL(sql);
