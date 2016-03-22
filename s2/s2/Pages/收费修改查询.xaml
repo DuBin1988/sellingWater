@@ -92,38 +92,38 @@
 									SumNames=","/>
                         </a:Data.Items>
                         <sdk:DataGrid.Columns>
-                            <sdk:DataGridTextColumn Header="修改前用户编号" Binding="{Binding f_userid}"/>
-                            <sdk:DataGridTemplateColumn Header="修改后用户编号">
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+                            <!--<sdk:DataGridTemplateColumn Header="修改后用户编号">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{m:Bind Path=f_newuserid}"  Foreground="{m:Exp Str=data.f_newuserid !\= data.f_userid :Red \,Black}" IsReadOnly="True"/>
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
-                            </sdk:DataGridTemplateColumn>
-                            <sdk:DataGridTextColumn Header="修改前用户姓名" Binding="{Binding f_username}"/>
-                            <sdk:DataGridTemplateColumn Header="修改后用户姓名">
+                            </sdk:DataGridTemplateColumn>-->
+                            <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}"/>
+                            <!--<sdk:DataGridTemplateColumn Header="修改后用户姓名">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{m:Bind Path=f_newusername}"  Foreground="{m:Exp Str=data.f_newusername !\= data.f_username :Red \,Black}" IsReadOnly="True"/>
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
-                            </sdk:DataGridTemplateColumn>
-                            <sdk:DataGridTextColumn Header="修改前用户类型" Binding="{Binding f_usertype}"/>
-                            <sdk:DataGridTemplateColumn Header="修改后用户类型">
+                            </sdk:DataGridTemplateColumn>-->
+                            <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
+                            <!--<sdk:DataGridTemplateColumn Header="修改后用户类型">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{m:Bind Path=f_newusertype}"  Foreground="{m:Exp Str=data.f_newusertype !\= data.f_usertype :Red \,Black}" IsReadOnly="True"/>
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
-                            </sdk:DataGridTemplateColumn>
-                            <sdk:DataGridTextColumn Header="修改前用户地址" Binding="{Binding f_address}"/>
-                            <sdk:DataGridTemplateColumn Header="修改后用户地址">
+                            </sdk:DataGridTemplateColumn>-->
+                            <sdk:DataGridTextColumn Header="用户地址" Binding="{Binding f_address}"/>
+                            <!--<sdk:DataGridTemplateColumn Header="修改后用户地址">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{m:Bind Path=f_newaddress}"  Foreground="{m:Exp Str=data.f_newaddress !\= data.f_address :Red \,Black}" IsReadOnly="True"/>
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
-                            </sdk:DataGridTemplateColumn>
+                            </sdk:DataGridTemplateColumn>-->
                             <sdk:DataGridTextColumn Header="修改前小区名称" Binding="{Binding f_districtname}"/>
                             <sdk:DataGridTemplateColumn Header="修改后小区名称">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
@@ -132,22 +132,22 @@
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
                             </sdk:DataGridTemplateColumn>
-                            <sdk:DataGridTextColumn Header="修改前滞纳金" Binding="{Binding f_zhinajin}"/>
-                            <sdk:DataGridTemplateColumn Header="修改后滞纳金">
+                            <sdk:DataGridTextColumn Header="修改前违约金" Binding="{Binding f_zhinajin}"/>
+                            <sdk:DataGridTemplateColumn Header="修改后违约金">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{m:Bind Path=f_newzhinajin}"  Foreground="{m:Exp Str=data.f_newzhinajin !\= data.f_zhinajin :Red \,Black}" IsReadOnly="True"/>
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
                             </sdk:DataGridTemplateColumn>
-                            <sdk:DataGridTextColumn Header="修改前维护费" Binding="{Binding f_weihufei}"/>
+                            <!--<sdk:DataGridTextColumn Header="修改前维护费" Binding="{Binding f_weihufei}"/>
                             <sdk:DataGridTemplateColumn Header="修改后维护费">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{m:Bind Path=f_newweihufei}"  Foreground="{m:Exp Str=data.f_newweihufei !\= data.f_weihufei :Red \,Black}" IsReadOnly="True"/>
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
-                            </sdk:DataGridTemplateColumn>
+                            </sdk:DataGridTemplateColumn>-->
                             <sdk:DataGridTextColumn Header="修改前用水量" Binding="{Binding f_pregas}"/>
                             <sdk:DataGridTemplateColumn Header="修改后用水量">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
@@ -212,7 +212,6 @@
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
                             </sdk:DataGridTemplateColumn>
-                   
                             <sdk:DataGridTextColumn Header="操作人" Binding="{Binding f_sellinggasoperator}"/>
                             <sdk:DataGridTextColumn Header="修改原因" Binding="{Binding f_updatenote}"/>
                             <sdk:DataGridTextColumn Header="操作日期" Binding="{Binding f_sellinggasdate,StringFormat=yyyy-MM-dd}"/>

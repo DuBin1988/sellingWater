@@ -151,14 +151,14 @@
 										<o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>           
 									</a:Data.Prop>
 								</TextBox>
-								<TextBlock Margin="0" TextWrapping="Wrap" Text="水表品牌：" Height="25" TextAlignment="Right" Grid.Column="6"/>
+								<!--<TextBlock Margin="0" TextWrapping="Wrap" Text="水表品牌：" Height="25" TextAlignment="Right" Grid.Column="6"/>
 								<ComboBox x:Name="CoboxPinpai" DisplayMemberPath="f_pinpai" SelectedValuePath="f_pinpai" ItemsSource="{m:Exp Str=pinpailist}" SelectedValue="{m:Bind Path=f_gaswatchbrand}" Grid.Column="7" Margin="0" Height="25"   >
 									<a:Data.Prop>
 										<o:PropertySetter PropertyName="f_gaswatchbrand"    Operator="f_gaswatchbrand = 'this'"/>
 									</a:Data.Prop>
-								</ComboBox>
-								<TextBlock Margin="0" TextWrapping="Wrap" Text="是否有效：" Height="25" TextAlignment="Right" Grid.Column="6" Grid.Row="1"/>
-								<ComboBox x:Name="DaXiaoKa"  SelectedValue="{m:Bind Path=f_payfeevalid}" Grid.Column="7" ItemsSource="{m:Exp Str=youxiaolist}"  Margin="0" DisplayMemberPath="name" SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto" Grid.Row="1">
+								</ComboBox>-->
+								<TextBlock Margin="0" TextWrapping="Wrap" Text="是否有效：" Height="25" TextAlignment="Right" Grid.Column="6"/>
+								<ComboBox x:Name="DaXiaoKa"  SelectedValue="{m:Bind Path=f_payfeevalid}" Grid.Column="7" ItemsSource="{m:Exp Str=youxiaolist}"  Margin="0" DisplayMemberPath="name" SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto">
 									<a:Data.Prop>
 										<o:PropertySetter PropertyName="f_payfeevalid"  Operator="f_payfeevalid = 'this'"/>          
 									</a:Data.Prop>
@@ -193,8 +193,8 @@
 						<sdk:DataGridTextColumn Header="收费类型" Binding="{Binding f_feetype}" d:IsLocked="True"/>
 						<sdk:DataGridTextColumn Header="费用" Binding="{Binding f_fee}" d:IsLocked="True"/>
 						<sdk:DataGridTextColumn Header="是否有效" Binding="{Binding f_payfeevalid}" d:IsLocked="True"/>
-						<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}" d:IsLocked="True"/>
-						<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}" d:IsLocked="True"/>
+						<!--<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}" d:IsLocked="True"/>
+						<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}" d:IsLocked="True"/>-->
 						<sdk:DataGridTextColumn Header="操作人" Binding="{Binding f_cmoperator}" d:IsLocked="True"/>
 						<sdk:DataGridTextColumn Header="网点" Binding="{Binding f_parentname4}" d:IsLocked="True"/>
 						<sdk:DataGridTextColumn Header="操作日期" Binding="{Binding f_cmdate,StringFormat=yyyy-MM-dd}" d:IsLocked="True"/>
