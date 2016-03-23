@@ -38,6 +38,7 @@ namespace Com.Aote.Pages
                 obj.SetPropertyValue("f_userid", ui_userid.Text, false);
                 obj.SetPropertyValue("f_username", ui_username.Text, false);
                 obj.SetPropertyValue("f_address", ui_address.Text, false);
+                obj.SetPropertyValue("f_usertype", ui_usertype.Text, false);
                 obj.SetPropertyValue("f_sellid", go.GetPropertyValue("id").ToString(), false);
 
 
