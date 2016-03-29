@@ -52,7 +52,7 @@
 					    Operator="f_operdate^= substring('this',1,10)"/>
                     </a:Data.Prop>
                 </sdk:DatePicker>
-                <TextBlock Grid.Row="0" Grid.Column="4" TextWrapping="Wrap" Text="阶梯水价类型：" TextAlignment="Right" Height="25"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" TextWrapping="Wrap" Text="水价类型：" TextAlignment="Right" Height="25"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <ComboBox x:Name="CoboxStair" DisplayMemberPath="f_stairtype" SelectedValuePath="f_stairtype" ItemsSource="{m:Exp Str=stairlist}" SelectedValue="{m:Bind Path=f_stairtype}" Grid.Column="5" Margin="0,2,0,3" Grid.Row="0" Height="25" VerticalAlignment="Stretch"   >
                     <a:Data.Prop>
                         <o:PropertySetter PropertyName="f_stairtype" NoDependValue="{m:Exp Str=stairlist.SelectedItem.f_stairtype}"
@@ -84,19 +84,20 @@
                     </o:PagedList>
                 </a:Data.Items>
                 <sdk:DataGrid.Columns>
-                    <sdk:DataGridTextColumn Header="阶梯水价类型" Binding="{Binding f_stairtype}"/>
+                    <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_stairtype}"/>
                     <sdk:DataGridTextColumn Header="阶段一水量" Binding="{Binding f_stair1amount}"/>
                     <sdk:DataGridTextColumn Header="阶段一单价" Binding="{Binding f_stair1price}"/>
                     <sdk:DataGridTextColumn Header="阶段二水量" Binding="{Binding f_stair2amount}"/>
                     <sdk:DataGridTextColumn Header="阶段二单价" Binding="{Binding f_stair2price}"/>
                     <sdk:DataGridTextColumn Header="阶段三水量" Binding="{Binding f_stair3amount}"/>
                     <sdk:DataGridTextColumn Header="阶段三单价" Binding="{Binding f_stair3price}"/>
+                    <sdk:DataGridTextColumn Header="超过阶段三单价" Binding="{Binding f_stair4price}"/>
                     <sdk:DataGridTextColumn Header="阶段月数" Binding="{Binding f_stairmonths}"/>
                     <sdk:DataGridTextColumn Header="操作人" Binding="{Binding f_operator}"/>
                     <sdk:DataGridTextColumn Header="操作日期" Binding="{Binding f_operdate}"/>
                     <sdk:DataGridTextColumn Header="操作总数" Binding="{Binding f_counts}"/>
                     <sdk:DataGridTextColumn Header="用户类型条件" Binding="{Binding f_usertype}"/>
-                    <sdk:DataGridTextColumn Header="水表类型条件" Binding="{Binding f_gasmeterstyle}"/>
+                    <!--<sdk:DataGridTextColumn Header="水表类型条件" Binding="{Binding f_gasmeterstyle}"/>-->
                     <sdk:DataGridTextColumn Header="水价类型条件" Binding="{Binding f_gaspricetype}"/>
                 </sdk:DataGrid.Columns>
             </sdk:DataGrid>

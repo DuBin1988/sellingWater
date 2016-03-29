@@ -23,9 +23,10 @@ namespace Com.Aote.Pages
 
         private void zhikong_Click(object sender, RoutedEventArgs e)
         {
-            ui_address.Text = "";
+            ui_userinfoid.Text = "";
             ui_userid.Text = "";
             ui_username.Text = "";
+            ui_meternumber.Text = "";
             ui_whetherback.SelectedValue = "";
         }
     }

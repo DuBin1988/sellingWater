@@ -38,7 +38,6 @@ namespace Com.Aote.Pages
             BatchExcuteAction save = (from p in loader.Res where p.Name.Equals("CreateHandplan") select p).First() as BatchExcuteAction;
             save.Completed += save_Completed;
             save.Invoke();
-
         }
 
         void save_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -52,6 +51,7 @@ namespace Com.Aote.Pages
             WebClient client1 = new WebClient();
             client1.UploadStringCompleted += client1_UploadStringCompleted;
             client1.UploadStringAsync(new Uri(uri1), jsonjs);
+            
 
         }
 

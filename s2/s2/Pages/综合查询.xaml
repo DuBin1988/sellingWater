@@ -43,13 +43,13 @@
 					<RowDefinition Height="30"/>
 					<RowDefinition Height="30"/>
 					<RowDefinition Height="30"/>
+					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="30"/>
 					<RowDefinition Height="30"/>
 					<RowDefinition Height="30"/>
 					<RowDefinition Height="30"/>
 					<RowDefinition Height="30"/>
-					<RowDefinition Height="30"/>
-					<RowDefinition Height="30"/>
+					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100"/>
@@ -65,16 +65,16 @@
 				<TextBlock Margin="0" Grid.Row="6" TextWrapping="Wrap" Text="水　　价：" TextAlignment="Right" Height="25"/>-->
 				<TextBlock Text="地　　址：" Margin="0" Grid.Row="3" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
 				<!--<TextBlock Text="小区名称：" Margin="0" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="2" Height="25"/>-->
-				<TextBlock Text="水表品牌：" Margin="0" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
+				<!--<TextBlock Text="水表品牌：" Margin="0" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>-->
 				<!--<TextBlock Text="水表型号：" Margin="0" Grid.Row="5" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="2" Height="25"/>
 				<TextBlock Grid.Column="2" Margin="0" Grid.Row="6" TextWrapping="Wrap" Text="左  右 表：" TextAlignment="Right" Height="25"/>
 				<TextBlock Margin="0" Grid.Row="4" TextWrapping="Wrap" Text="水价类型：" TextAlignment="Right" Grid.Column="2" Height="25"/>
 				<TextBlock Text="用户类型：" Margin="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="2" Height="25"/>-->
-				<TextBlock Text="电　　话：" Margin="0" Grid.Row="8" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
+				<TextBlock Text="电　　话：" Margin="0" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
 				<!--<TextBlock Text="用水性质：" Margin="0" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
 				<TextBlock Text="表　　号：" Margin="0" Grid.Row="7" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>-->
-				<TextBlock Text="用户总购水量：" Margin="0" Grid.Row="10" Grid.Column="0" TextAlignment="Right" Height="25"/>
-				<TextBox  Text="{m:Bind Path=f_cumulativepurchase}"  Grid.Column="1" Margin="0" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="25" IsReadOnly="True" Grid.Row="10" VerticalAlignment="Stretch" >
+				<TextBlock Text="用户总购水量：" Margin="0" Grid.Row="7" Grid.Column="0" TextAlignment="Right" Height="25"/>
+				<TextBox  Text="{m:Bind Path=f_cumulativepurchase}"  Grid.Column="1" Margin="0" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="25" IsReadOnly="True" Grid.Row="7" VerticalAlignment="Stretch" >
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_cumulativepurchase"  />
 					</a:Data.Prop>
@@ -104,11 +104,11 @@
 						<o:PropertySetter PropertyName="f_address"  />
 					</a:Data.Prop>
 				</TextBox>
-				<CheckBox IsChecked="{m:Bind Path=f_wallhangboiler}"  Content="有壁挂炉" Margin="0" Grid.Row="7" Grid.Column="1"  Height="26" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" IsEnabled="False">
+				<!--<CheckBox IsChecked="{m:Bind Path=f_wallhangboiler}"  Content="有壁挂炉" Margin="0" Grid.Row="7" Grid.Column="1"  Height="26" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" IsEnabled="False">
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_wallhangboiler"  />
 					</a:Data.Prop>
-				</CheckBox>	
+				</CheckBox>-->	
 							
 				<!--<TextBox Text="{m:Bind Path=f_districtname}" IsReadOnly="True" Grid.Column="3" Margin="0" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="25" VerticalAlignment="Stretch" >
 					<a:Data.Prop>
@@ -116,11 +116,11 @@
 					</a:Data.Prop>
 				</TextBox>-->
 				
-				<TextBox Text="{m:Bind Path=f_gaswatchbrand}" Grid.Column="1" Margin="0" Grid.Row="6" IsReadOnly="True" Height="25" VerticalAlignment="Stretch"   >
+				<!--<TextBox Text="{m:Bind Path=f_gaswatchbrand}" Grid.Column="1" Margin="0" Grid.Row="6" IsReadOnly="True" Height="25" VerticalAlignment="Stretch"   >
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_gaswatchbrand"  />
 					</a:Data.Prop>
-				</TextBox>
+				</TextBox>-->
 				<!--<TextBox Text="{m:Bind Path=f_metertype}" Grid.Column="3" Margin="0" Grid.Row="5" IsReadOnly="True" Height="25" VerticalAlignment="Stretch"  >
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_metertype"  />
@@ -142,7 +142,7 @@
 						<o:PropertySetter PropertyName="f_usertype" />
 					</a:Data.Prop>	
 				</TextBox>-->
-				<TextBox Text="{m:Bind Path=f_phone}"  Grid.Column="1" Margin="0" Grid.Row="8" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" >
+				<TextBox Text="{m:Bind Path=f_phone}"  Grid.Column="1" Margin="0" Grid.Row="6" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" >
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_phone" />
 					</a:Data.Prop>
@@ -207,7 +207,7 @@
 				<toolkit:DockPanel Grid.ColumnSpan="2" Margin="23,0,13,0" Grid.RowSpan="9"  Grid.Column="4" Grid.Row="0" >
 					<toolkit:DockPanel   Background="{x:Null}" toolkit:DockPanel.Dock="Bottom" Margin="0,0,0,5">
 						<Grid>
-							<sdk:DataPager x:Name="pager8" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=userfiles}"   PageSize="20" toolkit:DockPanel.Dock="Top"  Height="24" Margin="0,0,0,-64" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />	
+							<sdk:DataPager x:Name="pager8" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=userfiles}"   PageSize="8" toolkit:DockPanel.Dock="Top"  Height="24" Margin="0,0,0,-64" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />	
 							<TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共 \{userfiles.ItemsSource.Count\} 项}" toolkit:DockPanel.Dock="Bottom" Height="27" Margin="20,0,0,-65" Width="90" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment, Width" HorizontalAlignment="Left"  />
 							
 						</Grid>
@@ -326,36 +326,36 @@
 						AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" Height="Auto">
                          <a:Data.Items>
 								<o:PagedObjectList Name="userfileslist" WebClientInfo="{StaticResource dbclient}"
-				Path="{m:Exp Str=LoginUser.f_fengongsi \=\= zonggongsi.value:$from t_userfiles where \{userfilesearch.DataContext.Condition\} and id!\=0$ \, LoginUser.f_fengongsi \!\= zonggongsi.value:$from t_userfiles where \{userfilesearch.DataContext.Condition\} and id!\=0 and f_filiale \=\'\{LoginUser.f_fengongsi\}\'$\,$abc$}"
+				Path="{m:Exp Str=LoginUser.f_fengongsi \=\= zonggongsi.value:$from t_userinfo where \{userfilesearch.DataContext.Condition\} and id!\=0$ \, LoginUser.f_fengongsi \!\= zonggongsi.value:$from t_userinfo where \{userfilesearch.DataContext.Condition\} and id!\=0 and f_filiale \=\'\{LoginUser.f_fengongsi\}\'$\,$abc$}"
 				PageIndex="{m:Exp Str=pager8.PageIndex}" PageSize="{m:Exp Str=pager8.PageSize}" SumNames="f_times"/>
 							</a:Data.Items>
 						<sdk:DataGrid.Columns>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="用户编号" Binding="{Binding f_userid}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_username}"/>
-							<sdk:DataGridTextColumn d:IsLocked="True" Header="卡号" Binding="{Binding f_cardid}"/>
-							<sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
-							<sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_gaspricetype}"/>
-							<sdk:DataGridTextColumn d:IsLocked="True" Header="用户状态" Binding="{Binding f_userstate}"/>
+							<!--<sdk:DataGridTextColumn d:IsLocked="True" Header="卡号" Binding="{Binding f_cardid}"/>-->
+                            <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
+                            <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_stairtype}"/>
+                            <sdk:DataGridTextColumn d:IsLocked="True" Header="用户状态" Binding="{Binding f_userstate}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="小区" Binding="{Binding f_districtname}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="小区地址" Binding="{Binding f_address}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="门牌号" Binding="{Binding f_apartment}"/>
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="电话" Binding="{Binding f_phone}"/>
-							<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
+							<!--<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
 							<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
-							<sdk:DataGridTextColumn d:IsLocked="True" Header="表号" Binding="{Binding f_meternumber}"/>
+							<sdk:DataGridTextColumn d:IsLocked="True" Header="表号" Binding="{Binding f_meternumber}"/>-->
 							<sdk:DataGridTextColumn Header="建档日期" Binding="{Binding f_yytdate, StringFormat=yyyy-MM-dd}"/>
 							<sdk:DataGridTextColumn Header="发卡日期" Binding="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"/>
 						
 						</sdk:DataGrid.Columns>
 					</sdk:DataGrid>
 				</toolkit:DockPanel>
-				<TextBlock Text="当前表总购水量:" Margin="0" Grid.Row="9" Grid.Column="0" TextAlignment="Right" Height="25" d:LayoutOverrides="HorizontalAlignment"/>
+				<!--<TextBlock Text="当前表总购水量:" Margin="0" Grid.Row="9" Grid.Column="0" TextAlignment="Right" Height="25" d:LayoutOverrides="HorizontalAlignment"/>
 				<TextBox  Text="{m:Bind Path=f_metergasnums}"  Grid.Column="1" Margin="0" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="25" IsReadOnly="True" Grid.Row="9" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch" >
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_metergasnums"  />
 					</a:Data.Prop>
-				</TextBox>
+				</TextBox>-->
 				<TextBlock Text="小　　区：" Margin="0" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
 				<TextBox Text="{m:Bind Path=f_districtname}" IsReadOnly="True" Grid.Column="1" Margin="0" Grid.Row="4" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="25" VerticalAlignment="Stretch" >
 					<a:Data.Prop>
@@ -369,21 +369,62 @@
 					</a:Data.Prop>
 				</TextBox>
 			</Grid>			
-			<sdk:TabControl Margin="0,0,0,30">
-				
-				<sdk:TabItem Header="   售    水   ">
+			<sdk:TabControl >
+                    <sdk:TabItem Header=" 表具信息 ">
+                        <toolkit:DockPanel>
+                            <toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
+                                <Grid>
+                                    <sdk:DataPager x:Name="pager1" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=lsgaslist}"   PageSize="20" toolkit:DockPanel.Dock="Top"  />
+                                    <TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共 \{lsgaslist.ItemsSource.Count\} 项}" Width="55" toolkit:DockPanel.Dock="Right" Margin="17,3,0,0" HorizontalAlignment="Left" />
+                                </Grid>
+                            </toolkit:DockPanel>
+                            <sdk:DataGrid  IsReadOnly="True" AutoGenerateColumns="False" x:Name="lsgat"  Margin="0,0,0,2" >
+                                <a:Data.Items>
+                                    <o:PagedObjectList x:Name="files" WebClientInfo="{StaticResource dbclient}" LoadOnPathChanged="False"
+									MultiPath="{m:Exp Str=$from t_userfiles where f_userinfoid\=\'\{cxuserfile.DataContext.f_userid\}\'}"
+									Path="{m:Exp Str=$from t_userfiles where f_userinfoid\=\'\{cxuserfile.DataContext.f_userid\}\'}"
+									PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="id"
+									IsOld="{m:Exp Str=cxuserfile.DataContext.f_userid!\=null}"/>
+                                </a:Data.Items>
+                                <sdk:DataGrid.Columns>
+                                    <sdk:DataGridTemplateColumn>
+                                        <sdk:DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate/>
+                                        </sdk:DataGridTemplateColumn.CellTemplate>
+                                    </sdk:DataGridTemplateColumn>
+
+                                    <sdk:DataGridTextColumn Header="序   号" d:IsLocked="True" Binding="{Binding Index}" />
+                                    <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
+                                    <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>
+                                    <sdk:DataGridTextColumn Header="姓名或单位" Binding="{Binding f_username}"/>
+                                    <sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
+                                    <sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
+                                    <sdk:DataGridTextColumn Header="水表类型" Binding="{Binding f_gasmeterstyle}"/>
+                                    <sdk:DataGridTextColumn Header="水表口径" Binding="{Binding f_gasmeterkoujing}"/>
+                                    <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}"/>
+                                    <sdk:DataGridTextColumn Header="表计电话" Binding="{Binding meter_phone}"/>
+                                    <sdk:DataGridTextColumn Header="终端名称" Binding="{Binding terminal_name}"/>
+                                    <sdk:DataGridTextColumn Header="表通道类型" Binding="{Binding f_channel_type}"/>
+                                </sdk:DataGrid.Columns>
+                            </sdk:DataGrid>
+
+                        </toolkit:DockPanel>
+
+
+                    </sdk:TabItem>
+                    <sdk:TabItem Header="   售    水   ">
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<Grid>
-								<sdk:DataPager x:Name="pager" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=lsgaslist}"   PageSize="20" toolkit:DockPanel.Dock="Top"  />
+								<sdk:DataPager x:Name="pager" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=lsgaslist}"   PageSize="4" toolkit:DockPanel.Dock="Top"  />
 								<TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共 \{lsgaslist.ItemsSource.Count\} 项}" Width="55" toolkit:DockPanel.Dock="Right" Margin="17,3,0,0" HorizontalAlignment="Left" />
 							</Grid>
 						</toolkit:DockPanel>
 						<sdk:DataGrid  IsReadOnly="True" AutoGenerateColumns="False" x:Name="lsgaslist"  Margin="0,0,0,2" >
 							<a:Data.Items>
 								<o:PagedObjectList x:Name="sellgas" WebClientInfo="{StaticResource dbclient}" LoadOnPathChanged="False"
-									MultiPath="{m:Exp Str=$from t_sellinggas where f_userid\=\'\{cxuserfile.DataContext.f_userid\}\'}"
-									Path="{m:Exp Str=$from t_sellinggas where f_userid\=\'\{cxuserfile.DataContext.f_userid\}\' order by f_deliverydate desc}"
+									MultiPath="{m:Exp Str=$from t_sellinggas where f_userinfoid\=\'\{cxuserfile.DataContext.f_userid\}\'}"
+									Path="{m:Exp Str=$from t_sellinggas where f_userinfoid\=\'\{cxuserfile.DataContext.f_userid\}\' order by f_deliverydate desc}"
 									PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="id"
 									IsOld="{m:Exp Str=cxuserfile.DataContext.f_userid!\=null}"/>
 							</a:Data.Items>
@@ -395,20 +436,20 @@
 								</sdk:DataGridTemplateColumn>
 										
 								<sdk:DataGridTextColumn Header="序   号" d:IsLocked="True" Binding="{Binding Index}" />
-								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
 								<sdk:DataGridTextColumn Header="姓名或单位" Binding="{Binding f_username}"/>
-								<sdk:DataGridTextColumn Header="卡   号" Binding="{Binding f_cardid}"/>
+								<!--<sdk:DataGridTextColumn Header="卡   号" Binding="{Binding f_cardid}"/>-->
 								<sdk:DataGridTextColumn Header="收费类型" Binding="{Binding f_payfeetype}"/>
 								<sdk:DataGridTextColumn Header="是否有效" Binding="{Binding f_payfeevalid}"/>
 								<sdk:DataGridTextColumn Header="购 水 量" Binding="{Binding f_pregas}"/>
-								<sdk:DataGridTextColumn Header="水    价" Binding="{Binding f_gasprice}"/>
+								<!--<sdk:DataGridTextColumn Header="水    价" Binding="{Binding f_gasprice}"/>-->
 								<sdk:DataGridTextColumn Header="购水金额" Binding="{Binding f_preamount}"/>
 								<sdk:DataGridTextColumn Header="交费日期" Binding="{Binding f_deliverydate,StringFormat=yyyy-MM-dd}"/>
 								<sdk:DataGridTextColumn Header="交费时间" Binding="{Binding f_deliverytime,StringFormat=hh:mm:ss tt}"/>
 								<sdk:DataGridTextColumn Header="旧业务类型" Binding="{Binding f_oldtype}"/>
-								<sdk:DataGridTextColumn Header="维护费交费开始年月" Binding="{Binding f_beginfee,StringFormat=yyyy-MM}"/>
-								<sdk:DataGridTextColumn Header="维护费交费截止年月" Binding="{Binding f_endfee,StringFormat=yyyy-MM}"/>
-								<sdk:DataGridTextColumn Header="维护费金额" Binding="{Binding f_amountmaintenance}"/>
+								<sdk:DataGridTextColumn Header="违约金开始年月" Binding="{Binding f_beginfee,StringFormat=yyyy-MM}"/>
+                                <sdk:DataGridTextColumn Header="违约金截止年月" Binding="{Binding f_endfee,StringFormat=yyyy-MM}"/>
+                                <sdk:DataGridTextColumn Header="违约金金额" Binding="{Binding f_amountmaintenance}"/>
 								<sdk:DataGridTextColumn Header="网　　点" Binding="{Binding f_sgnetwork}"/>
 								<sdk:DataGridTextColumn Header="操 作 员" Binding="{Binding f_sgoperator}"/>
 
@@ -424,7 +465,7 @@
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<Grid>
-								<sdk:DataPager x:Name="pager2" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=hbinfos}"   PageSize="20" toolkit:DockPanel.Dock="Top"  />
+								<sdk:DataPager x:Name="pager2" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=hbinfos}"   PageSize="4" toolkit:DockPanel.Dock="Top"  />
 								<TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共 \{hbinfos.ItemsSource.Count\} 项}" Width="55" toolkit:DockPanel.Dock="Right" Margin="17,3,0,0" HorizontalAlignment="Left" />
 							</Grid>
 						</toolkit:DockPanel>
@@ -432,27 +473,26 @@
 							AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" IsReadOnly="True" >
 							<a:Data.Items>
 								<o:PagedObjectList x:Name="hbinfoslist" WebClientInfo="{StaticResource dbclient}"
-									Path="{m:Exp Str=$from t_changmeter where f_userid\=\'\{cxuserfile.DataContext.f_userid\}\'}"
+									Path="{m:Exp Str=$from t_changmeter where f_userinfoid\=\'\{cxuserfile.DataContext.f_userid\}\'}"
 									PageIndex="{m:Exp Str=pager2.PageIndex}" PageSize="{m:Exp Str=pager2.PageSize}" SumNames="id"/>
 							</a:Data.Items>
 							<sdk:DataGrid.Columns>
-								<sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
-								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" />
-								<sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" />
-								<sdk:DataGridTextColumn Header="换表类型" Binding="{Binding f_watchtype}" />
-								<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
-								<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
-								<sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}"/>
-								<sdk:DataGridTextColumn Header="新水表品牌" Binding="{Binding f_cmnewgaswatchbrand}"/>
-								<sdk:DataGridTextColumn Header="新水表型号" Binding="{Binding f_cmnewmetertype}"/>
-								<sdk:DataGridTextColumn Header="新卡号" Binding="{Binding f_newcardid}"/>
-								<sdk:DataGridTextColumn Header="补水量" Binding="{Binding f_cmaddgas}"/>
-								<sdk:DataGridTextColumn Header="超用水量" Binding="{Binding f_cypregas}"/>
-								<!--sdk:DataGridTextColumn Header="旧表底数" Binding="{Binding f_oldcurrentbase}"/-->
-								
-								<sdk:DataGridTextColumn Header="换表日期" Binding="{Binding f_cmchangemeterdate, StringFormat=yyyy-MM-dd}"/>
-								
-							</sdk:DataGrid.Columns>
+                                    <sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
+                                    <sdk:DataGridTextColumn Header="姓名" Binding="{Binding f_username}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"></sdk:DataGridTextColumn>
+                                    <!--<sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"></sdk:DataGridTextColumn>-->
+                                    <sdk:DataGridTextColumn Header="换表状态" Binding="{Binding f_state}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="新表品牌" Binding="{Binding f_cmnewgaswatchbrand}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="新表型号" Binding="{Binding f_cmnewmetertype}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="新表钢印号" Binding="{Binding f_cmnewmeternumber}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="换表原因" Binding="{Binding f_cnote}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="换表人" Binding="{Binding f_cmoperator}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="换表日期" Binding="{Binding f_cmdate}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="撤销原因" Binding="{Binding f_cancelnote}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="撤销人" Binding="{Binding f_cxoperation}"></sdk:DataGridTextColumn>
+                                    <sdk:DataGridTextColumn Header="撤销日期" Binding="{Binding f_canceldate}"></sdk:DataGridTextColumn>
+                                </sdk:DataGrid.Columns>
 						</sdk:DataGrid>
 					</toolkit:DockPanel>
 				</sdk:TabItem>
@@ -460,7 +500,7 @@
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<Grid>
-								<sdk:DataPager x:Name="pager3" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=bqinfos}"   PageSize="20" toolkit:DockPanel.Dock="Top"  />
+								<sdk:DataPager x:Name="pager3" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=bqinfos}"   PageSize="4" toolkit:DockPanel.Dock="Top"  />
 								<TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共\{bqinfos.ItemsSource.Count\}项}" Width="55" toolkit:DockPanel.Dock="Right" Margin="17,3,0,0" HorizontalAlignment="Left" />
 							</Grid>
 						</toolkit:DockPanel>
@@ -496,7 +536,7 @@
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<Grid>
-								<sdk:DataPager x:Name="pager5" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=qtbqinfos}"   PageSize="20" toolkit:DockPanel.Dock="Top"  />
+								<sdk:DataPager x:Name="pager5" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=qtbqinfos}"   PageSize="4" toolkit:DockPanel.Dock="Top"  />
 								<TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共\{qtbqinfos.ItemsSource.Count\}项}" Width="55" toolkit:DockPanel.Dock="Right" Margin="17,3,0,0" HorizontalAlignment="Left" />
 							</Grid>
 						</toolkit:DockPanel>
@@ -534,7 +574,7 @@
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<Grid>
-							<sdk:DataPager x:Name="pager4" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=bkinfos}"   PageSize="20" toolkit:DockPanel.Dock="Top"  />
+							<sdk:DataPager x:Name="pager4" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=bkinfos}"   PageSize="4" toolkit:DockPanel.Dock="Top"  />
 							<TextBlock TextWrapping="Wrap" Text="{m:Exp Str=$共\{bkinfos.ItemsSource.Count\}项}" Width="55" toolkit:DockPanel.Dock="Right" Margin="17,3,0,0" HorizontalAlignment="Left" />
 							</Grid>
 						</toolkit:DockPanel>

@@ -25,7 +25,7 @@
             <o:ObjectList Name="jiaofeilist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='交费类型'"/>
             <o:ObjectList Name="zhengjianlist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='证件类型'"/>
             <!--过户费-->
-            <o:GeneralObject Name="ghfobj" EntityType="t_singlevalue" WebClientInfo="{StaticResource dbclient}" Path="one/from t_singlevalue where name='过户费' ">  
+            <o:GeneralObject Name="ghfobj" EntityType="t_singlevalue" WebClientInfo="{StaticResource dbclient}" Path="one/from t_singlevalue where name='过户费' ">
             </o:GeneralObject>
             <!--档案列表-->
             <o:PagedObjectList Name="userfileslist" WebClientInfo="{StaticResource dbclient}" 
@@ -69,16 +69,16 @@
                 <o:PropertySetter PropertyName="f_gasproperties" Value="{m:Exp Str=userfileschangeset.f_gaspropertieschange}"/>
                 <!--水表类型-->
                 <o:PropertySetter PropertyName="f_gasmeterstyle" Value="{m:Exp Str=userfileschangeset.f_gasmeterstylechange}"/>
-                
+
                 <!--水表底数-->
                 <o:PropertySetter PropertyName="f_gasmeteraccomodations" Value="{m:Exp Str=userfileschangeset.f_gasmeteraccomodationschange}"/>
-                
+
                 <!--当前表累计水量-->
                 <o:PropertySetter PropertyName="f_metergasnums" Value="{m:Exp Str=userfileschangeset.f_metergasnumschange}"/>
-                
-                
+
+
                 <o:PropertySetter PropertyName="f_stairtype" Value="{m:Exp Str=userfileschangeset.f_stairtypechange}"/>
-                
+
 
                 <!--账户结余-->
                 <o:PropertySetter PropertyName="f_zhye" Value="{m:Exp Str=userfileschangeset.f_zhyechange}"/>
@@ -107,7 +107,7 @@
                 <!--<o:PropertySetter PropertyName="f_beginfee" Value="{m:Exp Str=userfileschangeset.f_beginfeechange}"/>-->
             </o:GeneralObject>
 
-           
+
             <!--阶梯水价信息列表-->
             <o:ObjectList Name="stairlist" EntityType="t_stairprice" WebClientInfo="{StaticResource dbclient}" Path="from t_stairprice"  HasEmptyRow="True" />
             <!--默认值设定-->
@@ -151,10 +151,19 @@
                 <!--账户-->
                 <o:PropertySetter PropertyName="f_zhye" Value="{m:Exp Str=userfiles.SelectedItem.f_zhye}"/>
                 <o:PropertySetter PropertyName="lastinputgasnum" Value="{m:Exp Str=userfiles.SelectedItem.lastinputgasnum}"/>
+                <o:PropertySetter PropertyName="f_stair1amount" Value="{m:Exp Str=userfiles.SelectedItem.f_stair1amount}"/>
+                <o:PropertySetter PropertyName="f_stair1price" Value="{m:Exp Str=userfiles.SelectedItem.f_stair1price}"/>
+                <o:PropertySetter PropertyName="f_stair2amount" Value="{m:Exp Str=userfiles.SelectedItem.f_stair2amount}"/>
+                <o:PropertySetter PropertyName="f_stair2price" Value="{m:Exp Str=userfiles.SelectedItem.f_stair2price}"/>
+                <o:PropertySetter PropertyName="f_stair3amount" Value="{m:Exp Str=userfiles.SelectedItem.f_stair3amount}"/>
+                <o:PropertySetter PropertyName="f_stair3price" Value="{m:Exp Str=userfiles.SelectedItem.f_stair3price}"/>
+                <o:PropertySetter PropertyName="f_stair4price" Value="{m:Exp Str=userfiles.SelectedItem.f_stair4price}"/>
+                <o:PropertySetter PropertyName="f_stairmonths" Value="{m:Exp Str=userfiles.SelectedItem.f_stairmonths}"/>
+                <o:PropertySetter PropertyName="f_zongjiprice" Value="{m:Exp Str=userfiles.SelectedItem.f_zongjiprice.ToString()}"/>
             </o:GeneralObject>
             <!--过户档案对象-->
-            <o:GeneralObject Name="transferuser" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}"
-                 Path="{m:Exp Str=$one/from t_userinfo where f_userid\=\'\{userfiles.SelectedItem.f_userinfoid\}\'}">
+            <o:GeneralObject Name="transferuser" EntityType="t_userinfo" WebClientInfo="{StaticResource dbclient}"
+                 Path="{m:Exp Str=$one/from t_userinfo where f_userid\=\'\{userfiles.SelectedItem.f_userid\}\'}">
                 <o:PropertySetter PropertyName="f_username" NoDependValue="{m:Exp Str=apply.DataContext.f_tnewusername}"/>
                 <o:PropertySetter PropertyName="f_idnumber" NoDependValue="{m:Exp Str=apply.DataContext.f_tnewidnumber}"/>
                 <o:PropertySetter PropertyName="f_phone" NoDependValue="{m:Exp Str=apply.DataContext.f_tnewphone}"/>
@@ -169,8 +178,8 @@
 		    EntityType="t_transfer"  IsInit="{m:Exp Str=t_SaveAction.State\=\=$End$}">
             </o:GeneralObject>
             <!--交费类型变更档案对象-->
-            <o:GeneralObject Name="paymentuser" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}"
-                 Path="{m:Exp Str=$one/from t_userfiles where f_userid\=\'\{userfiles.SelectedItem.f_userid\}\'}">
+            <o:GeneralObject Name="paymentuser" EntityType="t_userinfo" WebClientInfo="{StaticResource dbclient}"
+                 Path="{m:Exp Str=$one/from t_userinfo where f_userid\=\'\{userfiles.SelectedItem.f_userid\}\'}">
                 <o:PropertySetter PropertyName="f_usermc" NoDependValue="{m:Exp Str=change.DataContext.f_newnusermc}"/>
                 <o:PropertySetter PropertyName="f_bankname" NoDependValue="{m:Exp Str=change.DataContext.f_newnbankname}"/>
                 <o:PropertySetter PropertyName="f_idofcard" NoDependValue="{m:Exp Str=change.DataContext.f_newnidofcard}"/>
@@ -217,14 +226,14 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="70"/>
                                     <ColumnDefinition Width="50*"/>
-									<ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="70"/>
                                     <ColumnDefinition Width="50*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="28"/>
                                     <RowDefinition Height="28"/>
                                     <RowDefinition Height="28"/>
-									<RowDefinition Height="28"/>
+                                    <RowDefinition Height="28"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock TextWrapping="Wrap" Text="用户编号：" Margin="5,4,0,4" />
                                 <TextBox TextWrapping="Wrap" Grid.Column="1" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0" Height="25" >
@@ -247,26 +256,26 @@
                                 <Button Content="查  询" x:Name="usersearchbutton" Grid.Column="3" Grid.Row="3" Click="{m:Exp Str=userfilesearch.DataContext.Search()}" Margin="0,0,5,-2" HorizontalAlignment="Right" d:LayoutOverrides="Height" Width="50"/>
                                 <TextBlock TextWrapping="Wrap" Text="小区名称：" Margin="5,4,0,4" Grid.Row="1" />
                                 <TextBox TextWrapping="Wrap" Grid.Column="1" Text="{m:Bind Path=f_districtname}" Width="Auto" Margin="0,1.5" Height="25" Grid.Row="1" >
-                                	<a:Data.Prop>
-                                		<o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>
-                                	</a:Data.Prop>
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>
+                                    </a:Data.Prop>
                                 </TextBox>
                                 <TextBox TextWrapping="Wrap" Grid.Row="1" Grid.Column="3" Text="{m:Bind Path=f_cusDom}" Width="Auto" Margin="0,1.5" Height="25" >
-                                	<a:Data.Prop>
-                                		<o:PropertySetter PropertyName="f_cusDom"  Operator="f_cusDom = 'this'"/>
-                                	</a:Data.Prop>
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_cusDom"  Operator="f_cusDom = 'this'"/>
+                                    </a:Data.Prop>
                                 </TextBox>
-                                <TextBlock TextWrapping="Wrap" Text="楼    号：" Margin="0,4" Grid.Column="2" Grid.Row="1" />
+                                <TextBlock TextWrapping="Wrap" Text="楼    号：" Margin="10,4,0,4" Grid.Column="2" Grid.Row="1" />
                                 <TextBlock TextWrapping="Wrap" Text="单    元：" Margin="5,4,0,4" Grid.Row="2" />
                                 <TextBox TextWrapping="Wrap" Grid.Column="1" Text="{m:Bind Path=f_cusDy}" Width="Auto" Margin="0,1.5" Height="25" Grid.Row="2" >
-                                	<a:Data.Prop>
-                                		<o:PropertySetter PropertyName="f_cusDy"  Operator="f_cusDy = 'this'"/>
-                                	</a:Data.Prop>
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_cusDy"  Operator="f_cusDy = 'this'"/>
+                                    </a:Data.Prop>
                                 </TextBox>
                                 <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="3" Text="{m:Bind Path=f_apartment}" Width="Auto" Margin="0,1.5" Height="25" >
-                                	<a:Data.Prop>
-                                		<o:PropertySetter PropertyName="f_apartment"  Operator="f_apartment = 'this'"/>
-                                	</a:Data.Prop>
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_apartment"  Operator="f_apartment = 'this'"/>
+                                    </a:Data.Prop>
                                 </TextBox>
                                 <TextBlock TextWrapping="Wrap" Text="门  牌  号：" Margin="0,4" Grid.Column="2" Grid.Row="2" />
                             </Grid>
@@ -285,7 +294,7 @@
             </c:BusyIndicatorEx>
             <c:BusyIndicatorEx  BusyContent="正在工作，请稍等"  IsBusy="{m:Exp Str=userfile.DataContext.IsBusy or SaveAction.IsBusy or  userfile.IsBusy  or userfiles.ItemsSource.IsBusy}" Margin="5,0,0,0" Grid.Column="1" >
                 <toolkit:DockPanel>
-                    
+
                     <Grid Margin="0,0,0,20" >
                         <!--非民用主操作区-->
                         <sdk:TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -453,7 +462,7 @@
                                         <TextBlock Grid.Column="5" Margin="0,6,0,2" Grid.Row="22" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right" Visibility="Collapsed"/>
                                         <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Grid.ColumnSpan="2"/>-->
                                         <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水日期：" TextAlignment="Right" Grid.Column="3" />-->
-                                        <TextBox Text="{m:Bind Path=f_userstatechange}" Grid.Column="6" IsReadOnly="True" Margin="0,3,0,2" Grid.Row="2" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
+                                        <TextBox Text="{m:Bind Path=f_userstatechange}" Grid.Column="6" IsReadOnly="True" Margin="0,5,0,0" Grid.Row="2" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_userstatechange" Value="{m:Exp Str=userfiles.SelectedItem.f_userstate}" />
                                             </a:Data.Prop>
@@ -489,7 +498,7 @@
                                                 <o:PropertySetter PropertyName="f_changecause" NotNull="True"/>
                                             </a:Data.Prop>
                                         </TextBox>
-                                        
+
                                         <TextBlock Margin="0,3,0,2" Grid.Row="17" TextWrapping="Wrap" Text="网　　点：" TextAlignment="Right" Grid.ColumnSpan="2"/>
                                         <TextBox Text="{m:Bind Path=f_changemannetwork}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="17" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto">
                                             <a:Data.Prop>
@@ -514,12 +523,12 @@
                                                 <o:PropertySetter PropertyName="f_changemansubsidiary" Default="{m:Exp Str=LoginUser.f_fengongsi}"/>
                                             </a:Data.Prop>
                                         </TextBox>
-                                        <TextBlock Text="分公司编号：" Margin="0,3,0,-26" Visibility="Collapsed" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                                        <!--<TextBlock Text="分公司编号：" Margin="0,3,0,-26" Visibility="Collapsed" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" />
                                         <TextBox Text="{m:Bind Path=f_fengongsinumchange}" Visibility="Collapsed"  Grid.Column="2" Margin="0,3,0,-26" Grid.Row="25" TextWrapping="Wrap" IsReadOnly="True"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="2" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_fengongsinumchange" NotNull="True" Default="{m:Exp Str=LoginUser.f_fengongsinum}"/>
                                             </a:Data.Prop>
-                                        </TextBox>
+                                        </TextBox>-->
                                         <TextBox Grid.Column="6" HorizontalAlignment="Left" Margin="0,4,0,8" Grid.Row="15" TextWrapping="Wrap" Text="TextBox" Width="0"/>
                                         <TextBlock Text="证件号码：" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3"/>
                                         <TextBlock Text="卡　   　号：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"/>
@@ -598,7 +607,7 @@
                                                 <o:PropertySetter PropertyName="f_yytdatechange" Value="{m:Exp Str=userfiles.SelectedItem.f_yytdate}"/>
                                             </a:Data.Prop>
                                         </sdk:DatePicker>
-                                        <CheckBox IsChecked="{m:Bind Path=f_whetherzhinajinchange}"  Content="滞纳金" Margin="10,6,0,0" Grid.Row="9" Grid.Column="6" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <CheckBox IsChecked="{m:Bind Path=f_whetherzhinajinchange}"  Content="违约金" Margin="10,6,0,0" Grid.Row="9" Grid.Column="6" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Left">
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_whetherzhinajinchange" Value="{m:Exp Str=userfiles.SelectedItem.f_whetherzhinajin}" Default="{m:Exp Str=False}"/>
                                             </a:Data.Prop>
@@ -615,7 +624,7 @@
                                                 <o:PropertySetter PropertyName="f_surplusgaschange" Value="{m:Exp Str=userfiles.SelectedItem.f_surplusgas}" />
                                             </a:Data.Prop>
                                         </TextBox>
-                                        
+
                                         <TextBlock Grid.Column="5" Margin="0,3,0,2" TextWrapping="Wrap" Text="抄表指数：" TextAlignment="Right" Height="25" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right" Width="65"/>
                                         <TextBox x:Name="ui_lastinputgasnumchange" Text="{m:Bind Path=lastinputgasnumchange}"  Grid.Column="6" Margin="0,3,0,2" Grid.Row="11" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
                                             <a:Data.Prop>
@@ -656,7 +665,7 @@
                                         <TextBlock Text="水价类型：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="6"></TextBlock>
                                         <ComboBox x:Name="CoboxStair" DisplayMemberPath="f_stairtype" SelectedValuePath="f_stairtype" ItemsSource="{m:Exp Str=stairlist}" SelectedValue="{m:Bind Path=f_stairtypechange}" Grid.Column="6" Margin="0,2,0,3" Grid.Row="6" Height="25" VerticalAlignment="Stretch"   >
                                             <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_stairtypechange" NotNull="False" Value="{m:Exp Str=userfiles.SelectedItem.f_stairtype}"/>
+                                                <o:PropertySetter PropertyName="f_stairtypechange" NotNull="True" Value="{m:Exp Str=userfiles.SelectedItem.f_stairtype}"/>
                                             </a:Data.Prop>
                                         </ComboBox>
                                         <!--阶梯水价隐藏域-->
@@ -702,20 +711,20 @@
                                         </TextBox>
                                         <TextBox x:Name="f_zongjipricechange" Text="{m:Bind Path=f_zongjipricechange}" Grid.Column="3" Margin="214,3,0,2" Grid.Row="10" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="1" Visibility="Collapsed">
                                             <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_zongjipricechange" NoDependValue="{m:Exp Str=CoboxStair.SelectedItem.f_zongjiprice}"  />
+                                                <o:PropertySetter PropertyName="f_zongjipricechange" NoDependValue="{m:Exp Str=CoboxStair.SelectedItem.f_zongjiprice.ToString()}"  />
                                             </a:Data.Prop>
                                         </TextBox>
                                         <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="楼       号：" TextAlignment="Right" Grid.Column="3" />
                                         <TextBox Text="{m:Bind Path=f_cusDomchange}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="7" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
-                                        	<a:Data.Prop>
-                                        		<o:PropertySetter PropertyName="f_cusDomchange" Value="{m:Exp Str=userfiles.SelectedItem.f_cusDom}" />
-                                        	</a:Data.Prop>
+                                            <a:Data.Prop>
+                                                <o:PropertySetter PropertyName="f_cusDomchange" Value="{m:Exp Str=userfiles.SelectedItem.f_cusDom}" />
+                                            </a:Data.Prop>
                                         </TextBox>
                                         <TextBlock Margin="0,3,0,2" Grid.Row="8" TextWrapping="Wrap" Text="单        元：" TextAlignment="Right" Grid.Column="1" />
                                         <TextBox Text="{m:Bind Path=f_cusDychange}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="8" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
-                                        	<a:Data.Prop>
-                                        		<o:PropertySetter PropertyName="f_cusDychange" Value="{m:Exp Str=userfiles.SelectedItem.f_cusDy}" />
-                                        	</a:Data.Prop>
+                                            <a:Data.Prop>
+                                                <o:PropertySetter PropertyName="f_cusDychange" Value="{m:Exp Str=userfiles.SelectedItem.f_cusDy}" />
+                                            </a:Data.Prop>
                                         </TextBox>
                                     </Grid>
                                 </ScrollViewer>
@@ -723,250 +732,250 @@
                             <sdk:TabItem Header="过  户">
                                 <!--过户操作区-->
                                 <c:BusyIndicatorEx x:Name="ui_apply" BusyContent="正在工作，请稍等" IsBusy="{m:Exp Str=apply.DataContext.IsBusy}"  Grid.Column="1" Margin="8,0,0,0">
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="Auto">
-                                    <Grid Margin="0" x:Name="apply" DataContext="{m:Exp Str=applygo}" HorizontalAlignment="Stretch"  >
-                                        <Grid.Background>
-                                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                                <GradientStop Color="#FFF2F8FF" Offset="0"/>
-                                                <GradientStop Color="#FFDDF2FD" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Grid.Background>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1"/>
-                                            <RowDefinition Height="1"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="Auto">
+                                        <Grid Margin="0" x:Name="apply" DataContext="{m:Exp Str=applygo}" HorizontalAlignment="Stretch"  >
+                                            <Grid.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFF2F8FF" Offset="0"/>
+                                                    <GradientStop Color="#FFDDF2FD" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1"/>
+                                                <RowDefinition Height="1"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
 
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="10"/>
-                                            <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="10"/>
+                                                <RowDefinition Height="30"/>
 
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="32.836"/>
-                                            <ColumnDefinition Width="97.164"/>
-                                            <ColumnDefinition Width="18*"/>
-                                            <ColumnDefinition Width="130"/>
-                                            <ColumnDefinition Width="67*"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="134"/>
-                                        </Grid.ColumnDefinitions>
-                                        <!--按钮-->
-                                        <Button x:Name="save1" Content="保  存" Grid.Row="11" Grid.Column="5" Margin="2" IsEnabled="{m:Exp Str=apply.DataContext.IsModified and !apply.DataContext.HasErrors}" HorizontalAlignment="Left" Click="save1_Click" Width="50" />
-                                        <Button x:Name="cancel1" Content="撤  销" Margin="2" Grid.Row="11" Grid.Column="5" Click="{m:Exp Str=apply.DataContext.New()}" HorizontalAlignment="Right" Width="50"/>
-                                        <TextBlock Text="地    址：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.ColumnSpan="2"/>
-                                        <TextBlock Text="新用户姓名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2"/>
-                                        <TextBlock Text="新银行开户名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="6" Grid.ColumnSpan="2"/>
-                                        <TextBlock Text="新身份证号：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3" Grid.Row="5"/>
-                                        <TextBlock Text="新银行名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3" Grid.Row="6"/>
-                                        <TextBlock Text="电    话：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.Column="5"/>
-                                        <TextBlock Text="银行账号：" Margin="0,3,0,2" Grid.Column="5" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right"/>
-                                        <!--<TextBlock Text="水价类型：" Grid.Column="5" Margin="0,3,0,2" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right"/>-->
-                                        <TextBox  Text="{m:Bind Path=f_address}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="3" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" Grid.RowSpan="1"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_address" Value="{m:Exp Str=transferuser.f_address\=>Completed}"/>
-                                            </a:Data.Prop>
-                                        </TextBox>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="30"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="32.836"/>
+                                                <ColumnDefinition Width="97.164"/>
+                                                <ColumnDefinition Width="18*"/>
+                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="67*"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="134"/>
+                                            </Grid.ColumnDefinitions>
+                                            <!--按钮-->
+                                            <Button x:Name="save1" Content="保  存" Grid.Row="11" Grid.Column="5" Margin="2" IsEnabled="{m:Exp Str=apply.DataContext.IsModified and !apply.DataContext.HasErrors}" HorizontalAlignment="Left" Click="save1_Click" Width="50" />
+                                            <Button x:Name="cancel1" Content="撤  销" Margin="2" Grid.Row="11" Grid.Column="5" Click="{m:Exp Str=apply.DataContext.New()}" HorizontalAlignment="Right" Width="50"/>
+                                            <TextBlock Text="地    址：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="新用户姓名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="新银行开户名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="6" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="新身份证号：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3" Grid.Row="5"/>
+                                            <TextBlock Text="新银行名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3" Grid.Row="6"/>
+                                            <TextBlock Text="电    话：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.Column="5"/>
+                                            <TextBlock Text="银行账号：" Margin="0,3,0,2" Grid.Column="5" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right"/>
+                                            <!--<TextBlock Text="水价类型：" Grid.Column="5" Margin="0,3,0,2" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right"/>-->
+                                            <TextBox  Text="{m:Bind Path=f_address}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="3" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" Grid.RowSpan="1"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_address" Value="{m:Exp Str=transferuser.f_address\=>Completed}"/>
+                                                </a:Data.Prop>
+                                            </TextBox>
 
-                                        <TextBox Text="{m:Bind Path=f_tnewusername}"  Grid.Column="2" Margin="0,3,0,0" Grid.Row="5" TextWrapping="Wrap" Height="25" VerticalAlignment="Top" RenderTransformOrigin="-1.313,0.4" Grid.RowSpan="1"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_tnewusername" />
-                                            </a:Data.Prop>
-                                        </TextBox>
+                                            <TextBox Text="{m:Bind Path=f_tnewusername}"  Grid.Column="2" Margin="0,3,0,0" Grid.Row="5" TextWrapping="Wrap" Height="25" VerticalAlignment="Top" RenderTransformOrigin="-1.313,0.4" Grid.RowSpan="1"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_tnewusername" />
+                                                </a:Data.Prop>
+                                            </TextBox>
 
-                                        <TextBox  Text="{m:Bind Path=f_newnusermc}"  Grid.Column="2" Margin="0,3,0,0" Grid.Row="6" TextWrapping="Wrap"  Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_newnusermc" />
-                                            </a:Data.Prop>
-                                        </TextBox>
+                                            <TextBox  Text="{m:Bind Path=f_newnusermc}"  Grid.Column="2" Margin="0,3,0,0" Grid.Row="6" TextWrapping="Wrap"  Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_newnusermc" />
+                                                </a:Data.Prop>
+                                            </TextBox>
 
-                                        <TextBox Text="{m:Bind Path=f_nbankname}"  Grid.Column="4" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" RenderTransformOrigin="0.368,-0.68" HorizontalAlignment="Stretch" Width="Auto"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_nbankname" Value="{m:Exp Str=transferuser.f_bankname\=&gt;Completed}"/>
-                                            </a:Data.Prop>
-                                        </TextBox>
+                                            <TextBox Text="{m:Bind Path=f_nbankname}"  Grid.Column="4" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" Height="Auto" VerticalAlignment="Stretch" RenderTransformOrigin="0.368,-0.68" HorizontalAlignment="Stretch" Width="Auto"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_nbankname" Value="{m:Exp Str=transferuser.f_bankname\=&gt;Completed}"/>
+                                                </a:Data.Prop>
+                                            </TextBox>
 
-                                        <TextBox  Text="{m:Bind Path=f_tnewidnumber}"  Grid.Column="4" Margin="0,3,0,2" Grid.Row="5" TextWrapping="Wrap" IsReadOnly="False" Height="Auto" VerticalAlignment="Stretch" RenderTransformOrigin="-1.435,0.56" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_tnewidnumber" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <ComboBox ItemsSource="{m:Exp Str=banknamelistnull}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_newnbankname}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="6">
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_newnbankname"  />
-                                            </a:Data.Prop>
-                                        </ComboBox>
-                                        <TextBox  Text="{m:Bind Path=f_phone}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="3" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_phone" Value="{m:Exp Str=transferuser.f_phone\=>Completed}"/>
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBox  Text="{m:Bind Path=f_nidofcard}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="4" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_nidofcard" Value="{m:Exp Str=transferuser.f_idofcard\=&gt;Completed}"/>
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <!--<ComboBox x:Name="CoboxGas" DisplayMemberPath="f_gaspricetype" SelectedValuePath="f_gaspricetype" ItemsSource="{m:Exp Str=CoboxGasPro.SelectedItem.pricetype}" SelectedValue="{m:Bind Path=f_gaspricetypechange}"  Grid.Column="6" Margin="0,2,0,3" Grid.Row="6" VerticalAlignment="Stretch" >
+                                            <TextBox  Text="{m:Bind Path=f_tnewidnumber}"  Grid.Column="4" Margin="0,3,0,2" Grid.Row="5" TextWrapping="Wrap" IsReadOnly="False" Height="Auto" VerticalAlignment="Stretch" RenderTransformOrigin="-1.435,0.56" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_tnewidnumber" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <ComboBox ItemsSource="{m:Exp Str=banknamelistnull}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_newnbankname}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="6">
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_newnbankname"  />
+                                                </a:Data.Prop>
+                                            </ComboBox>
+                                            <TextBox  Text="{m:Bind Path=f_phone}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="3" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_phone" Value="{m:Exp Str=transferuser.f_phone\=>Completed}"/>
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBox  Text="{m:Bind Path=f_nidofcard}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="4" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_nidofcard" Value="{m:Exp Str=transferuser.f_idofcard\=&gt;Completed}"/>
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <!--<ComboBox x:Name="CoboxGas" DisplayMemberPath="f_gaspricetype" SelectedValuePath="f_gaspricetype" ItemsSource="{m:Exp Str=CoboxGasPro.SelectedItem.pricetype}" SelectedValue="{m:Bind Path=f_gaspricetypechange}"  Grid.Column="6" Margin="0,2,0,3" Grid.Row="6" VerticalAlignment="Stretch" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_gaspricetypechange" Value="{m:Exp Str=userfiles.SelectedItem.f_gaspricetype}" />
                                             </a:Data.Prop>
                                         </ComboBox>-->
-                                        <!--<TextBlock Margin="0,3,0,2" Grid.Row="15" TextWrapping="Wrap" Text="额定流量：" Grid.Column="5" TextAlignment="Right"/>-->
-                                        <!--<TextBox Text="{m:Bind Path=f_flownumchange}" Grid.Column="6" Margin="0,2,0,3" Grid.Row="15" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="Auto">
+                                            <!--<TextBlock Margin="0,3,0,2" Grid.Row="15" TextWrapping="Wrap" Text="额定流量：" Grid.Column="5" TextAlignment="Right"/>-->
+                                            <!--<TextBox Text="{m:Bind Path=f_flownumchange}" Grid.Column="6" Margin="0,2,0,3" Grid.Row="15" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="Auto">
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_flownumchange" Value="{m:Exp Str=userfiles.SelectedItem.f_flownum}"/>
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="2" Margin="0"/>
-                                        <TextBlock Margin="0,3,0,2" TextWrapping="Wrap" Text="身份证号：" TextAlignment="Right" Grid.Row="2" Grid.Column="5"/>
-                                        <!--<TextBlock Grid.Column="3" Margin="0,7,0,0" Grid.Row="21" TextWrapping="Wrap" Text="总累计购水量：" TextAlignment="Right"/>-->
-                                        <TextBlock Grid.Column="5" Margin="0,6,0,2" Grid.Row="22" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right" Visibility="Collapsed"/>
-                                        <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Grid.ColumnSpan="2"/>-->
-                                        <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水日期：" TextAlignment="Right" Grid.Column="3" />-->
-                                        <TextBox Text="{m:Bind Path=f_idnumber}" Grid.Column="6" IsReadOnly="True" Margin="0,3,0,2" Grid.Row="2" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_idnumber" Value="{m:Exp Str=transferuser.f_idnumber\=>Completed}" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <!--<TextBox Text="{m:Bind Path=f_cumulativepurchasechange}" Grid.Column="4" Margin="0,4,0,3" Grid.Row="21" Height="Auto" VerticalAlignment="Stretch"  >
+                                            <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="2" Margin="0"/>
+                                            <TextBlock Margin="0,3,0,2" TextWrapping="Wrap" Text="身份证号：" TextAlignment="Right" Grid.Row="2" Grid.Column="5"/>
+                                            <!--<TextBlock Grid.Column="3" Margin="0,7,0,0" Grid.Row="21" TextWrapping="Wrap" Text="总累计购水量：" TextAlignment="Right"/>-->
+                                            <TextBlock Grid.Column="5" Margin="0,6,0,2" Grid.Row="22" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right" Visibility="Collapsed"/>
+                                            <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Grid.ColumnSpan="2"/>-->
+                                            <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水日期：" TextAlignment="Right" Grid.Column="3" />-->
+                                            <TextBox Text="{m:Bind Path=f_idnumber}" Grid.Column="5" IsReadOnly="True" Margin="110,8,10,27" Grid.Row="2" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="2"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_idnumber" Value="{m:Exp Str=transferuser.f_idnumber\=>Completed}" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <!--<TextBox Text="{m:Bind Path=f_cumulativepurchasechange}" Grid.Column="4" Margin="0,4,0,3" Grid.Row="21" Height="Auto" VerticalAlignment="Stretch"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_cumulativepurchasechange" Value="{m:Exp Str=userfiles.SelectedItem.f_cumulativepurchase}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <!--<TextBox Text="{m:Bind Path=f_finallyboughtchange}" Grid.Column="2" Margin="0,0,0,2" Grid.Row="22" TextWrapping="Wrap" Height="25" VerticalAlignment="Bottom" Grid.RowSpan="1" >
+                                            <!--<TextBox Text="{m:Bind Path=f_finallyboughtchange}" Grid.Column="2" Margin="0,0,0,2" Grid.Row="22" TextWrapping="Wrap" Height="25" VerticalAlignment="Bottom" Grid.RowSpan="1" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_finallyboughtchange" Value="{m:Exp Str=userfiles.SelectedItem.f_finallybought}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <!--<sdk:DatePicker SelectedDate="{m:Bind Path=f_finabuygasdatechange}" Grid.Column="4" Margin="0,5,0,0" Grid.Row="22" Height="Auto" VerticalAlignment="Stretch"  >
+                                            <!--<sdk:DatePicker SelectedDate="{m:Bind Path=f_finabuygasdatechange}" Grid.Column="4" Margin="0,5,0,0" Grid.Row="22" Height="Auto" VerticalAlignment="Stretch"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_finabuygasdatechange" Value="{m:Exp Str=userfiles.SelectedItem.f_finabuygasdate}" />
                                             </a:Data.Prop>
                                         </sdk:DatePicker>-->
-                                        <sdk:DatePicker SelectedDate="{m:Bind Path=f_dateofopeningchange}"  Grid.Column="6" Margin="0,5,0,0" Grid.Row="22"  Grid.ColumnSpan="1" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed">
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_dateofopeningchange" Value="{m:Exp Str=userfiles.SelectedItem.f_dateofopening}" />
-                                            </a:Data.Prop>
-                                        </sdk:DatePicker>
-                                        <TextBlock Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="网　　点：" TextAlignment="Right" Grid.ColumnSpan="2"/>
-                                        <TextBox Text="{m:Bind Path=f_departments}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto">
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_departments" Default="{m:Exp Str=LoginUser.f_parentname}"/>
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBlock Margin="0,6,0,29" Grid.Row="9" TextWrapping="Wrap" Text="操 作 人："  TextAlignment="Right" Grid.Column="3" Grid.RowSpan="2"/>
-                                        <TextBox Text="{m:Bind Path=f_toperator}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto">
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_toperator" Default="{m:Exp Str=LoginUser.name}"/>
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBlock Grid.Column="5" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="操作日期：" TextAlignment="Right"/>
-                                        <sdk:DatePicker SelectedDate="{m:Bind Path=f_tdate}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="9" IsEnabled="False"  IsTodayHighlighted="True" IsDropDownOpen="False" SelectedDateFormat="Short" VerticalAlignment="Stretch" Height="Auto" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_tdate" Default="{m:Exp Str=SysTime.Today}"/>
-                                            </a:Data.Prop>
-                                        </sdk:DatePicker>
-                                        <!--<TextBlock Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="分公司：" TextAlignment="Right" Grid.ColumnSpan="2"/>
+                                            <sdk:DatePicker SelectedDate="{m:Bind Path=f_dateofopeningchange}"  Grid.Column="6" Margin="0,5,0,0" Grid.Row="22"  Grid.ColumnSpan="1" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed">
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_dateofopeningchange" Value="{m:Exp Str=userfiles.SelectedItem.f_dateofopening}" />
+                                                </a:Data.Prop>
+                                            </sdk:DatePicker>
+                                            <TextBlock Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="网　　点：" TextAlignment="Right" Grid.ColumnSpan="2"/>
+                                            <TextBox Text="{m:Bind Path=f_departments}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto">
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_departments" Default="{m:Exp Str=LoginUser.f_parentname}"/>
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBlock Margin="0,6,0,29" Grid.Row="9" TextWrapping="Wrap" Text="操 作 人："  TextAlignment="Right" Grid.Column="3" Grid.RowSpan="2"/>
+                                            <TextBox Text="{m:Bind Path=f_toperator}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto">
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_toperator" Default="{m:Exp Str=LoginUser.name}"/>
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBlock Grid.Column="5" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="操作日期：" TextAlignment="Right"/>
+                                            <sdk:DatePicker SelectedDate="{m:Bind Path=f_tdate}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="9" IsEnabled="False"  IsTodayHighlighted="True" IsDropDownOpen="False" SelectedDateFormat="Short" VerticalAlignment="Stretch" Height="Auto" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_tdate" Default="{m:Exp Str=SysTime.Today}"/>
+                                                </a:Data.Prop>
+                                            </sdk:DatePicker>
+                                            <!--<TextBlock Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="分公司：" TextAlignment="Right" Grid.ColumnSpan="2"/>
                                         <TextBox Text="{m:Bind Path=f_filiale}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto">
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_filiale" Default="{m:Exp Str=LoginUser.f_fengongsi}"/>
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <!--<TextBlock Text="分公司编号：" Margin="0,3,0,-26" Visibility="Collapsed" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                                            <!--<TextBlock Text="分公司编号：" Margin="0,3,0,-26" Visibility="Collapsed" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" />
                                         <TextBox Text="{m:Bind Path=f_fengongsinumchange}" Visibility="Collapsed"  Grid.Column="2" Margin="0,3,0,-26" Grid.Row="25" TextWrapping="Wrap" IsReadOnly="True"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="2" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_fengongsinumchange" NotNull="True" Default="{m:Exp Str=LoginUser.f_fengongsinum}"/>
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <TextBox Grid.Column="6" HorizontalAlignment="Left" Margin="0,4,0,8" Grid.Row="15" TextWrapping="Wrap" Text="TextBox" Width="0"/>
-                                        <TextBlock Text="银行名：" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3"/>
+                                            <TextBox Grid.Column="6" HorizontalAlignment="Left" Margin="0,4,0,8" Grid.Row="15" TextWrapping="Wrap" Text="TextBox" Width="0"/>
+                                            <TextBlock Text="银行名：" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3"/>
 
-                                        <TextBlock Text="用户姓名：" Grid.Column="3" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" />
-                                        <TextBox Text="{m:Bind Path=f_username}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_username" Value="{m:Exp Str=transferuser.f_username\=>Completed}" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBlock Text="用户编号：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" Grid.ColumnSpan="2"/>
-                                        <TextBox  Text="{m:Bind Path=f_userid}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=transferuser.f_userid\=&gt;Completed}" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBox Text="{m:Bind Path=f_nusermc}"  Grid.Column="2" Margin="0,0,0,2" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Bottom" RenderTransformOrigin="0.368,-0.68" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_nusermc" Value="{m:Exp Str=transferuser.f_usermc\=&gt;Completed}" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <!--<TextBlock Margin="0,3,0,2" Grid.Row="18" TextWrapping="Wrap" Text="非民用维护费年费：" TextAlignment="Right" Grid.Column="5" />
+                                            <TextBlock Text="用户姓名：" Grid.Column="3" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" />
+                                            <TextBox Text="{m:Bind Path=f_username}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_username" Value="{m:Exp Str=transferuser.f_username\=>Completed}" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBlock Text="用户编号：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" Grid.ColumnSpan="2"/>
+                                            <TextBox  Text="{m:Bind Path=f_userid}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=transferuser.f_userid\=&gt;Completed}" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBox Text="{m:Bind Path=f_nusermc}"  Grid.Column="2" Margin="0,0,0,2" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Bottom" RenderTransformOrigin="0.368,-0.68" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_nusermc" Value="{m:Exp Str=transferuser.f_usermc\=&gt;Completed}" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <!--<TextBlock Margin="0,3,0,2" Grid.Row="18" TextWrapping="Wrap" Text="非民用维护费年费：" TextAlignment="Right" Grid.Column="5" />
                                         <TextBox Text="{m:Bind Path=f_feiweihufeichange}"  Grid.Column="6" Margin="0,3,0,2" Grid.Row="18" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_feiweihufeichange" Value="{m:Exp Str=userfiles.SelectedItem.f_feiweihufei}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <!--<TextBlock Grid.Column="5" Margin="0,6,0,5" TextWrapping="Wrap" Text="维护费交费开始日期：" TextAlignment="Right" Grid.Row="20" HorizontalAlignment="Right" VerticalAlignment="Center" Height="19" Width="91"/>
+                                            <!--<TextBlock Grid.Column="5" Margin="0,6,0,5" TextWrapping="Wrap" Text="维护费交费开始日期：" TextAlignment="Right" Grid.Row="20" HorizontalAlignment="Right" VerticalAlignment="Center" Height="19" Width="91"/>
                                         <sdk:DatePicker SelectedDate="{m:Bind Path=f_beginfeechange}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="20"  IsTodayHighlighted="True" SelectedDateFormat="Short" VerticalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_beginfeechange" Value="{m:Exp Str=userfiles.SelectedItem.f_beginfee}"/>
                                             </a:Data.Prop>
                                         </sdk:DatePicker>-->
-                                        <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="过户费：" TextAlignment="Right" Grid.ColumnSpan="2" />
-                                        <TextBox Text="{m:Bind Path=f_transferfee}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="7" Height="Auto" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_transferfee" Value="{m:Exp Str=ghfobj.value}" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <!--<TextBlock Margin="0,6,0,0" Grid.Row="11" TextWrapping="Wrap" Text="限购水量：" TextAlignment="Right" Grid.Column="3" />
+                                            <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="过户费：" TextAlignment="Right" Grid.ColumnSpan="2" />
+                                            <TextBox Text="{m:Bind Path=f_transferfee}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="7" Height="Auto" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_transferfee" Value="{m:Exp Str=ghfobj.value}" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <!--<TextBlock Margin="0,6,0,0" Grid.Row="11" TextWrapping="Wrap" Text="限购水量：" TextAlignment="Right" Grid.Column="3" />
                                         <TextBox Text="{m:Bind Path=f_xiangouchange}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="11" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_xiangouchange" Value="{m:Exp Str=userfiles.SelectedItem.f_xiangou}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <TextBlock Grid.Column="5" Margin="1,1,0,4" Grid.Row="5" TextWrapping="Wrap" Text="新电话：" TextAlignment="Right"/>
-                                        <TextBox  Text="{m:Bind Path=f_tnewphone}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="5" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_tnewphone" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBlock Text="银行开户名：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="4" Grid.ColumnSpan="2"/>
-                                        <TextBlock Text="新银行账号：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="6"></TextBlock>
-                                        <TextBox  Text="{m:Bind Path=f_newnidofcard}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="6" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_newnidofcard" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                        <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="过户日期：" TextAlignment="Right" Grid.Column="3" />
-                                        <sdk:DatePicker SelectedDate="{m:Bind Path=f_f_tdate}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="7"  IsTodayHighlighted="True" SelectedDateFormat="Short" VerticalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_f_tdate" Default="{m:Exp Str=SysTime.Now}"/>
-                                            </a:Data.Prop>
-                                        </sdk:DatePicker>
-                                        <TextBlock Margin="0,3,0,2" Grid.Row="8" TextWrapping="Wrap" Text="备    注：" TextAlignment="Right" Grid.Column="1" />
-                                        <TextBox Text="{m:Bind Path=f_notnull}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="8" Grid.ColumnSpan="3" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
-                                            <a:Data.Prop>
-                                                <o:PropertySetter PropertyName="f_notnull" />
-                                            </a:Data.Prop>
-                                        </TextBox>
-                                    </Grid>
-                                </ScrollViewer>
-                                </c:BusyIndicatorEx>            
+                                            <TextBlock Grid.Column="5" Margin="1,3,0,4" Grid.Row="5" TextWrapping="Wrap" Text="新电话：" TextAlignment="Right"/>
+                                            <TextBox  Text="{m:Bind Path=f_tnewphone}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="5" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_tnewphone" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBlock Text="银行开户名：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="4" Grid.ColumnSpan="2"/>
+                                            <TextBlock Text="新银行账号：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="6"></TextBlock>
+                                            <TextBox  Text="{m:Bind Path=f_newnidofcard}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="6" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_newnidofcard" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                            <TextBlock Margin="0" Grid.Row="7" TextWrapping="Wrap" Text="过户日期：" TextAlignment="Right" Grid.Column="3" />
+                                            <sdk:DatePicker SelectedDate="{m:Bind Path=f_f_tdate}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="7"  IsTodayHighlighted="True" SelectedDateFormat="Short" VerticalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_f_tdate" Default="{m:Exp Str=SysTime.Now}"/>
+                                                </a:Data.Prop>
+                                            </sdk:DatePicker>
+                                            <TextBlock Margin="0,3,0,2" Grid.Row="8" TextWrapping="Wrap" Text="备    注：" TextAlignment="Right" Grid.Column="1" />
+                                            <TextBox Text="{m:Bind Path=f_notnull}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="8" Grid.ColumnSpan="3" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
+                                                <a:Data.Prop>
+                                                    <o:PropertySetter PropertyName="f_notnull" />
+                                                </a:Data.Prop>
+                                            </TextBox>
+                                        </Grid>
+                                    </ScrollViewer>
+                                </c:BusyIndicatorEx>
                             </sdk:TabItem>
                             <sdk:TabItem Header="交费类型变更">
                                 <!--非民用主操作区-->
@@ -1016,7 +1025,7 @@
                                             <ColumnDefinition Width="134"/>
                                         </Grid.ColumnDefinitions>
                                         <!--按钮-->
-                                        <Button x:Name="save2" Content="保  存" Grid.Row="10" Grid.Column="5" Margin="2" IsEnabled="{m:Exp Str=change.DataContext.IsModified and !change.DataContext.HasErrors}" HorizontalAlignment="Left" Click="{m:Exp Str=p_SaveAction.Invoke()}" Width="50" />
+                                        <Button x:Name="save2" Content="保  存" Grid.Row="10" Grid.Column="5" Margin="0,4,0,0" IsEnabled="{m:Exp Str=change.DataContext.IsModified and !change.DataContext.HasErrors}" HorizontalAlignment="Left" Click="{m:Exp Str=p_SaveAction.Invoke()}" Width="50" />
                                         <Button x:Name="cancel2" Content="撤  销" Margin="2" Grid.Row="10" Grid.Column="5" Click="{m:Exp Str=change.DataContext.New()}" HorizontalAlignment="Right" Width="50"/>
                                         <TextBlock Text="地    址：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.ColumnSpan="2"/>
                                         <TextBlock Text="新银行开户名：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="6" Grid.ColumnSpan="2"/>

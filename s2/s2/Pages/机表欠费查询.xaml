@@ -148,7 +148,7 @@
                             <!--\,round((fee-f_zhye)\,2) sjqfje -->
 									<o:PagedList x:Name="daninfoslist" WebClientInfo="{StaticResource dbclient}"
 									Order="asc" SortName="address" SortNames="用户编号:a.f_userid,地址:a.address"
-									Names="f_userid,f_username,districtname,address,f_phone,f_inputtor,f_payment,lastinputdate,lastinputgasnum,lastrecord,oughtamount,oughtfee,f_gasprice,fee,f_zhye,qianfei,c,yue"
+									Names="f_userinfoid,f_userid,f_username,districtname,address,f_phone,f_inputtor,f_payment,lastinputdate,lastinputgasnum,lastrecord,oughtamount,oughtfee,f_gasprice,fee,f_zhye,qianfei,c,yue"
 									SumHQL="{m:Exp Str=$ 
 select a.f_userid f_userid\,a.f_username f_username\,a.districtname districtname\,a.address address\,a.f_phone f_phone\,a.f_inputtor f_inputtor\,a.f_payment f_payment\,
 b.lastinputdate lastinputdate\,b.lastinputgasnum lastinputgasnum\,b.lastrecord lastrecord\,b.oughtamount oughtamount\,b.oughtfee oughtfee\,b.f_gasprice f_gasprice\,a.fee fee\,
@@ -170,7 +170,7 @@ t_handplan where shifoujiaofei\=\'否\' and f_state\=\'已抄表\' and
 \{daninfosearch.DataContext.Condition\})b on a.m \= b.id  where (fee-a.f_zhye)>0 
 }"
 									HQL="{m:Exp Str=$
-select a.f_userid f_userid\,a.f_username f_username\,a.districtname districtname\,a.address address\,a.f_phone f_phone\,a.f_inputtor f_inputtor\,a.f_payment f_payment\,
+select a.f_userinfoid f_userinfoid\,a.f_userid f_userid\,a.f_username f_username\,a.districtname districtname\,a.address address\,a.f_phone f_phone\,a.f_inputtor f_inputtor\,a.f_payment f_payment\,
 b.lastinputdate lastinputdate\,b.lastinputgasnum lastinputgasnum\,b.lastrecord lastrecord\,b.oughtamount oughtamount\,round(b.oughtfee\,2) oughtfee\,b.f_gasprice f_gasprice\,a.fee fee\,
 a.f_zhye f_zhye\,round(fee-a.f_zhye\,2)qianfei\,a.c c\,a.yue yue\
  from
@@ -195,7 +195,8 @@ t_handplan where shifoujiaofei\=\'否\' and f_state\=\'已抄表\' and
  
 								</a:Data.Items>
 								<sdk:DataGrid.Columns>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}"/>
 									<sdk:DataGridTextColumn Header="小区名称" Binding="{Binding districtname}"/>
 									<sdk:DataGridTextColumn Header="地址" Binding="{Binding address}"/>
@@ -203,7 +204,7 @@ t_handplan where shifoujiaofei\=\'否\' and f_state\=\'已抄表\' and
 									<sdk:DataGridTextColumn Header="抄表日期" Binding="{Binding lastinputdate}"/>
 									<sdk:DataGridTextColumn Header="上次抄表底数" Binding="{Binding lastinputgasnum}"/>
 									<sdk:DataGridTextColumn Header="本次抄表底数" Binding="{Binding lastrecord}"/>
-									<sdk:DataGridTextColumn Header="本次应交水量" Binding="{Binding oughtamount}"/>
+									<sdk:DataGridTextColumn Header="本次用水量" Binding="{Binding oughtamount}"/>
                             <sdk:DataGridTextColumn Header="本次应交金额" Binding="{Binding oughtfee}"/>
                             <sdk:DataGridTextColumn Header="总欠费金额" Binding="{Binding fee, StringFormat=F2}"/>
                             <!-- <sdk:DataGridTextColumn Header="实际欠费金额" Binding="{Binding sjqfje}"/>-->

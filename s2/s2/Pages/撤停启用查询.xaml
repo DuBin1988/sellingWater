@@ -26,8 +26,8 @@
 
             <!--用户档案列表-->
             <o:PagedObjectList Name="userfiles" WebClientInfo="{StaticResource dbclient}"
-				MultiPath="{m:Exp Str=$from t_changmeter where \{search.Condition\} }" 
-				Path="{m:Exp Str=$from t_changmeter where \{search.Condition\} order by id }" 
+				MultiPath="{m:Exp Str=$from t_userfiles where \{search.Condition\} }" 
+				Path="{m:Exp Str=$from t_userfiles where \{search.Condition\} order by id }" 
 				PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames=","/>
         </m:ResourceLoad>
         <c:MessageTipObj Tip="{m:Exp Str=$导出Excel完成$}" IsShow="{m:Exp Str=downLoad\=>Completed!\=null}"/>
@@ -35,32 +35,38 @@
             <toolkit:DockPanel>
                 <StackPanel x:Name="ui_setSearch" DataContext="{m:Exp Str=search}" Orientation="Horizontal" Height="30" toolkit:DockPanel.Dock="Top">
                     <TextBlock Text="姓名:" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Width="120" x:Name="ui_username" Height="25" Text="{Binding Path=f_username, Mode=TwoWay}" Margin="0,0,15,0">
+                    <TextBox Width="55" x:Name="ui_username" Height="25" Text="{Binding Path=f_username, Mode=TwoWay}" Margin="0,3,15,2">
                         <a:Data.Prop>
                             <o:PropertySetter PropertyName="f_username"  Operator="f_username like '%this%'"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Text="编号:" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Width="120" x:Name="ui_userid" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_userid, Mode=TwoWay}">
+                    <TextBlock Text="用户编号:" VerticalAlignment="Center"></TextBlock>
+                    <TextBox Width="56" x:Name="ui_userinfoid" Height="25" Margin="0,3,15,2" Text="{Binding Path=f_userinfoid, Mode=TwoWay}">
+                        <a:Data.Prop>
+                            <o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid = 'this'"/>
+                        </a:Data.Prop>
+                    </TextBox>
+                    <TextBlock Text="表具编号:" VerticalAlignment="Center"></TextBlock>
+                    <TextBox Width="56" x:Name="ui_userid" Height="25" Margin="0,3,15,2" Text="{Binding Path=f_userid, Mode=TwoWay}">
                         <a:Data.Prop>
                             <o:PropertySetter PropertyName="f_userid"  Operator="f_userid = 'this'"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Text="地址:"  VerticalAlignment="Center"></TextBlock>
-                    <TextBox Width="120" x:Name="ui_address" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_address, Mode=TwoWay}">
+                    <TextBlock Text="表钢印号:" VerticalAlignment="Center"></TextBlock>
+                    <TextBox Width="56" x:Name="ui_meternumber" Height="25" Margin="0,3,15,2" Text="{Binding Path=f_meternumber, Mode=TwoWay}">
                         <a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_address"  Operator="f_address like '%this%'"/>
+                            <o:PropertySetter PropertyName="f_meternumber"  Operator="f_meternumber = 'this'"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Text="停启状态:" VerticalAlignment="Center"></TextBlock>
-                    <ComboBox x:Name="ui_whetherback" SelectedValue="{m:Bind Path=f_payfeevalid}" ItemsSource="{m:Exp Str=payfeevalid}" Width="80" Height='25'  SelectedValuePath="name" >
-                         <ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-						 </ComboBox.ItemTemplate>
-						<a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_payfeevalid"  Operator="f_payfeevalid = 'this'" />
+                    <TextBlock Text="表状态:" VerticalAlignment="Center"></TextBlock>
+                    <ComboBox x:Name="ui_whetherback" SelectedValue="{m:Bind Path=f_userstate}" ItemsSource="{m:Exp Str=payfeevalid}" Width="74" Height='25'  SelectedValuePath="name" Margin="0,3,0,2" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <a:Data.Prop>
+                            <o:PropertySetter PropertyName="f_userstate"  Operator="f_userstate = 'this'" />
                         </a:Data.Prop>
                     </ComboBox>
                     <Button x:Name="ui_SearchButton" Width="70" Margin="15,0,0,0"  Click="{m:Exp Str=search.Search()}">查询</Button>
@@ -82,17 +88,18 @@
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn Header="编号" Binding="{Binding id}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="姓名" Binding="{Binding f_username}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_cmnewgaswatchbrand}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_cmnewmetertype}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_cmnewmeternumber}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="撤停原因" Binding="{Binding f_cnote}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="撤停人" Binding="{Binding f_cmoperator}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="撤停日期" Binding="{Binding f_cmdate}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="启用人" Binding="{Binding f_cxoperation}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="启用日期" Binding="{Binding f_canceldate}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="撤停原因" Binding="{Binding f_stopgasreason}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="撤停人" Binding="{Binding f_soperator}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="撤停日期" Binding="{Binding f_stopdate}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="启用人" Binding="{Binding f_rcoperator}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="启用日期" Binding="{Binding f_openingdate}"></sdk:DataGridTextColumn>
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel>

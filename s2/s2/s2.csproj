@@ -185,6 +185,9 @@
     <Compile Include="Pages\机表退押金.xaml.cs">
       <DependentUpon>机表退押金.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\档案变更查询.xaml.cs">
+      <DependentUpon>档案变更查询.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\民用户建档.xaml.cs">
       <DependentUpon>民用户建档.xaml</DependentUpon>
     </Compile>
@@ -1610,6 +1613,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\机表退押金.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\档案变更查询.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

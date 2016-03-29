@@ -132,14 +132,14 @@
 							<sdk:DataGridTextColumn d:IsLocked="True" Header="序号" Binding="{Binding Index}"/>
 							<sdk:DataGridTextColumn Header="小区名称" Binding="{Binding f_districtname}"/>
 							<sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"/>
-							<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
-							<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
+							<!--<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
+							<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>-->
 							<sdk:DataGridTextColumn Header="开户水量" Binding="{Binding f_accountVolume}"/>
 							<sdk:DataGridTextColumn Header="户    数" Binding="{Binding f_userNum}"/>
 							<sdk:DataGridTextColumn Header="通水户数" Binding="{Binding f_already}"/>
 							<sdk:DataGridTextColumn Header="未通水户数" Binding="{Binding f_unready}"/>
-							<sdk:DataGridTextColumn Header="壁挂炉户数" Binding="{Binding f_wallhangboiler}"/>
-							<sdk:DataGridTextColumn Header="热水器户数" Binding="{Binding f_waterheater}"/>
+							<!--<sdk:DataGridTextColumn Header="壁挂炉户数" Binding="{Binding f_wallhangboiler}"/>
+							<sdk:DataGridTextColumn Header="热水器户数" Binding="{Binding f_waterheater}"/>-->
 							<sdk:DataGridTextColumn Header="小区开始编号" Binding="{Binding f_startNumber}"/>
 							<sdk:DataGridTextColumn Header="小区结束编号" Binding="{Binding f_endNumber}"/>
 							<sdk:DataGridTextColumn Header="小区当前用户编号" Binding="{Binding f_usernumber}"/>

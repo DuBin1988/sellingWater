@@ -33,9 +33,9 @@
 			pipelines.SelectedItem.f_userid\=>SelectionChanged\!\=null:$one/from t_userfiles where f_userid\=\'\{pipelines.SelectedItem.f_userid\}\' and f_userstate\=\'正常\' and f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,$null$}" 
 			  IsInit="{m:Exp Str='SaveAction.State==$End$'}">
                 <!--o:PropertySetter PropertyName="f_gasmeteraccomodations" Value="{m:Exp Str=pipeline.DataContext.f_gasmeteraccomodations}"/-->
-                <o:PropertySetter PropertyName="f_stopdate" Value="{m:Exp Str=SaveAction\=>Saving!\=null:pipeline.DataContext.f_stopdate\,null}">
-                </o:PropertySetter>
-
+                <o:PropertySetter PropertyName="f_stopdate" Value="{m:Exp Str=SaveAction\=>Saving!\=null:pipeline.DataContext.f_stopdate\,null}"/>
+                <o:PropertySetter PropertyName="f_stopgasreason" Value="{m:Exp Str=SaveAction\=>Saving!\=null:pipeline.DataContext.f_stopgasreason\,null}"/>
+                <o:PropertySetter PropertyName="f_soperator" Value="{m:Exp Str=SaveAction\=>Saving!\=null:pipeline.DataContext.f_soperator\,null}"/>
             </o:GeneralObject>
             <!--停用对象 -->
             <o:GeneralObject  Name="pipelinego" WebClientInfo="{StaticResource dbclient}" 
@@ -202,7 +202,7 @@
                         <TextBlock Margin="0,6" Grid.Row="8" TextWrapping="Wrap" Text="操作日期：" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Black"/>
                         <TextBox Text="{m:Bind Path=f_userinfoid}" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="Auto">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=userfiles.f_userinfoid\=>Completed}"/>
+                                <o:PropertySetter PropertyName="f_userinfoid" Value="{m:Exp Str=userfiles.f_userinfoid\=>Completed}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_userid}" IsReadOnly="True" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="Auto">

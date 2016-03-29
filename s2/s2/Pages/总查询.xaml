@@ -26,14 +26,14 @@
 					<o:SearchObject />        	
 				</a:Data.Context>
 				<StackPanel Orientation="Horizontal">
-					<TextBlock TextWrapping="Wrap" Text="开始日期：" Margin="5,6,0,6" Height="25"/>
+					<TextBlock TextWrapping="Wrap" Text="开始日期：" Margin="5,6,0,6" Height="20"/>
 					<sdk:DatePicker SelectedDate="{m:Bind Path=f_startedate}" Margin="0,6"  Height="25" VerticalAlignment="Stretch"  >
 						<a:Data.Prop>
 							<o:PropertySetter PropertyName="f_startedate" Value="{m:Exp Str=SysTime.Today}"
 								Operator=" f_deliverydate >= substring('this',1,10)"/>
 						</a:Data.Prop>
 					</sdk:DatePicker>
-					<TextBlock TextWrapping="Wrap" Text="结束日期：" Margin="5,6,0,6" Height="25"/>
+					<TextBlock TextWrapping="Wrap" Text="结束日期：" Margin="5,6,0,6" Height="21"/>
 					<sdk:DatePicker SelectedDate="{m:Bind Path=f_enddate}" Margin="0,6"  Height="25" VerticalAlignment="Stretch"  >
 						<a:Data.Prop>
 							<o:PropertySetter PropertyName="f_enddate" Value="{m:Exp Str=SysTime.Today}"
@@ -46,10 +46,10 @@
 								<o:PropertySetter PropertyName="f_filiale" Operator="f_filiale like 'this%'"/>               
 							</a:Data.Prop>
 						</TextBox>
-						<TextBlock TextWrapping="Wrap" Text="用户编号：" Margin="0,4" />
-									<TextBox TextWrapping="Wrap" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0" Height="25">
+						<TextBlock TextWrapping="Wrap" Text="用户/单位名称：" Margin="0,4" Height="19" />
+									<TextBox TextWrapping="Wrap" Text="{m:Bind Path=f_username}" Width="Auto" Margin="0" Height="25">
 										<a:Data.Prop>
-											<o:PropertySetter PropertyName="f_userid"  Operator="f_userid = 'this'"/>          
+											<o:PropertySetter PropertyName="f_username"  Operator="f_username = 'this'"/>          
 										</a:Data.Prop>
 									</TextBox>			
 				</StackPanel> 
@@ -168,7 +168,7 @@
 								</sdk:DataGridTemplateColumn>
 										
 								<sdk:DataGridTextColumn Header="序   号" d:IsLocked="True" Binding="{Binding Index}" />
-								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
 								<sdk:DataGridTextColumn Header="用户/单位名称" Binding="{Binding f_username}"/>
 
 								<sdk:DataGridTextColumn Header="购 水 量" Binding="{Binding f_pregas}"/>
@@ -176,9 +176,9 @@
 								<sdk:DataGridTextColumn Header="购水金额" Binding="{Binding f_preamount}"/>
 								<sdk:DataGridTextColumn Header="应交金额" Binding="{Binding f_totalcost}"/>
 								<sdk:DataGridTextColumn Header="交费日期" Binding="{Binding f_deliverydate, StringFormat=yyyy-MM-dd}"/>
-								<sdk:DataGridTextColumn Header="维护费交费开始年月" Binding="{Binding f_beginfee, StringFormat=yyyy-MM}"/>
-								<sdk:DataGridTextColumn Header="维护费交费截止年月" Binding="{Binding f_endfee, StringFormat=yyyy-MM}"/>
-								<sdk:DataGridTextColumn Header="维护费金额" Binding="{Binding f_amountmaintenance}"/>
+								<sdk:DataGridTextColumn Header="违约金交费开始年月" Binding="{Binding f_beginfee, StringFormat=yyyy-MM}"/>
+                                <sdk:DataGridTextColumn Header="违约金交费截止年月" Binding="{Binding f_endfee, StringFormat=yyyy-MM}"/>
+                                <sdk:DataGridTextColumn Header="违约金金额" Binding="{Binding f_amountmaintenance}"/>
 								
 								
 								<sdk:DataGridTextColumn Header="网　　点" Binding="{Binding f_sgnetwork}"/>
@@ -211,7 +211,8 @@
 							</a:Data.Items>
 							<sdk:DataGrid.Columns>
 								<sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
-								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" />
+								<sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" />
+                                <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" />
 								<sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" />
 								<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
 								<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
@@ -311,9 +312,15 @@
 							<sdk:DataGrid.Columns>
 								<sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
 								<sdk:DataGridTextColumn d:IsLocked="True" Header="用户编号" Binding="{Binding f_userid}"/>
-								<sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_username}"/>
-								
-								<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
+                                <sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_tnewusername}"/>
+                                <sdk:DataGridTextColumn d:IsLocked="True" Header="身份证号" Binding="{Binding f_tnewidnumber}"/>
+                                <sdk:DataGridTextColumn d:IsLocked="True" Header="电话" Binding="{Binding f_tnewphone}"/>
+                                <sdk:DataGridTextColumn d:IsLocked="True" Header="银行开户名" Binding="{Binding f_tnewidnumber}"/>
+                                <sdk:DataGridTextColumn d:IsLocked="True" Header="银行名" Binding="{Binding f_newnbankname}"/>
+                                <sdk:DataGridTextColumn d:IsLocked="True" Header="银行账号" Binding="{Binding f_newnidofcard}"/>
+                                <sdk:DataGridTextColumn Header="过户日期" Binding="{Binding f_f_tdate, StringFormat=yyyy-MM-dd}"/> 
+
+                                <!--<sdk:DataGridTextColumn Header="水表品牌" Binding="{Binding f_gaswatchbrand}"/>
 								<sdk:DataGridTextColumn Header="水表型号" Binding="{Binding f_metertype}"/>
 								<sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
 								<sdk:DataGridTextColumn Header="卡    号" Binding="{Binding f_cardid}"/>
@@ -322,7 +329,7 @@
 								
 								
 								<sdk:DataGridTextColumn Header="补卡原因" Binding="{Binding f_rcreason}"/>
-								<sdk:DataGridTextColumn Header="补卡日期" Binding="{Binding f_recoverycarddate, StringFormat=yyyy-MM-dd}"/>
+								<sdk:DataGridTextColumn Header="补卡日期" Binding="{Binding f_recoverycarddate, StringFormat=yyyy-MM-dd}"/>-->
 							</sdk:DataGrid.Columns>
 						</sdk:DataGrid>
 					</toolkit:DockPanel>

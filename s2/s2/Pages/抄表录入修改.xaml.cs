@@ -36,6 +36,7 @@ namespace Com.Aote.Pages
             {
                 obj.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
                 obj.EntityType = "t_updatehandplan";
+                obj.SetPropertyValue("f_userinfoid", ui_userinfoid.Text, false);
                 obj.SetPropertyValue("f_userid", ui_userid.Text, false);
                 obj.SetPropertyValue("f_username", ui_username.Text, false);
                 obj.SetPropertyValue("f_address", ui_address.Text, false);

@@ -40,27 +40,33 @@
                             <o:PropertySetter PropertyName="f_username"  Operator="f_username like '%this%'"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Text="编号:" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Width="120" x:Name="ui_userid" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_userid, Mode=TwoWay}">
+                    <TextBlock Text="用户编号:" VerticalAlignment="Center"></TextBlock>
+                    <TextBox Width="120" x:Name="ui_userinfoid" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_userinfoid, Mode=TwoWay}">
                         <a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_userid"  Operator="f_userid = 'this'"/>
+                            <o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid = 'this'"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Text="地址:"  VerticalAlignment="Center"></TextBlock>
-                    <TextBox Width="120" x:Name="ui_address" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_address, Mode=TwoWay}">
+                    <TextBlock Text="表具编号:"  VerticalAlignment="Center"></TextBlock>
+                    <TextBox Width="120" x:Name="ui_userid" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_userid, Mode=TwoWay}">
                         <a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_address"  Operator="f_address like '%this%'"/>
+                            <o:PropertySetter PropertyName="f_userid"  Operator="f_userid like '%this%'"/>
+                        </a:Data.Prop>
+                    </TextBox>
+                    <TextBlock Text="表钢印号:"  VerticalAlignment="Center"></TextBlock>
+                    <TextBox Width="120" x:Name="ui_meternumber" Height="25" Margin="0,0,15,0" Text="{Binding Path=f_meternumber, Mode=TwoWay}">
+                        <a:Data.Prop>
+                            <o:PropertySetter PropertyName="f_meternumber"  Operator="f_meternumber like '%this%'"/>
                         </a:Data.Prop>
                     </TextBox>
                     <TextBlock Text="换表状态:" VerticalAlignment="Center"></TextBlock>
-                    <ComboBox x:Name="ui_whetherback" SelectedValue="{m:Bind Path=f_payfeevalid}" ItemsSource="{m:Exp Str=payfeevalid}" Width="80" Height='25'  SelectedValuePath="name" >
+                    <ComboBox x:Name="ui_whetherback" SelectedValue="{m:Bind Path=f_state}" ItemsSource="{m:Exp Str=payfeevalid}" Width="80" Height='25'  SelectedValuePath="name" >
                          <ComboBox.ItemTemplate>
 									<DataTemplate>
 										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
 									</DataTemplate>
 						 </ComboBox.ItemTemplate>
 						<a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_payfeevalid"  Operator="f_payfeevalid = 'this'" />
+                            <o:PropertySetter PropertyName="f_state"  Operator="f_state = 'this'" />
                         </a:Data.Prop>
                     </ComboBox>
                     <Button x:Name="ui_SearchButton" Width="70" Margin="15,0,0,0"  Click="{m:Exp Str=search.Search()}">查询</Button>
@@ -82,16 +88,18 @@
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn Header="编号" Binding="{Binding id}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="姓名" Binding="{Binding f_username}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="表费" Binding="{Binding f_watchfee}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="卡费" Binding="{Binding f_cardfees}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="换表状态" Binding="{Binding f_state}"></sdk:DataGridTextColumn>
+                            <!--<sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"></sdk:DataGridTextColumn>-->
+                            <!--<sdk:DataGridTextColumn Header="表费" Binding="{Binding f_watchfee}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="卡费" Binding="{Binding f_cardfees}"></sdk:DataGridTextColumn>-->
                             <sdk:DataGridTextColumn Header="新表品牌" Binding="{Binding f_cmnewgaswatchbrand}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="新表型号" Binding="{Binding f_cmnewmetertype}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="新表钢印号" Binding="{Binding f_cmnewmeternumber}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="补水量" Binding="{Binding f_cmaddgas}"></sdk:DataGridTextColumn>
-                            <sdk:DataGridTextColumn Header="超用水量" Binding="{Binding f_cypregas}"></sdk:DataGridTextColumn>
+                            <!--<sdk:DataGridTextColumn Header="补水量" Binding="{Binding f_cmaddgas}"></sdk:DataGridTextColumn>
+                            <sdk:DataGridTextColumn Header="超用水量" Binding="{Binding f_cypregas}"></sdk:DataGridTextColumn>-->
                             <sdk:DataGridTextColumn Header="换表原因" Binding="{Binding f_cnote}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="换表人" Binding="{Binding f_cmoperator}"></sdk:DataGridTextColumn>
                             <sdk:DataGridTextColumn Header="换表日期" Binding="{Binding f_cmdate}"></sdk:DataGridTextColumn>

@@ -74,9 +74,9 @@
                             <o:SearchObject />
                         </a:Data.Context>
                         <TextBlock TextWrapping="Wrap" Text="用户编号：" Margin="0" Height="25" TextAlignment="Right"/>
-                        <TextBox Name="yhbh" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="1" >
+                        <TextBox Name="yhbh" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{m:Bind Path=f_userinfoid}" Width="Auto" Margin="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_userid"  Operator="f_userid like '%this%'"/>
+                                <o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid like '%this%'"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBlock TextWrapping="Wrap" Text="用户姓名：" Margin="0" Height="25" TextAlignment="Right" Grid.Column="2"/>
@@ -168,7 +168,7 @@
                         </a:Data.Items>
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn d:IsLocked="True" Header="序号" Binding="{Binding Index}"/>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}"/>
                             <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}" />
                             <sdk:DataGridTextColumn Header="小区名称" Binding="{Binding f_districtname}"/>
@@ -180,7 +180,7 @@
 
                             <sdk:DataGridTextColumn Header="操作类型" Binding="{Binding f_watchtype}" />
                             <sdk:DataGridTextColumn Header="换表类型" Binding="{Binding f_replacewatchtype}" />
-                            <sdk:DataGridTextColumn Header="换表费" Binding="{Binding f_watchfee}"/>
+                            <!--<sdk:DataGridTextColumn Header="换表费" Binding="{Binding f_watchfee}"/>-->
 
                             <sdk:DataGridTextColumn Header="旧表品牌" Binding="{Binding f_gaswatchbrand}" />
                             <sdk:DataGridTextColumn Header="新表品牌" Binding="{Binding f_cmnewgaswatchbrand}" />
@@ -188,22 +188,17 @@
                             <sdk:DataGridTextColumn Header="新表型号" Binding="{Binding f_cmnewmetertype}"/>
                             <sdk:DataGridTextColumn Header="旧卡号" Binding="{Binding f_cardid}" />
                             <sdk:DataGridTextColumn Header="新卡号" Binding="{Binding f_newcardid}" />
-
-
-
-
                             <sdk:DataGridTextColumn Header="换表日期" Binding="{Binding f_cmchangemeterdate,StringFormat=yyyy-MM-dd}" />
-
                             <sdk:DataGridTextColumn Header="分公司" Binding="{Binding f_filiale}"/>
                             <sdk:DataGridTextColumn Header="换表登记人" Binding="{Binding f_cmoperator}"/>
                             <sdk:DataGridTextColumn Header="登记日期" Binding="{Binding f_cmdate,StringFormat=yyyy-MM-dd}"/>
-                            <sdk:DataGridTextColumn Header="登记时间" Binding="{Binding f_cmtime,StringFormat=hh:mm:ss tt}" />
+                            <!--<sdk:DataGridTextColumn Header="登记时间" Binding="{Binding f_cmtime,StringFormat=hh:mm:ss tt}" />-->
 
-                            <sdk:DataGridTextColumn Header="卡厅审核人" Binding="{Binding f_rcoperator}"/>
+                            <!--<sdk:DataGridTextColumn Header="卡厅审核人" Binding="{Binding f_rcoperator}"/>
                             <sdk:DataGridTextColumn Header="卡厅审核意见" Binding="{Binding f_yijian}"/>
-                            <sdk:DataGridTextColumn Header="卡厅审核日期" Binding="{Binding f_date,StringFormat=yyyy-MM-dd}"/>
+                            <sdk:DataGridTextColumn Header="卡厅审核日期" Binding="{Binding f_date,StringFormat=yyyy-MM-dd}"/>-->
 
-                            <sdk:DataGridTextColumn Header="客服经理" Binding="{Binding f_bmoper}"/>
+                            <!--<sdk:DataGridTextColumn Header="客服经理" Binding="{Binding f_bmoper}"/>
                             <sdk:DataGridTextColumn Header="客服经理意见" Binding="{Binding f_bmyijian}"/>
                             <sdk:DataGridTextColumn Header="日期" Binding="{Binding f_bmdate,StringFormat=yyyy-MM-dd}"/>
 
@@ -217,7 +212,7 @@
 
                             <sdk:DataGridTextColumn Header="维修确认人" Binding="{Binding f_wxoper}"/>
                             <sdk:DataGridTextColumn Header="维修确认意见" Binding="{Binding f_wxyijian}"/>
-                            <sdk:DataGridTextColumn Header="日期" Binding="{Binding f_wxdate,StringFormat=yyyy-MM-dd}"/>
+                            <sdk:DataGridTextColumn Header="日期" Binding="{Binding f_wxdate,StringFormat=yyyy-MM-dd}"/>-->
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
 
