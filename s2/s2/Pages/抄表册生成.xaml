@@ -1,0 +1,164 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:a="clr-namespace:Com.Aote.Attachs;assembly=s2DLL"
+    xmlns:o="clr-namespace:Com.Aote.ObjectTools;assembly=s2DLL"
+    xmlns:b="clr-namespace:Com.Aote.Behaviors;assembly=s2DLL"
+	xmlns:c="clr-namespace:Com.Aote.Controls;assembly=s2DLL"
+	xmlns:b1="clr-namespace:Com.Aote.Behaviors"
+    xmlns:m="clr-namespace:Com.Aote.Marks;assembly=s2DLL"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:data="clr-namespace:System.Windows.Data;assembly=System.Windows"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+    xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+	xmlns:System="clr-namespace:System;assembly=mscorlib"
+	mc:Ignorable="d" FontSize="13"
+	x:Class="Com.Aote.Pages.抄表册生成"  d:DesignHeight="768" d:DesignWidth="1024">
+
+    <Grid x:Name="LayoutRoot">
+        <m:ResourceLoad Margin="0,0,-12,0" x:Name="loader">
+            <o:ObjectList Name="chaobiaoyuanlist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='抄表员'"/>
+            <!--查询条件对象-->
+            <o:SearchObject Name="search"/>
+
+            <o:GeneralObject Name="handplango" EntityType="t_handplanlist" 
+                    WebClientInfo="{StaticResource dbclient}" 
+                     Source="{m:Exp Str=ui_stairDataGaid.SelectedItem}"
+                    IsInit="{m:Exp Str='this.State\=\=$End$ |or| SaveAction.State \=\= $End$'}">
+            </o:GeneralObject>
+            
+            <o:ObjectList Name="list" WebClientInfo="{StaticResource dbclient}"
+                    IsOld="{m:Exp Str='SaveAction.State\=\=$End$'}"
+                          Path="{m:Exp Str=$from t_handplanlist where \{ui_StairSearch.DataContext.Condition\}}"/>
+            <!--判断册号是否存在-->
+            <o:GeneralObject Name="listexist" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" IsInit="{m:Exp Str=handplan.DataContext.State\=\=$End}"
+		  	Path="{m:Exp Str=handplan.DataContext.f_listid \!\=null:$one/select new Map(count(*) as count) from t_handplanlist where f_listid\=\'\{handplan.DataContext.f_listid\}\'$\,$aaa$}"/>
+
+            <b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}">
+                <b:BatchInfo Source="{m:Exp Str=handplan.DataContext}" MethodName="SaveToJson"/>
+            </b:BatchExcuteAction>
+            <!--<b:SyncActionFactory Name="SaveAction">
+                --><!--保存数据--><!--
+                <b:CallMethodAction    Name="saveu" TargetObject="{m:Exp Str=handplan.DataContext}"    MethodName="Save"/>
+
+            </b:SyncActionFactory>-->
+        </m:ResourceLoad>
+        <c:BusyIndicatorEx x:Name="ui_searchBusy" IsBusy="{m:Exp Str=SaveAction.IsBusy}" BusyContent="正在工作，请稍等！">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <toolkit:DockPanel>
+                    <Grid x:Name="ui_StairSearch" toolkit:DockPanel.Dock="Top"  Background="#FFCFEFFF">
+                        <a:Data.Context>
+                            <o:SearchObject />
+                        </a:Data.Context>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="册     号：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                        <TextBox TextWrapping="Wrap" Grid.Column="1" Text="{m:Bind Path=f_listid}" Width="Auto" Margin="0,2,0,0" Height="25" FontSize="13.333" VerticalAlignment="Top" d:LayoutOverrides="Height" >
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_listid"  Operator="f_listid like 'this%'"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBlock Text="册     名：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"></TextBlock>
+                        <TextBox TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Text="{m:Bind Path=f_listname}" Width="Auto" Margin="0,2,0,0" Height="25" FontSize="13.333" VerticalAlignment="Top" d:LayoutOverrides="Height" >
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_listname"  Operator="f_listname = this"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <Button x:Name="ui_StairSearchButton" Click="{m:Exp Str=ui_StairSearch.DataContext.Search()}" Grid.Column="2" Grid.Row="2" Width="70" Margin="0,2">查询</Button>
+                    </Grid>
+                    <sdk:DataGrid x:Name="ui_stairDataGaid" ItemsSource="{m:Exp Str=list}" AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" IsReadOnly="True" >
+                        <sdk:DataGrid.Columns>
+                            <sdk:DataGridTextColumn d:IsLocked="True" Header="编号" Binding="{Binding id}"/>
+                            <sdk:DataGridTextColumn Header="册号" Binding="{Binding f_listid}"/>
+                            <sdk:DataGridTextColumn Header="册名" Binding="{Binding f_listname}"/>
+                            <sdk:DataGridTextColumn Header="工作日" Binding="{Binding f_handdate}"/>
+                            <sdk:DataGridTextColumn Header="片区" Binding="{Binding f_handarea}"/>
+                            <sdk:DataGridTextColumn Header="抄表员" Binding="{Binding f_inputtor}"/>
+                        </sdk:DataGrid.Columns>
+                    </sdk:DataGrid>
+                </toolkit:DockPanel>
+                <Grid Grid.Column="1" Background="{x:Null}"   x:Name="handplan" DataContext="{m:Exp Str=handplango}">
+
+                    <Grid HorizontalAlignment="Stretch" Margin="0" >
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF2F8FF" Offset="0"/>
+                                <GradientStop Color="#FFDDF2FD" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="工 作 日：" Margin="0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock Text="片    区：" Grid.Column="1" Margin="0,9" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Right"/>
+                        <TextBlock Text="抄 表 员：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="3" Grid.Column="1"/>
+                        <TextBlock Text="册    名：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="4" Grid.Column="1"/>
+                        <TextBlock Text="册    号：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="5" Grid.Column="1"/>
+                        <TextBox x:Name="handdate" Text="{m:Bind Path=f_handdate}"   Grid.Column="2" Margin="0,8,0,10" Grid.Row="1" TextWrapping="Wrap" Grid.ColumnSpan="1" >
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_handdate" NotNull="True"/>
+                            </a:Data.Prop>
+                        </TextBox>
+
+                        <ComboBox x:Name="handarea" ItemsSource="{m:Exp Str=handarealist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_handarea}" Grid.Column="2" Margin="0,9" Grid.Row="2" IsEnabled="true" FontSize="13.333">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_handarea"  NotNull="True"/>
+
+                            </a:Data.Prop>
+                        </ComboBox>
+                        <ComboBox x:Name="CoboxPinp_Copy1" ItemsSource="{m:Exp Str=chaobiaoyuanlist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_inputtor}" Grid.Column="2" Margin="0,10,0,8" Grid.Row="3" IsEnabled="true" FontSize="13.333">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_inputtor"  NotNull="True"/>
+
+                            </a:Data.Prop>
+                        </ComboBox>
+                        <TextBox x:Name="listname" Text="{m:Bind Path=f_listname}"  Grid.Column="2" Margin="0,8,0,10" MouseEnter="f_listname_MouseEnter"  Grid.Row="4" TextWrapping="Wrap" Grid.ColumnSpan="1" >
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_listname" NotNull="True"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox x:Name="code" Visibility="Collapsed" Text="{m:Bind Path=f_code}" IsReadOnly="True"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="1" >
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_code" NotNull="True"  NoDependValue="{m:Exp Str=CoboxPinp_Copy1.SelectedItem.code}"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox x:Name="listid" Text="{m:Bind Path=f_listid}" IsReadOnly="True"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="1" >
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_listid" NotNull="True" ValidationVal="{m:Exp Str='listexist=>DataLoaded!=null:(listexist.count&gt;0:$False$\,$True$)\,$False$'}" ErrorMessage="该册号已经已存在，不能重复录入"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <Button x:Name="save" Content="生成抄表册" Click="{m:Exp Str=SaveAction.Invoke()}" IsEnabled="{m:Exp Str=!handplango.HasErrors}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Width="134" Margin="39,10,0,6"/>
+                        <Button x:Name="cancel" Content="撤  销" Click="{m:Exp Str=handplango.New();handplan.DataContext.New()}" HorizontalAlignment="Right" Width="71" Grid.Row="6" Grid.Column="1" Margin="0,10,0,7"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </c:BusyIndicatorEx>
+    </Grid>
+</UserControl>
