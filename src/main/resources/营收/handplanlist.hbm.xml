@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"  encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<!--抄表册-->
+	<class entity-name="t_handplanlist" table="t_handplanlist" >
+		<id name="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		<!-- 抄表册号-->
+		<property name="f_listid" type="string"/>
+		<!--册名-->
+		<property name="f_listname" type="string"/>
+		<!--工作日（财务日期）-->
+		<property name="f_handdate" type="string"/>
+		<!--所属片区-->
+		<property name="f_handarea" type="string"/>
+		<!--抄表员-->
+		<property name="f_inputtor" type="string"/>
+		<!--抄表员代码-->
+		<property name="f_code" type="string"/>   
+		<!--审核意见-->
+		<property name="f_yijian" type="string"/>
+		<!--审核备注-->
+		<property name="f_beizhu" type="string"/>
+		<!--抄表册状态-->
+		<!-- <property name="f_liststate" type="string"/> -->
+	</class>
+</hibernate-mapping>
