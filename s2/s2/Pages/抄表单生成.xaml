@@ -25,9 +25,12 @@
             </o:GeneralObject>
 
 			<!--查询条件对象-->						
-			<o:SearchObject Name="search"/>        	
-			
-			<!--水表类型列表-->
+			<o:SearchObject Name="search"/>
+
+            <!--抄表册列表-->
+            <o:ObjectList Name="handplanlist" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" Path="from t_handplanlist"  HasEmptyRow="True" />
+
+            <!--水表类型列表-->
 			<o:ObjectList Name="gasmeterstylelist"  EntityType="paramvalue"  HasEmptyRow="True"  WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='水表类型' order by id"/>
 
             <!--用户档案列表-->
@@ -46,11 +49,11 @@
 			HQL="{m:Exp Str=$
 			insert into t_handplan(f_userinfoid\, f_userid\, f_handid\, f_username\, lastinputgasnum\, f_gaswatchbrand\, f_metertype\,
 				f_handarea\, f_address\, f_districtname\, f_usertype\, f_gasprice\, f_gaspricetype\, f_dibaohu\, f_apartment\,
-				f_phone\, scinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\,f_stairtype\,
+				f_phone\, scinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\,f_stairtype\,f_listid\,f_touxianno\,
 				f_zerenbumen\, f_state\, shifoujiaofei\, users\, f_cusDom\, f_cusDy)
 			select f_userinfoid\, f_userid\, f_handid\, f_username\, lastinputgasnum\, f_gaswatchbrand\, f_metertype\,
 				f_handarea\, f_address\, f_districtname\, f_usertype\, f_gasprice\, f_gaspricetype\, f_dibaohu\, f_apartment\,
-				f_phone\, lastinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\,f_stairtype\,
+				f_phone\, lastinputdate\, f_inputtor\, f_yhxz\, f_weizhi\, f_menzhan\, f_stairtype\, f_listid\, f_touxianno\,
 				f_zerenbumen\, \'未抄表\'\, \'否\'\, id\, f_cusDom\, f_cusDy 
 			from t_userfiles where f_userstate\=\'正常\' and \{search.Condition\} and f_userid not in
 			(select distinct f_userid from t_handplan where f_state\=\'未抄表\' and f_userid is not null)}"/>
@@ -94,13 +97,18 @@
 										<o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>          
 									</a:Data.Prop>
 								</TextBox>
-								<TextBlock TextWrapping="Wrap" Text="门 牌 号："  Margin="0" TextAlignment="Right" Grid.Column="2" VerticalAlignment="Center" />
-									<TextBox  TextWrapping="Wrap"  Grid.Row="0" Grid.Column="3" Text="{m:Bind Path=f_apartment}" Width="Auto" Margin="0" Height="25" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Foreground="#FF7A1C1C" >
-									<a:Data.Prop>
-										<o:PropertySetter PropertyName="f_apartment"  Operator="f_apartment = 'this'"/>          
-									</a:Data.Prop>
-								</TextBox>
-								<Button Content=" 查  询" x:Name="dansearchbutton" Grid.Column="6" Click="{m:Exp Str=daninfosearch.DataContext.Search()}" Margin="10,0,0,0" FontSize="14" Width="54" HorizontalAlignment="Left"  />
+                                <TextBlock TextWrapping="Wrap" Text="抄表册号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Column="2" />
+                                <ComboBox x:Name="list1"  SelectedValue="{m:Bind Path=f_listid}" Grid.Column="3" ItemsSource="{m:Exp Str=handplanlist}"  Margin="0,2,0,1" SelectedValuePath="f_listid"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch">
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_listid"  Operator="f_listid = 'this'" />
+                                    </a:Data.Prop>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Height="20" Text="{Binding f_listid}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button Content=" 查  询" x:Name="dansearchbutton" Grid.Column="6" Click="{m:Exp Str=daninfosearch.DataContext.Search()}" Margin="10,0,0,0" FontSize="14" Width="54" HorizontalAlignment="Left"  />
 								<Button Content="生成抄表单" x:Name="saveButton" Grid.Column="8" Margin="10,0,0,0" FontSize="14" HorizontalAlignment="Right" Click="{m:Exp Str=CreateHandplan.Invoke()}" />
                                 <Button Content="导出Excel" IsEnabled="{m:Exp Str=daninfos.ItemsSource.Count!\=0:(CreateHandplan.State\=\=$End$:True\,False)\,False}" Click="{m:Exp Str=toExcel.ToExcel()}"  Grid.Row="1" Grid.Column="9" Width="60" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
 

@@ -159,9 +159,8 @@
     						</Grid>
     				<sdk:DataGrid x:Name="roads" Margin="0"  IsReadOnly="True"
     					AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" >
-    					<a:Data.Items>
-    						<!--userfile.DataContext.State\=\=$End$ or SaveAction.State\=\=$End$-->
-    						<o:PagedObjectList x:Name="roadlist" WebClientInfo="{StaticResource dbclient}"
+                    <a:Data.Items>
+                        <o:PagedObjectList x:Name="roadlist" WebClientInfo="{StaticResource dbclient}"
     							Path="{m:Exp Str='$from t_road where {roadsearch.DataContext.Condition}'}"
     							IsOld="{m:Exp Str='roadsearch.DataContext.Condition\=\=$End$ or DeleteAction.State==$End$ |or| SaveAction.State==$End$'}"
     							PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}"  SumNames=","/>

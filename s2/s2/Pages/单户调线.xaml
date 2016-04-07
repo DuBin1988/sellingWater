@@ -19,16 +19,34 @@
     <Grid x:Name="LayoutRoot">
         <m:ResourceLoad Margin="0,0,-12,0">
             <!--投线表对象-->
-            <o:GeneralObject Name="pipelinego" NotEmpty="true" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}"
-            Path="{m:Exp Str=$one/from t_userfiles where f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,pipelines.SelectedItem.f_userid\=>SelectionChanged\!\=null:$one/from t_userfiles where f_userid\=\'\{pipelines.SelectedItem.f_userid\}\' and f_filiale\=\'\{LoginUser.f_fengongsi\}\'$\,$null$}">
+            <o:GeneralObject Name="pipelinego" NotEmpty="true" EntityType="t_meterchangeline" WebClientInfo="{StaticResource dbclient}" IsInit="{m:Exp Str=SaveAction.State\=\=$End$}">
             </o:GeneralObject>
+
+            <!--判断编码是否存在-->
+            <o:GeneralObject Name="numexist" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}" IsInit="{m:Exp Str=pipeline.DataContext.State\=\=$End}"
+		  	Path="{m:Exp Str=pipeline.DataContext.f_newtiaoxianno \!\=null:$one/select new Map(count(*) as count) from t_userfiles where f_touxianno\=\'\{pipeline.DataContext.f_newtiaoxianno\}\'$\,$aaa$}"/>
+
+            <!--抄表册列表-->
+            <o:ObjectList Name="handplanlist" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" Path="from t_handplanlist"  HasEmptyRow="True" />
+
             <!--投线表列表-->
             <o:PagedObjectList Name="pipelineslist" WebClientInfo="{StaticResource dbclient}"
             Path="{m:Exp Str=$from t_userfiles where \{pipelinesearch.DataContext.Condition\} and f_filiale \=\'\{LoginUser.f_fengongsi\}\'}"
-			PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="f_times"/>
+			PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="f_times" IsOld="{m:Exp Str=SaveAction.State\=\=$End$}"/>
+
+            <b:HQLAction Name="changeline" WebClientInfo="{StaticResource server}">
+                <b:HQLAction.HQL>
+                    <m:Exp Str="
+                $update t_userfiles set f_listid='{pipelinego.f_newlistid}',f_handno='{pipelinego.f_newhandno}', 
+                          f_touxianno='{pipelinego.f_newtiaoxianno}' where f_userid='{pipelinego.f_userid}'">
+                    </m:Exp>
+                </b:HQLAction.HQL>
+            </b:HQLAction>
+
             <b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}"   
 		   	CanSave="{m:Exp Str=onlySave\=>Click!\=null}" >
                 <b:BatchInfo Source="{m:Exp Str=pipelinego}" MethodName="SaveToJson"/>
+                <b:BatchInfo Source="{m:Exp Str=changeline}" MethodName="InvokeToJson"/>
             </b:BatchExcuteAction>
         </m:ResourceLoad>
         <Grid>
@@ -58,9 +76,9 @@
                                 <RowDefinition Height="28"/>
                             </Grid.RowDefinitions>
                             <TextBlock TextWrapping="Wrap" Text="用户编号：" HorizontalAlignment="Right"/>
-                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
+                            <TextBox TextWrapping="Wrap" Grid.Column="1" Height="25" Text="{m:Bind Path=f_userinfoid}" a:ControlAttach.DefaultButton="searchbutton" Margin="0,2,0,1" >
                                 <a:Data.Prop>
-                                    <o:PropertySetter PropertyName="f_userid" Operator="f_userid like 'this%'"/>
+                                    <o:PropertySetter PropertyName="f_userinfoid" Operator="f_userinfoid like 'this%'"/>
                                 </a:Data.Prop>
                             </TextBox>
                             <TextBlock TextWrapping="Wrap" Grid.Row="1" Text="用户姓名：" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top"/>
@@ -72,13 +90,14 @@
                             <Button Content="查 询" x:Name="searchbutton" Grid.Column="2" Grid.Row="1" Click="{m:Exp Str=pipelinesearch.DataContext.Search()}" Margin="0,-1,5,0" HorizontalAlignment="Right" Width="50" Height="28" VerticalAlignment="Top"/>
                         </Grid>
                     </toolkit:DockPanel>
-                    <sdk:DataGrid x:Name="pipelines" Margin="0,0,0,23" ItemsSource="{m:Exp Str=pipelineslist}"
-				SelectedItem="{m:Exp Str=pipelinego.f_userid\=\=null:null\,pipelines.SelectedItem |or| pipelineslist\=>DataLoaded!\=null:null\,null}" 
+                    <sdk:DataGrid x:Name="pipelines" Margin="0,0,0,23" ItemsSource="{m:Exp Str=pipelineslist}" 
             		AutoGenerateColumns="False"  IsReadOnly="True">
 
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn Header="序号" Binding="{Binding Index}" d:IsLocked="True"/>
-                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
+                            <sdk:DataGridTextColumn Header="投线编码" Binding="{Binding f_touxianno}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="抄表编号" Binding="{Binding f_handid}" d:IsLocked="True"/>
@@ -117,7 +136,7 @@
                             <RowDefinition Height="0" />
                             <RowDefinition Height="40" />
                             <RowDefinition Height="40"/>
-                            <RowDefinition Height="40" />
+                            <RowDefinition Height="0" />
                             <RowDefinition Height="40" />
                             <RowDefinition Height="40" />
                             <RowDefinition Height="70" />
@@ -128,24 +147,27 @@
                         <TextBlock Margin="0" TextWrapping="Wrap" Text="用户姓名：" Grid.Row="1" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="水价类型：" Grid.Row="5" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="抄表周期：" Grid.Row="5" Grid.Column="2" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="抄表工作日：" Grid.Row="6" Height="25" Grid.Column="2" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="抄 表 员：" Grid.Row="7" Grid.Column="2" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="调线册号：" Grid.Row="6" Grid.Column="2" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="投线编码：" Grid.Row="6" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="调线编码：" Grid.Row="8" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="抄表片区：" Grid.Row="7"  Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="表安装日期：" Grid.Row="8" Grid.Column="2" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,6,0,4" Grid.Row="1" TextWrapping="Wrap" Text="表钢印号：" Grid.Column="2" TextAlignment="Right"/>
+                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="调线次序号：" Grid.Row="8" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="调线编码：" Grid.Row="8" Grid.Column="2" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0,6,0,4" Grid.Row="1" TextWrapping="Wrap" Text="表具编号：" Grid.Column="2" TextAlignment="Right"/>
                         <TextBlock Margin="0" Grid.Row="2" TextWrapping="Wrap" Text="用户地址：" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="操 作 员：" Height="25" TextAlignment="Right" Grid.Column="2"/>
                         <TextBlock Margin="16,8,0,2" Grid.Row="9" TextWrapping="Wrap" Text="分 公 司：" TextAlignment="Right" Height="25"/>
                         <TextBox x:Name="f_touxianno" Text="{m:Bind Path=f_touxianno}" Grid.Column="1" Margin="0,5,0,4" Grid.Row="6" TextWrapping="Wrap" IsReadOnly="True"  VerticalAlignment="Stretch" Height="25" d:LayoutOverrides="HorizontalMargin">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_touxianno"/>
+                                <o:PropertySetter PropertyName="f_touxianno" Value="{m:Exp Str=pipelines.SelectedItem.f_touxianno}"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox x:Name="f_tiaoxianno" Text="{m:Bind Path=f_tiaoxianno}" Grid.Column="1" Margin="0,5,0,4" Grid.Row="8" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="25" d:LayoutOverrides="HorizontalMargin">
+                        <TextBox x:Name="f_newhandno" Text="{m:Bind Path=f_newhandno}" Grid.Column="1" Margin="0,8,0,7" Grid.Row="8" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="25" Grid.ColumnSpan="1"  d:LayoutOverrides="HorizontalMargin" TextChanged="f_newhandno_TextChanged">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_tiaoxianno"/>
+                                <o:PropertySetter PropertyName="f_newhandno" NotNull="True" Default="{m:Exp Str=pipelinego.f_newhandno}"/>
+                            </a:Data.Prop>
+                        </TextBox>
+                        <TextBox x:Name="f_newtiaoxianno" Text="{m:Bind Path=f_newtiaoxianno}" IsReadOnly="True" Grid.Column="3" Margin="0,5,0,4" Grid.Row="8" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="25" d:LayoutOverrides="HorizontalMargin">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_newtiaoxianno"   ValidationVal="{m:Exp Str='numexist=>DataLoaded!=null:(numexist.count&gt;0:$False$\,$True$)\,$False$'}" ErrorMessage="该编码已经已存在，请重新调线"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox x:Name="f_filiale" Text="{m:Bind Path=f_filiale}" Grid.Column="1" Margin="0,5,0,4" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Right" Width="130" d:LayoutOverrides="HorizontalMargin">
@@ -155,75 +177,49 @@
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_stairtype}"  Grid.Column="1" Margin="0,3,0,4" Grid.Row="5" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch"  Width="Auto" IsReadOnly="True">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_stairtype"/>
+                                <o:PropertySetter PropertyName="f_stairtype" Value="{m:Exp Str=pipelines.SelectedItem.f_stairtype}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_handzq}"  Grid.Column="3" Margin="0,3,0,4" Grid.Row="5" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch"  Width="Auto" IsReadOnly="True">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handzq"/>
+                                <o:PropertySetter PropertyName="f_handzq" Value="{m:Exp Str=pipelines.SelectedItem.f_handzq}"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock Margin="0,1" Grid.Row="10" TextWrapping="Wrap" Text="调线原因：" Height="25" TextAlignment="Right"/>
-                        <TextBox Text="{m:Bind Path=f_userid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                        <ComboBox x:Name="Coboxlist" SelectedValuePath="f_listid" ItemsSource="{m:Exp Str=handplanlist}" SelectedValue="{m:Bind Path=f_newlistid}"  Margin="0,2,0,3" Grid.Row="6" Grid.Column="3"  Height="25" VerticalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Height="20" Text="{Binding f_listid}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_userid"/>
+                                <o:PropertySetter PropertyName="f_newlistid" Value="{m:Exp Str=handplanlist.SelectedItem.f_listid}" Default="{m:Exp Str=pipelines.SelectedItem.f_listid}"/>
+                            </a:Data.Prop>
+                        </ComboBox>
+                        <TextBlock Margin="0,1" Grid.Row="10" TextWrapping="Wrap" Text="调线原因：" Height="25" TextAlignment="Right"/>
+                        <TextBox Text="{m:Bind Path=f_userinfoid}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_userinfoid" Value="{m:Exp Str=pipelines.SelectedItem.f_userinfoid}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_handid}" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handid"/>
+                                <o:PropertySetter PropertyName="f_handid" Value="{m:Exp Str=pipelines.SelectedItem.f_handid}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_username}" Grid.Column="1" Margin="0,3,0,2" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="1" IsReadOnly="True" Height="25">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_username"/>
+                                <o:PropertySetter PropertyName="f_username" Value="{m:Exp Str=pipelines.SelectedItem.f_username}"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <ComboBox x:Name="cbgzr"  SelectedValue="{m:Bind Path=f_handgzr}" Margin="0"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="Height, VerticalMargin" Grid.Row="6" Grid.Column="3">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-
+                        
+                        <TextBox Text="{m:Bind Path=f_userid}" Grid.Column="3" Margin="0,6,0,4" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.ColumnSpan="1" IsReadOnly="True" Height="25">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handgzr"  Operator="f_inputtor = 'this'"/>
-                            </a:Data.Prop>
-                        </ComboBox>
-                        <ComboBox x:Name="tjczy"  SelectedValue="{m:Bind Path=f_inputtor}" ItemsSource="{m:Exp Str=chaobiaoyuanlist}"  Margin="0"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="Height, VerticalMargin" Grid.Row="7" Grid.Column="3">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_inputtor"  Operator="f_inputtor = 'this'"/>
-                            </a:Data.Prop>
-                        </ComboBox>
-                        <ComboBox x:Name="tjczy_Copy"  SelectedValue="{m:Bind Path=f_handarea}" ItemsSource="{m:Exp Str=handarealistnull}"  Margin="0,1.5"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Grid.Row="7" Grid.Column="1">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding name}" Height="20"></TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handarea"  Operator="f_handarea = 'this'"/>
-                            </a:Data.Prop>
-                        </ComboBox>
-                        <TextBox Text="{m:Bind Path=f_meternumber}" Grid.Column="3" Margin="0,6,0,4" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.ColumnSpan="1" IsReadOnly="True" Height="25">
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_meternumber"/>
+                                <o:PropertySetter PropertyName="f_userid"  Value="{m:Exp Str=pipelines.SelectedItem.f_userid}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_address}" Grid.Column="1" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25" Grid.ColumnSpan="3">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_address"/>
-                            </a:Data.Prop>
-                        </TextBox>
-                        <TextBox Text="{m:Bind Path=f_watchinstalldate}" Grid.Column="3" Margin="0" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25">
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_watchinstalldate"/>
+                                <o:PropertySetter PropertyName="f_address" Value="{m:Exp Str=pipelines.SelectedItem.f_address}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_cmoperator}" Grid.Column="3" Margin="0" Grid.Row="9" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25">
@@ -231,9 +227,9 @@
                                 <o:PropertySetter PropertyName="f_cmoperator" Default="{m:Exp Str=LoginUser.name}" />
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox Text="{m:Bind Path=f_chedannote}" Grid.ColumnSpan="3" Grid.Column="1" Margin="0,1" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" >
+                        <TextBox Text="{m:Bind Path=f_changelinenote}" Grid.ColumnSpan="3" Grid.Column="1" Margin="0,1" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_chedannote" NotNull="True"/>
+                                <o:PropertySetter PropertyName="f_changelinenote" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
                     </Grid>

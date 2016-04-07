@@ -17,10 +17,9 @@ namespace Com.Aote.Pages
             // Required to initialize variables
             InitializeComponent();
         }
-
-        private void SaveAction1_Loaded(object sender, RoutedEventArgs e)
+        private void f_newhandno_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            f_newtiaoxianno.Text = Coboxlist.SelectedValue.ToString() + "-" + f_newhandno.Text;
         }
     }
 }

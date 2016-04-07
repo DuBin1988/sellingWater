@@ -27,7 +27,8 @@
             <o:ObjectList Name="jichalist">
 
             </o:ObjectList>
-
+            <!--抄表册列表-->
+            <o:ObjectList Name="handplanlist" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" Path="from t_handplanlist"  HasEmptyRow="True" />
         </m:ResourceLoad>
         <Grid>
             <c:BusyIndicatorEx x:Name="ui_handBusy" BusyContent="正在工作，请稍等" Grid.ColumnSpan="1">
@@ -131,12 +132,17 @@
                                 <Button Content=" 保存 " x:Name="saveButton"  
                     	Click="saveButton_Click" Grid.Column="6"  Margin="201,-3,-130,3" FontSize="14"  Grid.RowSpan="2" HorizontalAlignment="Left"/>
                             </c:BusyIndicatorEx>
-                            <TextBlock TextWrapping="Wrap" Text="门 牌 号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="6" />
-                            <TextBox x:Name="tjwhf_Copy3" TextWrapping="Wrap" Grid.Row="1" Grid.Column="7" Text="{m:Bind Path=f_apartment}" Width="Auto" Margin="0,1.5" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="1" >
+                            <TextBlock TextWrapping="Wrap" Text="抄表册号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="6" />
+                            <ComboBox x:Name="list1"  SelectedValue="{m:Bind Path=f_listid}" Grid.Column="7" Grid.Row="1" ItemsSource="{m:Exp Str=handplanlist}"  Margin="0,2,0,1" SelectedValuePath="f_listid"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch">
                                 <a:Data.Prop>
-                                    <o:PropertySetter PropertyName="f_apartment" Operator="u.f_apartment = 'this'"/>
+                                    <o:PropertySetter PropertyName="f_listid"  Operator="u.f_listid = 'this'" />
                                 </a:Data.Prop>
-                            </TextBox>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Height="20" Text="{Binding f_listid}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                             <TextBlock TextWrapping="Wrap" Text="单    元："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="4" />
                             <TextBox x:Name="tjwhf_Copy4" TextWrapping="Wrap" Grid.Row="1" Grid.Column="5" Text="{m:Bind Path=f_cusDy}" Width="118" Margin="0,1.5" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
                                 <a:Data.Prop>
@@ -144,7 +150,7 @@
                                 </a:Data.Prop>
                             </TextBox>
                             <TextBlock TextWrapping="Wrap" Text="表具编号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Row="2" Grid.Column="4" />
-                            <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="5" Text="{m:Bind Path=f_cusDy}" Width="118" Margin="0,1.5" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
+                            <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="5" Text="{m:Bind Path=f_userid}" Width="118" Margin="0,1.5" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.RowSpan="1" >
                                 <a:Data.Prop>
                                     <o:PropertySetter PropertyName="f_userid" Operator="u.f_userid = 'this'"/>
                                 </a:Data.Prop>

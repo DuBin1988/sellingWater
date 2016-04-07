@@ -129,6 +129,8 @@
    	    
    	      <!--机表抄表数据录入  -->
    	     <mapping resource="营收/handplan.hbm.xml" />
+   	      <!--机表抄表册  -->
+   	     <mapping resource="营收/handplanlist.hbm.xml" />
    	    <!-- 自动下账 -->
    	    <mapping resource="营收/automaticxz.hbm.xml" />
    	     <!-- 机表缴费 -->
@@ -190,6 +192,8 @@
    	    <mapping resource="营收/zhinajinxiugai.hbm.xml" />
    	    <!--用水量修改-->
    	    <mapping resource="营收/yongshuiliangupdate.hbm.xml" />
+   	    <!--表计调线-->
+   	    <mapping resource="营收/meterchangeline.hbm.xml" />
    	    <!--保证金管理-->
    	    <mapping resource="营收/fmybaozhengjin.hbm.xml" />
    	    <!--发票领用-->

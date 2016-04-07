@@ -585,6 +585,7 @@ public class HandCharge {
 					+ "where u.f_userinfoid=(select f_userinfoid from t_userfiles where f_userid='"
 					+ userid
 					+ "')"
+					+ " and h.f_state='ÒÑ³­±í'"
 					+ " and h.f_handdate>='"
 					+ stardate
 					+ "' and h.f_handdate<='" + enddate + "'";

@@ -165,8 +165,11 @@
 	    <!-- 抄表系统剩余金额 -->
 	    <property name="jval" type="double"/>
 		<property name="zhye" type="double"/>	
-		<property name="zhye_jval" type="double"/>		
-		
+		<property name="zhye_jval" type="double"/>
+		<!-- 抄表册号-->
+		<property name="f_listid" type="string"/>		
+		<!-- 投线编码-->
+		<property name="f_touxianno" type="string"/>
 		<!-- 差价计算 -->	
 		<!--差价单价-->
 		<property name="f_extrawaterprice" type="double"/>

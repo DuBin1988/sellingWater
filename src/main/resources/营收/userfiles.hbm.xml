@@ -211,7 +211,16 @@
 		<property name="f_pregas" type="double"/>
 		<!--付款方式 为现金、银行代扣-->
 		<property name="f_payment" type="string"/>
-		
+		<!--抄表册号-->
+		<property name="f_listid" type="string"/>
+		<!--抄表序号-->
+		<property name="f_handno" type="string"/>
+		<!--投线编码-->
+		<property name="f_touxianno" type="string"/>
+		<!--抄表周期-->
+		<property name="f_handzq" type="string"/>
+		<!--表投线备注-->
+		<property name="f_txnote" type="string"/>
 		<!--维护费起始年月-->
 		<property name="f_beginfee" type="date"/>
 		<!--开户日期-->
