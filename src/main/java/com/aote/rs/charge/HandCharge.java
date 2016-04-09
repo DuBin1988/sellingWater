@@ -835,8 +835,8 @@ public class HandCharge {
 				+ "h.id id, isnull(CONVERT(varchar(12), h.f_handdate, 120 ),'计划空') f_handdate from (select * from t_handplan where (f_state='未抄表' or f_state='待审核') and f_userid='"
 				+ userid
 				+ "') h "
-				+ "left join (select f_userid, COUNT(*) c from t_handplan where f_state='已抄表' and shifoujiaofei='否' "
-				+ "group by f_userid) q on h.f_userid=q.f_userid join t_userfiles u on h.f_userid=u.f_userid";
+				+ "left join (select f_userid, COUNT(*) c from t_handplan where f_state='已抄表' and shifoujiaofei='否' and f_userid='" 
+				+ userid + "' group by f_userid) q on h.f_userid=q.f_userid join t_userfiles u on h.f_userid=u.f_userid";
 		List<Map<String, Object>> list = (List<Map<String, Object>>) hibernateTemplate
 				.execute(new HibernateCallback() {
 					public Object doInHibernate(Session session)

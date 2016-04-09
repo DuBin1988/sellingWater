@@ -139,8 +139,8 @@
     <Compile Include="Pages\抄表册状态查询.xaml.cs">
       <DependentUpon>抄表册状态查询.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\抄表审核.xaml.cs">
-      <DependentUpon>抄表审核.xaml</DependentUpon>
+    <Compile Include="Pages\抄表册生成.xaml.cs">
+      <DependentUpon>抄表册生成.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\台区汇总表卡表.xaml.cs">
       <DependentUpon>台区汇总表卡表.xaml</DependentUpon>
@@ -178,6 +178,12 @@
     </Compile>
     <Compile Include="Pages\换表销账.xaml.cs">
       <DependentUpon>换表销账.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\机表录入审核.xaml.cs">
+      <DependentUpon>机表录入审核.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\机表批量录入.xaml.cs">
+      <DependentUpon>机表批量录入.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\机表转气.xaml.cs">
       <DependentUpon>机表转气.xaml</DependentUpon>
@@ -1556,7 +1562,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\抄表审核.xaml">
+    <Page Include="Pages\抄表册生成.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1605,6 +1611,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\换表销账.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\机表录入审核.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\机表批量录入.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
