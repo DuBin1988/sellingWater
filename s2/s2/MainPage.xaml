@@ -22,9 +22,9 @@
     mc:Ignorable="d">
 	<Grid x:Name="LayoutRoot"  
 	MouseLeftButtonDown="{m:Exp Str='start.IsChecked=False'}"    >
-		<m:ResourceLoad>
+		<m:ResourceLoad  x:Name="gasmg">
             <o:ObjectList Name="selected" 
-			CurrentItem="{m:Exp Str=menu2.SelectedItem}"
+		 
 			CurrentIndex="{m:Exp Str=tab.SelectedIndex}"/>
 		</m:ResourceLoad>
         <sdk:TabControl Name="tab" 
@@ -45,56 +45,68 @@
                 </DataTemplate>
             </a:TabControlAttach.ContentTempalte>
         </sdk:TabControl>
-        <Grid a:ControlAttach.LostFocus="{m:Exp Str='start.IsChecked=False'}" Margin="0,0,0,10" VerticalAlignment="Bottom">
-        	<Grid Visibility="{m:Exp Str=start.IsChecked:$Visible$\,$Collapsed}" Margin="5,0,0,42" Width="225" Height="240" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment" VerticalAlignment="Bottom">
+		<c:ImageView x:Name="PictureWindow" Visibility="Collapsed"></c:ImageView>
+		<Grid a:ControlAttach.LostFocus="{m:Exp Str=start.IsChecked\=False}" Margin="0,0,0,10" VerticalAlignment="Bottom">
+            <Grid Visibility="{m:Exp Str=start.IsChecked:$Visible$\,$Collapsed}" Margin="5,0,0,42" Width="225" Height="500" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment" VerticalAlignment="Bottom" d:IsHidden="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" BorderThickness="0" Margin="8,1,0,-1" CornerRadius="6,6,0,0" d:IsHidden="True">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF8AC0FA" Offset="0"/>
+                            <GradientStop Color="#FF4595D3" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <sdk:Label Margin="10,0,0,0" VerticalAlignment="Center" Content="业务功能" Foreground="White"/>
+                </Border>
+                <ListBox 		
+	 			    x:Name="menu1" Grid.Row="1" 
+            		Visibility="{m:Exp Str=start.IsChecked:$Visible$\,$Collapsed}" 
+					SelectedItem="{m:Exp Str=!start.IsChecked:null\,this.SelectedItem}"
+					ItemsSource="{m:Exp Str=LoginUser.functions}"  
+                   
+              	HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Background="{x:Null}" Style="{StaticResource MainMenuListBoxStyle1}" Grid.RowSpan="1" d:LayoutOverrides="HorizontalAlignment"  FontSize="12">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <toolkit:Accordion SelectionMode="ZeroOrOne"      Margin="8,0,0,0" >
+                                <toolkit:AccordionItem  Header="{Binding name}"  >
+                                    <toolkit:AccordionItem.Content>
+                                        <ListBox Margin="25,0,0,0"  Style="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}"
+                                              ItemsSource="{m:Exp Str=data.children}">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <Button Content="{Binding name}" Click="addPageToTab" ></Button>
+                                                      <!--  <Image Source="{m:Exp Str='$./icon/{data.icon}'}"  Width="32" Height="32"/>
+                                                        <TextBlock Text="{Binding name}"  /> -->
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </toolkit:AccordionItem.Content>
+                                </toolkit:AccordionItem>
+                            </toolkit:Accordion>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <Grid   Margin="230,0,0,42" Width="259" Height="240" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment" VerticalAlignment="Bottom" d:IsHidden="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="30"/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
-				<Border BorderBrush="Black" BorderThickness="0" Margin="8,1,0,-1" CornerRadius="6,6,0,0">
+				<Border BorderBrush="Black" Visibility="Collapsed" BorderThickness="0" Margin="8,1,30,-1" CornerRadius="6,6,0,0">
 					<Border.Background>
 						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 							<GradientStop Color="#FF8AC0FA" Offset="0"/>
 							<GradientStop Color="#FF4595D3" Offset="1"/>
 						</LinearGradientBrush>
 					</Border.Background>
-					<sdk:Label Margin="10,0,0,0" VerticalAlignment="Center" Content="业务功能" Foreground="White"/>
+					<sdk:Label Margin="10,0,0,0" VerticalAlignment="Center"  Content="子功能" Foreground="White"/>
 				</Border>
-			<ListBox x:Name="menu1" Grid.Row="1" 
-			Visibility="{m:Exp Str=start.IsChecked:$Visible$\,$Collapsed}" 
-			SelectedItem="{m:Exp Str='!start.IsChecked:null,this.SelectedItem'}"
-			ItemsSource="{m:Exp Str=LoginUser.functions}" Canvas.ZIndex="100" 
-			HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Margin="8,0,0,0" Background="{x:Null}" Style="{StaticResource MainMenuListBoxStyle1}" FontWeight="Normal" FontSize="12">
-        		<ListBox.ItemTemplate>
-        			<DataTemplate>
-        				<StackPanel>
-        					<Image Source="{m:Exp Str='$./icon/{data.icon}'}" Width="32" Height="32"/>
-        					<TextBlock Text="{Binding name}" Width="60"/>
-        				</StackPanel>
-        			</DataTemplate>
-        		</ListBox.ItemTemplate>
-        		<ListBox.ItemsPanel>
-        			<ItemsPanelTemplate>
-        				<toolkit:WrapPanel Width="200"/>
-        			</ItemsPanelTemplate>
-        		</ListBox.ItemsPanel>
-        	</ListBox>
-			</Grid>
-			<Grid Visibility="{m:Exp Str='menu1.SelectedItem!=null:$Visible$,$Collapsed$'}" Margin="230,0,0,42" Width="259" Height="240" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment" VerticalAlignment="Bottom">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="30"/>
-					<RowDefinition/>
-				</Grid.RowDefinitions>
-				<Border BorderBrush="Black" BorderThickness="0" Margin="8,1,30,-1" CornerRadius="6,6,0,0">
-					<Border.Background>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FF8AC0FA" Offset="0"/>
-							<GradientStop Color="#FF4595D3" Offset="1"/>
-						</LinearGradientBrush>
-					</Border.Background>
-					<sdk:Label Margin="10,0,0,0" VerticalAlignment="Center" Content="子功能" Foreground="White"/>
-				</Border>
-			<ListBox x:Name="menu2" 				
+				<!--<ListBox x:Name="menu3" 				
 				SelectionMode="Single" Margin="8,0,30,0" Canvas.ZIndex="100" 
 				SelectedItem="{m:Exp Str=menu1.SelectedItem\=\=null:null\,menu2.SelectedItem}"
 				ItemsSource="{m:Exp Str=menu1.SelectedItem!\=null:menu1.SelectedItem.children\,menu2.ItemsSource}" 
@@ -112,13 +124,12 @@
 						<toolkit:WrapPanel Width="200"/>
 					</ItemsPanelTemplate>
 				</ListBox.ItemsPanel>
-			</ListBox>
+			</ListBox> -->
 			</Grid>
-        	<ToggleButton x:Name="start" Style="{StaticResource MainMenuBtnToggleButtonStyle1}" 
-			IsChecked="{m:Exp Str='menu2.SelectedItem=>SelectionChanged!=null:False,this.IsChecked'}" HorizontalAlignment="Left" Height="53" Margin="6,0,0,-10" VerticalAlignment="Bottom" Width="132">
-        		<Image Height="53" Source="image/menubtn01.png" Stretch="Fill" Width="132"/>
-        	</ToggleButton>
+			<ToggleButton x:Name="start" Style="{StaticResource MainMenuBtnToggleButtonStyle1}" 
+				HorizontalAlignment="Left" Height="53" Margin="6,0,0,-10" VerticalAlignment="Bottom" Width="132">
+				<Image Height="53" Source="image/menubtn01.png" Stretch="Fill" Width="132"/>
+			</ToggleButton>
 		</Grid>
-		<c:ImageView x:Name="PictureWindow" Visibility="Collapsed"></c:ImageView>
 	</Grid>
 </UserControl>

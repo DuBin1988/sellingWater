@@ -44,5 +44,21 @@ namespace Com.Aote.Pages
             if(clickcount>18)
              MessageBox.Show("这个，你是关闭不了的！你都点击了"+clickcount+"次了！");
         }
+		
+		 private void addPageToTab(object sender, RoutedEventArgs e)
+        {
+            GeneralObject go = (GeneralObject)((Button)sender).DataContext;
+            ObjectList sels = (from p in gasmg.Res where p.Name == "selected" select p).First() as ObjectList;
+            if(sels.Contains(go))
+            {
+                this.tab.SelectedIndex = go.IndexOf(sels);
+            }
+            else
+            {
+                sels.Add(go);
+                this.tab.SelectedIndex = go.IndexOf(sels);
+            }
+            
+        }
     }
 }
