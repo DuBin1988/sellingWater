@@ -16,18 +16,19 @@
     mc:Ignorable="d"
     x:Class="Com.Aote.Pages.阶梯水价批量变更" FontSize="13"
     d:DesignHeight="768" d:DesignWidth="1024">
-    
+
     <Grid x:Name="LayoutRoot" Background="White">
         <m:ResourceLoad>
             <!--阶梯水价信息列表-->
             <o:ObjectList Name="stairlist" EntityType="t_stairprice" WebClientInfo="{StaticResource dbclient}" Path="from t_stairprice"/>
+            <!--小区信息列表-->
+            <o:ObjectList Name="arealist" EntityType="t_area" WebClientInfo="{StaticResource dbclient}" Path="from t_area"/>
             <!--用户类型查询用-->
             <o:ObjectList Name="usertypelistnull"  EntityType="paramvalue" HasEmptyRow="True" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='用户类型查询用' order by id"/>
             <!--水表类型查询用-->
             <o:ObjectList Name="qibiaoleixinglistnull"  EntityType="paramvalue" HasEmptyRow="True" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='水表类型'"/>
-            <!--水价类型-->
-            <o:ObjectList Name="qjlistnull" EntityType="paramvalue" HasEmptyRow="True" WebClientInfo="{StaticResource dbclient}"  Path="from paramvalue where param.name='水价类型' order by id"/>
-            
+
+
             <!--变更对象-->
             <o:GeneralObject Name="change" WebClientInfo="{StaticResource dbclient}" 
 					EntityType="t_changestairprice"   
@@ -64,25 +65,31 @@
                             <o:PropertySetter PropertyName="f_usertype"  Operator="f_usertype like 'this%'"/>
                         </a:Data.Prop>
                     </ComboBox>
-                    <TextBlock Text="水表类型：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2"></TextBlock>
+                    <!--<TextBlock Text="水表类型：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2"></TextBlock>
                     <ComboBox x:Name="ui_gasmeterstyle" DisplayMemberPath="name"  SelectedValuePath="name" ItemsSource="{m:Exp Str=qibiaoleixinglistnull}" SelectedValue="{m:Bind Path=f_gasmeterstyle}"  Grid.Column="3" Margin="0,3,0,2" Grid.Row="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" >
                         <a:Data.Prop>
                             <o:PropertySetter PropertyName="f_gasmeterstyle"  Operator="f_gasmeterstyle like 'this%'"/>
                         </a:Data.Prop>
-                    </ComboBox>
+                    </ComboBox>-->
                     <TextBlock Text="水价类型：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="4"></TextBlock>
-                    <ComboBox x:Name="ui_gaspricetype" DisplayMemberPath="name"  SelectedValuePath="name" ItemsSource="{m:Exp Str=qjlistnull}" SelectedValue="{m:Bind Path=f_gaspricetype}"  Grid.Column="5" Margin="0,3,0,2" Grid.Row="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" >
+                    <ComboBox x:Name="ui_gaspricetype" DisplayMemberPath="f_stairtype"  SelectedValuePath="f_stairtype" ItemsSource="{m:Exp Str=stairlist}" SelectedValue="{m:Bind Path=f_stairtype}"  Grid.Column="5" Margin="0,3,0,2" Grid.Row="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" >
                         <a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_gaspricetype"  Operator="f_gaspricetype like 'this%'"/>
+                            <o:PropertySetter PropertyName="f_stairtype"  Operator="f_stairtype like 'this%'"/>
+                        </a:Data.Prop>
+                    </ComboBox>
+                    <TextBlock Text="小区名称：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1"></TextBlock>
+                    <ComboBox x:Name="ui_districtname" DisplayMemberPath="f_districtname"  SelectedValuePath="f_districtname" ItemsSource="{m:Exp Str=arealist}" SelectedValue="{m:Bind Path=f_districtname}"  Grid.Column="5" Margin="0,3,0,2" Grid.Row="1" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" >
+                        <a:Data.Prop>
+                            <o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like 'this%'"/>
                         </a:Data.Prop>
                     </ComboBox>
                     <Button x:Name="ui_SearchUserButton" Click="{m:Exp Str=ui_SearchUser.DataContext.Search()}" Margin="10,2" Grid.Column="6" Grid.Row="2" Width="80">查询</Button>
-                    <TextBox x:Name="tj7" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Text="{m:Bind Path=f_userid}" Width="Auto" Margin="0" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" >
+                    <TextBox x:Name="tj7" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Text="{m:Bind Path=f_username}" Width="Auto" Margin="0" Height="25" Grid.ColumnSpan="1" VerticalAlignment="Stretch" >
                         <a:Data.Prop>
-                            <o:PropertySetter PropertyName="f_userid"  Operator="f_userid like '%this%'"/>
+                            <o:PropertySetter PropertyName="f_username"  Operator="f_username like '%this%'"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Text="用户编号：" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5.545,0,5.455" Grid.Row="1"/>
+                    <TextBlock Text="用户姓名：" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5.545,0,5.455" Grid.Row="1"/>
                 </Grid>
                 <Grid toolkit:DockPanel.Dock="Bottom" DataContext="{m:Res Key=change}">
                     <Grid.RowDefinitions>
@@ -145,6 +152,12 @@
                             <o:PropertySetter PropertyName="f_stair3price" NoDependValue="{m:Exp Str=CoboxStair.SelectedItem.f_stair3price}"  />
                         </a:Data.Prop>
                     </TextBox>
+                    <TextBlock Text="附加费单价和：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="2"></TextBlock>
+                    <TextBox  x:Name="ui_zongjiprice" Text="{m:Bind Path=f_zongjiprice}"   Margin="0,3,0,2" Grid.Row="2" Grid.Column="5" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                        <a:Data.Prop>
+                            <o:PropertySetter PropertyName="f_zongjiprice" NoDependValue="{m:Exp Str=CoboxStair.SelectedItem.f_zongjiprice.ToString()}"  />
+                        </a:Data.Prop>
+                    </TextBox>
                     <TextBlock Text="限购月数：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="6" Grid.Row="0"></TextBlock>
                     <TextBox x:Name="ui_stairmonths" Text="{m:Bind Path=f_stairmonths}"   Margin="0,3,0,2" Grid.Column="7" Grid.Row="0" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                         <a:Data.Prop>
@@ -164,27 +177,27 @@
 													Default="{m:Exp Str=LoginUser.name}"/>
                         </a:Data.Prop>
                     </TextBox>
-                    <TextBlock Grid.Column="4" Margin="0,6,0,2" Grid.Row="2" TextWrapping="Wrap" Text="操作时间：" TextAlignment="Right" Height="25" />
-                    <sdk:DatePicker  x:Name="ui_operdate" SelectedDate="{m:Bind Path=f_operdate}"  Grid.Column="5" Margin="2,4,0,1" Grid.Row="2"  IsTodayHighlighted="True" IsDropDownOpen="False" SelectedDateFormat="Short" VerticalAlignment="Stretch" IsEnabled="False" Height="25" RenderTransformOrigin="0.392,0.88" >
+                    <TextBlock Grid.Column="6" Margin="0,6,0,2" Grid.Row="2" TextWrapping="Wrap" Text="操作时间：" TextAlignment="Right" Height="25" />
+                    <sdk:DatePicker  x:Name="ui_operdate" SelectedDate="{m:Bind Path=f_operdate}"  Grid.Column="7" Margin="2,4,0,1" Grid.Row="2"  IsTodayHighlighted="True" IsDropDownOpen="False" SelectedDateFormat="Short" VerticalAlignment="Stretch" IsEnabled="False" Height="25" RenderTransformOrigin="0.392,0.88" >
                         <a:Data.Prop>
                             <o:PropertySetter PropertyName="f_operdate" NotNull="True" 
 													Default="{m:Exp Str=SysTime.Today}"/>
                         </a:Data.Prop>
                     </sdk:DatePicker>
-                    <Button Grid.Column="7" Grid.Row="2" Click="Button_Click"  Width="80" HorizontalAlignment="Right" Height="25">保存</Button>
+                    <Button Grid.Column="8" Grid.Row="2" Click="Button_Click"  Width="80" HorizontalAlignment="Right" Height="25" Margin="0,0,10,5">保存</Button>
                 </Grid>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <sdk:DataGrid x:Name="userfiles" Margin="0" AutoGenerateColumns="False" Width="Auto" Background="{x:Null}"
+                    <sdk:DataGrid x:Name="userfiles" AutoGenerateColumns="False" Width="Auto" Background="{x:Null}"
                     IsReadOnly="True">
                         <a:Data.Items>
                             <o:PagedList x:Name="ui_SearchUserList" WebClientInfo="{StaticResource dbclient}"
 									LoadOnPathChanged="False" IsOld="{m:Exp Str='ui_SearchUserButton=>Click!=null'}"
-									SumHQL="{m:Exp Str=$from t_userfiles where \{ui_SearchUser.DataContext.Condition\}}"
-									HQL="{m:Exp Str=$from t_userfiles where \{ui_SearchUser.DataContext.Condition\} order by id desc }"
+									SumHQL="{m:Exp Str=$from t_userinfo where \{ui_SearchUser.DataContext.Condition\} and f_userstate\=\'正常\'}"
+									HQL="{m:Exp Str=$from t_userinfo where \{ui_SearchUser.DataContext.Condition\} and f_userstate\=\'正常\' order by id desc }"
                                     Path="hql" PageIndex="{m:Exp Str=pager2.PageIndex}" PageSize="{m:Exp Str=pager2.PageSize}" SumNames=",">
                             </o:PagedList>
                         </a:Data.Items>
@@ -194,10 +207,10 @@
                             <sdk:DataGridTextColumn Header="小区名称" Binding="{Binding f_districtname}"/>
                             <sdk:DataGridTextColumn Header="小区地址" Binding="{Binding f_address}"/>
                             <sdk:DataGridTextColumn Header="用户类型" Binding="{Binding f_usertype}"/>
-                            <sdk:DataGridTextColumn Header="水表类型" Binding="{Binding f_gasmeterstyle}"/>
-                            <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_gaspricetype}"/>
-                            <sdk:DataGridTextColumn Header="阶梯水价类型" Binding="{Binding f_stairtype}"/>
-                            <sdk:DataGridTextColumn Header="水   价" Binding="{Binding f_gasprice}"/>
+                            <!--<sdk:DataGridTextColumn Header="水表类型" Binding="{Binding f_gasmeterstyle}"/>
+                            <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_gaspricetype}"/>-->
+                            <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_stairtype}"/>
+                            <!--<sdk:DataGridTextColumn Header="水   价" Binding="{Binding f_gasprice}"/>-->
                             <sdk:DataGridTextColumn Header="用户状态" Binding="{Binding f_userstate}"/>
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>

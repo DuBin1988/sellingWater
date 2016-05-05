@@ -27,18 +27,17 @@
             <o:GeneralObject Name="scbdw" WebClientInfo="{StaticResource dbclient}"   EntityType="t_yongshuiliang"
 				  IsInit="{m:Exp Str=SaveAction.State\=\=$End$}" Source="{m:Exp Str=handUserUnits.SelectedItem}"/>
             <!-- 更新抄表对象 -->
-            <b:HQLAction Name="updateHandplan" WebClientInfo="{StaticResource server}">
+            <!--<b:HQLAction Name="updateHandplan" WebClientInfo="{StaticResource server}">
                 <b:HQLAction.HQL>
                     <m:Exp Str="$update t_handplan set extrazjfee='{scbdw.extrazjfee}',f_fee='{scbdw.f_fee}' where id={scbdw.id}">
                     </m:Exp>
                 </b:HQLAction.HQL>
-            </b:HQLAction>
+            </b:HQLAction>-->
             <!-- 更新用户档案, 抄表记录已交：用户余额=当前余额+原扣除额-现扣除额 -->
             <b:HQLAction Name="updateUserfile" WebClientInfo="{StaticResource server}">
                 <b:HQLAction.HQL>
                     <m:Exp Str="
-                $update t_userfiles set lastinputgasnum={scbdw.lastrecord}, 
-                f_zhye={scbdw.shifoujiaofei==$是$:$f_zhye+{handUserUnits.SelectedItem.f_fee}-{scbdw.f_fee}$, $f_zhye$} 
+                $update t_userfiles set lastinputgasnum={scbdw.lastrecord}
                 where f_userid={scbdw.f_userid}">
                     </m:Exp>
                 </b:HQLAction.HQL>
@@ -47,7 +46,7 @@
             <!--批处理-->
             <b:BatchExcuteAction Name="SaveAction"  WebClientInfo="{StaticResource dbclient}">
                 <!--抄表记录保存-->
-                <b:BatchInfo Source="{m:Exp Str=updateHandplan}" MethodName="InvokeToJson"/>
+                <!--<b:BatchInfo Source="{m:Exp Str=updateHandplan}" MethodName="InvokeToJson"/>-->
                 <!--用户档案更新-->
                 <b:BatchInfo Source="{m:Exp Str=updateUserfile}" MethodName="InvokeToJson"/>
             </b:BatchExcuteAction>
