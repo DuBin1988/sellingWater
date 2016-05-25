@@ -155,7 +155,7 @@
                             </a:Data.Prop>
                         </TextBox>
                         <Button x:Name="save" Content="生成抄表册" Click="{m:Exp Str=SaveAction.Invoke()}" IsEnabled="{m:Exp Str=!handplango.HasErrors}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Width="134" Margin="39,10,0,6"/>
-                        <Button x:Name="cancel" Content="撤  销" Click="{m:Exp Str=handplango.New();handplan.DataContext.New()}" HorizontalAlignment="Right" Width="71" Grid.Row="6" Grid.Column="1" Margin="0,10,0,7"/>
+                        <Button x:Name="cancel" Content="撤  销" Click="{m:Exp Str=handplan.DataContext.New()}" HorizontalAlignment="Right" Width="71" Grid.Row="6" Grid.Column="1" Margin="0,10,0,7"/>
                     </Grid>
                 </Grid>
             </Grid>

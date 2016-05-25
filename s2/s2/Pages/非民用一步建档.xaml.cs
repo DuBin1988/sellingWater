@@ -29,7 +29,7 @@ namespace Com.Aote.Pages
 
             GeneralObject obj = userfile.DataContext as GeneralObject;
             userid = obj.GetPropertyValue("f_userid") + "";
-            SyncActionFactory save = (from p in loader.Res where p.Name.Equals("SaveAction") select p).First() as SyncActionFactory;
+            SyncActionFactory save = (from p in loader.Res where p.Name.Equals("SaveActionT") select p).First() as SyncActionFactory;
             save.Completed += save_Completed;
             save.Invoke();
         }
@@ -79,16 +79,6 @@ namespace Com.Aote.Pages
 
         }
 
-        private void TextBox_LostFocus_1(object sender, RoutedEventArgs e)
-        {
-            //{m:Exp Str=tabletel.IsOld\=True}
-            if (null != f_meternumber.Text && !"".Equals(f_meternumber.Text))
-            {
-                GeneralObject save2 = (from p in loader.Res where p.Name.Equals("tabletel") select p).First() as GeneralObject;
-                save2.isBusy = true;
-                save2.Path = "one/select new Map(meter_phone as meter_phone,terminal_name as terminal_name) from t_table_tel  where f_meternumber='" + f_meternumber.Text + "'";
-                save2.Load();
-            }
-        }
+        
 	}
 }

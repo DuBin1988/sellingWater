@@ -407,6 +407,9 @@
 		<property name="f_PatchCard" type="int"/>
         	<!--组织代码-->
 		<property name="f_OrgStr" type="string"/>
-		
+		<!--折子号， -->
+		<property name="f_foldnum" type="string"/>
+		<!--发折日期-->
+		<property name="f_recoverypassbookdate" type="string"/>
 </class>
 </hibernate-mapping>

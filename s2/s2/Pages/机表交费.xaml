@@ -361,7 +361,7 @@
                                 <TextBlock Text="收　　款：" Grid.Column="2" Margin="0" Grid.Row="11" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
                                 <TextBlock Text="应交金额：" Margin="0,6" Grid.Row="11" TextWrapping="Wrap" TextAlignment="Right" Height="25" Grid.Column="4"/>
                                 <TextBlock Text="本期结余：" Margin="0,5,0,7" Grid.Row="10" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
-                                <TextBox x:Name="f_userid" IsReadOnly="True" a:ControlAttach.FocusToOnEnter="shoukuan"  Text="{m:Bind Path=f_userid}"  Grid.Column="1" Margin="0,7,0,8" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" >
+                                <TextBox x:Name="f_userid"  a:ControlAttach.FocusToOnEnter="shoukuan"  Text="{m:Bind Path=f_userid}"  Grid.Column="1" Margin="0,7,0,8" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_userid" NoDependValue="{m:Exp Str=kbusers.f_userid}"/>
                                     </a:Data.Prop>

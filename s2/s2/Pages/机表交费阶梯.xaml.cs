@@ -27,7 +27,36 @@ namespace Com.Aote.Pages
         public 机表交费阶梯()
         {
             InitializeComponent();
+
+            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ui_userid.Focus();
+        }
+
+        private void ui_userid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                kbsellgasbusy.IsBusy = true;
+                busy.IsBusy = true;
+
+                string f_userid = ui_userid.Text;
+
+                WebClientInfo wci = Application.Current.Resources["server"] as WebClientInfo;
+                string uri = wci.BaseAddress + "/sell/bill/" + f_userid + "?uuid=" + System.Guid.NewGuid().ToString();
+
+                WebClient client = new WebClient();
+                client.DownloadStringCompleted += userfiles_DownloadStringCompleted;
+                client.DownloadStringAsync(new Uri(uri));
+
+                shoukuan.Focus();
+            }
+        }
+	
+ 
          #region 选中新用户后的处理过程
         private void userfiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -80,6 +109,9 @@ namespace Com.Aote.Pages
             ui_userstate.Text = (String)item["f_userstate"];
             ui_paytype.Text = (String)item["f_payment"];
             // ui_gasprice.Text = item["f_gasprice"].ToString();
+            //折子行号
+            zhe.Text = item["f_zherownum"].ToString();
+
 
             //把欠费数据插入到欠费表中
             BaseObjectList list = dataGrid1.ItemsSource as BaseObjectList;
@@ -113,7 +145,7 @@ namespace Com.Aote.Pages
                 go.EntityType = "t_handplan";
 
                 //默认选中
-                go.SetPropertyValue("IsChecked", true, false);
+                go.IsChecked = true;
 
                 //上期指数
                 decimal lastinputgasnum = (decimal)json["lastinputgasnum"];
@@ -243,14 +275,37 @@ namespace Com.Aote.Pages
                 MessageBoxResult mbr = MessageBox.Show("是否打印", "提示", MessageBoxButton.OKCancel);
                 if (mbr == MessageBoxResult.OK)
                 {
-                    print.Print();
-                    print.Completed += print_Completed;
+                    if (ui_usertype.Text == "民用")
+                    {
+                        //把数据转换成JSON
+                        JsonObject item = JsonValue.Parse(e.Result) as JsonObject;
+                        ui_stair1price.Text = item["f_stair1price"].ToString();
+                        ui_stair1fee.Text = item["f_stair1fee"].ToString();
+                        ui_stair1amount.Text = item["f_stair1amount"].ToString();
+                        ui_stair2price.Text = item["f_stair2price"].ToString();
+                        ui_stair2fee.Text = item["f_stair2fee"].ToString();
+                        ui_stair2amount.Text = item["f_stair2amount"].ToString();
+                        ui_stair3price.Text = item["f_stair3price"].ToString();
+                        ui_stair3fee.Text = item["f_stair3fee"].ToString();
+                        ui_stair3amount.Text = item["f_stair3amount"].ToString();
+
+
+                        print5.TipPrint();
+                        print5.Completed += print_Completed;
+                    }
+                    else
+                    {
+                        print.TipPrint();
+                        print.Completed += print_Completed;
+                    }
+                    ui_userid.Focus();
 
                 }
                 else
                 {
                     GeneralObject kbfee = (GeneralObject)(from r in loader.Res where r.Name.Equals("kbfee") select r).First();
                     kbfee.New();
+                    ui_userid.Focus();
                 }
                //交费开阀
                if (count > 0)
@@ -273,7 +328,10 @@ namespace Com.Aote.Pages
                 // 清除界面数据
                 GeneralObject kbfee = (GeneralObject)(from r in loader.Res where r.Name.Equals("kbfee") select r).First();
                 kbfee.New();
+                ui_userid.Focus();
             }
+
+           
         }
         #endregion
 
@@ -347,12 +405,12 @@ namespace Com.Aote.Pages
                     feeSum += f_fee;
 
                     // 修改为选中
-                    map.SetPropertyValue("IsChecked", true, false);
+                    map.IsChecked = true;
                 }
                 else
                 {
                     // 修改为未选中，避免开始清除所有选中项
-                    map.SetPropertyValue("IsChecked", false, false);
+                    map.IsChecked = false;
                 }
             }
 
@@ -480,6 +538,21 @@ namespace Com.Aote.Pages
         private void print_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             Clear();
+        }
+
+        private void ui_userid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //kbsellgasbusy.IsBusy = true;
+            //busy.IsBusy = true;
+
+            //string f_userid = ui_userid.Text;
+
+            //WebClientInfo wci = Application.Current.Resources["server"] as WebClientInfo;
+            //string uri = wci.BaseAddress + "/sell/bill/" + f_userid + "?uuid=" + System.Guid.NewGuid().ToString();
+
+            //WebClient client = new WebClient();
+            //client.DownloadStringCompleted += userfiles_DownloadStringCompleted;
+            //client.DownloadStringAsync(new Uri(uri));
         }
         //#region SaveClick 提交按钮操作过程
         //// 提交数据到后台服务器
