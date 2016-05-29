@@ -24,6 +24,8 @@
 		<property name="f_stair3price" type="double"/>
 		<!--超过阶梯三单价-->
 		<property name="f_stair4price" type="double"/>
+		<!--附加费用单价总和-->
+		<property name="f_zongjiprice" type="double"/>
 		<!--阶段月数-->
 		<property name="f_stairmonths" type="int"/>
 		<!--操作人-->
@@ -35,9 +37,8 @@
 		<!--用户类型条件-->
 		<property name="f_usertype" type="string"/>
 		<!--气表类型条件-->
-		<property name="f_gasmeterstyle" type="string"/>
-		<!--气价类型条件-->
-		<property name="f_gaspricetype" type="string"/>
-		
+		<!-- <property name="f_gasmeterstyle" type="string"/> -->
+		<!--小区类型条件-->
+		<property name="ui_districtname" type="string"/>
 	</class>
 </hibernate-mapping>

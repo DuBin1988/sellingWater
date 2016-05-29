@@ -33,14 +33,22 @@ namespace Com.Aote.Pages
             ui_searchBusy.IsBusy = true;
             search.Search();
 
-            string sql = "update t_userfiles set f_stairtype='" + CoboxStair.SelectedValue + "', f_stair1amount=" + ui_stair1amount.Text + " , " +
-                        "f_stair1price=" + ui_stair1price.Text + " , f_stair2amount='" + ui_stair2amount.Text + "', f_stair2price=" + ui_stair2price.Text + ",f_stair3amount='" + ui_stair3amount.Text + "', f_stair3price=" + ui_stair3price.Text + ", f_stair4price=" + ui_stair4price.Text + " ,f_stairmonths=" + ui_stairmonths.Text + " where " + search.Condition + "";
+            string sql = "update t_userinfo set f_stairtype='" + CoboxStair.SelectedValue + "', f_stair1amount=" + ui_stair1amount.Text + " , " +
+                        "f_stair1price=" + ui_stair1price.Text + " , f_stair2amount='" + ui_stair2amount.Text + "', f_stair2price=" + ui_stair2price.Text + ",f_stair3amount='" + ui_stair3amount.Text + "', f_stair3price=" + ui_stair3price.Text + ", f_stair4price=" + ui_stair4price.Text + ", f_zongjiprice=" + ui_zongjiprice.Text + " ,f_stairmonths=" + ui_stairmonths.Text + " where " + search.Condition + "";
             HQLAction action = new HQLAction();
             action.HQL = sql;
             action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
             action.Name = "t_userfiles";
             action.Completed += action_Completed;
             action.Invoke();
+
+            string sql1 = "update t_userfiles set f_stairtype='" + CoboxStair.SelectedValue + "', f_stair1amount=" + ui_stair1amount.Text + " , " +
+                        "f_stair1price=" + ui_stair1price.Text + " , f_stair2amount='" + ui_stair2amount.Text + "', f_stair2price=" + ui_stair2price.Text + ",f_stair3amount='" + ui_stair3amount.Text + "', f_stair3price=" + ui_stair3price.Text + ", f_stair4price=" + ui_stair4price.Text + ", f_zongjiprice=" + ui_zongjiprice.Text + " ,f_stairmonths=" + ui_stairmonths.Text + " where " + search.Condition + "";
+            HQLAction action1 = new HQLAction();
+            action1.HQL = sql1;
+            action1.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
+            action1.Name = "t_userfiles";
+            action1.Invoke();
 
         }
 
@@ -59,6 +67,7 @@ namespace Com.Aote.Pages
                 go.SetPropertyValue("f_stair2price", ui_stair2price.Text, false);
                 go.SetPropertyValue("f_stair3price", ui_stair3price.Text, false);
                 go.SetPropertyValue("f_stair4price", ui_stair4price.Text, false);
+                go.SetPropertyValue("f_zongjiprice", ui_zongjiprice.Text, false);
                 go.SetPropertyValue("f_stairmonths", ui_stairmonths.Text, false);
                 go.SetPropertyValue("f_operator", ui_operator.Text, false);
                 go.SetPropertyValue("f_operdate", ui_operdate.SelectedDate, false);
@@ -67,13 +76,13 @@ namespace Com.Aote.Pages
                 {
                     go.SetPropertyValue("f_usertype", ui_usertype.SelectedValue, false);
                 }
-                if (ui_gasmeterstyle.SelectedValue != null)
+                if (ui_districtname.SelectedValue != null)
                 {
-                    go.SetPropertyValue("f_gasmeterstyle", ui_gasmeterstyle.SelectedValue, false);
+                    go.SetPropertyValue("f_districtname", ui_districtname.SelectedValue, false);
                 }
                 if (ui_gaspricetype.SelectedValue != null)
                 {
-                    go.SetPropertyValue("f_gasmeterstyle", ui_gaspricetype.SelectedValue, false);
+                    go.SetPropertyValue("f_stairtype", ui_gaspricetype.SelectedValue, false);
                 }
                 go.Name = "t_changestairprice";
                 go.Completed += obj_Completed;
