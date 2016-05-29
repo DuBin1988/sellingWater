@@ -113,7 +113,7 @@ namespace Com.Aote.Pages
                 go.EntityType = "t_handplan";
 
                 //默认选中
-                go.SetPropertyValue("IsChecked", true, false);
+                go.IsChecked = true;
 
                 //上期指数
                 decimal lastinputgasnum = (decimal)json["lastinputgasnum"];
@@ -347,12 +347,12 @@ namespace Com.Aote.Pages
                     feeSum += f_fee;
 
                     // 修改为选中
-                    map.SetPropertyValue("IsChecked", true, false);
+                    map.IsChecked = true; ;
                 }
                 else
                 {
                     // 修改为未选中，避免开始清除所有选中项
-                    map.SetPropertyValue("IsChecked", false, false);
+                     map.IsChecked = false;
                 }
             }
 
@@ -404,7 +404,7 @@ namespace Com.Aote.Pages
                     feeSum += f_fee;
 
                     // 修改为选中
-                    map.SetPropertyValue("IsChecked", true, false);
+                    map.IsChecked = true;
 
                 }
                 else
@@ -413,7 +413,7 @@ namespace Com.Aote.Pages
                     canSub = false;
 
                     // 修改为未选中
-                    map.SetPropertyValue("IsChecked", false, false);
+                     map.IsChecked = false;
                 }
             }
 
