@@ -241,12 +241,12 @@
                                         <o:PropertySetter PropertyName="f_userid"  Operator="f_userid = 'this'"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <TextBlock TextWrapping="Wrap" Grid.Row="3" Text="卡    号：" Margin="5,4,0,4" />
+                                <!--<TextBlock TextWrapping="Wrap" Grid.Row="3" Text="卡    号：" Margin="5,4,0,4" />
                                 <TextBox TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" Text="{m:Bind Path=f_cardid}" Width="Auto" Margin="0" Height="25" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_cardid"  Operator="f_cardid = 'this'"/>
                                     </a:Data.Prop>
-                                </TextBox>
+                                </TextBox>-->
                                 <TextBlock TextWrapping="Wrap" Text="用户姓名：" Margin="5,4,0,4" Grid.Column="2" />
                                 <TextBox TextWrapping="Wrap" Grid.Row="0" Grid.Column="3" Text="{m:Bind Path=f_username}" Width="Auto" Margin="0" Height="25" >
                                     <a:Data.Prop>
@@ -285,7 +285,7 @@
                                 <sdk:DataGridTextColumn Header="序号" Binding="{Binding Index}"/>
                                 <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
                                 <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}"/>
-                                <sdk:DataGridTextColumn Header="卡    号" Binding="{Binding f_cardid}"/>
+                                <!--<sdk:DataGridTextColumn Header="卡    号" Binding="{Binding f_cardid}"/>-->
                                 <sdk:DataGridTextColumn Header="地    址" Binding="{Binding f_address}"/>
                             </sdk:DataGrid.Columns>
                         </sdk:DataGrid>
@@ -322,9 +322,9 @@
                                             <RowDefinition Height="30"/>
 
                                             <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="0"/>
+                                            <RowDefinition Height="0"/>
+                                            <RowDefinition Height="0"/>
                                             <RowDefinition Height="10"/>
                                             <RowDefinition Height="30"/>
 
@@ -363,7 +363,7 @@
                                         <TextBlock Text="用水性质：" Margin="0,3,0,2" Grid.Column="5" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right"/>
                                         <!--<TextBlock Text="水价类型：" Grid.Column="5" Margin="0,3,0,2" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right"/>-->
                                         <TextBlock Text="差价单价：" Grid.Column="5" Margin="0,3,0,2" Grid.Row="7" TextWrapping="Wrap" TextAlignment="Right"/>
-                                        <Border  Grid.Row="12" Margin="0,0,0,0" BorderThickness="0,0,0,0"  Grid.ColumnSpan="7" >
+                                        <Border  Grid.Row="10" Margin="0,0,0,0" BorderThickness="0,0,0,0"  Grid.ColumnSpan="7" >
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                     <GradientStop Color="#FFC6E2FB" Offset="1"/>
@@ -371,7 +371,7 @@
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                         </Border>
-                                        <TextBlock Text="卡表信息" Margin="0,3,0,2"  Grid.Row="12" Grid.ColumnSpan="7" TextWrapping="Wrap" TextAlignment="Center"/>
+                                        <!--<TextBlock Text="卡表信息" Margin="0,3,0,2"  Grid.Row="12" Grid.ColumnSpan="7" TextWrapping="Wrap" TextAlignment="Center"/>
                                         <Border  Grid.Row="10" BorderThickness="0,0,0,0"  Grid.ColumnSpan="7"   >
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -379,7 +379,7 @@
                                                     <GradientStop Color="#FFE6F1FB"/>
                                                 </LinearGradientBrush>
                                             </Border.Background>
-                                        </Border>
+                                        </Border>-->
                                         <TextBlock Text="抄表信息" Margin="0,3,0,2" Grid.ColumnSpan="7"  Grid.Row="10" TextWrapping="Wrap" TextAlignment="Center"/>
                                         <Border  Grid.Row="15" Margin="0,0,0,0" BorderThickness="0,0,0,0"  Grid.ColumnSpan="7" >
                                             <Border.Background>
@@ -457,7 +457,7 @@
                                         </TextBox>-->
                                         <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="2" Margin="0"/>
                                         <TextBlock Margin="0,3,0,2" TextWrapping="Wrap" Text="用户状态：" TextAlignment="Right" Grid.Row="2" Grid.Column="5"/>
-                                        <TextBlock Margin="0,3,0,2" Grid.Row="14" TextWrapping="Wrap" Text="当前表累计购水量：" TextAlignment="Right" Grid.Column="3"/>
+                                        <!--<TextBlock Margin="0,3,0,2" Grid.Row="14" TextWrapping="Wrap" Text="当前表累计购水量：" TextAlignment="Right" Grid.Column="3"/>-->
                                         <!--<TextBlock Grid.Column="3" Margin="0,7,0,0" Grid.Row="21" TextWrapping="Wrap" Text="总累计购水量：" TextAlignment="Right"/>-->
                                         <TextBlock Grid.Column="5" Margin="0,6,0,2" Grid.Row="22" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right" Visibility="Collapsed"/>
                                         <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Grid.ColumnSpan="2"/>-->
@@ -467,11 +467,11 @@
                                                 <o:PropertySetter PropertyName="f_userstatechange" Value="{m:Exp Str=userfiles.SelectedItem.f_userstate}" />
                                             </a:Data.Prop>
                                         </TextBox>
-                                        <TextBox Text="{m:Bind Path=f_metergasnumschange}" Grid.Column="4" Margin="0,3,0,1" Grid.Row="14" Height="Auto" VerticalAlignment="Stretch" >
+                                        <!--<TextBox Text="{m:Bind Path=f_metergasnumschange}" Grid.Column="4" Margin="0,3,0,1" Grid.Row="14" Height="Auto" VerticalAlignment="Stretch" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_metergasnumschange" Value="{m:Exp Str=userfiles.SelectedItem.f_metergasnums}" />
                                             </a:Data.Prop>
-                                        </TextBox>
+                                        </TextBox>-->
                                         <!--<TextBox Text="{m:Bind Path=f_cumulativepurchasechange}" Grid.Column="4" Margin="0,4,0,3" Grid.Row="21" Height="Auto" VerticalAlignment="Stretch"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_cumulativepurchasechange" Value="{m:Exp Str=userfiles.SelectedItem.f_cumulativepurchase}" />
@@ -531,12 +531,12 @@
                                         </TextBox>-->
                                         <TextBox Grid.Column="6" HorizontalAlignment="Left" Margin="0,4,0,8" Grid.Row="15" TextWrapping="Wrap" Text="TextBox" Width="0"/>
                                         <TextBlock Text="证件号码：" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3"/>
-                                        <TextBlock Text="卡　   　号：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"/>
+                                        <!--<TextBlock Text="卡　   　号：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"/>
                                         <TextBox Text="{m:Bind Path=f_cardidchange}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="13"   Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_cardidchange" Value="{m:Exp Str=userfiles.SelectedItem.f_cardid}" />
                                             </a:Data.Prop>
-                                        </TextBox>
+                                        </TextBox>-->
 
                                         <TextBlock Text="单位编号：" Grid.Column="3" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" />
                                         <TextBox Text="{m:Bind Path=f_unitid}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="2" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" IsReadOnly="True" >
@@ -566,7 +566,7 @@
                                                 <o:PropertySetter PropertyName="f_feiweihufeichange" Value="{m:Exp Str=userfiles.SelectedItem.f_feiweihufei}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <TextBlock Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Grid.Column="3"/>
+                                        <!--<TextBlock Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Grid.Column="3"/>
                                         <TextBox Text="{m:Bind Path=f_whethergivecardchange}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_whethergivecardchange" Value="{m:Exp Str=userfiles.SelectedItem.f_whethergivecard}" />
@@ -577,7 +577,7 @@
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_timeschange" Value="{m:Exp Str=userfiles.SelectedItem.f_times}" />
                                             </a:Data.Prop>
-                                        </TextBox>
+                                        </TextBox>-->
                                         <!--<TextBlock Grid.Column="5" Margin="0,6,0,5" TextWrapping="Wrap" Text="维护费交费开始日期：" TextAlignment="Right" Grid.Row="20" HorizontalAlignment="Right" VerticalAlignment="Center" Height="19" Width="91"/>
                                         <sdk:DatePicker SelectedDate="{m:Bind Path=f_beginfeechange}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="20"  IsTodayHighlighted="True" SelectedDateFormat="Short" VerticalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" >
                                             <a:Data.Prop>
@@ -618,12 +618,12 @@
                                                 <o:PropertySetter PropertyName="f_xiangouchange" Value="{m:Exp Str=userfiles.SelectedItem.f_xiangou}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <TextBlock Margin="0,6,0,0" Grid.Row="14" TextWrapping="Wrap" Text="剩余补水量：" TextAlignment="Right" Grid.Column="1" />
+                                        <!--<TextBlock Margin="0,6,0,0" Grid.Row="14" TextWrapping="Wrap" Text="剩余补水量：" TextAlignment="Right" Grid.Column="1" />
                                         <TextBox Text="{m:Bind Path=f_surplusgaschange}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="14" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_surplusgaschange" Value="{m:Exp Str=userfiles.SelectedItem.f_surplusgas}" />
                                             </a:Data.Prop>
-                                        </TextBox>
+                                        </TextBox>-->
 
                                         <TextBlock Grid.Column="5" Margin="0,3,0,2" TextWrapping="Wrap" Text="抄表指数：" TextAlignment="Right" Height="25" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right" Width="65"/>
                                         <TextBox x:Name="ui_lastinputgasnumchange" Text="{m:Bind Path=lastinputgasnumchange}"  Grid.Column="6" Margin="0,3,0,2" Grid.Row="11" Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1" >
@@ -651,7 +651,7 @@
                                         </ComboBox>
                                         <TextBlock Text="证件类型：" Grid.Column="0" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="4" Grid.ColumnSpan="2"/>
                                         <TextBlock Grid.Column="0" Margin="0,3,0,2" Grid.Row="9" TextWrapping="Wrap" Text="账户余额：" TextAlignment="Right" Grid.ColumnSpan="2"/>
-                                        <TextBox Text="{m:Bind Path=f_zhyechange}" Grid.Column="2" Margin="0,3,1,4" Grid.Row="9" Height="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1"  >
+                                        <TextBox Text="{m:Bind Path=f_zhyechange}" Grid.Column="2" Margin="0,3,1,4" Grid.Row="9" Height="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1" IsReadOnly="True" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_zhyechange"  Value="{m:Exp Str=userfiles.SelectedItem.f_zhye}" />
                                             </a:Data.Prop>
@@ -849,7 +849,7 @@
                                             <TextBlock Grid.Column="5" Margin="0,6,0,2" Grid.Row="22" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right" Visibility="Collapsed"/>
                                             <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Grid.ColumnSpan="2"/>-->
                                             <!--<TextBlock Margin="0,6,0,0" Grid.Row="22" TextWrapping="Wrap" Text="最后购水日期：" TextAlignment="Right" Grid.Column="3" />-->
-                                            <TextBox Text="{m:Bind Path=f_idnumber}" Grid.Column="5" IsReadOnly="True" Margin="110,8,10,27" Grid.Row="2" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="2"  >
+                                            <TextBox Text="{m:Bind Path=f_idnumber}" Grid.Column="6" IsReadOnly="True" Margin="0,3,0,2" Grid.Row="2" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" Grid.RowSpan="1"  >
                                                 <a:Data.Prop>
                                                     <o:PropertySetter PropertyName="f_idnumber" Value="{m:Exp Str=transferuser.f_idnumber\=>Completed}" />
                                                 </a:Data.Prop>

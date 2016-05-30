@@ -91,8 +91,8 @@
 					</a:Data.Prop>
 				</TextBox-->
 				<TextBlock  Text="{m:Exp Str=$\{hbinfos.ItemsSource.Count\}}" Width="60" toolkit:DockPanel.Dock="Right" Margin="0,6" />
-				<TextBlock Text="补卡笔数：" Margin="5,6,0,6" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Right" HorizontalAlignment="Right"/>
-				<TextBlock  Text="{m:Exp Str=$\{bkinfos.ItemsSource.Count\}}" Width="60" toolkit:DockPanel.Dock="Right" Margin="0,6" />
+				<TextBlock Text="补卡笔数：" Margin="5,6,0,6" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Right" HorizontalAlignment="Right" Visibility="Collapsed"/>
+				<TextBlock  Text="{m:Exp Str=$\{bkinfos.ItemsSource.Count\}}" Width="60" toolkit:DockPanel.Dock="Right" Margin="0,6" Visibility="Collapsed" />
 				<!--TextBox Text="{m:Bind Path=f_phone}"  Grid.Column="1" Margin="0,6" Grid.Row="2" TextWrapping="Wrap" Height="Auto" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" >
 					<a:Data.Prop>
 						<o:PropertySetter PropertyName="f_phone" />
@@ -263,7 +263,7 @@
 					</toolkit:DockPanel>
 				</sdk:TabItem>
 				
-				<sdk:TabItem Header="补 卡" Margin="0,4,0,-1" Height="Auto" Width="Auto">
+				<sdk:TabItem Header="补 卡" Margin="0,4,0,-1" Height="Auto" Width="Auto" Visibility="Collapsed">
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<sdk:DataPager x:Name="pager4" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=bkinfos}"   PageSize="2" toolkit:DockPanel.Dock="Top"  />
@@ -335,7 +335,7 @@
 					</toolkit:DockPanel>
 				</sdk:TabItem>
 				
-				<sdk:TabItem Header="发  卡" Margin="0" Height="Auto"  HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment">
+				<sdk:TabItem Header="发  卡" Margin="0" Height="Auto"  HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" Visibility="Collapsed">
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<sdk:DataPager x:Name="pager5" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=fkinfos}"   PageSize="2" toolkit:DockPanel.Dock="Top"  />
