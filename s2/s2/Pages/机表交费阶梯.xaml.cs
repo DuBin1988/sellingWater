@@ -218,6 +218,12 @@ namespace Com.Aote.Pages
             string loginid = (string)loginUser.GetPropertyValue("id");
             //显示正在工作
             busy.IsBusy = true;
+            //发票号
+            string f_invoicenum = kbfee.GetPropertyValue("f_invoicenum") + "";
+            if (string.IsNullOrEmpty(f_invoicenum))
+            {
+                f_invoicenum = "0";
+            }
 
             //获取基础地址
             WebClientInfo wci = (WebClientInfo)Application.Current.Resources["server"];
@@ -235,10 +241,19 @@ namespace Com.Aote.Pages
         void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             busy.IsBusy = false;
-
+            //把数据转换成JSON
+            JsonObject item = JsonValue.Parse(e.Result) as JsonObject;
             // 没有出错
            if (e.Error == null)
             {
+                GeneralObject printobj = aofengprint.DataContext as GeneralObject;
+                printobj.FromJson(item);
+                //string date = (string)item["f_deliverydate"];
+                //ui_day.Text = date;
+                //保存发票信息
+                GeneralObject fpinfosobj = (GeneralObject)(from r in loader.Res where r.Name.Equals("fpinfosobj") select r).First();
+                fpinfosobj.SetPropertyValue("f_fapiaostatue", "已用", true);
+                fpinfosobj.Save();
                 // 调用打印
                 MessageBoxResult mbr = MessageBox.Show("是否打印", "提示", MessageBoxButton.OKCancel);
                 if (mbr == MessageBoxResult.OK)

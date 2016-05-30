@@ -134,12 +134,25 @@
             </o:GeneralObject>
 
             <!--发票对象-->
-            <o:GeneralObject Name="fpinfosobj" EntityType="t_fapiaoinfos" WebClientInfo="{StaticResource dbclient}" 
-			Path="{m:Exp Str=$one/from t_fapiaoinfos where f_invoicenum\=\'\{kbfee1.DataContext.f_invoicenum\}\'}"  
-			IsInit="{m:Exp Str=print.State\=\=$End$ |or| print1.State\=\=$End$}">
+            <o:GeneralObject Name="fpinfosobj" EntityType="t_fapiaoinfos" WebClientInfo="{StaticResource dbclient}"
+			Path="{m:Exp Str=$one/from t_fapiaoinfos where f_filiale\=\'\{LoginUser.f_fengongsi\}\' and f_invoicenum\=\'\{kbfee.f_invoicenum\}\'}"
+			IsInit="{m:Exp Str=print.State\=\=$End$ |or| print.State\=\=$Cancle$}">
+                <o:PropertySetter PropertyName="f_username" Value="{m:Exp Str=kbfee1.DataContext.f_username}"/>
+                <o:PropertySetter PropertyName="f_invoicenum" Value="{m:Exp Str=kbfee1.DataContext.f_invoicenum}"/>
                 <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=kbfee1.DataContext.f_userid}" />
+                <o:PropertySetter PropertyName="f_cardid" Value="{m:Exp Str=kbfee1.DataContext.f_cardid}"/>
+                <o:PropertySetter PropertyName="f_gas" Value="{m:Exp Str=kbfee1.DataContext.f_pregas}" />
+                <o:PropertySetter PropertyName="f_money" Value="{m:Exp Str=kbfee1.DataContext.f_preamount}" />
+                <o:PropertySetter PropertyName="f_repairfee" Value="{m:Exp Str=kbfee1.DataContext.f_amountmaintenance}" />
+                <o:PropertySetter PropertyName="f_totalfee" Value="{m:Exp Str=kbfee1.DataContext.f_totalcost}" />
+                <o:PropertySetter PropertyName="f_grossproceeds" Value="{m:Exp Str=kbfee1.DataContext.f_grossproceeds}" />
+                <o:PropertySetter PropertyName="f_sgoperator" Value="{m:Exp Str=kbfee1.DataContext.f_sgoperator}" />
+                <o:PropertySetter PropertyName="f_fapiaotime" Value="{m:Exp Str=save2\=>Click!\=null:SysTime.Now\,SysTime.Now}" />
+                <o:PropertySetter PropertyName="f_fapiaodate" Value="{m:Exp Str=save2\=>Click!\=null:SysTime.Now\,SysTime.Now}" />
+                <o:PropertySetter PropertyName="f_fapiaotype" Default="机表收费" Value="机表收费"/>
+                <o:PropertySetter PropertyName="f_sgnetwork" Default="{m:Exp Str=LoginUser.f_parentname}" />
+                <o:PropertySetter  PropertyName="f_orgstr" Default="{m:Exp Str=LoginUser.orgpathstr}"/>
             </o:GeneralObject>
-
 
             <!--打印完成后，重新获取发票号-->
             <b:ScriptAction Name="loadfapiao" CanRun="{m:Exp Str=print.State\=\=$End$ |or| print1.State\=\=$End$}" Start="{m:Exp Str=LoginUserfapiao.IsOld\=True}"></b:ScriptAction>

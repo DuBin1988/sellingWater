@@ -62,7 +62,7 @@
                         <Button Content="导出Excel" Click="{m:Exp Str=toExcel.ToExcel()}" VerticalAlignment="Top" Grid.Column="6" Margin="26,3,-30,0" d:LayoutOverrides="GridBox"/>
                         <c:Excel x:Name="toExcel" HQL="{m:Exp Str=$sql:\{daninfos.ItemsSource.HQL\}}" 
 									Completed="{m:Exp Str=downLoad.Down()}"
-									Path="{m:Exp Str=$\{server.BaseAddress\}/excel/\{daninfos.ItemsSource.Count\}/f_districtname:地址|f_cusDom:楼号|总户数:总户数|使用户数:使用户数|未使用户数:未使用户数|本月应收水量:本月应收水量|本月应收金额:本月应收金额|本月实收水量:本月实收水量|本月实收金额:本月实收金额|收回陈欠水量:收回陈欠水量|收回陈欠金额:收回陈欠金额|本月欠费水量:本月欠费水量|本月欠费金额:本月欠费金额|累计欠费水量:累计欠费水量|累计欠费金额:累计欠费金额|滞纳金:滞纳金$}" Height="30" VerticalAlignment="Top" Width="0"/>
+									Path="{m:Exp Str=$\{server.BaseAddress\}/excel/\{daninfos.ItemsSource.Count\}/f_districtname:地址|f_cusDom:楼号|总户数:总户数|使用户数:使用户数|未使用户数:未使用户数|本月应收水量:本月应收水量|本月应收金额:本月应收金额|本月实收水量:本月实收水量|本月实收金额:本月实收金额|收回陈欠水量:收回陈欠水量|收回陈欠金额:收回陈欠金额|本月欠费水量:本月欠费水量|本月欠费金额:本月欠费金额|累计欠费水量:累计欠费水量|累计欠费金额:累计欠费金额|违约金:违约金$}" Height="30" VerticalAlignment="Top" Width="0"/>
                         <c:DownLoad x:Name="downLoad" Path="{m:Exp Str=$\{server.BaseAddress\}/file/\{toExcel.FileName\}}" Filter="(*.xls)|*.xls" Height="30" VerticalAlignment="Top" Width="0"/>
 
                     </Grid>
@@ -86,7 +86,7 @@
 								HQL="{m:Exp Str=$
                                 select a.f_cusDom\,a.f_districtname\,isnull(a.总户数\,0) 总户数 \,isnull(b.使用户数\,0) 使用户数\,isnull(c.未使用户数\,0) 未使用户数\,d.本月应收水量\,d.本月应收金额\,
 								e.本月实收水量\,e.本月实收金额\,f.收回陈欠水量\,f.收回陈欠金额\,g.本月欠费水量\,g.本月欠费金额\,
-								h.累计欠费水量\,h.累计欠费金额\,j.滞纳金 from (
+								h.累计欠费水量\,h.累计欠费金额\,j.违约金 from (
 								/*总户数*/
 								select f_districtname\,f_cusDom\,COUNT(*) 总户数 
 								from (select u.f_districtname\,u.f_cusDom\,u.f_userid from t_handplan h\,t_userfiles u 
@@ -207,8 +207,8 @@
 								) h on a.f_cusDom\=h.f_cusDom and a.f_districtname\=h.f_districtname
 								left join 
 								(
-							    /*滞纳金*/
-								select  u.f_districtname\,u.f_cusDom\,round(SUM(s.f_zhinajin)\,2) 滞纳金 from t_sellinggas s\,t_userfiles u 
+							    /*违约金*/
+								select  u.f_districtname\,u.f_cusDom\,round(SUM(s.f_zhinajin)\,2) 违约金 from t_sellinggas s\,t_userfiles u 
 								where s.f_userid\=u.f_userid and
 								s.f_payfeetype\=\'机表收费\' and s.f_payfeevalid\=\'有效\'
 								and s.f_deliverydate>\=\'\{daninfosearch.DataContext.f_yytdate1\}\' and s.f_deliverydate^\=\'\{daninfosearch.DataContext.f_yytdate2\}\'
@@ -233,7 +233,7 @@
                             <sdk:DataGridTextColumn Header="本月欠费金额" Binding="{Binding 本月欠费金额}"/>
                             <sdk:DataGridTextColumn Header="累计欠费水量"  Binding="{Binding 累计欠费水量}"/>
                             <sdk:DataGridTextColumn Header="累计欠费金额"  Binding="{Binding 累计欠费金额}"/>
-                            <sdk:DataGridTextColumn Header="滞纳金"  Binding="{Binding 滞纳金}"/>
+                            <sdk:DataGridTextColumn Header="违约金"  Binding="{Binding 违约金}"/>
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel>

@@ -130,7 +130,7 @@
 									<sdk:DataGridTextColumn Header="水量" Binding="{Binding f_pregas}"/>
 									<sdk:DataGridTextColumn Header="水价" Binding="{Binding f_gasprice}"/>
 									<sdk:DataGridTextColumn Header="本次水量金额" Binding="{Binding f_preamount}"/>
-									<sdk:DataGridTextColumn Header="滞纳金" Binding="{Binding f_zhinajin}"/>
+									<sdk:DataGridTextColumn Header="违约金" Binding="{Binding f_zhinajin}"/>
 									<sdk:DataGridTextColumn Header="上期结余" Binding="{Binding f_zhye}"/>
 									<sdk:DataGridTextColumn Header="应交金额" Binding="{Binding f_totalcost}"/>
 									<sdk:DataGridTextColumn Header="实收金额" Binding="{Binding f_grossproceeds}"/>

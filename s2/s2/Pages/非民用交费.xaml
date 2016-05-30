@@ -22,7 +22,7 @@
 		<m:ResourceLoad Margin="0,0,-101,0" Height="600" VerticalAlignment="Bottom">
 			<!--打开窗口对象-->
 			<o:ChildWindowObj Name="openxiangou" CWName="/Pages/管理员登录" />			
-			<o:ChildWindowObj Name="openkafei" CWName="/Pages/滞纳金登录" />
+			<o:ChildWindowObj Name="openkafei" CWName="/Pages/违约金登录" />
 			
 			<!--付款方式列表-->
 			<o:ObjectList Name="paylist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='付款方式' order by id"/>
@@ -32,11 +32,11 @@
 				Path="{m:Exp Str=
 				$from t_handplan where f_username\=\'\{kbfee.f_username\}\' and shifoujiaofei\=\'否\' and lastrecord is not null and f_state\=\'已抄表\' order by id$}"
 				IsClear="{m:Exp Str=kbfee.id\=\=null}">
-				<!--滞纳金天数-->
+				<!--违约金天数-->
 				<o:PropertySetter PropertyName="f_zhinajin`" NoDependValue="{m:Exp Str=SysTime.Today.Subtract(this.f_endjfdate.ToDate()).Days\>0:SysTime.Today.Subtract(this.f_endjfdate.ToDate()).Days\,0}"/>
-				<!--滞纳金-->
+				<!--违约金-->
 				<o:PropertySetter PropertyName="f_zhinajin" 
-					NoDependValue="{m:Exp Str=(this.oughtfee*this.f_zhinajintianshu*(single[data.name\=\=$非民用滞纳金比率$].ToObjectList().First().value.ToDouble())).MathRound(2)}"/>
+					NoDependValue="{m:Exp Str=(this.oughtfee*this.f_zhinajintianshu*(single[data.name\=\=$非民用违约金比率$].ToObjectList().First().value.ToDouble())).MathRound(2)}"/>
 			</o:ObjectList>
 
 			<!--机表收费对象-->
@@ -46,7 +46,7 @@
 			SaveAction\=\=$Error$ |or| 
 			print.State\=\=$End$ or print.State\=\=$Cancle$ |or| 
 			print1.State\=\=$End$ or print1.State\=\=$Cancle$}">
-				<!--滞纳金-->
+				<!--违约金-->
 				<o:PropertySetter PropertyName="f_zhinajin1" NoDependValue="{m:Exp Str=kbsellgas[True].Sum(f_zhinajin)}" Default="0"/>
 				<o:PropertySetter PropertyName="f_zhinajin" NoDependValue="{m:Exp Str='openkafei.Result!=null:openkafei.Result\,kbfee.f_zhinajin1!=null:kbfee.f_zhinajin1\,0'}" Default="0"/>
 				<!--抄表记录id号-->
@@ -160,7 +160,7 @@
 								<sdk:DataGridTextColumn Header="计划月份" Binding="{Binding f_handdate}"/>
 								<sdk:DataGridTextColumn Header="用水量" Binding="{Binding oughtamount}"/>
 								<sdk:DataGridTextColumn Header="本月金额" Binding="{Binding oughtfee}"/>
-								<sdk:DataGridTextColumn Header="滞纳金" Binding="{Binding f_zhinajin}"/>
+								<sdk:DataGridTextColumn Header="违约金" Binding="{Binding f_zhinajin}"/>
 								<sdk:DataGridTextColumn Header="抄表日期" Binding="{Binding lastinputdate, StringFormat=yyyy-MM-dd}"/>
 								<sdk:DataGridTextColumn Header="上次抄表底数" Binding="{Binding lastinputgasnum}"/>
 								<sdk:DataGridTextColumn Header="本次抄表底数" Binding="{Binding lastrecord}"/>
@@ -169,7 +169,7 @@
 								<sdk:DataGridTextColumn Header="水价2" Binding="{Binding linjiewqj}"/>
 								<sdk:DataGridTextColumn Header="金额2" Binding="{Binding ljwyqje}"/>
 								<sdk:DataGridTextColumn Header="交费截止日期" Binding="{Binding f_endjfdate, StringFormat=yyyy-MM-dd}"/>
-								<sdk:DataGridTextColumn Header="滞纳金天数" Binding="{Binding f_zhinajintianshu}"/>
+								<sdk:DataGridTextColumn Header="违约金天数" Binding="{Binding f_zhinajintianshu}"/>
 								<sdk:DataGridTextColumn Header="网　　点" Binding="{Binding f_network}"/>
 								<sdk:DataGridTextColumn Header="操 作 员" Binding="{Binding f_operator}"/>
 								<sdk:DataGridTextColumn Header="录入日期" Binding="{Binding f_inputdate, StringFormat=yyyy-MM-dd}"/>
@@ -301,7 +301,7 @@
 									<o:PropertySetter PropertyName="f_invoicenum" Default="{m:Exp Str=LoginUserfapiao.fapiaohao}" NoDependValue="{m:Exp Str=LoginUserfapiao.fapiaohao}"/>
 								</a:Data.Prop>
 							</TextBox>
-							<TextBlock Text="滞纳金合计："  TextWrapping="Wrap" TextAlignment="Right" Margin="-2,11,2,0" Height="25" VerticalAlignment="Top" d:LayoutOverrides="Height" Grid.Row="2"/>
+							<TextBlock Text="违约金合计："  TextWrapping="Wrap" TextAlignment="Right" Margin="-2,11,2,0" Height="25" VerticalAlignment="Top" d:LayoutOverrides="Height" Grid.Row="2"/>
 							<TextBox Text="{m:Bind Path=f_zhinajin}" Grid.Column="1"  Grid.Row="2" TextWrapping="Wrap" IsReadOnly="False" HorizontalAlignment="Stretch" Width="Auto" Margin="0" Grid.ColumnSpan="1" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" d:LayoutOverrides="Height"/>
 							<Button Content="修改" Click="{m:Exp Str=openkafei.IsOpen\=True}" Grid.Column="2" Margin="10,0,0,0" Width="44" HorizontalAlignment="Left" Grid.Row="2" Height="25"/>
 						</Grid>
