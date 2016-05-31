@@ -40,6 +40,8 @@ namespace Com.Aote.Pages
             {
                 //表具编号
                 var userid = go.GetPropertyValue("f_userid");
+                //抄表id
+                var id = go.GetPropertyValue("id");
                 // 抄表记录里的上期指数
                 var lastinputnum = go.GetPropertyValue("lastinputgasnum");
 
@@ -57,7 +59,7 @@ namespace Com.Aote.Pages
                     continue;
                 }
                 removed.Add(go);
-                string sql = "update t_handplan set lastrecord=" + lastrecord + ",f_state= '"+ "待审核" + "',oughtamount= " + oughtamount + " where f_userid=" + userid;
+                string sql = "update t_handplan set lastrecord=" + lastrecord + ",f_state= '"+ "待审核" + "',oughtamount= " + oughtamount + " where id=" + id;
                 HQLAction action = new HQLAction();
                 action.HQL = sql;
                 action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
