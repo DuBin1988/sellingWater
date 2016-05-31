@@ -155,8 +155,8 @@
                                     </DataTemplate>
                                 </sdk:DataGridTemplateColumn.CellTemplate>
                             </sdk:DataGridTemplateColumn>
-                            <sdk:DataGridTextColumn Header="滞纳金开始日期" Binding="{Binding f_zhinajindate,StringFormat=yyyy-MM-dd}"/>
-                            <sdk:DataGridTemplateColumn Header="修改后滞纳金开始日期">
+                            <sdk:DataGridTextColumn Header="违约金开始日期" Binding="{Binding f_zhinajindate,StringFormat=yyyy-MM-dd}"/>
+                            <sdk:DataGridTemplateColumn Header="修改后违约金开始日期">
                                 <sdk:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{Binding f_newzhinajindate,StringFormat=yyyy-MM-dd}" Foreground="{m:Exp Str=data.f_newzhinajindate !\= data.f_zhinajindate :Red \,Black}" IsReadOnly="True"/>

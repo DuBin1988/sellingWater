@@ -100,7 +100,7 @@
 							<sdk:DataGridTextColumn Header="本月用水量" Binding="{Binding oughtamount}"/>
 							<sdk:DataGridTextColumn Header="水价" Binding="{Binding f_gasprice}"/>
 							<sdk:DataGridTextColumn Header="本月用水量金额" Binding="{Binding oughtfee}"/>
-							<sdk:DataGridTextColumn Header="滞纳金开始日期" Binding="{Binding f_zhinajindate, StringFormat=yyyy-MM-dd}"/>
+							<sdk:DataGridTextColumn Header="违约金开始日期" Binding="{Binding f_zhinajindate, StringFormat=yyyy-MM-dd}"/>
 							
 							<sdk:DataGridTextColumn Header="网　　点" Binding="{Binding f_network}"/>
 							<sdk:DataGridTextColumn Header="操 作 员" Binding="{Binding f_operator}"/>

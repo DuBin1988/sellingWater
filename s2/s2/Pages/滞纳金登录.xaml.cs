@@ -13,9 +13,9 @@ using Com.Aote.Controls;
 
 namespace s2
 {
-    public partial class 滞纳金登录 : CustomChildWindow
+    public partial class 违约金登录 : CustomChildWindow
     {
-        public 滞纳金登录()
+        public 违约金登录()
         {
             InitializeComponent();
         }
