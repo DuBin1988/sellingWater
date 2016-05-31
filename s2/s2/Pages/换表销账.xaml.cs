@@ -69,7 +69,7 @@ namespace Com.Aote.Pages
         void save1_Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             BatchExcuteAction c = sender as BatchExcuteAction;
-            c.Completed -= save1_Completed;
+            c.Completed -= save_Completed;
             //同步 将产生的json串送后台服务进行处理
             WebClientInfo wci = Application.Current.Resources["server"] as WebClientInfo;
             string uri = wci.BaseAddress + "/iesgas/user/comand";

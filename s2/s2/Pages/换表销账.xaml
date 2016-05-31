@@ -24,6 +24,9 @@
 		   	Path="{m:Exp Str=userfiles.f_usertype\=\=$民用$:$sernum/from t_cardreset where id \=(select parentid from cardresetwatch where f_gaswatchbrand\=\'\{userfiles.f_gaswatchbrand\}\' and f_fengongsi\=\'\{LoginUser.f_fengongsi\}\' and f_minyong\=\'民用\' and parentid is not null)/f_qishicard$\,userfiles.f_usertype\=\=$非民用$:$sernum/from t_cardreset where id \=(select parentid from cardresetwatch where f_gaswatchbrand\=\'\{userfiles.f_gaswatchbrand\}\' and f_fengongsi\=\'\{LoginUser.f_fengongsi\}\' and f_feiminyong\=\'非民用\' and parentid is not null)/f_qishicard$\,null}">
             </o:GeneralObject>
 
+            <!--水表品牌列表-->
+            <o:ObjectList Name="pinpailist" WebClientInfo="{StaticResource dbclient}" Path="{m:Exp Str=$from qibiao as qibiao left join fetch qibiao.qbnumber}"/>
+
             <!--换表对象-->
             <o:GeneralObject Name="pipelinego" EntityType="t_changmeter" WebClientInfo="{StaticResource dbclient}">
             </o:GeneralObject>
@@ -158,8 +161,7 @@
             </b:BatchExcuteAction>
 
             <!--保存-->
-            <b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}"   
-		   	CanSave="{m:Exp Str=card.State\=\=$End$ or CreateHandplan.State\=\=$End$}" >
+            <b:BatchExcuteAction Name="SaveAction" WebClientInfo="{StaticResource dbclient}" >
                 <b:BatchInfo Source="{m:Exp Str=xiaozhang}" MethodName="InvokeToJson"/>
                 <b:BatchInfo Source="{m:Exp Str=updateuserfiles}" MethodName="InvokeToJson"/>
             </b:BatchExcuteAction>
@@ -250,7 +252,7 @@
             			IsEnabled="{m:Exp Str=data.f_newgasmeterstyle\=\=$卡表$ and !pipeline.DataContext.HasErrors}" 
             			Click="{m:Exp Str=userfiles.f_surplusgas\=pipeline.DataContext.f_cmaddgas;userfiles.f_bugas\=pipeline.DataContext.f_cmaddgas;userfiles.f_metergasnums\=pipeline.DataContext.f_zhi;userfiles.f_times\=0;card.Gas\=0;card.Sqrq\=pipelinego.f_cmdate.ToString($yyyyMMdd$);submit.IsShow\=True}"/>-->
                         <Button x:Name="onlySave" Content=" 保 存 " Click="save_Click"  Margin="20,0,0,0" Width="50"
-            			IsEnabled="{m:Exp Str=data.f_newgasmeterstyle!\=$卡表$ and !pipeline.DataContext.HasErrors}"/>
+            			IsEnabled="{m:Exp Str=data.f_newgasmeterstyle!\=$卡表$  and pipelinego.f_oldcurrentbase-pipelinego.lastinputgasnum\>0 and !pipeline.DataContext.HasErrors}"/>
                         <Button Content="撤 销" Margin="20,0,5,0" Click="{m:Exp Str=pipeline.DataContext.New();userfiles.New()}" Width="50"/>
                     </StackPanel>
                     <Grid Margin="0,0,0,59" Grid.Column="0" >
@@ -455,12 +457,17 @@
 								NoDependValue="{m:Exp Str=fakafei.value}"/>
                             </a:Data.Prop>
                         </TextBox>-->
-                        <ComboBox x:Name="CoboxPinpai" DisplayMemberPath="f_pinpai" SelectedValuePath="f_pinpai" SelectedValue="{m:Bind Path=f_cmnewgaswatchbrand}" Grid.Column="1" Margin="0" Grid.Row="8" VerticalAlignment="Stretch" Height="25">
-                            <a:Data.Items>
-                                <o:ObjectList WebClientInfo="{StaticResource dbclient}" Path="{m:Exp Str=$from qibiao as qibiao left join fetch qibiao.qbnumber}" />
-                            </a:Data.Items>
+                        <ComboBox x:Name="CoboxPinpai" DisplayMemberPath="f_pinpai" SelectedValuePath="f_pinpai"  ItemsSource="{m:Exp Str=pinpailist}" SelectedValue="{m:Bind Path=f_cmnewgaswatchbrand}" Grid.Column="1" Margin="0" Grid.Row="8" VerticalAlignment="Stretch" Height="25">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_cmnewgaswatchbrand" NotNull="True"/>
+                            </a:Data.Prop>
                         </ComboBox>
-                        <ComboBox x:Name="DaXiaoKa" DisplayMemberPath="f_qbnumber" SelectedValuePath="f_qbnumber" ItemsSource="{m:Exp Str=CoboxPinpai.SelectedItem.qbnumber}" SelectedValue="{m:Bind Path=f_cmnewmetertype}" Grid.Column="5" Margin="0" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="25" />
+                        <ComboBox x:Name="DaXiaoKa" DisplayMemberPath="f_qbnumber" SelectedValuePath="f_qbnumber" ItemsSource="{m:Exp Str=CoboxPinpai.SelectedItem.qbnumber}" SelectedValue="{m:Bind Path=f_cmnewmetertype}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="8" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto">
+                            <a:Data.Prop>
+                                <o:PropertySetter PropertyName="f_cmnewmetertype" NotNull="True"/>
+                            </a:Data.Prop>
+                        </ComboBox>
+                        <!--<ComboBox x:Name="DaXiaoKa" DisplayMemberPath="f_qbnumber" SelectedValuePath="f_qbnumber" ItemsSource="{m:Exp Str=CoboxPinpai.SelectedItem.qbnumber}" SelectedValue="{m:Bind Path=f_cmnewmetertype}" Grid.Column="5" Margin="0" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="25" />-->
                         <sdk:DatePicker SelectedDate="{m:Bind Path=f_cmchangemeterdate}" Grid.Column="1" Margin="0" Grid.Row="13" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_cmchangemeterdate" NotNull="True" />
@@ -468,17 +475,17 @@
                         </sdk:DatePicker>
                         <TextBox Text="{m:Bind Path=f_newgasmetermanufacturers}" Grid.Column="3" Margin="0" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newgasmetermanufacturers" NoDependValue="{m:Exp Str=CoboxPinpai.SelectedItem.f_changjia}" />
+                                <o:PropertySetter PropertyName="f_newgasmetermanufacturers" NoDependValue="{m:Exp Str=CoboxPinpai.SelectedItem.f_changjia}" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_newgasmeterkoujing}" Grid.Column="1" Margin="0" Grid.Row="9" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Height="25" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newgasmeterkoujing" NoDependValue="{m:Exp Str=DaXiaoKa.SelectedItem.f_gasmeterkoujing}" />
+                                <o:PropertySetter PropertyName="f_newgasmeterkoujing" NoDependValue="{m:Exp Str=DaXiaoKa.SelectedItem.f_gasmeterkoujing}" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_newgasmeterstyle}" Grid.Column="3" Margin="0" Grid.Row="9" TextWrapping="Wrap" x:Name="ui_newgasmeterstyle" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Height="25" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newgasmeterstyle" NoDependValue="{m:Exp Str=CoboxPinpai.SelectedItem.f_type}" />
+                                <o:PropertySetter PropertyName="f_newgasmeterstyle" NoDependValue="{m:Exp Str=CoboxPinpai.SelectedItem.f_type}" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
                         <!--<TextBox Text="{m:Bind Path=f_newcardid}" Grid.Column="1" Margin="0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Stretch" IsReadOnly="True" Height="25"  >
@@ -519,7 +526,7 @@
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_newweizhi}" Grid.Column="1" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newweizhi" />
+                                <o:PropertySetter PropertyName="f_newweizhi" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox Text="{m:Bind Path=f_newgasmeteraccomodations}" Grid.Column="3" Margin="0" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25">
