@@ -19,7 +19,7 @@ namespace Com.Aote.Pages
         }
         private void f_newhandno_TextChanged(object sender, TextChangedEventArgs e)
         {
-            f_newtiaoxianno.Text = Coboxlist.SelectedValue.ToString() + "-" + f_newhandno.Text;
+            f_newtiaoxianno.Text = Coboxlist.SelectedValue.ToString() + f_newhandno.Text;
         }
     }
 }

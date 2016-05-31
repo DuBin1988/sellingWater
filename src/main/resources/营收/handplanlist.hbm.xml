@@ -16,6 +16,8 @@
 		<property name="f_handdate" type="string"/>
 		<!--所属片区-->
 		<property name="f_handarea" type="string"/>
+		<!--所属片区代码-->
+		<property name="f_areacode" type="string"/>
 		<!--抄表员-->
 		<property name="f_inputtor" type="string"/>
 		<!--抄表员代码-->
