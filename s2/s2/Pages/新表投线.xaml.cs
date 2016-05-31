@@ -26,7 +26,7 @@ namespace Com.Aote.Pages
 
         private void f_handno_TextChanged(object sender, TextChangedEventArgs e)
         {
-            f_touxianno.Text = Coboxlist.SelectedValue.ToString() + "-" + f_handno.Text;
+            f_touxianno.Text = Coboxlist.SelectedValue.ToString() + f_handno.Text;
         }
     }
 }

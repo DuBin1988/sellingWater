@@ -216,7 +216,7 @@
 		<!--抄表序号-->
 		<property name="f_handno" type="string"/>
 		<!--投线编码-->
-		<property name="f_touxianno" type="string"/>
+		<!-- <property name="f_touxianno" type="string"/> -->
 		<!--抄表周期-->
 		<property name="f_handzq" type="string"/>
 		<!--表投线备注-->
