@@ -100,7 +100,7 @@ namespace Com.Aote.Pages
             decimal extrafeeSum = 0;
             // 总基本用水金额
             decimal f_feeSum = 0;
-            //总的滞纳金
+            //总的违约金
             decimal zhinajinAll = 0;
             //余额
             decimal f_zhye = decimal.Parse(item["f_zhye"].ToString());
@@ -143,7 +143,7 @@ namespace Com.Aote.Pages
                 decimal oughtamount = (decimal)json["oughtamount"];
                 gasSum += oughtamount;
                 go.SetPropertyValue("oughtamount", oughtamount, false);
-                //计算总滞纳金
+                //计算总违约金
                 decimal f_zhinajin = (decimal)json["f_zhinajin"];
                 zhinajinAll += f_zhinajin;
                 go.SetPropertyValue("f_zhinajin", f_zhinajin, false);
@@ -177,8 +177,8 @@ namespace Com.Aote.Pages
             ui_pregas.Text = gasSum.ToString("0.#");//总气量
             ui_lastinputgasnum.Text = lastnum.ToString("0.#");//总上期底数
             ui_lastrecord.Text = (lastnum + gasSum).ToString("0.#");//总本期底数
-            ui_zhinajin.Text = zhinajinAll.ToString("0.##");//总滞纳金
-            ui_linshizhinajin.Text = zhinajinAll.ToString("0.##");//滞纳金
+            ui_zhinajin.Text = zhinajinAll.ToString("0.##");//总违约金
+            ui_linshizhinajin.Text = zhinajinAll.ToString("0.##");//违约金
             decimal f_totalcost = feeSum - f_zhye + zhinajinAll > 0 ? feeSum - f_zhye + zhinajinAll : 0;
             ui_totalcost.Text = f_totalcost.ToString("0.##");//应缴金额
             decimal f_benqizhye = (decimal)(f_zhye - feeSum - zhinajinAll > 0 ? f_zhye - feeSum - zhinajinAll : 0);
@@ -218,6 +218,12 @@ namespace Com.Aote.Pages
             string loginid = (string)loginUser.GetPropertyValue("id");
             //显示正在工作
             busy.IsBusy = true;
+            //发票号
+            string f_invoicenum = kbfee.GetPropertyValue("f_invoicenum") + "";
+            if (string.IsNullOrEmpty(f_invoicenum))
+            {
+                f_invoicenum = "0";
+            }
 
             //获取基础地址
             WebClientInfo wci = (WebClientInfo)Application.Current.Resources["server"];
@@ -235,15 +241,24 @@ namespace Com.Aote.Pages
         void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             busy.IsBusy = false;
-
+            //把数据转换成JSON
+            JsonObject item = JsonValue.Parse(e.Result) as JsonObject;
             // 没有出错
            if (e.Error == null)
             {
+                GeneralObject printobj = aofengprint.DataContext as GeneralObject;
+                printobj.FromJson(item);
+                //string date = (string)item["f_deliverydate"];
+                //ui_day.Text = date;
+                //保存发票信息
+                GeneralObject fpinfosobj = (GeneralObject)(from r in loader.Res where r.Name.Equals("fpinfosobj") select r).First();
+                fpinfosobj.SetPropertyValue("f_fapiaostatue", "已用", true);
+                fpinfosobj.Save();
                 // 调用打印
                 MessageBoxResult mbr = MessageBox.Show("是否打印", "提示", MessageBoxButton.OKCancel);
                 if (mbr == MessageBoxResult.OK)
                 {
-                    print.Print();
+                    print.TipPrint();
                     print.Completed += print_Completed;
 
                 }
@@ -313,14 +328,14 @@ namespace Com.Aote.Pages
             // 总气费
             decimal feeSum = 0m;
 
-            // 先收有滞纳金的欠费，有滞纳金的必须收
+            // 先收有违约金的欠费，有违约金的必须收
             foreach (GeneralObject map in dataGrid1.ItemsSource)
             {
                 String f_userid = (String)map.GetPropertyValue("f_userid");
 
                 // 取出应交金额
                 decimal f_fee = decimal.Parse(map.GetPropertyValue("f_fee").ToString());
-                //取出滞纳金
+                //取出违约金
                 decimal f_zhinajin = decimal.Parse(map.GetPropertyValue("f_zhinajin").ToString());
                 //取出违约金天数
                 int f_zhinajintianshu = int.Parse(map.GetPropertyValue("f_zhinajintianshu").ToString());
@@ -457,7 +472,7 @@ namespace Com.Aote.Pages
             }
         }
         #endregion
-        #region 滞纳金修改后的处理过程
+        #region 违约金修改后的处理过程
         private void ui_zhinajin_LostFocus(object sender, RoutedEventArgs e)
         {
             try

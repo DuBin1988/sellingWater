@@ -34,7 +34,8 @@ namespace Com.Aote.Pages
             ui_userfiles.IsBusy = true;
             jsontb = "[{customer_code:\"" + ur_userid.Text + "\"}]";
             jsonjs = "[{userid:" + ur_userid.Text + ",reading:" + lastinputgasnum_cb.Text + ",lastreading:" + lastinputgasnum.Text + ",stairType:" + stairtype.Text + ",pregas:" + pregas+ "}]";
-            url = "/handcharge/record/batch/" + ui_handdate.SelectedDate + "/" + ui_sgnetwork.Text + "/" + ui_sgoperator.Text + "/" + chaobiaoriqi.SelectedDate + "/" + meter.SelectedValue.ToString() + "?uuid=" + System.Guid.NewGuid().ToString();
+            jsonjs += "]";
+            url = "/handcharge/record/batch/" + ui_handdate.SelectedDate + "/" + ui_sgnetwork.Text + "/" + ui_sgoperator.Text + "/" + chaobiaoriqi.SelectedDate + "?uuid=" + System.Guid.NewGuid().ToString();
             BatchExcuteAction save = (from p in loader.Res where p.Name.Equals("CreateHandplan") select p).First() as BatchExcuteAction;
             save.Completed += save_Completed;
             save.Invoke();
@@ -75,10 +76,14 @@ namespace Com.Aote.Pages
             WebClient client = new WebClient();
             client.UploadStringCompleted += client_UploadStringCompleted;
             client.UploadStringAsync(new Uri(uri), jsontb);
+            
         }
 
         void client_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
         {
+            // 清除界面数据
+            GeneralObject pipelinego = (GeneralObject)(from r in loader.Res where r.Name.Equals("pipelinego") select r).First();
+            pipelinego.New();
             ui_userfiles.IsBusy = false;
             if (e.Error == null)
             {

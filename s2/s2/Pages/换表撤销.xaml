@@ -89,7 +89,7 @@
                             <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}" d:IsLocked="True"/>
-                            <sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}" d:IsLocked="True"/>
+                            <!--<sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}" d:IsLocked="True"/>-->
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel >

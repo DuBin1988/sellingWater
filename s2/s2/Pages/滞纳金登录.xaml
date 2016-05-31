@@ -11,8 +11,8 @@
     xmlns:m="clr-namespace:Com.Aote.Marks;assembly=s2DLL"
 	xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" 
 	mc:Ignorable="d" 
-	x:Class="s2.滞纳金登录" FontSize="15"
-	Title="滞纳金修改登录"
+	x:Class="s2.违约金登录" FontSize="15"
+	Title="违约金修改登录"
 	Width="427" Height="300" Name="gjglydl">
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                             <RowDefinition Height="35"/>
                             <RowDefinition Height="35"/>
                         </Grid.RowDefinitions>
-                        <TextBlock TextWrapping="Wrap" Text="修改前滞纳金" HorizontalAlignment="Right" Margin="0,6" Width="100"/>
+                        <TextBlock TextWrapping="Wrap" Text="修改前违约金" HorizontalAlignment="Right" Margin="0,6" Width="100"/>
                         <TextBox  Text="{m:Bind Path=f_yuanzhinajin}" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"  Grid.ColumnSpan="1" Margin="0,4" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_yuanzhinajin" NotNull="True"/>
@@ -157,7 +157,7 @@
                                 <o:PropertySetter PropertyName="f_zhinajin" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock TextWrapping="Wrap" Text="修改后滞纳金" HorizontalAlignment="Right" Margin="0,6" Width="90" Grid.Column="2"/>
+                        <TextBlock TextWrapping="Wrap" Text="修改后违约金" HorizontalAlignment="Right" Margin="0,6" Width="90" Grid.Column="2"/>
                         <TextBlock TextWrapping="Wrap" Text="用户编号：" HorizontalAlignment="Right" Margin="0,5,0,7" Width="75" Grid.Row="2"/>
                         <TextBox  Text="{m:Bind Path=f_userid}" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap"  Grid.ColumnSpan="1" Margin="0,3,0,5" Height="Auto" IsReadOnly="True" VerticalAlignment="Stretch" >
                             <a:Data.Prop>
