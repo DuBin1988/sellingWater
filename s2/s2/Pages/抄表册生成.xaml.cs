@@ -29,7 +29,7 @@ namespace Com.Aote.Pages
             string date = handdate.Text;
             string area = handarea.SelectedValue.ToString();
             string code1 = code.Text;
-            string handplan = date + "-" + area + " " + code1;
+            string handplan = date + area + code1;
             listid.Text = handplan;
         }
 	}

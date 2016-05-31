@@ -322,8 +322,8 @@
                                             <RowDefinition Height="30"/>
 
                                             <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
-                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="0"/>
+                                            <RowDefinition Height="0"/>
                                             <RowDefinition Height="30"/>
                                             <RowDefinition Height="10"/>
                                             <RowDefinition Height="30"/>
@@ -371,7 +371,7 @@
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                         </Border>
-                                        <TextBlock Text="卡表信息" Margin="0,3,0,2"  Grid.Row="12" Grid.ColumnSpan="7" TextWrapping="Wrap" TextAlignment="Center"/>
+                                        <TextBlock Text="卡表信息" Visibility="Collapsed" Margin="0,3,0,2"  Grid.Row="12" Grid.ColumnSpan="7" TextWrapping="Wrap" TextAlignment="Center"/>
                                         <Border  Grid.Row="10" BorderThickness="0,0,0,0"  Grid.ColumnSpan="7"   >
                                             <Border.Background>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -531,8 +531,8 @@
                                         </TextBox>-->
                                         <TextBox Grid.Column="6" HorizontalAlignment="Left" Margin="0,4,0,8" Grid.Row="15" TextWrapping="Wrap" Text="TextBox" Width="0"/>
                                         <TextBlock Text="证件号码：" Margin="0,3,0,2" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="3"/>
-                                        <TextBlock Text="卡　   　号：" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"/>
-                                        <TextBox Text="{m:Bind Path=f_cardidchange}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="13"   Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1"  >
+                                        <TextBlock Text="卡　   　号：" Visibility="Collapsed" Margin="0,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"/>
+                                        <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_cardidchange}" Grid.Column="2" Margin="0,3,0,2" Grid.Row="13"   Height="Auto" VerticalAlignment="Stretch" Grid.RowSpan="1"  >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_cardidchange" Value="{m:Exp Str=userfiles.SelectedItem.f_cardid}" />
                                             </a:Data.Prop>
@@ -566,14 +566,14 @@
                                                 <o:PropertySetter PropertyName="f_feiweihufeichange" Value="{m:Exp Str=userfiles.SelectedItem.f_feiweihufei}" />
                                             </a:Data.Prop>
                                         </TextBox>-->
-                                        <TextBlock Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Grid.Column="3"/>
-                                        <TextBox Text="{m:Bind Path=f_whethergivecardchange}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                                        <TextBlock Visibility="Collapsed" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Grid.Column="3"/>
+                                        <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_whethergivecardchange}" Grid.Column="4" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_whethergivecardchange" Value="{m:Exp Str=userfiles.SelectedItem.f_whethergivecard}" />
                                             </a:Data.Prop>
                                         </TextBox>
-                                        <TextBlock Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="写卡次数：" TextAlignment="Right" Grid.Column="5"/>
-                                        <TextBox Text="{m:Bind Path=f_timeschange}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                                        <TextBlock Visibility="Collapsed" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="写卡次数：" TextAlignment="Right" Grid.Column="5"/>
+                                        <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_timeschange}" Grid.Column="6" Margin="0,3,0,2" Grid.Row="13" TextWrapping="Wrap" Grid.RowSpan="1" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_timeschange" Value="{m:Exp Str=userfiles.SelectedItem.f_times}" />
                                             </a:Data.Prop>
