@@ -170,6 +170,10 @@ namespace Com.Aote.Pages
                 go.SetPropertyValue("f_stair3price", (decimal)json["f_stair3price"], false);
                 go.SetPropertyValue("f_stair3fee", (decimal)json["f_stair3fee"], false);
 
+                go.SetPropertyValue("f_stair4amount", (decimal)json["f_stair4amount"], false);
+                go.SetPropertyValue("f_stair4price", (decimal)json["f_stair4price"], false);
+                go.SetPropertyValue("f_stair4fee", (decimal)json["f_stair4fee"], false);
+
                 list.Add(go);
             }
 

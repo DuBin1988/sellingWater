@@ -61,7 +61,7 @@ public class SellSer {
 							+ "h.lastrecord lastrecord,h.f_endjfdate f_endjfdate,h.f_operator f_operator,"
 							+ "h.f_inputdate f_inputdate,h.f_network f_network,h.f_handdate f_handdate,"
 							+ "h.id handId ,isnull(h.f_stair1amount,0) f_stair1amount ,isnull(h.f_stair1price,0) f_stair1price, isnull(h.f_stair1fee,0) f_stair1fee, isnull(h.f_stair2amount,0) f_stair2amount, isnull(h.f_stair2price,0) f_stair2price, isnull(h.f_stair2fee,0) f_stair2fee"
-							+ ", isnull(h.f_stair3amount,0) f_stair3amount, isnull(h.f_stair3price,0) f_stair3price, isnull(h.f_stair3fee,0) f_stair3fee"
+							+ ", isnull(h.f_stair3amount,0) f_stair3amount, isnull(h.f_stair3price,0) f_stair3price, isnull(h.f_stair3fee,0) f_stair3fee, isnull(h.f_stair4amount,0) f_stair4amount, isnull(h.f_stair4price,0) f_stair4price, isnull(h.f_stair4fee,0) f_stair4fee"
 							+ // h t_handplan
 							"  from (select * from t_userinfo where f_userid='"
 							+ userid
@@ -144,6 +144,10 @@ public class SellSer {
 						hands += ",f_stair3amount:" + hand.get("f_stair3amount");
 						hands += ",f_stair3price:" + hand.get("f_stair3price");
 						hands += ",f_stair3fee:" + hand.get("f_stair3fee");
+						
+						hands += ",f_stair4amount:" + hand.get("f_stair4amount");
+						hands += ",f_stair4price:" + hand.get("f_stair4price");
+						hands += ",f_stair4fee:" + hand.get("f_stair4fee");
 						
 						int days = Integer.parseInt(hand.get("days") + "");
 						days = days > 0 ? days : 0;
@@ -490,6 +494,9 @@ public class SellSer {
 				sale.put("f_stair3price", inforMap.get("f_stair3price"));
 				sale.put("f_stair3amount", inforMap.get("f_stair3amount"));
 				sale.put("f_stair3fee", inforMap.get("f_stair3fee"));
+				sale.put("f_stair4price", inforMap.get("f_stair4price"));
+				sale.put("f_stair4amount", inforMap.get("f_stair4amount"));
+				sale.put("f_stair4fee", inforMap.get("f_stair4fee"));
 				sale.put("f_OrgStr", userMap.get("f_OrgStr")+"");
 				log.debug("交费记录保存信息：" + sale.toString());
 				//session.save("t_sellinggas", sale);
@@ -499,7 +506,8 @@ public class SellSer {
 				String result = "{id:" + sellId + ", f_deliverydate:'"
 						+ f2.format(now) + "', f_stair1price:" + inforMap.get("f_stair1price") + ", f_stair1amount:" + inforMap.get("f_stair1amount") + ", f_stair1fee:" + inforMap.get("f_stair1fee") + ""
 								+ ",f_stair2price:" + inforMap.get("f_stair2price") + ", f_stair2amount:" + inforMap.get("f_stair2amount") + ", f_stair2fee:" + inforMap.get("f_stair2fee") + ","
-										+ "f_stair3price:" + inforMap.get("f_stair3price") + ", f_stair3amount:" + inforMap.get("f_stair3amount") + ", f_stair3fee:" + inforMap.get("f_stair3fee") + ", ";
+										+ "f_stair3price:" + inforMap.get("f_stair3price") + ", f_stair3amount:" + inforMap.get("f_stair3amount") + ", f_stair3fee:" + inforMap.get("f_stair3fee") + ", "
+										+"f_stair4price:" + inforMap.get("f_stair4price") + ", f_stair4amount:" + inforMap.get("f_stair4amount") + ", f_stair4fee:" + inforMap.get("f_stair4fee") + ", ";
 				// 更新抄表记录sellid
 				if (handIds != null && !handIds.equals("") && !handIds.equals("0")) {
 					String updateHandplan = "update t_handplan set f_sellid ="
@@ -582,12 +590,13 @@ public class SellSer {
 			}
 			private Map<String, Object> getInfor(String userinfoId) {
 				final String sql = "select f_stair1price f_stair1price, f_stair1amount f_stair1amount, f_stair1fee f_stair1fee, f_stair2price f_stair2price, f_stair2amount f_stair2amount," +
-				" f_stair2fee f_stair2fee, f_stair3price f_stair3price, f_stair3amount f_stair3amount, f_stair3fee f_stair3fee from " +
+				" f_stair2fee f_stair2fee, f_stair3price f_stair3price, f_stair3amount f_stair3amount, f_stair3fee f_stair3fee, f_stair4price f_stair4price, f_stair4amount f_stair4amount, f_stair4fee f_stair4fee from " +
 				"(select  min(u.f_stair1price) f_stair1price, Round(SUM(isnull(h.f_stair1amount,0)),2) f_stair1amount," +
 				" Round(SUM(isnull(h.f_stair1fee,0)),2) f_stair1fee,min(u.f_stair2price) f_stair2price," +
 				" Round(SUM(isnull(h.f_stair2amount,0)),2) f_stair2amount, Round(SUM(isnull(h.f_stair2fee,0)),2) f_stair2fee," +
 				" min(u.f_stair3price) f_stair3price, Round(SUM(isnull(h.f_stair3amount,0)),2) f_stair3amount," +
-				" Round(SUM(isnull(h.f_stair3fee,0)),2) f_stair3fee from(select * from t_userfiles" +
+				" Round(SUM(isnull(h.f_stair3fee,0)),2) f_stair3fee , min(u.f_stair4price) f_stair4price, Round(SUM(isnull(h.f_stair4amount,0)),2) f_stair4amount," +
+				" Round(SUM(isnull(h.f_stair4fee,0)),2) f_stair4fee from(select * from t_userfiles" +
 				" where f_userinfoid='"+userinfoId+"') u left join (select * from t_handplan where shifoujiaofei='否'" +
 				" and f_state='已抄表' and lastrecord is not null) h on u.f_userid=h.f_userid) t";
 				//List<Object> list = session.createSQLQuery(sql).list();
@@ -618,6 +627,8 @@ public class SellSer {
 						+ "Round(SUM(isnull(h.f_stair2amount,0)),2) f_stair2amount, Round(SUM(isnull(h.f_stair2fee,0)),2) f_stair2fee,"
 						+ "min(u.f_stair3price) f_stair3price, Round(SUM(isnull(h.f_stair3amount,0)),2) f_stair3amount,"
 						+ "Round(SUM(isnull(h.f_stair3fee,0)),2) f_stair3fee "
+						+ "min(u.f_stair4price) f_stair4price, Round(SUM(isnull(h.f_stair4amount,0)),2) f_stair4amount,"
+						+ "Round(SUM(isnull(h.f_stair4fee,0)),2) f_stair4fee "
 						+ "  from t_userfiles u,t_handplan h where u.f_userid=h.f_userid and "
 						+ "u.f_userinfoid='"+userinfoId+"' and "
 						+ "h.shifoujiaofei='否' and h.f_state='已抄表' and h.lastrecord is not null "
@@ -642,6 +653,10 @@ public class SellSer {
 			   
 			    result += ",f_stair3amount1:" + map0.get("f_stair3amount") + "";
 			    result += ",f_stair3fee1:" + map0.get("f_stair3fee") + "";
+			    
+			    result += ",f_stair4amount1:" + map0.get("f_stair4amount") + "";
+			    result += ",f_stair4fee1:" + map0.get("f_stair4fee") + "";
+			    
 			    result += ",minyue1:'" + map0.get("f_handdatemin") + "'";
 			    result += ",maxyue1:'" + map0.get("f_handdatemax") + "'";
 			    }else{
@@ -655,6 +670,8 @@ public class SellSer {
 				    result += ",f_stair2fee1:" + 0 + "";	   
 				    result += ",f_stair3amount1:" + 0 + "";
 				    result += ",f_stair3fee1:" + 0 + "";
+				    result += ",f_stair4amount1:" + 0 + "";
+				    result += ",f_stair4fee1:" + 0 + "";
 				    result += ",minyue1:" + 0 + "";
 				    result += ",maxyue1:" + 0 + "";		    		   
 			    }
@@ -672,6 +689,8 @@ public class SellSer {
 			    result += ",f_stair2fee2:" + map1.get("f_stair2fee") + "";	   
 			    result += ",f_stair3amount2:" + map1.get("f_stair3amount") + "";
 			    result += ",f_stair3fee2:" + map1.get("f_stair3fee") + "";
+			    result += ",f_stair4amount2:" + map1.get("f_stair4amount") + "";
+			    result += ",f_stair4fee2:" + map1.get("f_stair4fee") + "";
 			    result += ",minyue2:'" + map1.get("f_handdatemin") + "'";
 			    result += ",maxyue2:'" + map1.get("f_handdatemax") + "'";	
 				}else{
@@ -685,6 +704,8 @@ public class SellSer {
 					    result += ",f_stair2fee2:" + 0 + "";	   
 					    result += ",f_stair3amount2:" + 0 + "";
 					    result += ",f_stair3fee2:" + 0 + "";
+					    result += ",f_stair4amount2:" + 0 + "";
+					    result += ",f_stair4fee2:" + 0 + "";
 					    result += ",minyue2:" + 0 + "";
 					    result += ",maxyue2:" + 0 + "";
 				}
