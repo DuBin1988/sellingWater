@@ -1205,7 +1205,11 @@
                 </toolkit:DockPanel>
             </c:BusyIndicatorEx>
         </Grid>
-        <c:MessageTipObj Tip="{m:Exp  Str=$保存失败\,请重新查询后操作$}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
-
+        <c:MessageTipObj Tip="{m:Exp  Str='$用户编号为{userfileschange.DataContext.f_userid}的档案变更失败\,请重新查询后操作'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$用户编号为{userfileschange.DataContext.f_userid}的档案变更成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$}"/>
+        <c:MessageTipObj Tip="{m:Exp  Str='$用户编号为{apply.DataContext.f_userid}过户失败\,请重新查询后操作'}" IsShow="{m:Exp Str=t_SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$用户编号为{apply.DataContext.f_userid}过户成功!'}" IsShow="{m:Exp Str=t_SaveAction.State\=\=$End$}"/>
+        <c:MessageTipObj Tip="{m:Exp  Str='$用户编号为{change.DataContext.f_userid}交费类型变更失败\,请重新查询后操作'}" IsShow="{m:Exp Str=p_SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$用户编号为{change.DataContext.f_userid}交费类型变更成功!'}" IsShow="{m:Exp Str=p_SaveAction.State\=\=$End$}"/>
     </Grid>
 </UserControl>

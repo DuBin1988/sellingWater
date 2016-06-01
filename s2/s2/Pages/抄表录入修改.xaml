@@ -449,5 +449,7 @@
             </Grid>
         </Border>
         <c:MessageTipObj  Name="deletettip" Tip="您确认要删除此选择项吗？" OK="{m:Exp Str=DeleteAction.Invoke()}" />
+        <c:MessageTipObj Tip="{m:Exp  Str='$录入修改失败'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$录入修改成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$}"/>
     </Grid>
 </UserControl>
