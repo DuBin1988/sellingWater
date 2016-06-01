@@ -821,5 +821,7 @@ Margin="17.806,222,382,0"/>
             <TextBlock Text="{m:Exp Str=pipeline.DataContext.f_meternumber}" Margin="387,88,0,0" Height="20" VerticalAlignment="Top" d:LayoutOverrides="Height, GridBox" HorizontalAlignment="Left" Width="139"/>
 
         </Grid>-->
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$换表销账失败!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error or CreateHandplan.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$换表销账成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$ and CreateHandplan.State\=\=$End$}"/>
     </Grid>
 </UserControl>

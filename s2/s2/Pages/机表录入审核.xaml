@@ -192,7 +192,7 @@
                             <sdk:DataGridTextColumn Header="表钢印号" Binding="{Binding f_meternumber}" Width="80"/>
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" Width="80"/>
                             <sdk:DataGridTextColumn Header="水价类型" Binding="{Binding f_stairtype}" Width="100"/>
-                            <sdk:DataGridTextColumn Header="水价" Binding="{Binding f_gasprice}" Width="60"/>
+                            <!--<sdk:DataGridTextColumn Header="水价" Binding="{Binding f_gasprice}" Width="60"/>-->
                             <sdk:DataGridTextColumn Header="混合用水差价" Binding="{Binding f_extrawaterprice}" Width="100"/>
                             <sdk:DataGridTextColumn Header="地    址" Binding="{Binding f_address}"/>
                             <sdk:DataGridTextColumn Header="上次底数" Binding="{Binding lastinputgasnum, StringFormat=0.#}" Width="80"/>

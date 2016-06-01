@@ -714,6 +714,7 @@ HorizontalAlignment="Right" Width="1" RenderTransformOrigin="0.5,0.5"/>
         <!--<c:PrintObj Name="print1" Message="是否打印发票" IsPrint="{m:Exp Str=SaveAction.State\=\=$End$}" Area="{m:Res Key=guoshuiprint}"/>
         <c:PrintObj Name="zzprint" Message="是否打印购水证" IsPrint="{m:Exp Str=print1.State\=\=$End$}" Area="{m:Res Key=zheziprint}" />-->
         <c:PrintObj Name="print" Message="是否打印换表登记单" Area="{m:Res Key=aofengprint}" IsPrint="{m:Exp Str=onlySave\=>Click!\=null}" />
-
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$用户{pipeline.DataContext.f_userinfoid}的表{pipeline.DataContext.f_userid}换表申请失败!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$用户{pipeline.DataContext.f_userinfoid}的表{pipeline.DataContext.f_userid}换表申请成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$}"/>
     </Grid>
 </UserControl>

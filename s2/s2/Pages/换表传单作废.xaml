@@ -374,5 +374,7 @@
         <c:MessageTipObj Tip="{m:Exp Str=$制卡失败，请重新登记！错误内容：\{card.Error\=\=null:$$\,card.Error\}$}" IsShow="{m:Exp Str=card.State\=\=$Error$}"/>
         <c:MessageTipObj Tip="{m:Exp Str=$连接服务器失败，请重试！如果继续失败，请联系系统管理员。$}" IsShow="{m:Exp Str=SaveAction.State\=\=$True}"/>
         <c:MessageTipObj Name="submit" Tip="{m:Exp Str=$是否正确插入\{pipeline.DataContext.f_newgasmetermanufacturers\}卡$}" OK="{m:Exp Str=cardid1.Load()}"/>
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$换表传单作废失败!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$换表传单作废成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$}"/>
     </Grid>
 </UserControl>
