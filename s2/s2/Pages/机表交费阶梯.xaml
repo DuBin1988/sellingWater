@@ -562,7 +562,7 @@
             </Grid>
             <Grid Grid.Row="1" Margin="5,0,0,0">
                 <c:BusyIndicatorEx BusyContent="正在查询，请稍等" x:Name="kbsellgasbusy"  >
-                    <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="240" VerticalAlignment="Top">
+                    <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="180" VerticalAlignment="Top">
                         <sdk:DataGrid SelectionMode="Extended" AutoGenerateColumns="False" x:Name="dataGrid1" ItemsSource="{m:Exp Str=kbsellgas}" 
 						 IsReadOnly="True" CanUserSortColumns="False" IsHitTestVisible="True">
                             <sdk:DataGrid.Columns>
