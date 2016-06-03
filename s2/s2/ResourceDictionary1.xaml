@@ -52,9 +52,48 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="TopLabelStyle2" TargetType="sdk:Label">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sdk:Label">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ValidationStates">
+                                <VisualState x:Name="Valid"/>
+                                <VisualState x:Name="Invalid"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="RequiredStates">
+                                <VisualState x:Name="NotRequired"/>
+                                <VisualState x:Name="Required">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="FontWeight" Storyboard.TargetName="ContentControl">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="SemiBold"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="2" Padding="{TemplateBinding Padding}">
+                            <ContentControl x:Name="ContentControl" Cursor="{TemplateBinding Cursor}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="False" VerticalAlignment="{TemplateBinding VerticalAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{StaticResource TopFontClorBrush1}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <LinearGradientBrush x:Key="MainSubContentBrush1" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="#FFC5DFFB" Offset="0"/>
         <GradientStop Color="#FFD7EDF7" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="TopFontClorBrush1" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFD1556D"/>
+        <GradientStop Color="#FF97111E" Offset="0.875"/>
     </LinearGradientBrush>
     <ImageBrush x:Key="BigScreenBrush1" Stretch="Fill" ImageSource="image/大屏1.jpg"/>
     <Style x:Key="TopLabelStyle3" TargetType="sdk:Label">
@@ -5703,47 +5742,4 @@ StrokeThickness="1" Fill="Black"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>
     </Style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </ResourceDictionary>
