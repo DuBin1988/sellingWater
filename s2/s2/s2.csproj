@@ -204,9 +204,6 @@
     <Compile Include="Pages\抄表册管理.xaml.cs">
       <DependentUpon>抄表册管理.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\用户建档\户档案变更.xaml.cs">
-      <DependentUpon>户档案变更.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\用户建档\用户建档.xaml.cs">
       <DependentUpon>用户建档.xaml</DependentUpon>
     </Compile>
@@ -1652,10 +1649,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\抄表册管理.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\用户建档\户档案变更.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
