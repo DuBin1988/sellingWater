@@ -52,6 +52,12 @@ namespace Com.Aote.Pages
                 var stairType = go.GetPropertyValue("f_stairtype");
                 // 用水量
                 var oughtamount = go.GetPropertyValue("oughtamount");
+                // 本次指数为空，这条不上传
+                if (lastrecord == null)
+                {
+                    continue;
+                }
+
                 // 本期指数小于上期指数，不上传
                 if (double.Parse(lastrecord.ToString()) < double.Parse(lastinputnum.ToString()))
                 {
