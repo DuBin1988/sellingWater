@@ -1362,7 +1362,7 @@
                     </toolkit:BusyIndicator>
                 </Grid>
             </sdk:TabItem>
-            <sdk:TabItem Header="发 卡">
+            <sdk:TabItem Visibility="Collapsed" Header="发 卡">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -2881,7 +2881,7 @@
                 </Grid>
             </sdk:TabItem>
 
-            <sdk:TabItem Header="补 卡" Height="Auto" Width="Auto" Margin="0">
+            <sdk:TabItem Visibility="Collapsed" Header="补 卡" Height="Auto" Width="Auto" Margin="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
@@ -3396,7 +3396,7 @@
 				</Grid>
 			</sdk:TabItem-->
 
-            <sdk:TabItem Header="卡费修改" Height="Auto" Width="Auto" Margin="0">
+            <sdk:TabItem Visibility="Collapsed" Header="卡费修改" Height="Auto" Width="Auto" Margin="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>

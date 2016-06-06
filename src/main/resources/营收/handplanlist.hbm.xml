@@ -12,6 +12,8 @@
 		<property name="f_listid" type="string"/>
 		<!--册名-->
 		<property name="f_listname" type="string"/>
+		<!--主册片区-->
+		<property name="f_parentname" type="string"/>
 		<!--工作日（财务日期）-->
 		<property name="f_handdate" type="string"/>
 		<!--所属片区-->

@@ -185,7 +185,7 @@ namespace Com.Aote.Pages
                         go.SetPropertyValue("id", id, false);
                         string f_stairtype = (string)json["f_stairtype"];//阶梯类型
                         go.SetPropertyValue("f_stairtype", f_stairtype, false);
-                        decimal f_extrawaterprice = (decimal)json["f_extrawaterprice"];//混合用水差价
+                        string f_extrawaterprice = (string)json["f_extrawaterprice"];//混合用水差价
                         go.SetPropertyValue("f_extrawaterprice", f_extrawaterprice, false);
                         string f_username = (string)json["f_username"];//用户名
                         go.SetPropertyValue("f_username", f_username, false);

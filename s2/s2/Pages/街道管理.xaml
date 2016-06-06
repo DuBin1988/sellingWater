@@ -174,5 +174,7 @@
     				</sdk:DataGrid>
     			</toolkit:DockPanel>	 		
 		</c:BusyIndicatorEx>
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$街道{roadmanege.DataContext.f_road}新建失败!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$街道{roadmanege.DataContext.f_road}新建成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$}"/>
 		</Grid>
 </UserControl>

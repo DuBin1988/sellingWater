@@ -570,7 +570,7 @@
 						</sdk:DataGrid>
 					</toolkit:DockPanel>
 				</sdk:TabItem>
-				<sdk:TabItem Header="   补    卡   " Margin="0,0,0,3">
+				<sdk:TabItem Visibility="Collapsed" Header="   补    卡   " Margin="0,0,0,3">
 					<toolkit:DockPanel>
 						<toolkit:DockPanel toolkit:DockPanel.Dock="Bottom">
 							<Grid>

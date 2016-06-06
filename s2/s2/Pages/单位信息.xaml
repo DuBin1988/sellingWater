@@ -217,5 +217,7 @@
 			</c:BusyIndicatorEx>
 			
 		</Grid>
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$单位创建失败!'}" IsShow="{m:Exp Str=userfile.DataContext.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$单位{userfile.DataContext.f_unitname}创建成功!'}" IsShow="{m:Exp Str=userfile.DataContext.State\=\=$End$}"/>
 	</Grid>
 </UserControl>

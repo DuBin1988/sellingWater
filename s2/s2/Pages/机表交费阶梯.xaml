@@ -543,7 +543,7 @@
                             <toolkit:DockPanel  Background="#FFC3E4FD" Margin="0"   >
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                     <Button x:Name="dayin1" Content="打印违约金减免单" Margin="5" FontSize="12" Width="110"/>
-                                    <Button x:Name="dayin" Content="打印发票" Margin="5" FontSize="12"  Width="110"/>
+                                    <Button x:Name="dayin" Visibility="Collapsed" Content="打印发票" Margin="5" FontSize="12"  Width="110"/>
                                     <Button x:Name="save2" a:ControlAttach.FocusToOnEnter="f_userid" Content="保   存" Margin="5" 
 							IsEnabled="{m:Exp Str=kbfee.f_benqizhye&gt;\=0 and !kbfee.HasErrors}"
 							Click="SaveClick" Width="65" />

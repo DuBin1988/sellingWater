@@ -40,6 +40,8 @@ namespace Com.Aote.Pages
             {
                 //表具编号
                 var userid = go.GetPropertyValue("f_userid");
+                //抄表id
+                var id = go.GetPropertyValue("id");
                 // 抄表记录里的上期指数
                 var lastinputnum = go.GetPropertyValue("lastinputgasnum");
 
@@ -50,6 +52,12 @@ namespace Com.Aote.Pages
                 var stairType = go.GetPropertyValue("f_stairtype");
                 // 用水量
                 var oughtamount = go.GetPropertyValue("oughtamount");
+                // 本次指数为空，这条不上传
+                if (lastrecord == null)
+                {
+                    continue;
+                }
+
                 // 本期指数小于上期指数，不上传
                 if (double.Parse(lastrecord.ToString()) < double.Parse(lastinputnum.ToString()))
                 {
@@ -57,7 +65,7 @@ namespace Com.Aote.Pages
                     continue;
                 }
                 removed.Add(go);
-                string sql = "update t_handplan set lastrecord=" + lastrecord + ",f_state= '"+ "待审核" + "',oughtamount= " + oughtamount + " where f_userid=" + userid;
+                string sql = "update t_handplan set lastrecord=" + lastrecord + ",f_state= '"+ "待审核" + "',oughtamount= " + oughtamount + " where id=" + id;
                 HQLAction action = new HQLAction();
                 action.HQL = sql;
                 action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
@@ -154,7 +162,7 @@ namespace Com.Aote.Pages
                         go.SetPropertyValue("id", id, false);
                         string f_stairtype = (string)json["f_stairtype"];//阶梯类型
                         go.SetPropertyValue("f_stairtype", f_stairtype, false);
-                        decimal f_extrawaterprice = (decimal)json["f_extrawaterprice"];//混合用水差价
+                        string f_extrawaterprice = (string)json["f_extrawaterprice"];//混合用水差价
                         go.SetPropertyValue("f_extrawaterprice", f_extrawaterprice, false);
                         string f_username = (string)json["f_username"];//用户名
                         go.SetPropertyValue("f_username", f_username, false);

@@ -186,7 +186,6 @@
                             <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userid}"/>
                             <sdk:DataGridTextColumn d:IsLocked="True" Header="用户姓名" Binding="{Binding f_username}"/>
                             <sdk:DataGridTextColumn Header="卡号" Binding="{Binding f_cardid}"/>
-                            <sdk:DataGridTextColumn Header="写卡次数" Binding="{Binding f_times}"/>
                             <sdk:DataGridTextColumn Header="小区名称" Binding="{Binding f_districtname}"/>
                             <sdk:DataGridTextColumn Header="门牌号" Binding="{Binding f_apartment}"/>
 
@@ -235,10 +234,10 @@
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="0"/>
+                                    <RowDefinition Height="0"/>
+                                    <RowDefinition Height="0"/>
+                                    <RowDefinition Height="0"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
@@ -386,14 +385,14 @@
                                 <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="3" TextWrapping="Wrap" Text="用户状态：" TextAlignment="Right" Height="25"/>
                                 <TextBlock Margin="0,3,0,2" Grid.Row="17" TextWrapping="Wrap" Text="当前表累计购水量：" TextAlignment="Right" Height="25"/>
                                 <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="17" TextWrapping="Wrap" Text="总累计购水量：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="21" TextWrapping="Wrap" Text="壁挂炉品牌：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Grid.Column="4" Margin="-8,3,0,2" Grid.Row="21" TextWrapping="Wrap" Text="壁挂炉型号：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="22" TextWrapping="Wrap" Text="灶具品牌：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Grid.Column="4" Margin="-8,3,0,2" Grid.Row="22" TextWrapping="Wrap" Text="灶具型号：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="23" TextWrapping="Wrap" Text="热水器品牌：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Grid.Column="4" Margin="-8,3,0,2" Grid.Row="23" TextWrapping="Wrap" Text="热水器型号：" TextAlignment="Right" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Margin="0,3,0,2" Grid.Row="21" TextWrapping="Wrap" Text="壁挂炉品牌：" TextAlignment="Right" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="4" Margin="-8,3,0,2" Grid.Row="21" TextWrapping="Wrap" Text="壁挂炉型号：" TextAlignment="Right" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Margin="0,3,0,2" Grid.Row="22" TextWrapping="Wrap" Text="灶具品牌：" TextAlignment="Right" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="4" Margin="-8,3,0,2" Grid.Row="22" TextWrapping="Wrap" Text="灶具型号：" TextAlignment="Right" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Margin="0,3,0,2" Grid.Row="23" TextWrapping="Wrap" Text="热水器品牌：" TextAlignment="Right" Height="25"/>
+                                <TextBlock  Visibility="Collapsed" Grid.Column="4" Margin="-8,3,0,2" Grid.Row="23" TextWrapping="Wrap" Text="热水器型号：" TextAlignment="Right" Height="25"/>
                                 <TextBlock Margin="0,3,0,2" Grid.Row="18" TextWrapping="Wrap" Text="维护费起始年月：" TextAlignment="Right" Height="25"/>
-                                <TextBlock Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" Text="是否发卡：" TextAlignment="Right" Height="25"/>
                                 <TextBlock Grid.Column="4" Margin="-8,3,0,2" Grid.Row="18" TextWrapping="Wrap" Text="开户日期：" TextAlignment="Right" Height="25"/>
                                 <TextBlock Margin="0,3,0,2" Grid.Row="18" TextWrapping="Wrap" Text="最后购水量：" TextAlignment="Right" Grid.Column="2" Height="25"/>
                                 <TextBlock Margin="-201,3,0,12" Grid.Row="8" TextWrapping="Wrap" Text="是否发折：" TextAlignment="Right" Height="25" HorizontalAlignment="Left" Width="110" Grid.RowSpan="2"/>
@@ -420,47 +419,47 @@
                                         <o:PropertySetter PropertyName="f_cumulativepurchase" />
                                     </a:Data.Prop>
                                 </TextBox>
-                                <CheckBox IsChecked="{m:Bind Path=f_wallhangboiler}"  Content="有壁挂炉" Grid.Column="1" Margin="0,3,0,2" Grid.Row="21" Height="25" VerticalAlignment="Stretch" IsEnabled="False" >
+                                <CheckBox Visibility="Collapsed" IsChecked="{m:Bind Path=f_wallhangboiler}"  Content="有壁挂炉" Grid.Column="1" Margin="0,3,0,2" Grid.Row="21" Height="25" VerticalAlignment="Stretch" IsEnabled="False" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_wallhangboiler" />
                                     </a:Data.Prop>
                                 </CheckBox>
-                                <TextBox Text="{m:Bind Path=f_wallhangboilerbrand}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="21" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True"    >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_wallhangboilerbrand}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="21" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True"    >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_wallhangboilerbrand"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <TextBox Text="{m:Bind Path=f_wallhangboilermodel}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="21" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True"  >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_wallhangboilermodel}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="21" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True"  >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_wallhangboilermodel"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <CheckBox IsChecked="{m:Bind Path=f_kitchen}"  Content="有灶具" Grid.Column="1" Margin="0,3,0,2" Grid.Row="22" Height="25" VerticalAlignment="Stretch" IsEnabled="False" >
+                                <CheckBox Visibility="Collapsed" IsChecked="{m:Bind Path=f_kitchen}"  Content="有灶具" Grid.Column="1" Margin="0,3,0,2" Grid.Row="22" Height="25" VerticalAlignment="Stretch" IsEnabled="False" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_kitchen" />
                                     </a:Data.Prop>
                                 </CheckBox>
-                                <TextBox Text="{m:Bind Path=f_kitchenbrand}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="22"  HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Stretch" IsReadOnly="True"  >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_kitchenbrand}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="22"  HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Stretch" IsReadOnly="True"  >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_kitchenbrand"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <TextBox Text="{m:Bind Path=f_kitchenmodel}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="22" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_kitchenmodel}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="22" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_kitchenmodel"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <CheckBox IsChecked="{m:Bind Path=f_waterheater}"  Content="有热水器" Grid.Column="1" Margin="0,3,0,2" Grid.Row="23" Height="25" VerticalAlignment="Stretch" IsEnabled="False" >
+                                <CheckBox Visibility="Collapsed" IsChecked="{m:Bind Path=f_waterheater}"  Content="有热水器" Grid.Column="1" Margin="0,3,0,2" Grid.Row="23" Height="25" VerticalAlignment="Stretch" IsEnabled="False" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_waterheater" />
                                     </a:Data.Prop>
                                 </CheckBox>
-                                <TextBox Text="{m:Bind Path=f_waterheaterbrand}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="23"  HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_waterheaterbrand}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="23"  HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_waterheaterbrand"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <TextBox Text="{m:Bind Path=f_waterheatermodel}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="23" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_waterheatermodel}" Grid.Column="5" Margin="0,3,0,2" Grid.Row="23" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_waterheatermodel"/>
                                     </a:Data.Prop>
@@ -486,8 +485,8 @@
                                         <o:PropertySetter PropertyName="f_finabuygasdate"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <TextBlock Text="发卡日期：" Grid.Column="4" Margin="-8,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="19" Height="25"/>
-                                <TextBox  Text="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"  Grid.Column="5" Margin="0,3,0,2" Grid.Row="19" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch">
+                                <TextBlock Visibility="Collapsed" Text="发卡日期：" Grid.Column="4" Margin="-8,3,0,2" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="19" Height="25"/>
+                                <TextBox  Visibility="Collapsed" Text="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"  Grid.Column="5" Margin="0,3,0,2" Grid.Row="19" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch">
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_givecarddate" />
                                     </a:Data.Prop>
@@ -539,7 +538,7 @@
                                     </a:Data.Prop>
                                 </TextBox>
                                 <!--是否发卡-->
-                                <TextBox Text="{m:Bind Path=f_whethergivecard}"  Grid.Column="1" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" IsReadOnly="True"  Height="25" HorizontalAlignment="Stretch" Width="Auto"  >
+                                <TextBox Visibility="Collapsed" Text="{m:Bind Path=f_whethergivecard}"  Grid.Column="1" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" IsReadOnly="True"  Height="25" HorizontalAlignment="Stretch" Width="Auto"  >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_whethergivecard"  />
                                     </a:Data.Prop>
@@ -631,8 +630,8 @@
                                         <o:PropertySetter PropertyName="f_aliasname" />
                                     </a:Data.Prop>
                                 </TextBox>
-                                <TextBlock Grid.Column="2" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" Text="开户水量：" Height="25" TextAlignment="Right"/>
-                                <TextBox Text="{m:Bind Path=f_kaihuql}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" Height="25" IsReadOnly="True">
+                                <TextBlock Grid.Column="0" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" Text="开户水量：" Height="25" TextAlignment="Right"/>
+                                <TextBox Text="{m:Bind Path=f_kaihuql}" Grid.Column="1" Margin="0,3,0,2" Grid.Row="19" TextWrapping="Wrap" Height="25" IsReadOnly="True">
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_kaihuql"  />
                                     </a:Data.Prop>
@@ -713,7 +712,7 @@
                                         <o:PropertySetter PropertyName="f_yyttime" />
                                     </a:Data.Prop>
                                 </toolkit:TimePicker>
-                                <TextBlock Margin="-8,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="写卡次数：" TextAlignment="Right" Grid.Column="4" Height="25"/>
+                                <TextBlock Visibility="Collapsed" Margin="-8,3,0,2" Grid.Row="13" TextWrapping="Wrap" Text="写卡次数：" TextAlignment="Right" Grid.Column="4" Height="25"/>
                                 <TextBox Text="{m:Bind Path=f_times}"  Grid.Column="5" Margin="0,3,0,2" Grid.Row="13" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" HorizontalAlignment="Stretch" Grid.ColumnSpan="1"  >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_times" />
