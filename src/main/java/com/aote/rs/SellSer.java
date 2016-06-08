@@ -626,7 +626,7 @@ public class SellSer {
 						+ "Round(SUM(isnull(h.f_stair1fee,0)),2) f_stair1fee,min(u.f_stair2price) f_stair2price,"
 						+ "Round(SUM(isnull(h.f_stair2amount,0)),2) f_stair2amount, Round(SUM(isnull(h.f_stair2fee,0)),2) f_stair2fee,"
 						+ "min(u.f_stair3price) f_stair3price, Round(SUM(isnull(h.f_stair3amount,0)),2) f_stair3amount,"
-						+ "Round(SUM(isnull(h.f_stair3fee,0)),2) f_stair3fee "
+						+ "Round(SUM(isnull(h.f_stair3fee,0)),2) f_stair3fee, "
 						+ "min(u.f_stair4price) f_stair4price, Round(SUM(isnull(h.f_stair4amount,0)),2) f_stair4amount,"
 						+ "Round(SUM(isnull(h.f_stair4fee,0)),2) f_stair4fee "
 						+ "  from t_userfiles u,t_handplan h where u.f_userid=h.f_userid and "
