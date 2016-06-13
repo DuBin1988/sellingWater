@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Browser;
 using Com.Aote.ObjectTools;
+using System.Collections;
 
 namespace Com.Aote.Pages
 {
@@ -20,7 +21,30 @@ namespace Com.Aote.Pages
         public GasMainPage()
         {
             InitializeComponent();
+            //gasmg.Loaded += gasmg_Loaded;
         }
+
+        //void gasmg_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    gasmg.Loaded -= gasmg_Loaded;
+
+        //    GeneralObject loginUser = (gasmg.Res[0] as CustomTypeHelper).FindResource("LoginUser") as GeneralObject;
+
+        //     foreach (GeneralObject go in (loginUser.GetPropertyValue("functions")) as IEnumerable)
+        //     {
+        //         foreach (GeneralObject go2 in (IEnumerable)go.GetPropertyValue("children"))
+        //         {
+        //             if (go2.GetPropertyValue("name").Equals("综合查询"))
+        //             {
+        //                 //ObjectList sels = (from p in gasmg.Res where p.Name == "selected" select p).First() as ObjectList;
+        //                 //sels.Add(go2);
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
+            
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -45,20 +69,28 @@ namespace Com.Aote.Pages
              MessageBox.Show("这个，你是关闭不了的！你都点击了"+clickcount+"次了！");
         }
 		
-		 private void addPageToTab(object sender, RoutedEventArgs e)
-        {
-            GeneralObject go = (GeneralObject)((Button)sender).DataContext;
-            ObjectList sels = (from p in gasmg.Res where p.Name == "selected" select p).First() as ObjectList;
-            if(sels.Contains(go))
-            {
-                this.tab.SelectedIndex = go.IndexOf(sels);
-            }
-            else
-            {
-                sels.Add(go);
-                this.tab.SelectedIndex = go.IndexOf(sels);
-            }
+        // private void addPageToTab(object sender, RoutedEventArgs e)
+        //{
+        //    GeneralObject go = (GeneralObject)((Button)sender).DataContext;
+        //    addPageToTab(go);
             
-        }
+        //}
+
+        private void addPageToTab(object sender, RoutedEventArgs e)
+         {
+             GeneralObject go = (GeneralObject)((Button)sender).DataContext;
+             ObjectList sels = (from p in gasmg.Res where p.Name == "selected" select p).First() as ObjectList;
+             if (sels.Contains(go))
+             {
+                 this.tab.SelectedIndex = go.IndexOf(sels);
+             }
+             else
+             {
+                 sels.Add(go);
+                 this.tab.SelectedIndex = go.IndexOf(sels);
+             }
+         }
+
+
     }
 }
