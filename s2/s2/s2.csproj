@@ -3519,6 +3519,16 @@
       <Name>s2DLL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\logojc.png" />
+    <Resource Include="image\righttopimage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\logojc_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\background.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
