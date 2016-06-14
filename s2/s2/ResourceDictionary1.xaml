@@ -5384,7 +5384,7 @@ StrokeThickness="1" Fill="Black"/>
                                 <VisualState x:Name="Unfocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="Border" Padding="{TemplateBinding Padding}" BorderThickness="1" BorderBrush="#FFBABFFF">
+                        <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                             <ScrollViewer BorderBrush="Transparent" BorderThickness="0" Background="{x:Null}" HorizontalScrollBarVisibility="Disabled" IsTabStop="False" Margin="0" Padding="0" VerticalScrollBarVisibility="Disabled">
                                 <ItemsPresenter/>
                             </ScrollViewer>
@@ -5406,7 +5406,7 @@ StrokeThickness="1" Fill="Black"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="toolkit:AccordionButton">
-                    <Grid Background="#0AB43A3A" Margin="{TemplateBinding Padding}" Height="25">
+                    <Grid Background="#0AB43A3A" Margin="{TemplateBinding Padding}" VerticalAlignment="Center">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="ExpandDirectionStates">
                                 <VisualStateGroup.Transitions>
@@ -5595,17 +5595,17 @@ StrokeThickness="1" Fill="Black"/>
                                 <VisualState x:Name="Unfocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="background" CornerRadius="1,1,1,1" Background="#FF6598FB">
+                        <Border x:Name="background" CornerRadius="1,1,1,1" Background="#FF4B97D8" VerticalAlignment="Center">
                             <Grid>
                                 <Border x:Name="ExpandedBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1,1,1,1" Height="Auto" Margin="0,0,0,0" Opacity="0" VerticalAlignment="Stretch"/>
                                 <Border x:Name="MouseOverBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#FFBDBDBD" CornerRadius="1,1,1,1" Height="Auto" Margin="0,0,0,0" Opacity="0" VerticalAlignment="Stretch"/>
-                                <Grid Background="Transparent">
+                                <Grid Background="Transparent" VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition x:Name="cd0" Width="Auto"/>
                                         <ColumnDefinition x:Name="cd1" Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition x:Name="rd0" Height="34.75"/>
+                                        <RowDefinition x:Name="rd0" Height="25"/>
                                     </Grid.RowDefinitions>
                                     <Grid x:Name="icon" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" RenderTransformOrigin="0.5,0.5" Width="19" UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="0" VerticalAlignment="Top" Height="25">
                                         <Grid.RenderTransform>
@@ -5627,7 +5627,7 @@ StrokeThickness="1" Fill="Black"/>
                                             </Path.RenderTransform>
                                         </Path>
                                     </Grid>
-                                    <toolkit:LayoutTransformer x:Name="header" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="6,4.625,6,14" Grid.Row="0" Grid.RowSpan="1" d:LayoutOverrides="Height"/>
+                                    <toolkit:LayoutTransformer x:Name="header" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="6,0" Grid.Row="0" Grid.RowSpan="1" d:LayoutOverrides="Height" VerticalAlignment="Center"/>
                                 </Grid>
                             </Grid>
                         </Border>
@@ -5640,6 +5640,7 @@ StrokeThickness="1" Fill="Black"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>
         <Setter Property="FontSize" Value="12"/>
+        <Setter Property="MinHeight" Value="25"/>
     </Style>
     <Style x:Key="accordionitem_contentbtn" TargetType="Button">
         <Setter Property="Background" Value="#FF1F3B53"/>
@@ -5741,5 +5742,68 @@ StrokeThickness="1" Fill="Black"/>
         </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+    </Style>
+    <Style x:Key="ListBoxItem_nostyle" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="TabNavigation" Value="Local"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".35" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="fillColor"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".55" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="contentPresenter"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected"/>
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".75" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="fillColor2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="FocusVisualElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="LayoutStates">
+                                <VisualState x:Name="AfterLoaded"/>
+                                <VisualState x:Name="BeforeLoaded"/>
+                                <VisualState x:Name="BeforeUnloaded"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="fillColor" IsHitTestVisible="False" Opacity="0" RadiusY="1" RadiusX="1"/>
+                        <Rectangle x:Name="fillColor2" IsHitTestVisible="False" Opacity="0" RadiusY="1" RadiusX="1"/>
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"/>
+                        <Rectangle x:Name="FocusVisualElement" RadiusY="1" RadiusX="1" StrokeThickness="1" Visibility="Collapsed"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

@@ -24,13 +24,15 @@ namespace Com.Aote.Pages
 			InitializeComponent();
 		}
 
-        private void f_listname_MouseEnter(object sender, MouseEventArgs e)
+        private void listid_MouseEnter(object sender, RoutedEventArgs e)
         {
             string date = handdate.Text;
-            string area = handarea.SelectedValue.ToString();
+            string areacode1 = areacode.Text;
             string code1 = code.Text;
-            string handplan = date + area + code1;
+
+            string handplan = areacode1 + code1 + date;
             listid.Text = handplan;
         }
+
 	}
 }

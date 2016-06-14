@@ -24,21 +24,21 @@
 
             <!--判断编码是否存在-->
             <o:GeneralObject Name="numexist" EntityType="t_userfiles" WebClientInfo="{StaticResource dbclient}" IsInit="{m:Exp Str=pipeline.DataContext.State\=\=$End}"
-		  	Path="{m:Exp Str=pipeline.DataContext.f_newtiaoxianno \!\=null:$one/select new Map(count(*) as count) from t_userfiles where f_touxianno\=\'\{pipeline.DataContext.f_newtiaoxianno\}\'$\,$aaa$}"/>
+		  	Path="{m:Exp Str=pipeline.DataContext.f_newtiaoxianno \!\=null:$one/select new Map(count(*) as count) from t_userfiles where f_handid\=\'\{pipeline.DataContext.f_newtiaoxianno\}\'$\,$aaa$}"/>
 
             <!--抄表册列表-->
             <o:ObjectList Name="handplanlist" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" Path="from t_handplanlist"  HasEmptyRow="True" />
 
             <!--投线表列表-->
             <o:PagedObjectList Name="pipelineslist" WebClientInfo="{StaticResource dbclient}"
-            Path="{m:Exp Str=$from t_userfiles where \{pipelinesearch.DataContext.Condition\} and f_filiale \=\'\{LoginUser.f_fengongsi\}\'}"
+            Path="{m:Exp Str=$from t_userfiles where \{pipelinesearch.DataContext.Condition\} and f_handid\!\=null and f_filiale \=\'\{LoginUser.f_fengongsi\}\'}"
 			PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="f_times" IsOld="{m:Exp Str=SaveAction.State\=\=$End$}"/>
 
             <b:HQLAction Name="changeline" WebClientInfo="{StaticResource server}">
                 <b:HQLAction.HQL>
                     <m:Exp Str="
                 $update t_userfiles set f_listid='{pipelinego.f_newlistid}',f_handno='{pipelinego.f_newhandno}', 
-                          f_touxianno='{pipelinego.f_newtiaoxianno}' where f_userid='{pipelinego.f_userid}'">
+                          f_handid='{pipelinego.f_newtiaoxianno}' where f_userid='{pipelinego.f_userid}'">
                     </m:Exp>
                 </b:HQLAction.HQL>
             </b:HQLAction>
@@ -97,7 +97,7 @@
                             <sdk:DataGridTextColumn Header="序号" Binding="{Binding Index}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}" d:IsLocked="True"/>
-                            <sdk:DataGridTextColumn Header="投线编码" Binding="{Binding f_touxianno}" d:IsLocked="True"/>
+                            <!--<sdk:DataGridTextColumn Header="投线编码" Binding="{Binding f_touxianno}" d:IsLocked="True"/>-->
                             <sdk:DataGridTextColumn Header="用户姓名" Binding="{Binding f_username}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="地址" Binding="{Binding f_address}" d:IsLocked="True"/>
                             <sdk:DataGridTextColumn Header="抄表编号" Binding="{Binding f_handid}" d:IsLocked="True"/>
@@ -148,16 +148,16 @@
                         <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="水价类型：" Grid.Row="5" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="抄表周期：" Grid.Row="5" Grid.Column="2" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Text="调线册号：" Grid.Row="6" Grid.Column="2" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="投线编码：" Grid.Row="6" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="抄表编号：" Grid.Row="6" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="调线次序号：" Grid.Row="8" Height="25" TextAlignment="Right"/>
-                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="调线编码：" Grid.Row="8" Grid.Column="2" Height="25" TextAlignment="Right"/>
+                        <TextBlock Margin="0,8,0,2" TextWrapping="Wrap" Text="新抄表编号：" Grid.Row="8" Grid.Column="2" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0,6,0,4" Grid.Row="1" TextWrapping="Wrap" Text="表具编号：" Grid.Column="2" TextAlignment="Right"/>
                         <TextBlock Margin="0" Grid.Row="2" TextWrapping="Wrap" Text="用户地址：" Height="25" TextAlignment="Right"/>
                         <TextBlock Margin="0" Grid.Row="9" TextWrapping="Wrap" Text="操 作 员：" Height="25" TextAlignment="Right" Grid.Column="2"/>
                         <TextBlock Margin="16,8,0,2" Grid.Row="9" TextWrapping="Wrap" Text="分 公 司：" TextAlignment="Right" Height="25"/>
-                        <TextBox x:Name="f_touxianno" Text="{m:Bind Path=f_touxianno}" Grid.Column="1" Margin="0,5,0,4" Grid.Row="6" TextWrapping="Wrap" IsReadOnly="True"  VerticalAlignment="Stretch" Height="25" d:LayoutOverrides="HorizontalMargin">
+                        <TextBox x:Name="f_touxianno" Text="{m:Bind Path=f_handid}" Grid.Column="1" Margin="0,5,0,4" Grid.Row="6" TextWrapping="Wrap" IsReadOnly="True"  VerticalAlignment="Stretch" Height="25" d:LayoutOverrides="HorizontalMargin">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_touxianno" Value="{m:Exp Str=pipelines.SelectedItem.f_touxianno}"/>
+                                <o:PropertySetter PropertyName="f_handid" Value="{m:Exp Str=pipelines.SelectedItem.f_handid}"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox x:Name="f_newhandno" Text="{m:Bind Path=f_newhandno}" Grid.Column="1" Margin="0,8,0,7" Grid.Row="8" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="25" Grid.ColumnSpan="1"  d:LayoutOverrides="HorizontalMargin" TextChanged="f_newhandno_TextChanged">
@@ -167,7 +167,7 @@
                         </TextBox>
                         <TextBox x:Name="f_newtiaoxianno" Text="{m:Bind Path=f_newtiaoxianno}" IsReadOnly="True" Grid.Column="3" Margin="0,5,0,4" Grid.Row="8" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="25" d:LayoutOverrides="HorizontalMargin">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_newtiaoxianno"   ValidationVal="{m:Exp Str='numexist=>DataLoaded!=null:(numexist.count&gt;0:$False$\,$True$)\,$False$'}" ErrorMessage="该编码已经已存在，请重新调线"/>
+                                <o:PropertySetter PropertyName="f_newtiaoxianno"   ValidationVal="{m:Exp Str='numexist=>DataLoaded!=null:(numexist.count&gt;0:$False$\,$True$)\,$False$'}" ErrorMessage="该编号已经已存在，请重新调线"/>
                             </a:Data.Prop>
                         </TextBox>
                         <TextBox x:Name="f_filiale" Text="{m:Bind Path=f_filiale}" Grid.Column="1" Margin="0,5,0,4" Grid.Row="9" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Right" Width="130" d:LayoutOverrides="HorizontalMargin">
@@ -235,7 +235,7 @@
                     </Grid>
                 </Grid>
             </c:BusyIndicatorEx>
-            <sdk:DataPager x:Name="pager" Source="{Binding Path=ItemsSource.Count,ElementName=pipelines,Converter={StaticResource DataPagerConverter}}"  Margin="1,0,0,44" PageSize="15" Height="27" VerticalAlignment="Bottom"/>
+            <sdk:DataPager x:Name="pager" Source="{Binding Path=ItemsSource.Count,ElementName=pipelines,Converter={StaticResource DataPagerConverter}}"  Margin="1,0,0,44" PageSize="20" Height="27" VerticalAlignment="Bottom"/>
             <TextBlock  TextWrapping="Wrap" Text="{m:Exp Str=$共\{pipelines.ItemsSource.Count\}项}" HorizontalAlignment="Stretch" Foreground="#FF140000" VerticalAlignment="Stretch" Margin="12,670,177,51"/>
         </Grid>
     </Grid>

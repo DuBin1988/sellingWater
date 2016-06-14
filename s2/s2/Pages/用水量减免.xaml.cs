@@ -135,7 +135,7 @@ namespace Com.Aote.Pages
                     return;
                 }
 
-                string sql1 = "update t_handplan set f_state= '" + "待审核" + "' where f_userinfoid=" + userinfoid + " and oughtfee!=null";
+                string sql1 = "update t_handplan set f_state= '" + "待审核" + "' where f_userinfoid=" + userinfoid + " and oughtfee!=null and shifoujiaofei = '否' and lastinputdate>=" + ui_lastinputdate.Text;
                 HQLAction action1 = new HQLAction();
                 action1.HQL = sql1;
                 action1.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
@@ -145,7 +145,7 @@ namespace Com.Aote.Pages
                 list = new ObjectList();
                 list.LoadOnPathChanged = false;
                 list.EntityType = "t_handplan";
-                list.Path = "from t_handplan where f_userinfoid=" + userinfoid + "and f_state= '" + "待审核" + "' and oughtfee!=null";
+                list.Path = "from t_handplan where f_userinfoid=" + userinfoid + "and f_state= '" + "待审核" + "' and oughtfee!=null and shifoujiaofei = '否' and lastinputdate>=" + ui_lastinputdate.Text;
                 list.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
                 list.Completed += LoadBuildingAndOthers_Completed;
                 list.Load();

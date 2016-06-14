@@ -21,7 +21,7 @@
            Title="Frame Page">    
 
     <Grid Background="{StaticResource LoginBgColorBrush1}">
-		<m:ResourceLoad>
+		<m:ResourceLoad >
 			<!--后台Hibernate配置在前台的反映-->
 	        <o:CustomTypes Name="CustomTypes" 
 			WebClientInfo="{StaticResource dbclient}" Path=""/>

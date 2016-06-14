@@ -252,5 +252,7 @@
 				</toolkit:DockPanel>
 			</c:BusyIndicatorEx>
 		</Grid>
+        <c:MessageTipObj  Type="MessageBox" Tip="{m:Exp Str='$小区创建失败!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$Error}"/>
+        <c:MessageTipObj  Name="savedone" Type="MessageBox" Tip="{m:Exp Str='$小区{ybuserfile.DataContext.f_districtname}创建成功!'}" IsShow="{m:Exp Str=SaveAction.State\=\=$End$}"/>
 	</Grid>
 </UserControl>
