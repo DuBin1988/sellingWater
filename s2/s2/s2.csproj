@@ -151,6 +151,9 @@
     <Compile Include="Pages\卡表转气.xaml.cs">
       <DependentUpon>卡表转气.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\抄表员垫付销账.xaml.cs">
+      <DependentUpon>抄表员垫付销账.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\抄表编号插入.xaml.cs">
       <DependentUpon>抄表编号插入.xaml</DependentUpon>
     </Compile>
@@ -1161,9 +1164,6 @@
     <Compile Include="Pages\历史售气收费维护.xaml.cs">
       <DependentUpon>历史售气收费维护.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\发折.xaml.cs">
-      <DependentUpon>发折.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\发票信息查看.xaml.cs">
       <DependentUpon>发票信息查看.xaml</DependentUpon>
     </Compile>
@@ -1581,6 +1581,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\卡表转气.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\抄表员垫付销账.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2929,10 +2933,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\历史售气收费维护.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\发折.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>

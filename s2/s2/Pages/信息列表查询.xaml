@@ -2880,12 +2880,7 @@
                     </toolkit:BusyIndicator>
                 </Grid>
             </sdk:TabItem>
-
-<<<<<<< HEAD
             <sdk:TabItem Visibility="Collapsed" Header="补 卡" Height="Auto" Width="Auto" Margin="0">
-=======
-            <sdk:TabItem Header="补 卡" Height="Auto" Width="Auto" Margin="0" Visibility="Collapsed">
->>>>>>> refs/heads/master
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
@@ -3400,11 +3395,7 @@
 				</Grid>
 			</sdk:TabItem-->
 
-<<<<<<< HEAD
-            <sdk:TabItem Visibility="Collapsed" Header="卡费修改" Height="Auto" Width="Auto" Margin="0">
-=======
             <sdk:TabItem Header="卡费修改" Height="Auto" Width="Auto" Margin="0" Visibility="Collapsed">
->>>>>>> refs/heads/master
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>

@@ -30,10 +30,7 @@
 				IsOld="{m:Exp Str=kbusers.State\=\=$Loaded$}" />
             <!--付款方式列表-->
             <o:ObjectList Name="paylist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='付款方式' order by id"/>
-            <!--当前登录用户用户的最小未用发票号-->
-            <o:GeneralObject Name="LoginUserfapiao" EntityType="t_gsxiangou" WebClientInfo="{StaticResource dbclient}"
-                   Path="{m:Exp Str=portObj.port\=\=null:$one/select new Map(f_invoicenum as fapiaohao) from t_fapiaoinfos  where id in(select min(id) from t_fapiaoinfos  where  f_sgoperator\=\'\{LoginUser.name\}\' and f_fapiaostatue\=\'未用\' )$\,$one/select new Map(f_invoicenum as fapiaohao) from t_fapiaoinfos  where id in(select min(id) from t_fapiaoinfos  where  f_sgoperator\=\'\{portObj.port\}\' and f_fapiaostatue\=\'未用\' ) }">
-            </o:GeneralObject>
+
             <!--抄表的未交费记录-->
 
             <!--<o:ObjectList Name="kbsellgas" LoadOnPathChanged="False" WebClientInfo="{StaticResource dbclient}"
@@ -134,25 +131,12 @@
             </o:GeneralObject>
 
             <!--发票对象-->
-            <o:GeneralObject Name="fpinfosobj" EntityType="t_fapiaoinfos" WebClientInfo="{StaticResource dbclient}"
-			Path="{m:Exp Str=$one/from t_fapiaoinfos where f_filiale\=\'\{LoginUser.f_fengongsi\}\' and f_invoicenum\=\'\{kbfee.f_invoicenum\}\'}"
-			IsInit="{m:Exp Str=print.State\=\=$End$ |or| print.State\=\=$Cancle$}">
-                <o:PropertySetter PropertyName="f_username" Value="{m:Exp Str=kbfee1.DataContext.f_username}"/>
-                <o:PropertySetter PropertyName="f_invoicenum" Value="{m:Exp Str=kbfee1.DataContext.f_invoicenum}"/>
+            <o:GeneralObject Name="fpinfosobj" EntityType="t_fapiaoinfos" WebClientInfo="{StaticResource dbclient}" 
+			Path="{m:Exp Str=$one/from t_fapiaoinfos where f_invoicenum\=\'\{kbfee1.DataContext.f_invoicenum\}\'}"  
+			IsInit="{m:Exp Str=print.State\=\=$End$ |or| print1.State\=\=$End$}">
                 <o:PropertySetter PropertyName="f_userid" Value="{m:Exp Str=kbfee1.DataContext.f_userid}" />
-                <o:PropertySetter PropertyName="f_cardid" Value="{m:Exp Str=kbfee1.DataContext.f_cardid}"/>
-                <o:PropertySetter PropertyName="f_gas" Value="{m:Exp Str=kbfee1.DataContext.f_pregas}" />
-                <o:PropertySetter PropertyName="f_money" Value="{m:Exp Str=kbfee1.DataContext.f_preamount}" />
-                <o:PropertySetter PropertyName="f_repairfee" Value="{m:Exp Str=kbfee1.DataContext.f_amountmaintenance}" />
-                <o:PropertySetter PropertyName="f_totalfee" Value="{m:Exp Str=kbfee1.DataContext.f_totalcost}" />
-                <o:PropertySetter PropertyName="f_grossproceeds" Value="{m:Exp Str=kbfee1.DataContext.f_grossproceeds}" />
-                <o:PropertySetter PropertyName="f_sgoperator" Value="{m:Exp Str=kbfee1.DataContext.f_sgoperator}" />
-                <o:PropertySetter PropertyName="f_fapiaotime" Value="{m:Exp Str=save2\=>Click!\=null:SysTime.Now\,SysTime.Now}" />
-                <o:PropertySetter PropertyName="f_fapiaodate" Value="{m:Exp Str=save2\=>Click!\=null:SysTime.Now\,SysTime.Now}" />
-                <o:PropertySetter PropertyName="f_fapiaotype" Default="机表收费" Value="机表收费"/>
-                <o:PropertySetter PropertyName="f_sgnetwork" Default="{m:Exp Str=LoginUser.f_parentname}" />
-                <o:PropertySetter  PropertyName="f_orgstr" Default="{m:Exp Str=LoginUser.orgpathstr}"/>
             </o:GeneralObject>
+
 
             <!--打印完成后，重新获取发票号-->
             <b:ScriptAction Name="loadfapiao" CanRun="{m:Exp Str=print.State\=\=$End$ |or| print1.State\=\=$End$}" Start="{m:Exp Str=LoginUserfapiao.IsOld\=True}"></b:ScriptAction>
@@ -236,7 +220,7 @@
                                 <sdk:DataGridTextColumn Header="当前表购水量" Binding="{Binding f_metergasnums}"/>
                                 <sdk:DataGridTextColumn Header="本次剩余补水量" Binding="{Binding f_thisnextaddgasamount}"/>
                                 <sdk:DataGridTextColumn Header="维护费日期" Binding="{Binding f_beginfee, StringFormat=yyyy-MM}"/>
-                                <!--<sdk:DataGridTextColumn Header="发卡日期" Binding="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"/>-->
+                                <sdk:DataGridTextColumn Header="发卡日期" Binding="{Binding f_givecarddate, StringFormat=yyyy-MM-dd}"/>
                                 <sdk:DataGridTextColumn Header="是否发卡" Binding="{Binding f_whethergivecard}"/>
                                 <sdk:DataGridTextColumn Header="最后购水量" Binding="{Binding f_finallybought}"/>
                                 <sdk:DataGridTextColumn Header="最后购水日期" Binding="{Binding f_finabuygasdate, StringFormat=yyyy-MM-dd}"/>
@@ -321,10 +305,9 @@
                                         </LinearGradientBrush>
                                     </Border.Background>
                                 </Border>
-                                <TextBox x:Name="ui_userid" IsReadOnly="True" a:ControlAttach.FocusToOnEnter="shoukuan"  Text="{m:Bind Path=f_userinfoid}"  Grid.Column="1" Margin="0,4" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" >
+                                <TextBox x:Name="ui_userid" LostFocus="ui_userid_LostFocus" KeyDown="ui_userid_KeyDown" a:ControlAttach.FocusToOnEnter="shoukuan"  Text="{m:Bind Path=f_userinfoid}"  Grid.Column="1" Margin="0,4" TextWrapping="Wrap" Grid.ColumnSpan="1" Height="Auto" VerticalAlignment="Stretch" >
                                     <a:Data.Prop>
-                                        <o:PropertySetter PropertyName="f_userinfoid"/>
-
+                                        <o:PropertySetter PropertyName="f_userinfoid" NotNull="True" />
                                     </a:Data.Prop>
                                 </TextBox>
 
@@ -504,9 +487,7 @@
                                 <TextBlock Text="发 票 号：" Grid.Column="2" Margin="0,6,0,6" Grid.Row="10" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
                                 <TextBox Text="{m:Bind Path=f_invoicenum}" Grid.Column="3" Margin="0" Grid.Row="10" TextWrapping="Wrap" Height="25" VerticalAlignment="Stretch" Grid.RowSpan="1" >
                                     <a:Data.Prop>
-
-                                        <o:PropertySetter PropertyName="f_invoicenum"  Default="{m:Exp Str=LoginUserfapiao.fapiaohao !\=null \:LoginUserfapiao.fapiaohao\,$$}" NoDependValue="{m:Exp Str=LoginUserfapiao.fapiaohao !\=null \:LoginUserfapiao.fapiaohao\,$$}"></o:PropertySetter>
-
+                                        <o:PropertySetter PropertyName="f_invoicenum" Default="{m:Exp Str=LoginUserfapiao.fapiaohao}" NoDependValue="{m:Exp Str=LoginUserfapiao.fapiaohao}"/>
                                     </a:Data.Prop>
                                 </TextBox>
                                 <TextBlock Text="上期结余：" Margin="0,2,0,3" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
@@ -542,6 +523,17 @@
 										Default="{m:Exp Str=LoginUser.f_fengongsi}"/>
                                     </a:Data.Prop>
                                 </TextBox>
+                                <TextBlock Margin="0,5,0,7" Grid.Row="11" TextWrapping="Wrap" Text="抄 表 员：" TextAlignment="Right" Height="25"/>
+                                <TextBox x:Name="ui_inputtor" Text="{m:Bind Path=f_inputtor}" Grid.Column="1" Margin="0,4" Grid.Row="11" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Stretch" Height="Auto" HorizontalAlignment="Stretch" Grid.ColumnSpan="1" >
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_inputtor" />
+                                    </a:Data.Prop>
+                                </TextBox>
+                                <CheckBox x:Name="ui_whetherdianfu" IsChecked="{m:Bind Path=f_whetherdianfu}"  Content="垫付"  Grid.Row="11" Grid.Column="2" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="62" Grid.RowSpan="1">
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_whetherdianfu"  Default="{m:Exp Str=False}"/>
+                                    </a:Data.Prop>
+                                </CheckBox>
                                 <TextBlock Text="最后的抄表指数：" Grid.Column="4"  TextWrapping="Wrap" TextAlignment="Right" Grid.Row="1" Margin="0,4" Height="25"/>
                                 <TextBox  Text="{m:Bind Path=lastinputgasnum_user}" Grid.Column="5"  Grid.Row="1" TextWrapping="Wrap" IsReadOnly="True" HorizontalAlignment="Stretch" Width="Auto" Margin="0,4" Grid.ColumnSpan="1" Height="25" VerticalAlignment="Stretch" >
                                     <a:Data.Prop>
@@ -549,7 +541,7 @@
                                     </a:Data.Prop>
                                 </TextBox>
 
-                                <TextBox x:Name="zhe" Text="{Binding f_zherownum,Mode=TwoWay}" FontWeight="Bold" Foreground="Red" Grid.Column="2" Margin="58,10,38,31" TextWrapping="Wrap" Grid.Row="11" Height="25" VerticalAlignment="Stretch" IsReadOnly="True" Grid.RowSpan="2"/>
+                                <TextBox x:Name="zhe" Text="{Binding f_zherownum,Mode=TwoWay}" FontWeight="Bold" Foreground="Red" Grid.Column="4" Margin="82,10,10,3" TextWrapping="Wrap" Grid.Row="11" VerticalAlignment="Stretch" IsReadOnly="True"/>
 
                             </Grid>
                         </StackPanel>
@@ -563,7 +555,6 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                     <Button x:Name="dayin1" Content="打印违约金减免单" Margin="5" FontSize="12" Width="110"/>
                                     <Button x:Name="dayin" Visibility="Collapsed" Content="打印发票" Margin="5" FontSize="12"  Width="110"/>
-
                                     <Button x:Name="save2" a:ControlAttach.FocusToOnEnter="f_userid" Content="保   存" Margin="5" 
 							IsEnabled="{m:Exp Str=kbfee.f_benqizhye&gt;\=0 and !kbfee.HasErrors}"
 							Click="SaveClick" Width="65" />
@@ -752,7 +743,7 @@ Margin="18.667,0,381.139,132.294" Height="1" VerticalAlignment="Bottom" Grid.Col
             <Path Data="M17,186 L492.26941,186" Height="1" Stretch="Fill" Stroke="Black" StrokeThickness="1" UseLayoutRounding="False" VerticalAlignment="Top" 
 Margin="18.667,280.706,381.139,0" Grid.ColumnSpan="2"/>
             <Path Data="M72,0 L72,276.02899" Margin="266.987,143.602,0,31.294" Stretch="Fill" Stroke="Black" StrokeThickness="1" UseLayoutRounding="False" HorizontalAlignment="Left" Width="1" Grid.Column="1"/>
-            <sdk:Label Height="20" Margin="0,33,500,0" Content=" 富 强 水 务 有 限 公 司 用 户 水 费 缴 费 收 费 票 据" VerticalAlignment="Top" FontSize="15" Grid.Column="1" />
+            <sdk:Label Height="20" Margin="250,33,541,0" Content="安 顺 达 管 道 天 然 水 有 限 公 司 收 费 票 据" VerticalAlignment="Top" FontSize="15" Grid.ColumnSpan="2" />
             <sdk:Label  Content="年" HorizontalAlignment="Left" Height="16" Margin="113,66,0,0"  VerticalAlignment="Top" Width="17"/>
             <sdk:Label  Content="月" HorizontalAlignment="Left" Height="16" Margin="159,66,0,0"  VerticalAlignment="Top" Width="15"/>
             <sdk:Label HorizontalAlignment="Left" Content="日" Height="16" Margin="210,66,0,0" VerticalAlignment="Top" Width="13"/>

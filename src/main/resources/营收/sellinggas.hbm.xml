@@ -132,6 +132,15 @@
 		<property name="f_payment" type="string"/>
 		<!--交费类型 为现金、银行代扣-->
 		<property name="f_paytype" type="string"/>
+		<!-- 抄表员 -->
+		<property name="f_inputtor" type="string"/>
+		<!--交费方式是否为抄表员垫付-->
+		<property name="f_whetherdianfu" type="boolean"/>
+		<!--抄表员垫付销账备注-->
+		<property name="f_displacedetails" type="string"/>
+		<!--抄表员垫付销账时间-->
+		<property name="f_displacedate" type="date"/>
+		
 		
 	<!-- **************阶梯气价信息**************** -->
 	<!-- 存储用户当前购气时，气价和气量的具体信息，购气量在阶段几种  获得当前阶段的单价 算出购气金额 -->

@@ -24,20 +24,19 @@
                 <o:PropertySetter PropertyName="url" Value="{m:Exp Str=daninfos.ItemsSource.Path.ReplaceStr($%|%25$)}" />
             </o:GeneralObject>
 
-			<!--查询条件对象-->						
-			<o:SearchObject Name="search"/>
+            <!--查询条件对象-->
+            <o:SearchObject Name="search"/>
 
             <!--抄表册列表-->
             <o:ObjectList Name="handplanlist" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" Path="from t_handplanlist"  HasEmptyRow="True" />
 
             <!--水表类型列表-->
-			<o:ObjectList Name="gasmeterstylelist"  EntityType="paramvalue"  HasEmptyRow="True"  WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='水表类型' order by id"/>
-
+            <o:ObjectList Name="gasmeterstylelist"  EntityType="paramvalue"  HasEmptyRow="True"  WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='水表类型' order by id"/>
             <!--用户档案列表-->
             <o:PagedObjectList Name="userfiles" WebClientInfo="{StaticResource dbclient}"
                               IsClear="{m:Exp Str=downLoad\=>Completed!\=null}"
 				MultiPath="{m:Exp Str=$from t_userfiles where f_userstate\=\'正常\' and \{search.Condition\}}" 
-				Path="{m:Exp Str=$from t_userfiles where f_userstate\=\'正常\' and \{search.Condition\} order by f_address}" 
+				Path="{m:Exp Str=$from t_userfiles where f_userstate\=\'正常\' and \{search.Condition\} order by f_handid}" 
 				PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames=","/>
             <!--删除抄表单-->
             <b:HQLAction Name="DeleteHandplan" WebClientInfo="{StaticResource dbclient}" Type="sql"
@@ -72,31 +71,31 @@
             <c:BusyIndicatorEx BusyContent="正在查询，请稍等" IsBusy="{m:Exp Str=toExcel.IsBusy or userfiles.IsBusy or CreateHandplan.IsBusy}">
                 <toolkit:DockPanel>
 
-							<StackPanel x:Name="daninfosearch" DataContext="{m:Exp Str=search}" toolkit:DockPanel.Dock="Top" Margin="0,0,0,3" Background="#FFCFEFFF" Width="Auto" HorizontalAlignment="Stretch" Orientation="Vertical" >
-								<StackPanel Orientation="Horizontal" Margin="0">
-									<Grid>
-										<Grid.RowDefinitions>
-											<RowDefinition Height="28"/>
-											<RowDefinition Height="28"/>
-										</Grid.RowDefinitions>
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="75"/>
-											<ColumnDefinition Width="150"/>
-											<ColumnDefinition Width="75"/>
-											<ColumnDefinition Width="150"/>
-											<ColumnDefinition Width="75"/>
-											<ColumnDefinition Width="100"/>
-											<ColumnDefinition Width="75"/>
-											<ColumnDefinition Width="1*"/>
-											<ColumnDefinition Width="1*"/>
-											<ColumnDefinition Width="1*"/>
-										</Grid.ColumnDefinitions>
-									<TextBlock TextWrapping="Wrap" Text="小区名称："  Margin="0" TextAlignment="Right" VerticalAlignment="Center" />
-									<TextBox  TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" Text="{m:Bind Path=f_districtname}" Width="Auto" Margin="0" Height="25" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" >
-									<a:Data.Prop>
-										<o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>          
-									</a:Data.Prop>
-								</TextBox>
+                    <StackPanel x:Name="daninfosearch" DataContext="{m:Exp Str=search}" toolkit:DockPanel.Dock="Top" Margin="0,0,0,3" Background="#FFCFEFFF" Width="Auto" HorizontalAlignment="Stretch" Orientation="Vertical" >
+                        <StackPanel Orientation="Horizontal" Margin="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="28"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock TextWrapping="Wrap" Text="小区名称："  Margin="0" TextAlignment="Right" VerticalAlignment="Center" />
+                                <TextBox  TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1" Text="{m:Bind Path=f_districtname}" Width="Auto" Margin="0" Height="25" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" >
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_districtname"  Operator="f_districtname like '%this%'"/>
+                                    </a:Data.Prop>
+                                </TextBox>
                                 <TextBlock TextWrapping="Wrap" Text="抄表册号："  Margin="0,1.5" Height="25" TextAlignment="Right" Grid.Column="2" />
                                 <ComboBox x:Name="list1"  SelectedValue="{m:Bind Path=f_listid}" Grid.Column="3" ItemsSource="{m:Exp Str=handplanlist}"  Margin="0,2,0,1" SelectedValuePath="f_listid"  Height="25" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Stretch">
                                     <a:Data.Prop>
@@ -109,8 +108,8 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                                 <Button Content=" 查  询" x:Name="dansearchbutton" Grid.Column="6" Click="{m:Exp Str=daninfosearch.DataContext.Search()}" Margin="10,0,0,0" FontSize="14" Width="54" HorizontalAlignment="Left"  />
-								<Button Content="生成抄表单" x:Name="saveButton" Grid.Column="8" Margin="10,0,0,0" FontSize="14" HorizontalAlignment="Right" Click="{m:Exp Str=CreateHandplan.Invoke()}" />
-                                <Button Content="导出Excel" IsEnabled="{m:Exp Str=daninfos.ItemsSource.Count!\=0:(CreateHandplan.State\=\=$End$:True\,False)\,False}" Click="{m:Exp Str=toExcel.ToExcel()}"  Grid.Row="1" Grid.Column="9" Width="60" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
+                                <Button Content="生成抄表单" x:Name="saveButton" Grid.Column="8" Margin="10,0,0,0" FontSize="14" HorizontalAlignment="Right" Click="{m:Exp Str=CreateHandplan.Invoke()}" />
+                                <Button Content="导出Excel" IsEnabled="{m:Exp Str=daninfos.ItemsSource.Count!\=0:(CreateHandplan.State\=\=$End$:True\,False)\,False}" Click="{m:Exp Str=toExcel.ToExcel()}"  Grid.Row="1" Grid.Column="9" VerticalAlignment="Center" Margin="0,2,0,1"/>
 
                                 <c:Excel x:Name="toExcel" HQL="{m:Exp Str=$\{daninfos.ItemsSource.Path\}}" 
 						Completed="{m:Exp Str=downLoad.Down()}" 
@@ -118,72 +117,72 @@
                                 <c:DownLoad x:Name="downLoad" Path="{m:Exp Str=$\{server.BaseAddress\}/file/\{toExcel.FileName\}}" Filter="(*.xls)|*.xls" Height="30" VerticalAlignment="Top" Width="0"/>
                                 <TextBlock TextWrapping="Wrap" Text="抄表编号："  Margin="0" Height="25" TextAlignment="Right" Grid.Row="1" />
 
-								<TextBox x:Name="tjwhf_Copy" TextWrapping="Wrap" Text="{m:Bind Path=f_handid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" >
-									<a:Data.Prop>
-                                        <o:PropertySetter PropertyName="f_handid"  Operator="f_handid = 'this'"/>           
-									</a:Data.Prop>
-								</TextBox>
-								<TextBlock TextWrapping="Wrap" Text="用户编号："  Margin="0" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="2" />
-								<TextBox x:Name="tjwhf_Copy1" TextWrapping="Wrap" Text="{m:Bind Path=f_userinfoid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" >
-									<a:Data.Prop>
-										<o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid = 'this'"/>           
-									</a:Data.Prop>
-								</TextBox>
-									<TextBlock TextWrapping="Wrap" Text="抄 表 员："  Margin="0" Height="25" TextAlignment="Right" Width="Auto" d:LayoutOverrides="Height, VerticalMargin" Grid.Row="0" Grid.Column="4" />
-								<ComboBox x:Name="tjczy"  SelectedValue="{m:Bind Path=f_inputtor}" ItemsSource="{m:Exp Str=chaobiaoyuanlist}"  Margin="0"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="Height, VerticalMargin" Grid.Row="0" Grid.Column="5">
-									<ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>	
-									
-									<a:Data.Prop>
-										<o:PropertySetter PropertyName="f_inputtor"  Operator="f_inputtor = 'this'"/>          
-									</a:Data.Prop>
-								</ComboBox>
-								<TextBlock TextWrapping="Wrap" Text="抄表片区："  Margin="0,1.5" Height="25" TextAlignment="Right" Width="Auto" Grid.Row="1" Grid.Column="4" />
+                                <TextBox x:Name="tjwhf_Copy" TextWrapping="Wrap" Text="{m:Bind Path=f_handid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" >
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_handid"  Operator="f_handid = 'this'"/>
+                                    </a:Data.Prop>
+                                </TextBox>
+                                <TextBlock TextWrapping="Wrap" Text="用户编号："  Margin="0" Height="25" TextAlignment="Right" Grid.Row="1" Grid.Column="2" />
+                                <TextBox x:Name="tjwhf_Copy1" TextWrapping="Wrap" Text="{m:Bind Path=f_userinfoid}" Width="Auto" Margin="0" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" >
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_userinfoid"  Operator="f_userinfoid = 'this'"/>
+                                    </a:Data.Prop>
+                                </TextBox>
+                                <TextBlock TextWrapping="Wrap" Text="抄 表 员："  Margin="0" Height="25" TextAlignment="Right" Width="Auto" Grid.Row="0" Grid.Column="4" />
+                                <ComboBox x:Name="tjczy"  SelectedValue="{m:Bind Path=f_inputtor}" ItemsSource="{m:Exp Str=chaobiaoyuanlist}"  Margin="0"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto"  Grid.Row="0" Grid.Column="5">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_inputtor"  Operator="f_inputtor = 'this'"/>
+                                    </a:Data.Prop>
+                                </ComboBox>
+                                <TextBlock TextWrapping="Wrap" Text="抄表片区："  Margin="0,1.5" Height="25" TextAlignment="Right" Width="Auto" Grid.Row="1" Grid.Column="4" />
                                 <ComboBox x:Name="tjczy_Copy"  SelectedValue="{m:Bind Path=f_handarea}" ItemsSource="{m:Exp Str=handarealistnull}"  Margin="0,1.5"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5">
-									<ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding name}" Height="20"></TextBlock>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>	
-									<a:Data.Prop>
-                                        <o:PropertySetter PropertyName="f_handarea"  Operator="f_handarea = 'this'"/>          
-									</a:Data.Prop>
-								</ComboBox>
-								</Grid>
-								</StackPanel>
-							</StackPanel>
-							<toolkit:DockPanel   Background="#FFC3E4FD" toolkit:DockPanel.Dock="Bottom" Height="24">
-								<Grid>
-								<sdk:DataPager x:Name="pager" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=daninfos}" Margin="0,0,0,0" PageSize="30" toolkit:DockPanel.Dock="Top" Height="24"   />
-								<TextBlock TextWrapping="Wrap"  Margin="0,0,303,-1" Text="{m:Exp Str=$共\{daninfos.ItemsSource.Count\}项}"   Foreground="#FF140000" Width="450" toolkit:DockPanel.Dock="Bottom" Height="25" HorizontalAlignment="Right" TextAlignment="Right" />
-								</Grid>
-							</toolkit:DockPanel>
-					
-							<sdk:DataGrid x:Name="daninfos" Margin="0,0,0,3"   IsReadOnly="True"
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding name}" Height="20"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_handarea"  Operator="f_handarea = 'this'"/>
+                                    </a:Data.Prop>
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                    <toolkit:DockPanel   Background="#FFC3E4FD" toolkit:DockPanel.Dock="Bottom" Height="24">
+                        <Grid>
+                            <sdk:DataPager x:Name="pager" Source="{Binding ItemsSource.Count, Converter={StaticResource DataPagerConverter}, ElementName=daninfos}" Margin="0,0,0,0" PageSize="30" toolkit:DockPanel.Dock="Top" Height="24"   />
+                            <TextBlock TextWrapping="Wrap"  Margin="0,0,303,-1" Text="{m:Exp Str=$共\{daninfos.ItemsSource.Count\}项}"   Foreground="#FF140000" Width="450" toolkit:DockPanel.Dock="Bottom" Height="25" HorizontalAlignment="Right" TextAlignment="Right" />
+                        </Grid>
+                    </toolkit:DockPanel>
+
+                    <sdk:DataGrid x:Name="daninfos" Margin="0,0,0,3"   IsReadOnly="True"
 								AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" ItemsSource="{m:Exp Str=userfiles}">
-								<sdk:DataGrid.Columns>
-                                    <sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
-                                    <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>    
-                                    <sdk:DataGridTextColumn Header="抄表编号" Binding="{Binding f_handid}"/>
-                                    <sdk:DataGridTextColumn Header="抄表片区" Binding="{Binding f_handarea}"/>
-                                    <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
-                                    <sdk:DataGridTextColumn  Header="用户姓名" Binding="{Binding f_username}"/>
-                                    <sdk:DataGridTextColumn Header="用户地址" Binding="{Binding f_address}"/>
-									<sdk:DataGridTextColumn  Header="用户类型" Binding="{Binding f_usertype}"/>
-                                    <sdk:DataGridTextColumn  Header="水价类型" Binding="{Binding f_stairtype}"/>
-                                    <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}"/>
-                                    <sdk:DataGridTextColumn  Header="抄表底数" Binding="{Binding lastinputgasnum}"/>
-                                    <sdk:DataGridTextColumn Header="上次抄表日期" Binding="{Binding lastinputdate}"/>
+                        <sdk:DataGrid.Columns>
+                            <sdk:DataGridTextColumn d:IsLocked="True" Header="序  号" Binding="{Binding Index}"/>
+                            <sdk:DataGridTextColumn Header="表具编号" Binding="{Binding f_userid}"/>
+                            <sdk:DataGridTextColumn Header="抄表编号" Binding="{Binding f_handid}"/>
+                            <!--<sdk:DataGridTextColumn Header="抄表片区" Binding="{Binding f_handarea}"/>-->
+                            <sdk:DataGridTextColumn Header="用户编号" Binding="{Binding f_userinfoid}"/>
+                            <sdk:DataGridTextColumn  Header="用户姓名" Binding="{Binding f_username}"/>
+                            <sdk:DataGridTextColumn Header="用户地址" Binding="{Binding f_address}"/>
+                            <sdk:DataGridTextColumn  Header="用户类型" Binding="{Binding f_usertype}"/>
+                            <sdk:DataGridTextColumn  Header="水价类型" Binding="{Binding f_stairtype}"/>
+                            <sdk:DataGridTextColumn Header="水表钢印号" Binding="{Binding f_meternumber}"/>
+                            <sdk:DataGridTextColumn  Header="抄表底数" Binding="{Binding lastinputgasnum}"/>
+                            <sdk:DataGridTextColumn Header="上次抄表日期" Binding="{Binding lastinputdate}"/>
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel>
             </c:BusyIndicatorEx>
         </Grid>
         <c:MessageTipObj Tip="{m:Exp Str=$导出Excel完成$}" IsShow="{m:Exp Str=downLoad\=>Completed!\=null}"/>
-		
+
         <c:MessageTipObj Tip="{m:Exp Str=$生成抄表单完成$}" IsShow="{m:Exp Str=CreateHandplan\=>Completed!\=null}"/>
     </Grid>
 </UserControl>

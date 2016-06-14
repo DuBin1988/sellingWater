@@ -55,9 +55,9 @@ namespace Com.Aote.Pages
                 shoukuan.Focus();
             }
         }
-	
- 
-         #region 选中新用户后的处理过程
+
+
+        #region 选中新用户后的处理过程
         private void userfiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //取当前选中项的用户编号，传递到后台取数据
@@ -107,6 +107,7 @@ namespace Com.Aote.Pages
 
             ui_dibaohu.IsChecked = item["f_dibaohu"].ToString().Equals("1");
             ui_userstate.Text = (String)item["f_userstate"];
+            ui_inputtor.Text = (String)item["f_inputtor"];
             ui_paytype.Text = (String)item["f_payment"];
             // ui_gasprice.Text = item["f_gasprice"].ToString();
             //折子行号
@@ -169,7 +170,7 @@ namespace Com.Aote.Pages
                 extrafeeSum += fujiafee;
                 //计算总基本用水金额
                 decimal shuifee = (decimal)json["oughtfee"];
-                go.SetPropertyValue("oughtfee",shuifee, false);
+                go.SetPropertyValue("oughtfee", shuifee, false);
                 f_feeSum += shuifee;
                 // 计算总气量
                 decimal oughtamount = (decimal)json["oughtamount"];
@@ -254,12 +255,6 @@ namespace Com.Aote.Pages
             string loginid = (string)loginUser.GetPropertyValue("id");
             //显示正在工作
             busy.IsBusy = true;
-            //发票号
-            string f_invoicenum = kbfee.GetPropertyValue("f_invoicenum") + "";
-            if (string.IsNullOrEmpty(f_invoicenum))
-            {
-                f_invoicenum = "0";
-            }
 
             //获取基础地址
             WebClientInfo wci = (WebClientInfo)Application.Current.Resources["server"];
@@ -278,18 +273,28 @@ namespace Com.Aote.Pages
         {
             busy.IsBusy = false;
             //把数据转换成JSON
-            JsonObject item = JsonValue.Parse(e.Result) as JsonObject;
-            // 没有出错
-           if (e.Error == null)
+            JsonObject items = JsonValue.Parse(e.Result) as JsonObject;
+            int dianfu = 0;
+            if (ui_whetherdianfu.IsChecked.Equals(true))
             {
-                GeneralObject printobj = aofengprint.DataContext as GeneralObject;
-                printobj.FromJson(item);
-                //string date = (string)item["f_deliverydate"];
-                //ui_day.Text = date;
-                //保存发票信息
-                GeneralObject fpinfosobj = (GeneralObject)(from r in loader.Res where r.Name.Equals("fpinfosobj") select r).First();
-                fpinfosobj.SetPropertyValue("f_fapiaostatue", "已用", true);
-                fpinfosobj.Save();
+                dianfu = 1;
+            }
+            else
+            {
+                dianfu = 0;
+            }
+            int sellid = (int)items["id"];
+            string sql1 = "update t_sellinggas set f_whetherdianfu=" + dianfu +
+                                " where id=" + sellid;
+            HQLAction action1 = new HQLAction();
+            action1.HQL = sql1;
+            action1.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
+            action1.Name = "t_userfiles";
+            action1.Completed += action_Completed;
+            action1.Invoke();
+            // 没有出错
+            if (e.Error == null)
+            {
                 // 调用打印
                 MessageBoxResult mbr = MessageBox.Show("是否打印", "提示", MessageBoxButton.OKCancel);
                 if (mbr == MessageBoxResult.OK)
@@ -308,7 +313,6 @@ namespace Com.Aote.Pages
                         ui_stair3fee.Text = item["f_stair3fee"].ToString();
                         ui_stair3amount.Text = item["f_stair3amount"].ToString();
 
-
                         print5.TipPrint();
                         print5.Completed += print_Completed;
                     }
@@ -326,19 +330,19 @@ namespace Com.Aote.Pages
                     kbfee.New();
                     ui_userid.Focus();
                 }
-               //交费开阀
-               if (count > 0)
-               {
-                //更新阀门控制状态
-                   string sql = "update t_userfiles set f_operate_zl='启用', f_returnvalueoperate=" + "'1' " +
-                                " where f_userid='" + iesid + "'";
-                   HQLAction action = new HQLAction();
-                   action.HQL = sql;
-                   action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
-                   action.Name = "t_userfiles";
-                   action.Completed += action_Completed;
-                   action.Invoke();
-               }
+                //交费开阀
+                if (count > 0)
+                {
+                    //更新阀门控制状态
+                    string sql = "update t_userfiles set f_operate_zl='启用', f_returnvalueoperate=" + "'1' " +
+                                 " where f_userid='" + iesid + "'";
+                    HQLAction action = new HQLAction();
+                    action.HQL = sql;
+                    action.WebClientInfo = Application.Current.Resources["dbclient"] as WebClientInfo;
+                    action.Name = "t_userfiles";
+                    action.Completed += action_Completed;
+                    action.Invoke();
+                }
             }
             else
             {
@@ -350,7 +354,7 @@ namespace Com.Aote.Pages
                 ui_userid.Focus();
             }
 
-           
+
         }
         #endregion
 
@@ -430,7 +434,6 @@ namespace Com.Aote.Pages
                 {
                     // 修改为未选中，避免开始清除所有选中项
                     map.IsChecked = false;
-
                 }
             }
 
@@ -482,7 +485,7 @@ namespace Com.Aote.Pages
                     feeSum += f_fee;
 
                     // 修改为选中
-                    map.IsChecked = true;
+                    map.SetPropertyValue("IsChecked", true, false);
 
                 }
                 else
@@ -491,7 +494,7 @@ namespace Com.Aote.Pages
                     canSub = false;
 
                     // 修改为未选中
-                     map.IsChecked = false;
+                    map.SetPropertyValue("IsChecked", false, false);
                 }
             }
 
@@ -523,7 +526,7 @@ namespace Com.Aote.Pages
             // 当前选中用户为空
             userfiles.SelectedItem = null;
         }
-         #region 收款输入后的处理过程
+        #region 收款输入后的处理过程
         private void shoukuan_LostFocus(object sender, RoutedEventArgs e)
         {
             try
