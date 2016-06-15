@@ -191,7 +191,7 @@
                                         <o:PropertySetter PropertyName="f_phone"  Operator="f_phone like 'this%'"/>
                                     </a:Data.Prop>
                                 </TextBox>
-                                <Button Content="查  询" x:Name="searchbutton" Grid.Row="2" Grid.Column="2" Click="{m:Exp Str=search.Search()}" Margin="0,1,5,1" HorizontalAlignment="Right" Width="70"  FontSize="13.333"/>
+                                <Button Content="查  询" x:Name="searchbutton" Grid.Row="3" Grid.Column="2" Click="{m:Exp Str=search.Search()}" Margin="0,1,5,1" HorizontalAlignment="Right" Width="70"  FontSize="13.333"/>
                                 <TextBlock TextWrapping="Wrap" Grid.Row="2" Text="地　　址：" Margin="0,5,0,-2" Height="25" FontSize="13.333" HorizontalAlignment="Right" />
                                 <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Text="{m:Bind Path=f_address}" Width="Auto" Margin="0,3,0,0" Height="25" FontSize="13.333" >
                                     <a:Data.Prop>
@@ -1064,7 +1064,7 @@ Margin="18.667,0,381.139,132.294" Height="1" VerticalAlignment="Bottom"/>
         </Grid>
 
         <c:PrintObj Name="print5" Message="{m:Exp Str=$是否打印折子-当前行号\{kbusers.f_zherownum\}$}"	 Area="{m:Res Key=zheziprint5}" />
-        <Grid x:Name="zheziprint5"  Background="White"  HorizontalAlignment="Left" Width="604"  VerticalAlignment="Bottom" Margin="-665,0,0,-17" Height="563">
+        <Grid x:Name="zheziprint5"  Background="White"  HorizontalAlignment="Left" Width="604"  VerticalAlignment="Bottom" Margin="522,0,-326,-1354" Height="563">
             <a:Data.Context>
                 <o:GeneralObject  x:Name="zheprint5" WebClientInfo="{StaticResource dbclient}" 
         			EntityType="t_myfaka"  />

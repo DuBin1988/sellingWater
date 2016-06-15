@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import com.aote.rs.util.RSException;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Path("sell")
 @Component
@@ -108,7 +110,7 @@ public class SellSer {
 		String hands = "";
 
 		// 取滞纳金比率
-		BigDecimal scale = null;
+		BigDecimal scale = new BigDecimal(0.03);
 		/*
 		 * if(f_usertype.equals("民用")) { scale = new
 		 * BigDecimal(singles.get("民用滞纳金比率")); } else { scale = new
@@ -138,7 +140,7 @@ public class SellSer {
 			hands += ",oughtfee:" + hand.get("oughtfee");
 			// 减免水量
 			hands += ",jianshuiliang:" + hand.get("jianshuiliang");
-			// 滞纳金金额=气费*比例*天数
+			// 违约金金额=气费*比例*天数(违约金收取方式为超过当月25号的天数的3%)
 			BigDecimal f_fee = new BigDecimal(hand.get("f_fee").toString());
 
 			hands += ",f_stair1amount:" + hand.get("f_stair1amount");
@@ -157,26 +159,53 @@ public class SellSer {
 			hands += ",f_stair4price:" + hand.get("f_stair4price");
 			hands += ",f_stair4fee:" + hand.get("f_stair4fee");
 
-			int days = Integer.parseInt(hand.get("days") + "");
-			days = days > 0 ? days : 0;
-
-			BigDecimal f_zhinajin = new BigDecimal("0");
-			// 如果有滞纳金，计算基数去掉结余
-			int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
-			if (equals > 0) {
-				int bigDec = f_zhye.compareTo(f_fee);// 判断余额是否大余气费
-				f_fee = bigDec > 0 ? new BigDecimal("0") : f_fee
-						.subtract(f_zhye);
-				f_zhye = bigDec > 0 ? f_zhye.subtract(f_fee) : new BigDecimal(
-						"0");
-			}
 			// f_zhinajin=oughtfee.multiply(new
 			// BigDecimal(days+"")).multiply(scale);
 			// f_zhinajin=f_zhinajin.setScale(2, BigDecimal.ROUND_HALF_UP);
-			hands += ",f_zhinajin:" + f_zhinajin;
-
 			// 抄表日期
 			hands += ",lastinputdate:'" + hand.get("lastinputdate") + "'";
+			
+			//得到现在日期
+			Calendar time=Calendar.getInstance();
+			//得到当前月份
+			int month=time.get(Calendar.MONTH) + 1;
+			//得到当前日期
+			int date=time.get(Calendar.DATE);
+			//比较抄表日期月份与当前月份是否相等，如果相等  天数=当前日期-25；如果不相等 天数=抄表月份对应的总天数-25；		
+			Calendar cal = new GregorianCalendar();
+			SimpleDateFormat oSdf = new SimpleDateFormat ("yyyy-MM");
+			//格式化抄表日期
+			try {      
+				cal.setTime(oSdf.parse(hand.get("lastinputdate").toString()));      
+	        } catch (ParseException e) {      
+	            e.printStackTrace();      
+	        }
+			//得到抄表月份
+			SimpleDateFormat oSd = new SimpleDateFormat ("MM");
+			int months = Integer.parseInt(oSd.format(hand.get("lastinputdate")));
+			//得到抄表月份的天数
+			int day = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			int days = 0;
+			if(month == months){
+				days = date - 25;
+			}else{
+				days = day - 25; 
+			}
+			days = days > 0 ? days : 0;
+			BigDecimal f_zhinajin = new BigDecimal("0");
+			// 如果有违约金，计算基数去掉结余
+			int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
+			if (equals > 0) {
+				int bigDec = f_zhye.compareTo(f_fee);// 判断余额是否大于总费用
+				f_fee = bigDec > 0 ? new BigDecimal("0") : f_fee
+						.subtract(f_zhye);
+				f_zhye = bigDec > 0 ? f_zhye.subtract(f_fee) : new BigDecimal("0");
+			}
+			f_zhinajin = f_fee.multiply(new BigDecimal(days + ""))
+					.multiply(scale);
+			f_zhinajin = f_zhinajin.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+			hands += ",f_zhinajin:" + f_zhinajin;
 			// 上期抄表底数
 			hands += ",lastinputgasnum:" + hand.get("lastinputgasnum");
 			// 本期抄表底数
@@ -204,13 +233,14 @@ public class SellSer {
 	@Path("{userid}/{money}/{zhinajin}/{payment}/{opid}")
 	public String txSell(@PathParam("userid") String userid,
 			@PathParam("money") BigDecimal dMoney,
-			@PathParam("zhinajin") double dZhinajin,
+			@PathParam("zhinajin") BigDecimal dZhinajin,
 			@PathParam("payment") String payments,
 			@PathParam("opid") String opid) {
 		// 返回信息，为空则操作成功，不为空则操作失败，内容为错误信息
 		String ret = "";
 		try {
 			log.debug("售气交费 开始");
+			//收款
 			BigDecimal payMent = dMoney;
 
 			Map user = this.findUser(userid);
@@ -229,9 +259,11 @@ public class SellSer {
 			for (int i = 0; i < hands.size(); i++) {
 				Map<String, Object> hand = (Map<String, Object>) hands.get(i);
 				BigDecimal d = new BigDecimal(hand.get("f_fee").toString());
+				//总计水费用
 				debts = debts.add(d);
 				BigDecimal g = new BigDecimal(hand.get("oughtamount")
 						.toString());
+				//总计水量
 				debtGas = debtGas.add(g);
 				handIds += hand.get("id") + ",";
 				// 最大指数
@@ -251,11 +283,13 @@ public class SellSer {
 			}
 			// 先计算payment >=用户结余+用户欠费
 			BigDecimal jieyu = new BigDecimal(user.get("f_zhye").toString());
+			//如果收款费用<应交水费（总计—结余）
 			if (payMent.compareTo(debts.subtract(jieyu)) < 0) {
 				return "";
 			}
-			// 计算结余,交费日期，表累计气量，总累计气量
-			BigDecimal nowye = payMent.subtract(debts.subtract(jieyu));
+			// 计算结余,交费日期，表累计气量，总累计气量  结余=收款—应交水费-违约金
+			BigDecimal nowye = payMent.subtract(debts.subtract(jieyu))
+					.subtract(dZhinajin);
 
 			BigDecimal metergasnums = new BigDecimal(user.get("f_metergasnums")
 					.toString());
@@ -274,7 +308,7 @@ public class SellSer {
 			ret = insertSell(user, inforMap, nowye, lastinputgasnum,
 					lastrecord, debts, debtGas, handIds, lastinputdate,
 					payMent, metergasnums, cumuGas, newMeterGasNums,
-					newCumuGas, opid, payments);
+					newCumuGas, opid, payments,dZhinajin);
 			ret += rets;
 			log.debug("售气交费成功!" + ret);
 			return ret;
@@ -430,7 +464,7 @@ public class SellSer {
 			BigDecimal debtGas, String handIds, Date lastinputdate,
 			BigDecimal payMent, BigDecimal metergasnums, BigDecimal cumuGas,
 			BigDecimal newMeterGasNums, BigDecimal newCumuGas, String opid,
-			String payments) {
+			String payments,BigDecimal dzhinajin) {
 		// 查找登陆用户,获取登陆网点,操作员
 		Map<String, Object> loginUser = this.findloginUser(opid);
 		if (loginUser == null) {
@@ -444,7 +478,7 @@ public class SellSer {
 		sale.put("lastrecord", lastrecord);
 		sale.put("f_preamount", debts.doubleValue());
 		sale.put("f_pregas", debtGas.doubleValue());
-		sale.put("f_zhinajin", 0.0);
+		sale.put("f_zhinajin", dzhinajin.doubleValue());
 		sale.put("f_useful", handIds);
 		sale.put("lastinputdate", lastinputdate);
 		sale.put("f_yhxz", userMap.get("f_yhxz"));
