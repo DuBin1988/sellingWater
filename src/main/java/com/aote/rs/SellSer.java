@@ -193,18 +193,20 @@ public class SellSer {
 			}
 			days = days > 0 ? days : 0;
 			BigDecimal f_zhinajin = new BigDecimal("0");
-			// 如果有违约金，计算基数去掉结余
-			int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
-			if (equals > 0) {
-				int bigDec = f_zhye.compareTo(f_fee);// 判断余额是否大于总费用
-				f_fee = bigDec > 0 ? new BigDecimal("0") : f_fee
-						.subtract(f_zhye);
-				f_zhye = bigDec > 0 ? f_zhye.subtract(f_fee) : new BigDecimal("0");
+			for(int i = 0;i<days;i++){
+				// 如果有违约金，计算基数去掉结余
+				int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
+				if (equals > 0) {
+					int bigDec = f_zhye.compareTo(f_fee);// 判断余额是否大于总费用
+					f_fee = bigDec > 0 ? new BigDecimal("0") : f_fee
+							.subtract(f_zhye);
+					f_zhye = bigDec > 0 ? f_zhye.subtract(f_fee) : new BigDecimal("0");
+				}
+				f_zhinajin = f_fee.multiply(new BigDecimal(i + ""))
+						.multiply(scale);
+				f_fee = f_fee.add(f_zhinajin);
 			}
-			f_zhinajin = f_fee.multiply(new BigDecimal(days + ""))
-					.multiply(scale);
 			f_zhinajin = f_zhinajin.setScale(2, BigDecimal.ROUND_HALF_UP);
-
 			hands += ",f_zhinajin:" + f_zhinajin;
 			// 上期抄表底数
 			hands += ",lastinputgasnum:" + hand.get("lastinputgasnum");
