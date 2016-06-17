@@ -141,7 +141,7 @@ public class SellSer {
 			// 减免水量
 			hands += ",jianshuiliang:" + hand.get("jianshuiliang");
 			// 违约金金额=气费*比例*天数(违约金收取方式为超过当月25号的天数的3%)
-			BigDecimal f_fee = new BigDecimal(hand.get("f_fee").toString());
+			BigDecimal f_fees = new BigDecimal(hand.get("f_fee").toString());
 
 			hands += ",f_stair1amount:" + hand.get("f_stair1amount");
 			hands += ",f_stair1price:" + hand.get("f_stair1price");
@@ -193,18 +193,18 @@ public class SellSer {
 			}
 			days = days > 0 ? days : 0;
 			BigDecimal f_zhinajin = new BigDecimal("0");
-			for(int i = 0;i<days;i++){
+			
+			for(int i = 1;i<=days;i++){
 				// 如果有违约金，计算基数去掉结余
 				int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
 				if (equals > 0) {
-					int bigDec = f_zhye.compareTo(f_fee);// 判断余额是否大于总费用
-					f_fee = bigDec > 0 ? new BigDecimal("0") : f_fee
+					int bigDec = f_zhye.compareTo(f_fees);// 判断余额是否大于总费用
+					f_fees = bigDec > 0 ? new BigDecimal("0") : f_fees
 							.subtract(f_zhye);
-					f_zhye = bigDec > 0 ? f_zhye.subtract(f_fee) : new BigDecimal("0");
+					f_zhye = bigDec > 0 ? f_zhye.subtract(f_fees) : new BigDecimal("0");
 				}
-				f_zhinajin = f_fee.multiply(new BigDecimal(i + ""))
-						.multiply(scale);
-				f_fee = f_fee.add(f_zhinajin);
+				f_zhinajin = f_fees.multiply(scale);
+				f_fees = f_fees.add(f_zhinajin);
 			}
 			f_zhinajin = f_zhinajin.setScale(2, BigDecimal.ROUND_HALF_UP);
 			hands += ",f_zhinajin:" + f_zhinajin;
