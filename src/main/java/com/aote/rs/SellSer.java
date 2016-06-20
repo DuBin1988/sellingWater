@@ -192,7 +192,7 @@ public class SellSer {
 				days = day - 25; 
 			}
 			days = days > 0 ? days : 0;
-			BigDecimal f_zhinajin = new BigDecimal("0");
+			BigDecimal f_zhinajins = new BigDecimal("0");
 			
 			for(int i = 1;i<=days;i++){
 				// 如果有违约金，计算基数去掉结余
@@ -203,11 +203,12 @@ public class SellSer {
 							.subtract(f_zhye);
 					f_zhye = bigDec > 0 ? f_zhye.subtract(f_fees) : new BigDecimal("0");
 				}
-				f_zhinajin = f_fees.multiply(scale);
+				BigDecimal f_zhinajin = f_fees.multiply(scale);
 				f_fees = f_fees.add(f_zhinajin);
+				f_zhinajins = f_zhinajins.add(f_zhinajin);
 			}
-			f_zhinajin = f_zhinajin.setScale(2, BigDecimal.ROUND_HALF_UP);
-			hands += ",f_zhinajin:" + f_zhinajin;
+			f_zhinajins = f_zhinajins.setScale(2, BigDecimal.ROUND_HALF_UP);
+			hands += ",f_zhinajin:" + f_zhinajins;
 			// 上期抄表底数
 			hands += ",lastinputgasnum:" + hand.get("lastinputgasnum");
 			// 本期抄表底数
