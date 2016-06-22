@@ -190,11 +190,6 @@
                                 <o:PropertySetter PropertyName="f_userinfoid"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <!--<TextBox Text="{m:Bind Path=f_handid}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handid"/>
-                            </a:Data.Prop>
-                        </TextBox>-->
                         <TextBox Text="{m:Bind Path=f_userid}" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="25" IsReadOnly="True">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_userid"/>

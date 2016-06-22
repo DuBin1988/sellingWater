@@ -56,7 +56,7 @@ public class SellSer {
 				+ "isnull(ui.f_zhye,0) f_zhye,isnull(ui.f_username,'空名字') f_username,isnull(ui.f_zherownum,13) f_zherownum,isnull(u.f_usertype,'民用') f_usertype,"
 				+ "isnull(u.f_districtname,'空小区') f_districtname,isnull(u.f_address,'空地址') f_address,"
 				+ "isnull(u.f_gasproperties,'普通民用') f_gasproperties,isnull(u.f_gaspricetype,'民用气价') f_gaspricetype,"
-				+ "ui.f_userid infoid,isnull(u.f_gasprice,0) f_gasprice,isnull(u.f_dibaohu,0) f_dibaohu,isnull(ui.f_inputtor,'空抄表员') f_inputtor,"
+				+ "ui.f_userid infoid,isnull(u.f_gasprice,0) f_gasprice,isnull(u.f_whetherzhinajin,0) f_whetherzhinajin,isnull(ui.f_inputtor,'空抄表员') f_inputtor,"
 				+ "isnull(u.f_payment,'现金') f_payment,isnull(u.f_stairtype,'未设') f_stairtype,isnull(ui.f_userstate,'正常') f_userstate," // ui
 																																		// t_userinfo
 				+ "" // u t_userfiles
@@ -101,7 +101,7 @@ public class SellSer {
 		result += ",f_gaspricetype:'" + (String) userinfo.get("f_gaspricetype")
 				+ "'";
 		result += ",f_gasprice:" + userinfo.get("f_gasprice");
-		result += ",f_dibaohu:" + userinfo.get("f_dibaohu");
+		result += ",f_whetherzhinajin:" + userinfo.get("f_whetherzhinajin");
 		result += ",f_payment:'" + (String) userinfo.get("f_payment") + "'";
 		result += ",f_userstate:'" + (String) userinfo.get("f_userstate") + "'";
 		result += ",f_stairtype:'" + (String) userinfo.get("f_stairtype") + "'";
@@ -142,6 +142,7 @@ public class SellSer {
 			hands += ",jianshuiliang:" + hand.get("jianshuiliang");
 			// 违约金金额=气费*比例*天数(违约金收取方式为超过当月25号的天数的3%)
 			BigDecimal f_fees = new BigDecimal(hand.get("f_fee").toString());
+			int f_whetherzhinajin = Integer.parseInt(userinfo.get("f_whetherzhinajin").toString());
 
 			hands += ",f_stair1amount:" + hand.get("f_stair1amount");
 			hands += ",f_stair1price:" + hand.get("f_stair1price");
@@ -164,48 +165,48 @@ public class SellSer {
 			// f_zhinajin=f_zhinajin.setScale(2, BigDecimal.ROUND_HALF_UP);
 			// 抄表日期
 			hands += ",lastinputdate:'" + hand.get("lastinputdate") + "'";
-			
-			//得到现在日期
-			Calendar time=Calendar.getInstance();
-			//得到当前月份
-			int month=time.get(Calendar.MONTH) + 1;
-			//得到当前日期
-			int date=time.get(Calendar.DATE);
-			//比较抄表日期月份与当前月份是否相等，如果相等  天数=当前日期-25；如果不相等 天数=抄表月份对应的总天数-25；		
-			Calendar cal = new GregorianCalendar();
-			SimpleDateFormat oSdf = new SimpleDateFormat ("yyyy-MM");
-			//格式化抄表日期
-			try {      
-				cal.setTime(oSdf.parse(hand.get("lastinputdate").toString()));      
-	        } catch (ParseException e) {      
-	            e.printStackTrace();      
-	        }
-			//得到抄表月份
-			SimpleDateFormat oSd = new SimpleDateFormat ("MM");
-			int months = Integer.parseInt(oSd.format(hand.get("lastinputdate")));
-			//得到抄表月份的天数
-			int day = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			int days = 0;
-			if(month == months){
-				days = date - 25;
-			}else{
-				days = day - 25; 
-			}
-			days = days > 0 ? days : 0;
 			BigDecimal f_zhinajins = new BigDecimal("0");
-			
-			for(int i = 1;i<=days;i++){
-				// 如果有违约金，计算基数去掉结余
-				int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
-				if (equals > 0) {
-					int bigDec = f_zhye.compareTo(f_fees);// 判断余额是否大于总费用
-					f_fees = bigDec > 0 ? new BigDecimal("0") : f_fees
-							.subtract(f_zhye);
-					f_zhye = bigDec > 0 ? f_zhye.subtract(f_fees) : new BigDecimal("0");
+			int days = 0;
+			if(f_whetherzhinajin==1){
+				//得到现在日期
+				Calendar time=Calendar.getInstance();
+				//得到当前月份
+				int month=time.get(Calendar.MONTH) + 1;
+				//得到当前日期
+				int date=time.get(Calendar.DATE);
+				//比较抄表日期月份与当前月份是否相等，如果相等  天数=当前日期-25；如果不相等 天数=抄表月份对应的总天数-25；		
+				Calendar cal = new GregorianCalendar();
+				SimpleDateFormat oSdf = new SimpleDateFormat ("yyyy-MM");
+				//格式化抄表日期
+				try {      
+					cal.setTime(oSdf.parse(hand.get("lastinputdate").toString()));      
+		        } catch (ParseException e) {      
+		            e.printStackTrace();      
+		        }
+				//得到抄表月份
+				SimpleDateFormat oSd = new SimpleDateFormat ("MM");
+				int months = Integer.parseInt(oSd.format(hand.get("lastinputdate")));
+				//得到抄表月份的天数
+				int day = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+				if(month == months){
+					days = date - 25;
+				}else{
+					days = day - 25; 
 				}
-				BigDecimal f_zhinajin = f_fees.multiply(scale);
-				f_fees = f_fees.add(f_zhinajin);
-				f_zhinajins = f_zhinajins.add(f_zhinajin);
+				days = days > 0 ? days : 0;
+				for(int i = 1;i<=days;i++){
+					// 如果有违约金，计算基数去掉结余
+					int equals = f_zhye.compareTo(new BigDecimal("0"));// 比较余额是否大于0
+					if (equals > 0) {
+						int bigDec = f_zhye.compareTo(f_fees);// 判断余额是否大于总费用
+						f_fees = bigDec > 0 ? new BigDecimal("0") : f_fees
+								.subtract(f_zhye);
+						f_zhye = bigDec > 0 ? f_zhye.subtract(f_fees) : new BigDecimal("0");
+					}
+					BigDecimal f_zhinajin = f_fees.multiply(scale);
+					f_fees = f_fees.add(f_zhinajin);
+					f_zhinajins = f_zhinajins.add(f_zhinajin);
+				}
 			}
 			f_zhinajins = f_zhinajins.setScale(2, BigDecimal.ROUND_HALF_UP);
 			hands += ",f_zhinajin:" + f_zhinajins;

@@ -20,7 +20,7 @@
 
     <Grid x:Name="LayoutRoot">
         <m:ResourceLoad Margin="0,0,-12,0" x:Name="loader">
-            <o:ObjectList Name="chaobiaoyuanlist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='抄表员'"/>
+            <o:ObjectList Name="xianlist" WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='县级'"/>
             <!--查询条件对象-->
             <o:SearchObject Name="search"/>
 
@@ -60,7 +60,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
@@ -73,22 +72,16 @@
                                 <o:PropertySetter PropertyName="f_listid"  Operator="f_listid like 'this%'"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBlock Text="册     名：" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"></TextBlock>
-                        <TextBox TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Text="{m:Bind Path=f_listname}" Width="Auto" Margin="0,2,0,0" Height="25" FontSize="13.333" VerticalAlignment="Top" d:LayoutOverrides="Height" >
-                            <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_listname"  Operator="f_listname = this"/>
-                            </a:Data.Prop>
-                        </TextBox>
-                        <Button x:Name="ui_StairSearchButton" Click="{m:Exp Str=ui_StairSearch.DataContext.Search()}" Grid.Column="2" Grid.Row="2" Width="70" Margin="0,2">查询</Button>
+                        <Button x:Name="ui_StairSearchButton" Click="{m:Exp Str=ui_StairSearch.DataContext.Search()}" Grid.Column="2" Grid.Row="1" Width="70" Margin="0,2">查询</Button>
                     </Grid>
                     <sdk:DataGrid x:Name="ui_stairDataGaid" ItemsSource="{m:Exp Str=list}" AutoGenerateColumns="False" Width="Auto" Background="{x:Null}" IsReadOnly="True" >
                         <sdk:DataGrid.Columns>
                             <sdk:DataGridTextColumn d:IsLocked="True" Header="编号" Binding="{Binding id}"/>
                             <sdk:DataGridTextColumn Header="册号" Binding="{Binding f_listid}"/>
-                            <sdk:DataGridTextColumn Header="册名" Binding="{Binding f_listname}"/>
-                            <sdk:DataGridTextColumn Header="工作日" Binding="{Binding f_handdate}"/>
+                            <!--<sdk:DataGridTextColumn Header="册名" Binding="{Binding f_listname}"/>-->
+                            <sdk:DataGridTextColumn Header="县级" Binding="{Binding f_xianji}"/>
                             <sdk:DataGridTextColumn Header="片区" Binding="{Binding f_handarea}"/>
-                            <sdk:DataGridTextColumn Header="抄表员" Binding="{Binding f_inputtor}"/>
+                            <!--<sdk:DataGridTextColumn Header="抄表员" Binding="{Binding f_inputtor}"/>-->
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </toolkit:DockPanel>
@@ -116,29 +109,29 @@
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="工 作 日：" Margin="0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="1" Grid.Row="3"/>
-                        <TextBlock Text="片    区：" Grid.Column="1" Margin="0,9" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Right"/>
-                        <TextBlock Text="抄 表 员：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" Grid.Column="1"/>
+                        <TextBlock Text="片    区：" Margin="0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="1" Grid.Row="3"/>
+                        <TextBlock Text="县     级：" Grid.Column="1" Margin="0,9" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Right"/>
+                        <!--<TextBlock Text="抄 表 员：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="2" Grid.Column="1"/>-->
                         <!--<TextBlock Text="册    名：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="4" Grid.Column="1"/>-->
                         <TextBlock Text="册    号：" Margin="0,8,0,10" TextWrapping="Wrap" TextAlignment="Right" Grid.Row="5" Grid.Column="1"/>
-                        <TextBox x:Name="handdate" Text="{m:Bind Path=f_handdate}"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="1" TextChanged="listid_MouseEnter" >
+                        <TextBox x:Name="handarea" Text="{m:Bind Path=f_handarea}"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="1" TextChanged="listid_MouseEnter" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handdate" NotNull="True"/>
+                                <o:PropertySetter PropertyName="f_handarea" NotNull="True"/>
                             </a:Data.Prop>
                         </TextBox>
 
-                        <ComboBox x:Name="handarea" ItemsSource="{m:Exp Str=handarealist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_handarea}" Grid.Column="2" Margin="0,9" Grid.Row="1" IsEnabled="true" FontSize="13.333" SelectionChanged="listid_MouseEnter">
+                        <ComboBox x:Name="xianji" ItemsSource="{m:Exp Str=xianlist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_xianji}" Grid.Column="2" Margin="0,9" Grid.Row="2" IsEnabled="true" FontSize="13.333" SelectionChanged="listid_MouseEnter">
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_handarea"  NotNull="True"/>
+                                <o:PropertySetter PropertyName="f_xianji"  NotNull="True"/>
 
                             </a:Data.Prop>
                         </ComboBox>
-                        <ComboBox x:Name="CoboxPinp_Copy1" ItemsSource="{m:Exp Str=chaobiaoyuanlist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_inputtor}" Grid.Column="2" Margin="0,10,0,8" Grid.Row="2" IsEnabled="true" FontSize="13.333" SelectionChanged="listid_MouseEnter">
+                        <!--<ComboBox x:Name="CoboxPinp_Copy1" ItemsSource="{m:Exp Str=chaobiaoyuanlist}" DisplayMemberPath="name" SelectedValuePath="name" SelectedValue="{m:Bind Path=f_inputtor}" Grid.Column="2" Margin="0,10,0,8" Grid.Row="2" IsEnabled="true" FontSize="13.333" SelectionChanged="listid_MouseEnter">
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_inputtor"  NotNull="True"/>
 
                             </a:Data.Prop>
-                        </ComboBox>
+                        </ComboBox>-->
                         <!--<TextBox x:Name="listname" Text="{m:Bind Path=f_listname}"  Grid.Column="2" Margin="0,8,0,10" MouseEnter="f_listname_MouseEnter"  Grid.Row="4" TextWrapping="Wrap" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_listname" NotNull="True"/>
@@ -146,14 +139,14 @@
                         </TextBox>-->
                         <TextBox x:Name="code" Visibility="Collapsed" Text="{m:Bind Path=f_code}" IsReadOnly="True"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
-                                <o:PropertySetter PropertyName="f_code" NotNull="True"  NoDependValue="{m:Exp Str=CoboxPinp_Copy1.SelectedItem.code}"/>
+                                <o:PropertySetter PropertyName="f_code" NotNull="True"  NoDependValue="{m:Exp Str=xianji.SelectedItem.code}"/>
                             </a:Data.Prop>
                         </TextBox>
-                        <TextBox x:Name="areacode" Visibility="Collapsed" Text="{m:Bind Path=f_areacode}" IsReadOnly="True"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="1" >
+                        <!--<TextBox x:Name="areacode" Visibility="Collapsed" Text="{m:Bind Path=f_areacode}" IsReadOnly="True"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="1" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_areacode" NotNull="True"  NoDependValue="{m:Exp Str=handarea.SelectedItem.code}"/>
                             </a:Data.Prop>
-                        </TextBox>
+                        </TextBox>-->
                         <TextBox x:Name="listid" Text="{m:Bind Path=f_listid}"  Grid.Column="2" Margin="0,8,0,10" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="1" MouseEnter="listid_MouseEnter" >
                             <a:Data.Prop>
                                 <o:PropertySetter PropertyName="f_listid" NotNull="True" ValidationVal="{m:Exp Str='listexist=>DataLoaded!=null:(listexist.count&gt;0:$False$\,$True$)\,$False$'}" ErrorMessage="该册号已经已存在，不能重复录入"/>

@@ -456,12 +456,7 @@
                                 </TextBox>
                                 <TextBlock Text="起始抄表日期：" Margin="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Right" Height="25"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.ColumnSpan="2">
-                                    <CheckBox x:Name="ui_dibaohu" IsChecked="{m:Bind Path=f_dibaohu}"  Content="低保户" Margin="0" Grid.Row="0" Grid.Column="5" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Left" IsEnabled="False" Width="62">
-                                        <a:Data.Prop>
-                                            <o:PropertySetter PropertyName="f_dibaohu"/>
-                                        </a:Data.Prop>
-                                    </CheckBox>
-                                    <CheckBox IsChecked="{m:Bind Path=f_whetherzhinajin}"  Content="违约金" Margin="0" Grid.Row="0" Grid.Column="4" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Left" IsEnabled="False">
+                                    <CheckBox x:Name="ui_whetherzhinajin" IsChecked="{m:Bind Path=f_whetherzhinajin}"  Content="违约金" Margin="0" Grid.Row="0" Grid.Column="4" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Left" IsEnabled="False">
                                         <a:Data.Prop>
                                             <o:PropertySetter PropertyName="f_whetherzhinajin"/>
                                         </a:Data.Prop>

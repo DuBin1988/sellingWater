@@ -190,7 +190,8 @@
 		<property name="f_pregas" type="double"/>
 		<!--付款方式 为现金、银行代扣-->
 		<property name="f_payment" type="string"/>
-		
+		<!--是否收取滞纳金-->
+		<property name="f_whetherzhinajin" type="boolean"/>
 		<!--维护费起始年月-->
 		<property name="f_beginfee" type="date"/>
 		<!--开户日期-->

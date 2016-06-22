@@ -26,11 +26,10 @@ namespace Com.Aote.Pages
 
         private void listid_MouseEnter(object sender, RoutedEventArgs e)
         {
-            string date = handdate.Text;
-            string areacode1 = areacode.Text;
+            //string date = handdate.Text;
+            string handarea1 = handarea.Text;
             string code1 = code.Text;
-
-            string handplan = areacode1 + code1 + date;
+            string handplan = code1 + handarea1;
             listid.Text = handplan;
         }
 

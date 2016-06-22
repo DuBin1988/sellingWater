@@ -10,19 +10,11 @@
 		</id>
 		<!-- 抄表册号-->
 		<property name="f_listid" type="string"/>
-		<!--册名-->
-		<property name="f_listname" type="string"/>
-		<!--主册片区-->
-		<property name="f_parentname" type="string"/>
-		<!--工作日（财务日期）-->
-		<property name="f_handdate" type="string"/>
-		<!--所属片区-->
+		<!--区域-->
 		<property name="f_handarea" type="string"/>
-		<!--所属片区代码-->
-		<property name="f_areacode" type="string"/>
-		<!--抄表员-->
-		<property name="f_inputtor" type="string"/>
-		<!--抄表员代码-->
+		<!--县级-->
+		<property name="f_xianji" type="string"/>
+		<!--县级代码-->
 		<property name="f_code" type="string"/>   
 		<!--审核意见-->
 		<property name="f_yijian" type="string"/>

@@ -105,7 +105,7 @@ namespace Com.Aote.Pages
             //ui_gaspricetype.Text = (String)item["f_gaspricetype"];
             ui_userid.Text = item["infoid"].ToString();
 
-            ui_dibaohu.IsChecked = item["f_dibaohu"].ToString().Equals("1");
+            ui_whetherzhinajin.IsChecked = item["f_whetherzhinajin"].ToString().Equals("1");
             ui_userstate.Text = (String)item["f_userstate"];
             ui_inputtor.Text = (String)item["f_inputtor"];
             ui_paytype.Text = (String)item["f_payment"];
