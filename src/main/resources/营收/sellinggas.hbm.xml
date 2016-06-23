@@ -140,6 +140,8 @@
 		<property name="f_displacedetails" type="string"/>
 		<!--抄表员垫付销账时间-->
 		<property name="f_displacedate" type="date"/>
+		<!--是否将零钱转入余额-->
+		<property name="f_whetherzhuanyu" type="boolean"/>
 		
 		
 	<!-- **************阶梯气价信息**************** -->

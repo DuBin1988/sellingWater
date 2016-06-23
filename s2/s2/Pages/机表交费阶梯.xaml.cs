@@ -93,7 +93,8 @@ namespace Com.Aote.Pages
 
             //把数据转换成JSON
             JsonObject item = JsonValue.Parse(e.Result) as JsonObject;
-
+            zhaoling.Text = "0";
+            ui_whetherzhuanyu.IsChecked = false;
             //把用户数据写到交费界面上
             ui_username.Text = (string)item["f_username"];
             ui_usertype.Text = (String)item["f_usertype"];
@@ -223,7 +224,6 @@ namespace Com.Aote.Pages
             shoukuan.Text = f_totalcost.ToString("0.##");
             ui_preamount.Text = f_feeSum.ToString("0.##");//总基本水费金额
             ui_extrafee.Text = extrafeeSum.ToString("0.##");//总附加费用金额
-
         }
         #endregion
         #region SaveClick 提交按钮操作过程
@@ -275,16 +275,23 @@ namespace Com.Aote.Pages
             //把数据转换成JSON
             JsonObject items = JsonValue.Parse(e.Result) as JsonObject;
             int dianfu = 0;
+            int zhuanyu = 0;
             if (ui_whetherdianfu.IsChecked.Equals(true))
             {
                 dianfu = 1;
             }
-            else
-            {
+            else {
                 dianfu = 0;
             }
+            if (ui_whetherzhuanyu.IsChecked.Equals(true))
+            {
+                zhuanyu = 1;
+            }
+            else {
+                zhuanyu = 0;
+            }
             int sellid = (int)items["id"];
-            string sql1 = "update t_sellinggas set f_whetherdianfu=" + dianfu +
+            string sql1 = "update t_sellinggas set f_whetherdianfu=" + dianfu + ",f_whetherzhuanyu=" + zhuanyu + 
                                 " where id=" + sellid;
             HQLAction action1 = new HQLAction();
             action1.HQL = sql1;
@@ -485,7 +492,7 @@ namespace Com.Aote.Pages
                     feeSum += f_fee;
 
                     // 修改为选中
-                    map.SetPropertyValue("IsChecked", true, false);
+                    map.IsChecked = true;
 
                 }
                 else
@@ -494,7 +501,7 @@ namespace Com.Aote.Pages
                     canSub = false;
 
                     // 修改为未选中
-                    map.SetPropertyValue("IsChecked", false, false);
+                    map.IsChecked = false;
                 }
             }
 
@@ -506,10 +513,9 @@ namespace Com.Aote.Pages
             //应交金额=气费-上期结余
             decimal f_totalcost = (feeSum - f_zhye + zhinajin) > 0 ? (feeSum - f_zhye + zhinajin) : 0;
             ui_totalcost.Text = f_totalcost.ToString("0.##");
-            //本期结余=上期结余+实收-气费
-            decimal f_benqizhye = f_zhye + money - feeSum - zhinajin;
-            ui_benqizhye.Text = f_benqizhye.ToString("0.##");
-
+            //找零=收款-应交
+            decimal f_zhaoling = ( money - f_totalcost) > 0 ? (money - f_totalcost) : 0;
+            zhaoling.Text = f_zhaoling.ToString("0.##");
         }
 
         // 清除界面上的数据
@@ -532,6 +538,31 @@ namespace Com.Aote.Pages
             try
             {
                 Compute();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        #endregion
+        #region 转入余额按钮选择后计算本期余额
+        private void ui_whetherzhuanyu_IsChecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //判断是否将零钱转入余额
+                decimal f_benqizhyes = 0;
+                decimal f_benqizhye = decimal.Parse(ui_benqizhye.Text);
+                if (ui_whetherzhuanyu.IsChecked == true)
+                {
+                    //本期结余=上期结余+应收-气费+找零
+                    f_benqizhyes = f_benqizhye + decimal.Parse(zhaoling.Text);
+                }
+                else
+                {
+                    //本期结余=上期结余+应收-气费
+                    f_benqizhyes = f_benqizhye;
+                }
+                ui_benqizhye.Text = f_benqizhyes.ToString("0.##");
             }
             catch (Exception ex)
             {

@@ -140,7 +140,7 @@
                                         <DataTemplate>
                                             <TextBlock Text="{Binding name}" Height="20"></TextBlock>
                                         </DataTemplate>
-                                    </ComboBox.ItemTemplate> 
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                                 <TextBlock TextWrapping="Wrap" Text="抄表片区："  Margin="0,1.5" Height="25" TextAlignment="Right" Width="Auto" Grid.Row="1" Grid.Column="4" />
                                 <ComboBox x:Name="tjczy_Copy"  SelectedValue="{m:Bind Path=f_handarea}" ItemsSource="{m:Exp Str=handarealist}"  Margin="0,1.5"  SelectedValuePath="f_handarea"  Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5">
@@ -152,6 +152,17 @@
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_handarea"  Operator="f_handarea = 'this'"/>
                                     </a:Data.Prop>
+                                </ComboBox>
+                                <TextBlock TextWrapping="Wrap" Text="抄  表  员："  Margin="5,0,0,0" Height="25" TextAlignment="Right" Grid.Column="6"  Grid.Row="1"/>
+                                <ComboBox x:Name="tjczy"  SelectedValue="{m:Bind Path=f_inputtor}" Grid.Row="1" Grid.Column="7" ItemsSource="{m:Exp Str=chaobiaoyuanlistnull}"  Margin="0,2,0,1" SelectedValuePath="name"  Height="25" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Width="Auto">
+                                    <a:Data.Prop>
+                                        <o:PropertySetter PropertyName="f_inputtor"  Operator="h.f_inputtor = 'this'"/>
+                                    </a:Data.Prop>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Height="20" Text="{Binding name}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </Grid>
                         </StackPanel>
