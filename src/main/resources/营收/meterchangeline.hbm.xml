@@ -22,8 +22,10 @@
 		<property name="f_address" type="string"/>
 		<!--水价类型-->
 		<property name="f_stairtype" type="string"/>   
-		<!--抄表周期-->
-		<property name="f_handzq" type="string"/>
+		<!--县级-->
+		<property name="f_newxianji" type="string"/>
+		<!--抄表片区-->
+		<property name="f_newhandarea" type="string"/>
 		<!--投线编码-->
 		<property name="f_touxianno" type="string"/>
 		<!--调线次序号-->

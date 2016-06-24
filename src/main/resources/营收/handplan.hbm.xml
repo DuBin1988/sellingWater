@@ -30,6 +30,8 @@
 		<property name="f_username" type="string"/>
 		<!--卡号-->
 		<property name="f_cardid" type="string"/>
+		<!--县级-->
+		<property name="f_xianji" type="string"/>
 		<!--抄表片区 -->
 		<property name="f_handarea" type="string"/>	
 		<!--地址-->

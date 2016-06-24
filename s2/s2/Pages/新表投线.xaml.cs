@@ -18,6 +18,7 @@ namespace Com.Aote.Pages
 {
     public partial class 新表投线 : UserControl
     {
+        GeneralObject o = new GeneralObject();
         public 新表投线()
         {
             // Required to initialize variables

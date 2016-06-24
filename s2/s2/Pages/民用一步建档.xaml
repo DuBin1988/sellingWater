@@ -187,7 +187,7 @@
             </o:GeneralObject>
             <!--阶梯水价信息列表-->
             <o:ObjectList Name="stairlist" EntityType="t_stairprice" WebClientInfo="{StaticResource dbclient}" Path="from t_stairprice"  HasEmptyRow="True" />
-        
+
             <b:SyncActionFactory Name="SaveActionT">
                 <!--获取编号-->
                 <b:CallMethodAction    Name="getbianhao" TargetObject="{m:Exp Str=ksnumobj1}"    MethodName="Load"/>
@@ -475,7 +475,7 @@
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_gasprice"  Value="{m:Exp Str=CoboxStair.SelectedItem.f_gasprice}"  Default="{m:Exp Str=userfilego.f_gasprice}" />
                                             </a:Data.Prop>
-                                        </TextBox>-->                             
+                                        </TextBox>-->
                                         <!--<TextBox Text="{m:Bind Path=f_gasmetermanufacturers}"   Grid.Column="1" Margin="0,3,0,2" Grid.Row="11" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="1">
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_gasmetermanufacturers" NotNull="True" Value="{m:Exp Str=CoboxPinpai.SelectedItem.f_type}"  Default="{m:Exp Str=userfilego.f_gasmetermanufacturers}" />
@@ -536,7 +536,7 @@
                                                 <o:PropertySetter PropertyName="f_gaswatchbrand" NotNull="True"/>
                                             </a:Data.Prop>
                                         </ComboBox>
-                                        <ComboBox x:Name="DaXiaoKa" DisplayMemberPath="f_qbnumber" SelectedValuePath="f_qbnumber" ItemsSource="{m:Exp Str=CoboxPinpai.SelectedItem.qbnumber}" SelectedValue="{m:Bind Path=f_metertype}" Grid.Column="3" Margin="0,3,0,2" Grid.Row="10" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto">
+                                        <ComboBox x:Name="DaXiaoKa" DisplayMemberPath="f_qbnumber" SelectedValuePath="f_qbnumber" ItemsSource="{m:Exp Str=CoboxPinpai.SelectedItem.qbnumber}" SelectedValue="{m:Bind Path=f_metertype}" Grid.Column="3" Margin="0,8,0,27" Grid.Row="10" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Grid.RowSpan="2">
                                             <a:Data.Prop>
                                                 <o:PropertySetter PropertyName="f_metertype" NotNull="True"/>
                                             </a:Data.Prop>

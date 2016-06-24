@@ -72,8 +72,6 @@
 		<property name="f_districtname" type="string"/>
 		<!--地址-->
 		<property name="f_address" type="string"/>
-		<!--抄表片区 -->
-		<property name="f_handarea" type="string"/>
 		<!--门站 -->
 		<property name="f_menzhan" type="string"/>
 		<!-- 表安装位置 -->
@@ -213,6 +211,10 @@
 		<property name="f_payment" type="string"/>
 		<!--抄表册号-->
 		<property name="f_listid" type="string"/>
+		<!--区域-->
+		<property name="f_handarea" type="string"/>
+		<!--县级-->
+		<property name="f_xianji" type="string"/>
 		<!--抄表序号-->
 		<property name="f_handno" type="string"/>
 		<!--抄表周期-->

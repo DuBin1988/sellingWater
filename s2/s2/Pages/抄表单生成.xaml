@@ -34,7 +34,7 @@
             <o:ObjectList Name="gasmeterstylelist"  EntityType="paramvalue"  HasEmptyRow="True"  WebClientInfo="{StaticResource dbclient}" Path="from paramvalue where param.name='水表类型' order by id"/>
             <o:ObjectList Name="xianlist" WebClientInfo="{StaticResource dbclient}" EntityType="paramvalue"  HasEmptyRow="True"  Path="from paramvalue where param.name='县级'"/>
             <o:ObjectList Name="handarealist" WebClientInfo="{StaticResource dbclient}"  EntityType="t_handplanlist"  HasEmptyRow="True"  
-                          Path="{m:Exp Str=xianji.SelectedItem.f_xianji\!\=null:$from t_handplanlist where f_xianji \= \'\{xianji.SelectedItem.f_xianji\}\'$\,$null$}"/>
+            Path="{m:Exp Str=$from t_handplanlist where f_xianji\=\'\{xianji.SelectedValue\}\'}"/>
             <!--用户档案列表-->
             <o:PagedObjectList Name="userfiles" WebClientInfo="{StaticResource dbclient}"
                               IsClear="{m:Exp Str=downLoad\=>Completed!\=null}"
@@ -132,7 +132,7 @@
                                     </a:Data.Prop>
                                 </TextBox>
                                 <TextBlock TextWrapping="Wrap" Text="县        级："  Margin="0" Height="25" TextAlignment="Right" Width="Auto" Grid.Row="0" Grid.Column="4" />
-                                <ComboBox x:Name="xianji"  SelectedValue="{m:Bind Path=f_xianji}" ItemsSource="{m:Exp Str=xianlist}"  Margin="0"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto"  Grid.Row="0" Grid.Column="5" VerticalAlignment="Stretch">
+                                <ComboBox x:Name="xianji"  SelectedValue="{m:Bind Path=f_xianji}" ItemsSource="{m:Exp Str=xianlist}"  Margin="0"  SelectedValuePath="name"  Height="25" HorizontalAlignment="Stretch" Width="Auto"  Grid.Row="0" Grid.Column="5" VerticalAlignment="Stretch" >
                                     <a:Data.Prop>
                                         <o:PropertySetter PropertyName="f_xianji"  Operator="f_xianji = 'this'"/>
                                     </a:Data.Prop>
@@ -143,7 +143,7 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                                 <TextBlock TextWrapping="Wrap" Text="抄表片区："  Margin="0,1.5" Height="25" TextAlignment="Right" Width="Auto" Grid.Row="1" Grid.Column="4" />
-                                <ComboBox x:Name="tjczy_Copy"  SelectedValue="{m:Bind Path=f_handarea}" ItemsSource="{m:Exp Str=handarealist}"  Margin="0,1.5"  SelectedValuePath="f_handarea"  Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5">
+                                <ComboBox x:Name="tjczy_Copy"  SelectedValue="{m:Bind Path=f_handarea}" ItemsSource="{m:Exp Str=handarealist}"  Grid.Row="1" Grid.Column="5" Margin="0,1.5"  SelectedValuePath="f_handarea" >
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding f_handarea}" Height="20"></TextBlock>
@@ -156,7 +156,7 @@
                                 <TextBlock TextWrapping="Wrap" Text="抄  表  员："  Margin="5,0,0,0" Height="25" TextAlignment="Right" Grid.Column="6"  Grid.Row="1"/>
                                 <ComboBox x:Name="tjczy"  SelectedValue="{m:Bind Path=f_inputtor}" Grid.Row="1" Grid.Column="7" ItemsSource="{m:Exp Str=chaobiaoyuanlistnull}"  Margin="0,2,0,1" SelectedValuePath="name"  Height="25" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Width="Auto">
                                     <a:Data.Prop>
-                                        <o:PropertySetter PropertyName="f_inputtor"  Operator="h.f_inputtor = 'this'"/>
+                                        <o:PropertySetter PropertyName="f_inputtor"  Operator="f_inputtor = 'this'"/>
                                     </a:Data.Prop>
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Com.Aote.ObjectTools;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -12,6 +13,7 @@ namespace Com.Aote.Pages
 {
 	public partial class 抄表单生成 : UserControl
 	{
+        ObjectList list = new ObjectList();
         public 抄表单生成()
 		{
 			// Required to initialize variables

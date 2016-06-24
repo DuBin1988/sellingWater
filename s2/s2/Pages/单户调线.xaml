@@ -20,6 +20,8 @@
         <m:ResourceLoad Margin="0,0,-12,0">
             <!--投线表对象-->
             <o:GeneralObject Name="pipelinego" NotEmpty="true" EntityType="t_meterchangeline" WebClientInfo="{StaticResource dbclient}" IsInit="{m:Exp Str=SaveAction.State\=\=$End$}">
+                <o:PropertySetter PropertyName="f_newxianji" Value="{m:Exp Str=cego.f_xianji}"></o:PropertySetter>
+                <o:PropertySetter PropertyName="f_newhandarea" Value="{m:Exp Str=cego.f_handarea}"></o:PropertySetter>
             </o:GeneralObject>
 
             <!--判断编码是否存在-->
@@ -34,11 +36,14 @@
             Path="{m:Exp Str=$from t_userfiles where \{pipelinesearch.DataContext.Condition\} and f_handid\!\=null and f_filiale \=\'\{LoginUser.f_fengongsi\}\'}"
 			PageIndex="{m:Exp Str=pager.PageIndex}" PageSize="{m:Exp Str=pager.PageSize}" SumNames="f_times" IsOld="{m:Exp Str=SaveAction.State\=\=$End$}"/>
 
+            <o:GeneralObject Name="cego" EntityType="t_handplanlist" WebClientInfo="{StaticResource dbclient}" IsInit="{m:Exp Str=pipeline.DataContext.State\=\=$End}"
+		  	Path="{m:Exp Str=Coboxlist.SelectedItem\!\=null:$one/select new Map(f_xianji as f_xianji\,f_handarea as f_handarea) from t_handplanlist where f_listid\=\'\{Coboxlist.SelectedValue\}\'$\,$aaa$}"/>
+            
             <b:HQLAction Name="changeline" WebClientInfo="{StaticResource server}">
                 <b:HQLAction.HQL>
                     <m:Exp Str="
                 $update t_userfiles set f_listid='{pipelinego.f_newlistid}',f_handno='{pipelinego.f_newhandno}', 
-                          f_handid='{pipelinego.f_newtiaoxianno}' where f_userid='{pipelinego.f_userid}'">
+                          f_handid='{pipelinego.f_newtiaoxianno}', f_xianji='{pipelinego.f_newxianji}',f_handarea='{pipelinego.f_newhandarea}' where f_userid='{pipelinego.f_userid}'">
                     </m:Exp>
                 </b:HQLAction.HQL>
             </b:HQLAction>
